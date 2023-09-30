@@ -174,13 +174,13 @@ input{
 
 
 .input-field  input#email {
-    background:  url('../img/email.svg') 15px center no-repeat;
+    background:  url('http://localhost/petcare/public/img/auth/email.svg') 15px center no-repeat;
     background-size: 16px 80px;
     background-color: #EDF2F7;
 }
 
 .input-field  input#password{
-    background:  url('../img/lock.svg') 15px center no-repeat;
+    background:  url('http://localhost/petcare/public/img/auth/lock.svg') 15px center no-repeat;
     background-size: 16px 80px;
     background-color: #EDF2F7;
 }

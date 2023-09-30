@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/petcare/public/css/signUp.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/signUp.css">
     <title>SignUp</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
             <form action="<?php echo URLROOT; ?>/users/register" method="post">
 
                 <div class="logo">
-                    <img class="logo-icon" src="http://localhost/petcare/public/img/logo/logo-croped.png">
+                    <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
                     <span class="logo-txt">PetCare<span class="logo-dot">.</span></span>
                     
                 </div>
@@ -41,7 +41,7 @@
 
                     
                 <div class="signUp-but">
-                    <button class="but"><img class="btn-svg" src="http://localhost/petcare/public/img/auth/add-user.svg">Sign Up</button>
+                    <button class="but"><img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/add-user.svg">Sign Up</button>
                 </div>
 
 
@@ -51,7 +51,7 @@
 
                 <div class="footer">
                     <p>I agree to abide by PetCare's <a href="#">Terms of Service</a> and its <a href="#" >Privacy Policy</a></p>
-                    <p class="Q1"><img class="svg" src="http://localhost/petcare/public/img/auth/warn.svg"> Are you a <a href="http://localhost/petcare/users/vet_signup">Veterinarian</a>?</p>
+                    <p class="Q1"><img class="svg" src="<?php echo URLROOT;?>/public/img/auth/warn.svg"> Are you a <a href="<?php echo URLROOT;?>/users/vet_signup">Veterinarian</a>?</p>
                 </div>
 
             </form>
@@ -60,7 +60,7 @@
 
                 <div class="overlay-container">
                     <div class="overlay">
-                        <img class="overlay-img" src="http://localhost/petcare/public/img/auth/signUp-left.svg" alt="">
+                        <img class="overlay-img" src="<?php echo URLROOT;?>/public/img/auth/signUp-left.svg" alt="">
                     </div>
                 </div>
 

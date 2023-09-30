@@ -77,8 +77,34 @@
                 ];
 
                 //load view
-                $this->view('auth/signup_Vet',$data);
+                $this->view('auth/login',$data);
             }
 
         }
+
+
+        public function forgotPassword(){
+
+            //check for POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                //process form
+            }else{
+
+                //init data
+                $data = [
+                    
+                    'email' => '',
+                    'password' => '',
+                    'email_err' => '',
+                    'password_err' => ''   
+                ];
+
+                //load view
+                $this->view('auth/forgotPassword',$data);
+            }
+
+        }
+
+
+
     }
