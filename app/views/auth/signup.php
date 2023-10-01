@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/signUp.css">
+    
     <title>SignUp</title>
 </head>
 <body>
@@ -11,7 +12,7 @@
     <div class="container">
         <div class="form-container">
 
-            <form action="<?php echo URLROOT; ?>/users/register" method="post">
+            <form action="<?php echo URLROOT; ?>/users/signup" method="post">
 
                 <div class="logo">
                     <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
@@ -28,20 +29,37 @@
 
                     <div class="name-field">
 
-                        <input class="name" type="text" placeholder="First Name" id="firstname" value="<?php echo $data['first_name']?>"  name="fname" required>
-                        <input class="name" type="text" placeholder="Last Name" id="lastname" value="<?php echo $data['last_name']?>"  name="lname" required>
+                        <input class="name <?php echo (!empty($data['fname_err'])) ? 'is-invalid' : '' ; ?>" type="text" placeholder="First Name" id="firstname" value="<?php echo $data['first_name']?>"  name="fname">
+                        
 
+
+                        <input class="name <?php echo (!empty($data['lname_err'])) ? 'is-invalid' : '' ; ?>" type="text" placeholder="Last Name" id="lastname" value="<?php echo $data['last_name']?>"  name="lname" >
+                        
+
+                    </div>
+
+                    <div class="err-for-names">
+                        <span class="invalid-feedback"><?php echo $data['fname_err']; ?></span>
+                        <span class="invalid-feedback lname"><?php echo $data['lname_err']; ?></span>
 
                     </div>
                     
-                    <input type="text" placeholder="Email" id="email" value="<?php echo $data['email']?>"  name="email" required>
-                    <input type="password" placeholder="Password" id="password" value="<?php echo $data['password']?>"  name="password"  required>
-                    <input type="password" placeholder="Re-type Password" id="rePwd" value="<?php echo $data['re-password']?>"  name="re-password"  required>
-                    <input class="last" type="text" placeholder="Mobile" id="mobile" value="<?php echo $data['mobile']?>"  name="mobile"  required>
+                   
+                    
+                    <input class="<?php echo (!empty($data['email_err'])) ? 'is-invalid' : '' ; ?>" type="text" placeholder="Email" id="email" value="<?php echo $data['email']?>"  name="email" >
+                    <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
 
+                    <input class="<?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>" type="password" placeholder="Password" id="password" value="<?php echo $data['password']?>"  name="password"  >
+                    <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
+
+                    <input class="<?php echo (!empty($data['confirm_password_err'])) ? 'is-invalid' : '' ; ?>" type="password" placeholder="Re-type Password" id="rePwd" value="<?php echo $data['re_password']?>"  name="re_password">
+                    <span class="invalid-feedback"><?php echo $data['confirm_password_err']; ?></span>
+
+                    <input class="<?php echo (!empty($data['mobile_err'])) ? 'is-invalid' : '' ; ?>" type="text" placeholder="e.g. 771234567" id="mobile" value="<?php echo $data['mobile']?>"  name="mobile"  >
+                    <span class="invalid-feedback"><?php echo $data['mobile_err']; ?></span>
                     
                 <div class="signUp-but">
-                    <button class="but"><img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/add-user.svg">Sign Up</button>
+                    <button value="signup" class="but"><img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/add-user.svg">Sign Up</button>
                 </div>
 
 
@@ -68,6 +86,10 @@
 
         
     </div>
+
+
+    
+   
 
 
     

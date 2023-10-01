@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <title>Login</title>
 </head>
 <body>
@@ -11,7 +12,7 @@
     <div class="container">
         <div class="form-container">
 
-            <form action="#">
+            <form  action="<?php echo URLROOT; ?>/users/login" method="post">
 
                 <div class="logo">
                     <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
@@ -27,8 +28,11 @@
                 <div class="input-field">
 
     
-                    <input type="text" placeholder="Email" id="email" required>
-                    <input class="last" type="password" placeholder="Password" id="password" required>
+                <input class="<?php echo (!empty($data['email_err'])) ? 'is-invalid' : '' ; ?>" type="text" placeholder="Email" id="email" value="<?php echo $data['email']?>"  name="email" >
+                <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
+
+                <input class="<?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>  last" type="password" placeholder="Password" id="password" value="<?php echo $data['password']?>"  name="password"  >
+                    <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
 
                     <div class="footer">
                         <div class="Q1">
@@ -36,7 +40,7 @@
                         </div>
                       
                 <div class="signUp-but">
-                    <button class="but"><img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/login.svg">Log In</button>
+                    <button value="login" class="but"><img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/login.svg">Log In</button>
                 </div>
 
 
@@ -71,6 +75,12 @@
 
         
     </div>
+
+   
+    <!--this from the helpers -->
+
+    <?php toast_notification("Signup Successful","You can now log in with your credentials.","fa-solid fa-xmark close"); ?>
+   <script src="<?php echo URLROOT; ?>/public/js/script.js"></script>
 
 
     
