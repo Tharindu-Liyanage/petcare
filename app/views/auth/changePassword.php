@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/forgotPassword.css">
-    <title>Forgot Password</title>
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/ChangePassword.css">
+    <title>Change Password</title>
 </head>
 <body>
 
@@ -20,12 +20,12 @@
                 </div>
 
                 <div class="title">
-                    <span class="title-text"><b>Forgot password</b></span>
+                    <span class="title-text"><b>Change password</b></span>
                 </div>
 
 
             <div class="text">
-                    <p>Enter your email and we’ll send you a link to reset your password</p>
+                    <p>If you've forgotten your password, don't worry! You can reset it by following the steps below.</p>
                 </div>
 
                
@@ -34,13 +34,14 @@
                 <div class="input-field">
 
     
-                    <input type="text" placeholder="Email" id="email" required>
+                    <input type="password" placeholder="Password" id="password" required>
+                    <input  class="last"  type="password" placeholder="Re-type Password" id="rePwd" required>
                    
                     
                    
                       
                 <div class="signUp-but">
-                    <button class="but"><img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/submit.svg">Submit</button>
+                    <button class="but"><img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/pwd_icon.svg">Change Password</button>
                 </div>
 
 
@@ -67,7 +68,7 @@
 
                 <div class="overlay-container">
                     <div class="overlay">
-                        <img class="overlay-img" src="<?php echo URLROOT;?>/public/img/auth/forgot_password.svg" alt="">
+                        <img class="overlay-img" src="<?php echo URLROOT;?>/public/img/auth/changepwd.svg" alt="">
                     </div>
                 </div>
 
