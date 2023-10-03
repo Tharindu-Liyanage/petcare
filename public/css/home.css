@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&display=swap');
+
+:root{
+    --primary:#1F2E88; /*main blue color*/
+    --background1:#F7FAFC; /*grey*/
+    --background2:#FFFFFF; /*white*/
+    --border: .2rem solid rgba(0,0,0,.1);
+    --box-shadow:0 0.5rem 1rem rgba(0,0,0,.1);
+    --black:#222;
+    --secondary: #2f66d4;
+    --light-color:#666;
+     
+
+
+}
+
+
+*{
+    /* right, left, up, bottom margins are 0 */
+    margin : 0;
+    padding : 0;
+    /* To adding seperate paddings to images without errors using box- sizing */
+    box-sizing : border-box; 
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+    text-decoration: none;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar{
+    width:.8rem;
+
+}
+
+html::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb{
+    background: var(--primary);
+    border-radius: 5rem;
+}
+
+section {
+    padding: 1rem 7%; /*section bottom paddint default 5rem 7%*/
+}
+
+
+body {
+    /* this marging says up and bottom margins are 0 but right and left margins are auto. */
+    margin : 0 auto; 
+    
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    background: var(--primary);
+    cursor: pointer;
+    font-size: 1.7rem;
+    color:var(--background2);
+
+}
+
+.btn:hover{
+    background: var(--secondary);
+}
+
+.headings{
+    font-size: 4rem;
+    text-align: center;
+    color:var(--black);
+    text-transform: uppercase;
+    font-weight: bolder;
+    margin-bottom: 3rem;
+}
+
+/*=============header========================*/
+
+.header{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    background:var(--background2);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 9%;
+}
+
+.header .logo{
+   font-weight: bolder;
+   color:var(--black);
+   font-size: 3.0rem;
+   display: flex;
+    position: relative;
+    align-items: center;
+    margin: 0%;
+    margin-bottom: 10px;
+    justify-content: center;
+    margin-left: 0rem;  /*to get center nav*/
+}
+
+.logo-dot{
+    color:#1F2E88;
+}
+
+
+
+.logo-txt{
+    
+    padding-left: 15px;
+    vertical-align: middle;  
+    margin-top: 10px;
+}
+
+.logo .logo-icon{
+    width: 55.48px;
+    height: 61px;
+
+}
+
+.header .navbar a{
+
+    font-size: 2.0rem;
+    color:var(--black);
+    margin: 0 4rem;
+    font-weight: bolder;
+
+}
+
+.header .navbar a:hover{
+    color: var(--primary);
+
+}
+
+#menu-btn span{
+    font-size:3.5rem;
+    cursor: pointer;
+    color:var(--black);
+    margin-left: 1.7rem;
+    display: none;
+}
+
+.header .btn{
+    margin-top: 0;
+    
+}
+
+/*=============header over========================*/
+
+
+
+
+/*============home start=====================*/
+
+.home{
+    min-height: 100vh;
+    background-color: var(--background1);
+
+}
+
+.home .contents{
+    display: flex;
+    
+}
+
+.home .contents .left-content .title2{
+    color:var(--primary);
+}
+
+.home .left-content{
+    max-width:60rem ;
+    padding-left: 6rem;
+    padding-top: 20rem;
+   
+}
+
+
+
+.home .left-content h3{
+    font-size: 7rem;
+    color:var(--black);
+    line-height: 1.2;
+}
+
+.home .left-content p{
+    max-width:50rem ; 
+    line-height: 2;
+    font-size: 1.7rem;
+    color: var(--light-color);
+    padding: 1rem 0;
+}
+
+.home .right-content img{
+    height: auto;
+    width: 105%;
+   position: relative;
+   left: 20%;
+   top:5%;
+}
+
+/*===========Home end==================*/
+
+
+/*about us*/
+
+.about{
+    background-color: var(--background2);
+}
+
+.about .row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:3rem;
+}
+
+.about .row .images{
+    flex: 1 1 40rem;
+}
+
+.about .row .image img{
+    width:100%;
+    height: 100%;
+}
+
+.about .row .content{
+    flex: 1 1 40rem;
+}
+
+.about .row .content h3{
+    color: var(--black);
+    font-size: 3.5rem;
+    line-height: 1.5;
+}
+.about .row .content p{
+
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    line-height: 2;
+    color:var(--light-color)
+}
+
+/*about us end */
+
+/* service start */
+
+
+
+
+
+
+
+
+
+
+
+

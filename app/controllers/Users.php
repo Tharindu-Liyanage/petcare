@@ -122,7 +122,7 @@
                 }else{
                     //load view with errors
                     $this->view('auth/signup',$data);
-                    echo session_id();
+                    
                     
 
                 }
