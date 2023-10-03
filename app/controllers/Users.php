@@ -298,8 +298,22 @@
                 //validate Email
                 if(empty($data['email'])){
                     $data['email_err'] = 'Please enter email';
-                }elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-                    $data['email_err'] = 'Please enter valid email';
+                }else{
+
+                    if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                        $data['email_err'] = 'Please enter valid email';
+                    }else{
+
+                        //Check for user/email
+
+                         if($this->userModel->findUserByEmail($data['email'])){
+                             //user found
+                         }else{
+                                $data['email_err'] = 'No user found';
+                        }
+
+                    }
+                    
                 }
 
                 //validate password
@@ -307,13 +321,7 @@
                     $data['password_err'] = 'Please enter password';
                 }
 
-                //Check for user/email
-
-                if($this->userModel->findUserByEmail($data['email'])){
-                    //user found
-                }else{
-                    $data['email_err'] = 'No user found';
-                }
+                
 
 
                 //Make sure errors are empty

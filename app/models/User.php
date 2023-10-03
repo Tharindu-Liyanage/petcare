@@ -16,15 +16,18 @@ class User{
         $this->db->query('SELECT * FROM petcare_petowner WHERE email = :email');
         $this->db->bind(':email',$email);
 
+
         $row = $this->db->single();
 
+        if ($row) {
         $hashed_password = $row->password;
 
-        if(password_verify($password,$hashed_password)){
-            return $row;
-        }else{
-            return false;
+        if (password_verify($password, $hashed_password)) {
+            return $row; // Password is correct; return the user data
         }
+    }
+
+    return false;
 
     }
 
