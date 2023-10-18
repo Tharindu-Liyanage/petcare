@@ -33,8 +33,8 @@
             </div>
 
         <nav class="navbar">
-                <a href="#">Home</a>
-                <a href="#">Shop</a>
+                <a href="<?php echo URLROOT;?>/">Home</a>
+                <a href="<?php echo URLROOT;?>/shop/">Shop</a>
                 <a href="#">Blog</a>
                 <a href="#about">About</a>
                 <a href="#">Contact</a>  
