@@ -193,8 +193,6 @@
                         $data['email_err'] = 'Email is already taken';
  
                     }
-
-
                 }
 
                 //validate fName
@@ -236,10 +234,9 @@
                         
                         $data['mobile_err'] = 'Mobile number is already taken';
  
-                    }
-
-                    
+                    }   
                 }
+
 
                 //Make sure errors are empty
 
@@ -278,6 +275,8 @@
             }
 
         }
+
+        //=========================Login===========================
 
         public function login(){
 
@@ -373,6 +372,7 @@
 
         }
 
+        //=============== forgot password =================================================
 
         public function forgotPassword(){
 
@@ -397,6 +397,9 @@
         }
 
 
+        //  ====================== Create User session =======================
+
+
         public function createUserSession($user){
 
             $_SESSION['user_id'] = $user->id;
@@ -404,12 +407,175 @@
             $_SESSION['user_fname'] = $user->first_name;
             $_SESSION['user_lname'] = $user->last_name;
             $_SESSION['user_mobile'] = $user->mobile;
+            $_SESSION['user_profileimage'] = $user->profileImage;
 
             //redirect to dashboard
+            redirect('petowner');
 
+        }
+
+         //  ====================== Create Staff User session =======================
+
+
+         public function createStaffUserSession($user){
+
+            $_SESSION['user_id'] = $user->StaffID;
+            $_SESSION['user_email'] = $user->email;
+            $_SESSION['user_fname'] = $user->firstname;
+            $_SESSION['user_lname'] = $user->lastname;
+            $_SESSION['user_role'] = $user->role;
+            $_SESSION['user_profileimage'] = $user->profileImage;
+
+            switch ($_SESSION['user_role']) {
+                case "Admin":
+                    redirect('admin');
+                    break;
+                case "Assistant":
+                    redirect('assistant');
+                    break;
+                case "Store manager":
+                    redirect('storemanager');
+                    break;
+                case "Doctor":
+                    redirect('doctor');
+                    break;
+                case "Nurse":
+                    redirect('nurse');
+                    break;
+                default:
+                    // Handle unexpected roles, e.g., redirect to a default page or show an error message.
+                    break;
+            }
             
+
+        }
+
+
+        //================= Logout====================
+
+        public function logout(){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_email']);
+            unset($_SESSION['user_fname']);
+            unset($_SESSION['user_lname'] );
+            unset($_SESSION['user_mobile']);
+            unset( $_SESSION['user_profileimage']);
+
+            session_destroy();
+            redirect('users/login');
         }
 
 
 
+        //================= staff Logout====================
+
+        public function staffLogout(){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_email']);
+            unset($_SESSION['user_fname']);
+            unset($_SESSION['user_lname'] );
+            unset($_SESSION['user_role']);
+            unset( $_SESSION['user_profileimage']);
+
+            session_destroy();
+            redirect('users/staff');
+        }
+
+
+    // ===================== Staff Login ===========
+
+    public function staff(){
+
+        $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+        //check for POST
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            $data = [
+                
+                'email' => trim($_POST['email']),
+                'password' => trim($_POST['password']),
+                'email_err' => '',
+                'password_err' => ''
+                
+            ];
+
+            //validate Email
+            if(empty($data['email'])){
+                $data['email_err'] = 'Please enter email';
+            }else{
+
+                if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                    $data['email_err'] = 'Please enter valid email';
+                }else{
+
+                    //Check for user/email
+
+                     if($this->userModel->findStaffUserByEmail($data['email'])){
+                         //user found
+                     }else{
+                            $data['email_err'] = 'No user found';
+                    }
+
+                }
+                
+            }
+
+            //validate password
+            if(empty($data['password'])){
+                $data['password_err'] = 'Please enter password';
+            }
+
+            
+
+
+            //Make sure errors are empty
+
+            if(empty($data['email_err']) && empty($data['password_err'])){
+                //validated
+                //check and set logged in user
+
+                $loggedInUser = $this->userModel->stafflogin($data['email'],$data['password']);
+
+                if($loggedInUser){
+                    //create session
+                    
+                    $this->createStaffUserSession($loggedInUser);
+
+                }else{
+                    $data['password_err'] ='Password incorrect';
+
+                    //load the errors
+                    $this->view('auth/staff_login',$data);
+
+                }
+
+
+
+            }else{
+
+
+                //load view with errors
+                $this->view('auth/staff_login',$data);
+
+            }
+
+
+        }else{
+
+            //init data
+            $data = [
+                
+                'email' => '',
+                'password' => '',
+                'email_err' => '',
+                'password_err' => ''   
+            ];
+
+            //load view
+            $this->view('auth/staff_login',$data);
+        }
+
     }
+
+}

@@ -1,0 +1,219 @@
+.content main .bottom-data{
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    margin-top: 24px;
+    width: 100%;
+    color: var(--dark);
+}
+
+
+
+.content main .bottom-data .header{
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+    border-bottom: 1px solid #ddd;
+    padding: 1.5rem 1.5rem;
+}
+
+.content main .bottom-data .header h3{
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.content main .bottom-data .header .bx{
+    cursor: pointer;
+    font-size: 2.5rem;
+    
+
+}
+
+
+.content main .bottom-data .users{
+    flex-grow: 1;
+    flex-basis: 500px;
+}
+
+
+
+
+  /* add model css */
+
+  .add-model{
+   width: 100%;
+    background-color:var(--light);
+    border-radius: 20px;
+   
+  }
+
+  
+
+  
+  .add-model .form {
+
+    display: grid;
+    width:95%;
+    margin: 0 auto;
+    gap:1.8rem;
+    grid-template-columns: auto auto;
+    padding: 30px;
+    
+    
+   /* display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    padding: 30px;
+    width: 900px;
+    max-width: 500px;
+    border-radius: 20px;*/
+    
+  }
+  
+  .add-model .form button {
+    align-self: flex-end;
+  }
+  
+  .add-model .form .flex-column > label {
+    color:var(--dark);
+    font-weight: 600;
+  }
+
+  .add-model i{
+    font-size:1.4rem;
+  }
+
+
+  
+  .add-model .form .inputForm {
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: 0.2s ease-in-out;
+    margin-bottom: 5px;
+  }
+  
+  .add-model .form .input ,.add-model .form select {
+    margin-left: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 85%;
+    height: 100%;
+    background-color: var(--light);
+    color:var(--dark)
+  }
+  
+  .add-model .form .input:focus , select:focus {
+    outline: none;
+  }
+  
+  .add-model .form .inputForm:focus-within {
+    border: 1.5px solid var(--input-color);
+  }
+  
+  .add-model .form .flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  
+  .add-model .form .flex-row > div > label {
+    font-size: 14px;
+    color: black;
+    font-weight: 400;
+  }
+  
+
+  
+  .add-model .form .button-submit {
+    margin: 20px 0 10px 0;
+    background-color:var(--blue-color);
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 10px;
+    height: 45px;
+    width: 30%;
+    cursor: pointer;
+  }
+
+
+  
+  .add-model .form .button-submit:hover {
+    background-color: #5e7ad6;
+  }
+
+  .button-form{
+    display: flex;
+    gap:10px;
+  }
+
+  .button-form .button-submit:first-child{
+    background-color: #fff;
+    border: 2px solid var(--dark);
+    color:black;
+  }
+
+  .button-form .button-submit:first-child:hover{
+    background-color: #ECF3FF;
+  }
+  
+  /*add model css over*/
+
+  /*erors*/
+
+  .invalid-feedback {
+    
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+
+
+
+.is-invalid {
+    
+    border: 1.5px solid  #dc3545 !important;
+   
+}
+
+
+
+
+
+
+
+@media screen and (max-width :768px){
+  
+    /*anything to add admin staff*/
+
+    .add-model .form {
+
+       
+        
+       display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding:30px;
+        width: 100%;
+        border-radius: 20px;
+        
+      }
+}
+
+@media screen and (max-width: 576px){
+    
+    /*anything to add admin staff*/
+}
+
+

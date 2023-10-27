@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/login.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-    <title>Login</title>
+    <title>Staff Login</title>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container staff-con">
         <div class="form-container">
 
-            <form  action="<?php echo URLROOT; ?>/users/login" method="post">
+            <form  action="<?php echo URLROOT; ?>/users/staff" method="post">
 
                 <div class="logo">
                     <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
@@ -23,7 +21,7 @@
                 </div>
 
                 <div class="title">
-                    <span class="title-text"><b>Login to PetCare</b></span>
+                    <span class="title-text"><b>Staff Login Portal</b></span>
                 </div>
 
 
@@ -51,13 +49,8 @@
                     <img class="img" src="../../img/question.svg" alt=""><span><a href="./forgotpwd.html">Forgotten Password?</a></span>
                   </div> -->
 
-                  <div class="Q1 Q2">
-                    <img class="img img2" src="<?php echo URLROOT;?>/public/img/auth/warn.svg" alt=""><span>Don’t have an account? <a href="<?php echo URLROOT;?>/users/signup">Create your account.</a></span>
-                  </div>
 
-                  <div class="Q1 Q2 Q3">
-                    <img class="img img2" src="<?php echo URLROOT;?>/public/img/auth/warn.svg" alt=""><span><a href="<?php echo URLROOT;?>/users/staff">Staff Login Portal.</a></span>
-                  </div>
+                 
 
                 </div>
 
@@ -76,7 +69,7 @@
 
                 <div class="overlay-container">
                     <div class="overlay">
-                        <img class="overlay-img" src="<?php echo URLROOT;?>/public/img/auth/login-left-svg.svg" alt="">
+                        <img class="overlay-img staff" src="<?php echo URLROOT;?>/public/img/auth/work.svg" alt="">
                     </div>
                 </div>
 
@@ -89,7 +82,7 @@
     <!--this from the helpers -->
 
     <?php toast_notification("Signup Successful","You can now log in with your credentials.","fa-solid fa-xmark close"); ?>
-   <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
+   <script src="<?php echo URLROOT; ?>/public/js/script.js"></script>
 
 
     

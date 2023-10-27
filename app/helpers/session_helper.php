@@ -5,12 +5,26 @@
     if (!isset($_SESSION['signup_check'])) {
         $_SESSION['signup_check'] = false;
     }
+
+    if (!isset($_SESSION['staff_user_added'])) {
+        $_SESSION['staff_user_added'] = false;
+    }
+
+    if (!isset($_SESSION['staff_user_updated'])) {
+        $_SESSION['staff_user_updated'] = false;
+    }
+
+    if (!isset($_SESSION['staff_user_removed'])) {
+        $_SESSION['staff_user_removed'] = false;
+    }
+
+    
     
 
     //flash message helper
     function toast_notification($title,$msg,$icon){
 
-        if($_SESSION['signup_check'] === true){
+        if($_SESSION['signup_check'] === true || $_SESSION['staff_user_added'] === true || $_SESSION['staff_user_updated'] === true ||  $_SESSION['staff_user_removed'] = true){
             echo '
         <div class="toast">
             <div class="toast-content">
@@ -25,13 +39,25 @@
         </div>';
 
         unset($_SESSION['signup_check']);
+        unset($_SESSION['staff_user_added']);
+        unset($_SESSION['staff_user_updated']);
+        unset($_SESSION['staff_user_removed']);
+        
+        
 
         }else{
            // echo 'problem  in register session variable or directly come to login page';
             
         }
-
-        
-
     }
+
+    function isLoggedIn(){
+
+        if(isset($_SESSION['user_id'] )){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     

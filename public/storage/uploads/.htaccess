@@ -1,0 +1,8 @@
+Options -Indexes
+Order deny,allow
+Deny from all
+<FilesMatch "\.(jpg|jpeg|png|gif)$">
+    Allow from all
+</FilesMatch>
+
+# cant accses to the storage folder but images show

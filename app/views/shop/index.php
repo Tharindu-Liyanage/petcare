@@ -20,7 +20,7 @@
    
 
 
-    <title>Home</title>
+    <title>Shop</title>
 </head>
 <body>
     <!-- header start  -->
