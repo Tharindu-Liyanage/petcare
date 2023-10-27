@@ -81,7 +81,6 @@
    
     <!--this from the helpers -->
 
-    <?php toast_notification("Signup Successful","You can now log in with your credentials.","fa-solid fa-xmark close"); ?>
    <script src="<?php echo URLROOT; ?>/public/js/script.js"></script>
 
 

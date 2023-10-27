@@ -24,7 +24,7 @@
     //flash message helper
     function toast_notification($title,$msg,$icon){
 
-        if($_SESSION['signup_check'] === true || $_SESSION['staff_user_added'] === true || $_SESSION['staff_user_updated'] === true ||  $_SESSION['staff_user_removed'] = true){
+        if($_SESSION['signup_check'] === true || $_SESSION['staff_user_added'] === true || $_SESSION['staff_user_updated'] === true ||  $_SESSION['staff_user_removed'] === true){
             echo '
         <div class="toast">
             <div class="toast-content">
@@ -38,10 +38,10 @@
             <div class="progress"></div>
         </div>';
 
-        unset($_SESSION['signup_check']);
-        unset($_SESSION['staff_user_added']);
-        unset($_SESSION['staff_user_updated']);
-        unset($_SESSION['staff_user_removed']);
+        $_SESSION['signup_check'] = false;
+        $_SESSION['staff_user_added'] =false;
+        $_SESSION['staff_user_updated'] =false;
+        $_SESSION['staff_user_removed'] =false;
         
         
 
