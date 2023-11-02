@@ -17,7 +17,7 @@
 
          <div class="header">
             <div class="left">
-                <h1>Staff</h1>
+                <h1>Pet</h1>
                 <ul class="breadcrumb">
                     <li><a href="<?php echo URLROOT;?>/petowner">Dashboard</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
@@ -36,8 +36,8 @@
 <div class="add-model">
 
    <div class="header">
-        <i class='bx bxs-user-plus icon-header' ></i>
-        <h3>Add Staff Member</h3>       
+        <i class='bx bxs-dog' ></i>
+        <h3>Add a Pet</h3>       
     </div>
 
     
@@ -53,7 +53,7 @@
                             <label>Pet Name</label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['pname_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-user' ></i>
+                        <i class='bx bx-purchase-tag-alt' ></i>
                             <input type="text" class="input" name="pname" placeholder="Enter pet Name" value="<?php echo $data['pname']?>">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['pname_err']; ?></span>
@@ -62,7 +62,7 @@
                             <label>Date Of Birth</label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['dob_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-user' ></i>
+                        <i class='bx bx-calendar' ></i>
                             <input type="date" class="input " placeholder="Select Date" value="<?php echo $data['dob']?>" name="dob">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['dob_err']; ?></span>
@@ -71,8 +71,8 @@
                             <label>Species </label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['species_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-envelope' ></i>
-                            <input type="text" class="input " placeholder="Select Species" value="<?php echo $data['species']?>" name="species">
+                        <i class='bx bx-spreadsheet' ></i>
+                            <input type="text" class="input " placeholder="Enter Species" value="<?php echo $data['species']?>" name="species">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['species_err']; ?></span>
 
@@ -86,7 +86,7 @@
                             <label>Breed </label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['breed_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-envelope' ></i>
+                        <i class='bx bx-spreadsheet' ></i>
                             <input type="text" class="input " placeholder="Enter Breed" value="<?php echo $data['breed']?>" name="breed">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['breed_err']; ?></span>
@@ -96,7 +96,7 @@
                             <label>Sex</label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['sex_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-briefcase-alt' ></i>
+                        <i class='bx bx-male-sign' ></i>
                             <select name="sex">
                                 <option value=""  selected>Select Sex</option>
                                 <option value="Male">Male</option>
@@ -111,7 +111,7 @@
                             <label>Age</label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['age_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-user' ></i>
+                        <i class='bx bx-time' ></i>
                             <input type="text" class="input" name="age" placeholder="Enter pet Age" value="<?php echo $data['age']?>">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['age_err']; ?></span>

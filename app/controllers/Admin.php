@@ -465,6 +465,11 @@
             $this->view('dashboards/admin/setting/settings',$data);
         }
 
+        public function report(){
+            $data = null;
+            $this->view('dashboards/admin/report/report',$data);
+        }
+
 
         
 
