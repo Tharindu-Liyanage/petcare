@@ -40,7 +40,8 @@
                 <a href="#">Contact</a>  
         </nav>
 
-        <a href="<?php echo URLROOT;?>/users/login" class="btn">Login</a>
+        <a href="<?php echo URLROOT;?>/users/login" class="btn login">Login</a>
+        <a href="<?php echo URLROOT;?>/users/signup" class="btn signup">signup</a>
         <div id="menu-btn" ><span class="material-symbols-outlined">menu</span></div>
 
     </header>
