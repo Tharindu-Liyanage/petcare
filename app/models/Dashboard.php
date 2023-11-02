@@ -220,6 +220,112 @@
         }
 
 
+        //get pet details 
+
+        public function getPetDetails(){
+
+            $this->db->query('SELECT * FROM petcare_pet');
+        
+
+            
+    
+            $results = $this->db->resultSet();
+    
+            //return row
+    
+            return $results;
+
+        }
+
+        //add pet details 
+
+        public function addPetDetails($data){
+
+            $this->db->query('INSERT INTO petcare_pet (pet,DOB,breed,sex,age,species) VALUES(:pet, :DOB, :breed, :sex, :age ,:species)');
+
+             //bind values
+            $this->db->bind(':pet',$data['pname']);
+            $this->db->bind(':DOB',$data['dob']);
+            $this->db->bind(':breed',$data['breed']);
+            $this->db->bind(':sex',$data['sex']);
+            $this->db->bind(':species',$data['species']);
+            $this->db->bind(':age',$data['age']);
+        
+
+        //execute
+        if($this->db->execute()){
+            return true;
+
+        }else{
+            return false;
+        }
+            
+
+        }
+
+
+        //update pet details 
+
+        public function updatePetDetails($data){
+
+            $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB = :DOB , breed= :breed, sex = :sex , species = :species , age = :age   WHERE id = :id');
+        
+
+           //bind values
+           $this->db->bind(':id' , $data['id']);
+           $this->db->bind(':pname',$data['pname']);
+           $this->db->bind(':DOB',$data['dob']);
+           $this->db->bind(':breed',$data['breed']);
+           $this->db->bind(':sex',$data['sex']);
+           $this->db->bind(':species',$data['species']);
+           $this->db->bind(':age',$data['age']);
+
+    
+                //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }
+            
+
+        }
+
+        //remove pet details 
+
+        public function removePetDetails($id){
+
+            $this->db->query('DELETE  FROM petcare_pet WHERE id = :id');
+            $this->db->bind(':id' , $id);
+            
+            $row = $this->db->single();
+
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }  
+            
+
+        }
+
+        public function getPetDetailsByID($id){
+
+            $this->db->query('SELECT * FROM petcare_pet WHERE id = :id');
+        
+
+            $this->db->bind(':id' , $id);
+    
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+        }
+
+
 
 
 }

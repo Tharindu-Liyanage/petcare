@@ -11,18 +11,11 @@
             }else{
 
 
-                if($_SESSION['user_role'] != "Doctor" && $_SESSION['user_role'] != "Nurse"){
+                if($_SESSION['user_role'] != "Doctor"){
 
-                    //unauthorized accsess
                     // Unauthorized access
-                    echo '<script>
-                    var confirmation = confirm("Unauthorized access. Click OK to proceed to staff page.");
-                    if (confirmation) {
-                            window.location.href = "users/staff";
-                    }
-                    </script>';
-                    
-                    
+                    redirect('users/staff');
+                     
                 }
             }
            

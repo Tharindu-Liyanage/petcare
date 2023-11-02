@@ -89,7 +89,7 @@
                             <div style="display:flex; ">
                                 
                             <i class='bx bx-pencil' ></i>
-                            <textarea rows="4"   type="text" class="input"   name="fname" placeholder="Write here" style="width:100%;" ></textarea> </div>
+                            <textarea rows="4"  cols="50"  type="text" class="input"   name="fname" placeholder="Write here" style="width:100%;" ></textarea> </div>
                             </div>
                             <span class="invalid-feedback"></span>
 

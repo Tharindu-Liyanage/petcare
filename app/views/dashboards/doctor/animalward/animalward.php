@@ -104,7 +104,7 @@
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet2.png" ><p>Garfield</p>
                                 </td>
-                                <td>12</td>
+                                <td>5</td>
                                 <td>02-05-2023</td>
                                 <td>Surgeory</td>
                                 <td>Cat</td>
@@ -122,7 +122,7 @@
 
 
                             <tr>
-                                <td>3</td>
+                                <td>4</td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet3.png" ><p>Rex</p>
                                 </td>
@@ -148,7 +148,7 @@
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet4.png" ><p>Oreo</p>
                                 </td>
-                                <td>20</td>
+                                <td>2</td>
                                 <td>02-03-2023</td>
                                 <td>Broken bone</td>
                                 <td>Cat</td>

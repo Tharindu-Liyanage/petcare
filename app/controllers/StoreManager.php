@@ -8,7 +8,6 @@
             if(!isset($_SESSION['user_id'])){
                 
                 redirect('users/staff');
-                
 
             }else{
 
@@ -16,14 +15,8 @@
                 if($_SESSION['user_role'] != "Store Manager"){
 
                     // Unauthorized access
-                    echo '<script>
-                    var confirmation = confirm("Unauthorized access. Click OK to proceed to staff page.");
-                    if (confirmation) {
-                            window.location.href = "users/staff";
-                    }
-                    </script>';
-
-                    
+                    redirect('users/staff');
+                     
                 }
             }
 
@@ -156,7 +149,7 @@
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['brand_err']) && empty($data['stock_err']) && empty($data['cat_err'])){
+                if(empty($data['pname_err']) && empty($data['brand_err']) && empty($data['stock_err']) && empty($data['cat_err']) && empty($data['price_err'])){
                     //validated
                     
                    
@@ -289,7 +282,7 @@
                        // $_SESSION['staff_user_added'] = true;
                      
                        redirect('storemanager/inventory');
-                       die("hello");
+                      
 
                     }else{
                         die("Something went wrong");

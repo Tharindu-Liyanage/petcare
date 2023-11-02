@@ -19,12 +19,10 @@
 
          <?php elseif($_SESSION['user_role'] == "Assistant") : ?>
 
-            <li class="<?php echo ($current_page == 'index') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/admin/"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
-            <li class="<?php echo ($current_page == 'shop') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/admin/shop"><i class='bx bx-store-alt'></i> Shop</a></li>
-            <li class="<?php echo ($current_page == 'analytics') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/admin/analytics"><i class='bx bx-analyse'></i> Analytics</a></li>
-            <li class="<?php echo ($current_page == 'tickets') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/admin/tickets"><i class='bx bx-message-square-dots'></i> Tickets</a></li>
-            <li class="<?php echo ($current_page == 'staff') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/admin/staff"><i class='bx bx-group'></i> Staff</a></li>
-            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/admin/settings"><i class='bx bx-group'></i> Settings</a></li>
+            <li class="<?php echo ($current_page == 'index') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/assistant/"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+            <li class="<?php echo ($current_page == 'appointment') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/assistant/appointment"><i class='bx bx-calendar' ></i> Appointment</a></li>
+            <li class="<?php echo ($current_page == 'petowner') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/assistant/petowner"><i class='bx bx-user'></i> Pet Owner</a></li>
+            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/assistant/settings"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>
 
          <?php elseif($_SESSION['user_role'] == "Nurse") : ?>
@@ -32,7 +30,6 @@
             <li class="<?php echo ($current_page == 'index') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/doctor/"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
             <li class="<?php echo ($current_page == 'appointment') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/appointment"><i class='bx bx-calendar' ></i> Appointment</a></li>
             <li class="<?php echo ($current_page == 'animalward') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/animalward"><i class='bx bx-plus-medical' ></i> Animal Ward</a></li>
-            <li class="<?php echo ($current_page == 'blog') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/blog"><i class='bx bxl-blogger' ></i></i> Blog</a></li>
             <li class="<?php echo ($current_page == 'pet') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/pet"><i class='bx bxs-dog' ></i></i> Pet</a></li>
             <li class="<?php echo ($current_page == 'treatment') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/treatment"><i class='bx bx-first-aid' ></i> Treatment</a></li>
             <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/doctor/settings"><i class='bx bx-cog' ></i> Settings</a></li>
@@ -59,19 +56,18 @@
 
          <?php elseif($_SESSION['user_role'] == "Pet Owner") : ?>
 
-            <li class="<?php echo ($current_page == 'index') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/admin/"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
-            <li class="<?php echo ($current_page == 'shop') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/admin/shop"><i class='bx bx-store-alt'></i> Shop</a></li>
-            <li class="<?php echo ($current_page == 'analytics') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/admin/analytics"><i class='bx bx-analyse'></i> Analytics</a></li>
-            <li class="<?php echo ($current_page == 'tickets') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/admin/tickets"><i class='bx bx-message-square-dots'></i> Tickets</a></li>
-            <li class="<?php echo ($current_page == 'staff') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/admin/staff"><i class='bx bx-group'></i> Staff</a></li>
-            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/admin/settings"><i class='bx bx-group'></i> Settings</a></li>
+            <li class="<?php echo ($current_page == 'index') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/petowner/"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+            <li class="<?php echo ($current_page == 'appointment') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/petowner/appointment"><i class='bx bx-calendar'></i> Appointment</a></li>
+            <li class="<?php echo ($current_page == 'animalward') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/petowner/animalward"><i class='bx bx-plus-medical' ></i> Animal Ward</a></li>
+            <li class="<?php echo ($current_page == 'pet') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/petowner/pet"><i class='bx bxs-dog' ></i> Pet</a></li>
+            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/petowner/settings"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>
 
          <?php endif; ?>
 
          <ul class="sidemenu">
             <li>
-               <a href="<?php echo URLROOT; ?>/users/logout" class="logout">
+               <a href="<?php echo URLROOT; ?>/users/staffLogout" class="logout">
                <i class='bx bx-log-out' ></i>
                <span class="lo">Logout </span> 
                </a>

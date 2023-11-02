@@ -131,7 +131,7 @@
                                         </div>
 
 
-                                        
+                                       
                                         
                                         <div class="inner-content">                 <!-- start of content 4 (Social profile)-->
                                             <div class="personal-info">                 <!-- personal info-->
@@ -203,6 +203,5 @@
                                 </form>       <!-- end of form -->
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/setting.js"></script>
-    
    </body>
 </html>

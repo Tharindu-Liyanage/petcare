@@ -17,7 +17,7 @@
             <form  action="<?php echo URLROOT; ?>/users/login" method="post">
 
                 <div class="logo">
-                    <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
+                   <a href="<?php echo URLROOT; ?>/petcare/" ><img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png"> </a>
                     <span class="logo-txt">PetCare<span class="logo-dot">.</span></span>
                     
                 </div>

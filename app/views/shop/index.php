@@ -11,7 +11,7 @@
     <link rel="icon" href="http://localhost/petcare/public/img/favicons/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/shop/shop.css">
-
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/shop/style.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <!--Animate On Scroll Library -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -153,8 +153,186 @@
      <!-- navbar  over -->
       <!-- header over -->
 
+ <!-- after header is here -->
 
-    <!-- after header is here -->
+       <!-- Search banner -->
+    <section id="search-banner">
+        <img src="<?php echo URLROOT?>/public/img/shop/bg3.png" alt ="bg3">
+
+        <div class="search-banner-text">
+            <h1> Order Your Pet Items</h1>
+            <strong>#Free Delivery</strong>
+
+            <from action="" class ="search-box">
+                <i class="fas fa-search"></i>
+                <input type= "text" class = "search-input" placeholder = "Search your pet item" name = "search" required>
+                <input type = "submit" class= "search-btn" value = "Search">
+            </from>
+
+        </div>
+        
+    </section>
+
+
+    <!-- category banner -->
+
+
+    <section id = "category">
+        <div class ="category-heading">
+            <h2>Category</h2>
+            <span>All</span>
+
+        </div>
+
+    <div class=" category-container">
+        <a href="#" class = "category-box">
+            <div class="drop-icon icon-large"><i class="fa-solid fa-cookie round"></i></div>
+            <span>Foods And Treats </span>
+        </a>
+
+
+        <a href="#" class = "category-box">
+            <div class="drop-icon icon-large"><i class="fa-solid fa-paw round"></i></div>
+            <span>Grooming Supplies </span>
+        </a>
+        
+
+        <a href="#" class = "category-box">
+            <div class="drop-icon icon-large"><i class="fa-regular fa-heart round"></i></div>
+            <span>Health And Welness</span>
+        </a>
+
+        <a href="#" class = "category-box"> 
+        <div class="drop-icon icon-large"><i class="fa-solid fa-basketball round"></i></div>
+            <span>Toys And Bedding </span>
+        </a>
+        
+        
+
+    </div>
+    </section>
+
+
+    <!-- popular product -->
+    <section id = "popular-product">
+       <div class= "product-heading">
+        <h3>Popular product</h3>
+        <span>All</span>
+
+       </div>
+
+       <div class="product-container">
+        <div class="product-box">
+            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
+            <strong>Happy Dog</strong>
+            <span class="quantity"> 1 KG </span>
+            <span class ="price">$2</span>
+            <!-- cart btn -->
+            <a href="#" class="cart-btn">
+                <i class="fas fa-shopping-bag"></i> Add To Cart
+            </a>
+
+            <!-- heart-btn -->
+            <a href="#" class="like-btn">
+                <i class="far fa-heart"></i>
+            </a>
+
+        </div>
+
+        <div class="product-box">
+            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
+            <strong>Happy Dog</strong>
+            <span class="quantity"> 1 KG </span>
+            <span class ="price">$2</span>
+            <!-- cart btn -->
+            <a href="#" class="cart-btn">
+                <i class="fas fa-shopping-bag"></i> Add To Cart
+            </a>
+
+            <!-- heart-btn -->
+            <a href="#" class="like-btn">
+                <i class="far fa-heart"></i>
+            </a>
+
+        </div>
+
+        <div class="product-box">
+            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
+            <strong>Happy Dog</strong>
+            <span class="quantity"> 1 KG </span>
+            <span class ="price">$2</span>
+            <!-- cart btn -->
+            <a href="#" class="cart-btn">
+                <i class="fas fa-shopping-bag"></i> Add To Cart
+            </a>
+
+            <!-- heart-btn -->
+            <a href="#" class="like-btn">
+                <i class="far fa-heart"></i>
+            </a>
+
+        </div>
+
+        <div class="product-box">
+            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
+            <strong>Happy Dog</strong>
+            <span class="quantity"> 1 KG </span>
+            <span class ="price">$2</span>
+            <!-- cart btn -->
+            <a href="#" class="cart-btn">
+                <i class="fas fa-shopping-bag"></i> Add To Cart
+            </a>
+
+            <!-- heart-btn -->
+            <a href="#" class="like-btn">
+                <i class="far fa-heart"></i>
+            </a>
+
+        </div>
+
+        <div class="product-box">
+            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
+            <strong>Happy Dog</strong>
+            <span class="quantity"> 1 KG </span>
+            <span class ="price">$2</span>
+            <!-- cart btn -->
+            <a href="#" class="cart-btn">
+                <i class="fas fa-shopping-bag"></i> Add To Cart
+            </a>
+
+            <!-- heart-btn -->
+            <a href="#" class="like-btn">
+                <i class="far fa-heart"></i>
+            </a>
+
+        </div>
+
+        <div class="product-box">
+            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
+            <strong>Happy Dog</strong>
+            <span class="quantity"> 1 KG </span>
+            <span class ="price">$2</span>
+            <!-- cart btn -->
+            <a href="#" class="cart-btn">
+                <i class="fas fa-shopping-bag"></i> Add To Cart
+            </a>
+
+            <!-- heart-btn -->
+            <a href="#" class="like-btn">
+                <i class="far fa-heart"></i>
+            </a>
+
+        </div>
+        
+       </div>
+
+    </section>
+
+    <!-- popular product end -->
+
+
+
+   
 
     <script src="<?php echo URLROOT; ?>/public/js/store.js"></script>
 </body>

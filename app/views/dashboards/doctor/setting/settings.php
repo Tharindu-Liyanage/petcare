@@ -33,7 +33,7 @@
                                     <div class="tab-box">                        
                                         <div class="tab-btn active">My Profile</div>
                                         <div class="tab-btn">Password</div>
-                                        <div class="tab-btn">Billing</div>
+                                      
                                         <div class="tab-btn">Social Profiles</div>
                                         <div class="line"></div>
                                     </div>
@@ -131,56 +131,7 @@
                                         </div>
 
 
-                                        <div class="inner-content">                 <!-- start of inner content 3 (Billing)-->
-                                            <div class="personal-info">                 <!-- personal info-->
-                                                <div class="large">
-                                                    Billing Details
-                                                </div>
-                                                <div class="line2">
-                                                    <div class="small">Update your billing details and address.</div>
-                                                    <button class="cancel-btn">Cancel</button>
-                                                    <button class="save-changes-btn">Save Changes</button>
-                                                </div>
-                                            </div>
-                                            <div class="billing-email">
-                                                <div class="billing-email-left">
-                                                    <div class="billing-email-text">
-                                                        Email
-                                                    </div>
-                                                    <div class="billing-email-text-small">
-                                                        Invoice will be sent to this email address.
-                                                    </div>
-                                                </div>
-                                                
-                                                <input type="text" class="text-box1 billing-email-textbox" placeholder="eg: ucsc123@gmail.com">
-                                            </div>
-
-                                            <div class="street-address">
-                                                <div class="street-address-text">
-                                                    Street Address
-                                                </div>
-                                                <input type="text" class="text-box1 billing-email-textbox" placeholder="eg: 23,reid avenue">
-                                            </div>
-
-                                            <div class="city">
-                                                <div class="city-text">
-                                                    City
-                                                </div>
-                                                <input type="text" class="text-box1 city-email-textbox" placeholder="eg: Colombo">
-                                            </div>
-
-                                            <div class="province">
-                                                <div class="province-text">
-                                                    Province 
-                                                </div>
-                                                <input type="text" class="text-box1 province-email-textbox" placeholder="eg: western ">
-                                            </div>
-
-
-
-                                            
-
-                                        </div>               <!-- end of inner content 3 (billing)-->
+                                   
                                         
                                         <div class="inner-content">                 <!-- start of content 4 (Social profile)-->
                                             <div class="personal-info">                 <!-- personal info-->

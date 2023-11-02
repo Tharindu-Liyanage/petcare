@@ -1,0 +1,191 @@
+
+main .appointment-box{
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 19px;
+    margin-top: 25px;
+}
+
+main .appointment-box .apppoitnment-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-gap: 30px;
+}
+
+main .appointment-box .apppoitnment-right{
+    display: block;
+}
+
+
+main .appointment-box .apppoitnment-left .appointment-text-large{
+    font-weight: 550;
+    font-size: 2rem;
+    margin-top: -40px;
+}
+
+main .appointment-box .apppoitnment-left .appointment-text-down{
+    display: flex;
+    grid-gap: 5px;
+    margin-top: -10px;
+}
+
+main .box{
+    background-color: var(--light);
+    padding: 18px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+ main .box .orders .header{
+    display: flex;
+ }
+
+ main .box .orders .header .header-left{
+    display: flex;
+    grid-gap: 15px;
+ }
+
+ main .box .orders .header .header-right{
+    display: flex;
+    grid-gap: 15px;
+ }
+
+
+.content main .bottom-data .orders{
+    flex-grow: 1;
+    flex-basis: 500px;
+}
+
+.content main .bottom-data .orders table{
+    width: 100%;
+    border-collapse: collapse;
+  
+}
+
+
+.content main .bottom-data .orders table th{
+    padding-bottom: 12px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid var(--grey);
+    padding-left: 12px;
+}
+
+.content main .bottom-data .orders table td{
+    padding: 16px 12px;
+    
+}
+
+.content main .bottom-data .orders table tr td:nth-child(2){
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    padding-left: 6px;
+    margin-right: 0;
+    
+}
+
+.content main .bottom-data .orders table tr td:first-child{
+   padding-right: 15px ;
+    
+}
+
+.content main .bottom-data .orders table td.action .act-icon{
+    display: flex;
+    grid-gap: 15px;
+    vertical-align: middle;
+    align-items: center;
+    
+    
+}
+
+.content main .bottom-data .orders table td.action .act-icon i{
+   
+    font-size: 22px;
+    
+}
+
+.content main .bottom-data .orders table td.profile img{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.content main .bottom-data .orders table td.action img{
+    
+    width: 18px;
+    height: 18px;
+}
+
+
+
+
+
+.content main .bottom-data .orders table tbody tr{
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--grey); /*for tr bottom line*/
+    font-weight: 250;
+    font-size: 0.8rem;
+    
+}
+
+.content main .bottom-data .orders table tbody tr:hover{
+    background: var(--grey);
+}
+td.pet-profile{
+    display: flex;
+    
+}
+
+tr .pet-profile{
+    display: flex;
+    
+}
+
+.status-text{
+    color: green;
+    font-weight: 600;
+}
+
+ .red{
+    color:var(--danger);
+}
+
+.footer-block{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.footer-block .footer-left{
+    font-weight: 200;
+    font-size: 0.8rem;
+}
+.footer-block .footer-left .current{
+    color: blue;
+}
+.footer-block .footer-left .total{
+    color: blue;
+}
+.footer-block .footer-right{
+    display: flex;
+    grid-gap: 15px;
+    font-weight:200;
+    font-size: 0.8rem;
+}
+
+.footer-block .footer-right .page3{
+    background-color: blue;
+    color: white;
+}
+
+.footer-block .footer-right .page{
+    padding: 3px;
+    
+}
+
+

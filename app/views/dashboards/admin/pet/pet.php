@@ -64,7 +64,7 @@
                                 <th>Sex</th>
                                 <th>Age</th>
                                 <th>Species</th>
-                                <th>Action</th>
+                         <?php if($_SESSION['user_role'] == 'Admin')   echo  " <th>Action</th> " ;?>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,15 +81,17 @@
                                 <td>Male</td>
                                 <td>2</td>
                                 <td>Dog</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updatePet" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
+
+                                <?php if ($_SESSION['user_role'] == 'Admin') { ?>
+                                        <td class="action">
+                                            <div class="act-icon">
+                                                <a data-staff-id="" class="removeLink" href=""><i class='bx bx-trash'></i></a>
+                                                <a href="<?php echo URLROOT; ?>/admin/updatePet"><i class='bx bx-edit'></i></a>
+                                            </div>
+                                        </td>
+                                <?php } ?>
+
+                                
                             </tr>
 
 
@@ -103,15 +105,17 @@
                                 <td>Male</td>
                                 <td>2</td>
                                 <td>Cat</td>
-                                <td class="action">
+
+                                <?php if ($_SESSION['user_role'] == 'Admin') { ?>
+                                        <td class="action">
+                                            <div class="act-icon">
+                                                <a data-staff-id="" class="removeLink" href=""><i class='bx bx-trash'></i></a>
+                                                <a href="<?php echo URLROOT; ?>/admin/updatePet"><i class='bx bx-edit'></i></a>
+                                            </div>
+                                        </td>
+                                <?php } ?>
                                     
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updatePet" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
+                                
                             </tr>
 
 
@@ -125,15 +129,15 @@
                                 <td>Male</td>
                                 <td>2</td>
                                 <td>Dog</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updatePet" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
+
+                                <?php if ($_SESSION['user_role'] == 'Admin') { ?>
+                                        <td class="action">
+                                            <div class="act-icon">
+                                                <a data-staff-id="" class="removeLink" href=""><i class='bx bx-trash'></i></a>
+                                                <a href="<?php echo URLROOT; ?>/admin/updatePet"><i class='bx bx-edit'></i></a>
+                                            </div>
+                                        </td>
+                                <?php } ?>
                             </tr>
 
 
@@ -147,15 +151,15 @@
                                 <td>Female</td>
                                 <td>1</td>
                                 <td>Cat</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updatePet" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
+                                
+                                <?php if ($_SESSION['user_role'] == 'Admin') { ?>
+                                        <td class="action">
+                                            <div class="act-icon">
+                                                <a data-staff-id="" class="removeLink" href=""><i class='bx bx-trash'></i></a>
+                                                <a href="<?php echo URLROOT; ?>/admin/updatePet"><i class='bx bx-edit'></i></a>
+                                            </div>
+                                        </td>
+                                <?php } ?>
                             </tr>
 
                         
