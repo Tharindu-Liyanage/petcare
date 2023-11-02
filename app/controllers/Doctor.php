@@ -11,7 +11,7 @@
             }else{
 
 
-                if($_SESSION['user_role'] != "Doctor"){
+                if($_SESSION['user_role'] != "Doctor" && $_SESSION['user_role'] != "Nurse"  ){
 
                     // Unauthorized access
                     redirect('users/staff');
