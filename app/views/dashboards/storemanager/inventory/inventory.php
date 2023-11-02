@@ -15,7 +15,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/staff_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/inventory_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -24,24 +24,23 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Staff</h1>
+                    <h1>Inventory</h1>
                     <ul class="breadcrumb">
-                        <li><a href="<?php echo URLROOT;?>/admin">
+                        <li><a href="<?php echo URLROOT;?>/storemanager">
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/admin/staff" class="active">Staff</a></li>
+                        <li><a href="<?php echo URLROOT;?>/storemanager/inventory" class="active">Inventory</a></li>
                     </ul>
                 </div>
 
-
-
                 <div class="add-button">
-             <a href="<?php echo URLROOT;?>/admin/addStaff" ><button id="add-form-button">
-                <i class='bx bx-user-plus' ></i>
-                        Add Staff Member 
+             <a href="<?php echo URLROOT;?>/storemanager/addProduct" ><button id="add-form-button">
+             <i class='bx bx-plus' ></i>
+                        Add Product
                 </button> </a>
             </div>
+
                
             </div>
 
@@ -54,8 +53,8 @@
                 <!--start od orders-->
                 <div class="users">
                     <div class="header">
-                    <i class='bx bxs-user-account main' ></i>
-                        <h3>Staff</h3>
+                    <i class='bx bx-archive' ></i>
+                        <h3>Inventory</h3>
                         <i class='bx bx-filter' ></i>
                         <i class='bx bx-search' ></i>
                     </div>
@@ -65,37 +64,37 @@
                                 
                                 <th>Id</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Phone</th>
-                                <th>Role</th>
+                                <th>Brand</th>
+                                <th>Category</th>
+                                <th>Stock</th>
+                                <th>Price</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            <?php foreach($data['staff'] as $staff) : ?>
+                        <?php foreach($data['products'] as $product) : ?>
 
                             <tr>
-                                <td><?php echo $staff->StaffID?></td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $staff->profileImage?>" ><p><?php echo $staff->firstname?> <?php echo $staff->lastname?></p>
+                                <td><?php echo $product->id?></td>
+                                <td>
+                                <?php echo $product->name?>
                                 </td>
-                                <td><?php echo $staff->email?></td>
-                                <td><?php echo $staff->address?></td>
-                                <td><?php echo $staff->phone?></td>
-                                <td><?php echo $staff->role?></td>
+                                <td><?php echo $product->brand?></td>
+                                <td><?php echo $product->category?></td>
+                                <td><?php echo $product->stock?></td>
+                                <td>Rs.<?php echo $product->price?></td>
                                 <td class="action">
                                     
                                     <div class="act-icon">
-                                           <a data-staff-id="<?php echo $staff->StaffID?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removeStaff/<?php echo $staff->StaffID ?>" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updateStaff/<?php echo $staff->StaffID ?>" ><i class='bx bx-edit' ></i></a>      
+                                           <a data-staff-id="<?php echo $product->id?>" class="removeLink" href="<?php echo URLROOT;?>/storemanager/removeProduct/<?php echo $product->id ?>" ><i class='bx bx-trash'></i></a>
+                                           <a href="<?php echo URLROOT;?>/storemanager/updateProduct/<?php echo $product->id?>" ><i class='bx bx-edit' ></i></a>     
+                                           
                                     </div>
                                     
                                 </td>
                             </tr>
-
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -118,7 +117,7 @@
 
                         <div class="err-content">
                             <span class="title">Remove Account</span>
-                            <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
+                            <p class="message">Are you sure you want to remove this product? All of the product data will be permanently removed. This action cannot be undone.</p>
                         </div>
 
                         <div class="err-actions">
@@ -143,24 +142,6 @@
 
     
 
-    <?php
-
-        if (($_SESSION['staff_user_added']) === true) {
-           
-            toast_notification("Staff Memeber Added","A new member has been added successfully.","fa-solid fa-xmark close"); 
-        }
-
-        else if (($_SESSION['staff_user_updated']) === true ) {
-            toast_notification("Staff Memeber Updated","A member has been updated successfully.","fa-solid fa-xmark close"); 
-            
-        } else if (($_SESSION['staff_user_removed']) === true ) {
-            toast_notification("Staff Memeber Removed","A member has been removed successfully.","fa-solid fa-xmark close"); 
-            
-        }
-    
-        
-    
-    ?>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>

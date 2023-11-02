@@ -15,7 +15,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/staff_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/petowner_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -24,24 +24,18 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Staff</h1>
+                    <h1>Pet Owner</h1>
                     <ul class="breadcrumb">
                         <li><a href="<?php echo URLROOT;?>/admin">
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/admin/staff" class="active">Staff</a></li>
+                        <li><a href="<?php echo URLROOT;?>/admin/petowner" class="active">Pet Owner</a></li>
                     </ul>
                 </div>
 
 
 
-                <div class="add-button">
-             <a href="<?php echo URLROOT;?>/admin/addStaff" ><button id="add-form-button">
-                <i class='bx bx-user-plus' ></i>
-                        Add Staff Member 
-                </button> </a>
-            </div>
                
             </div>
 
@@ -55,7 +49,7 @@
                 <div class="users">
                     <div class="header">
                     <i class='bx bxs-user-account main' ></i>
-                        <h3>Staff</h3>
+                        <h3>Pet Owners</h3>
                         <i class='bx bx-filter' ></i>
                         <i class='bx bx-search' ></i>
                     </div>
@@ -68,28 +62,27 @@
                                 <th>Email</th>
                                 <th>Address</th>
                                 <th>Phone</th>
-                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            <?php foreach($data['staff'] as $staff) : ?>
+                            <?php foreach($data['petowners'] as $petowner) : ?>
 
                             <tr>
-                                <td><?php echo $staff->StaffID?></td>
+                                <td><?php echo $petowner->id?></td>
                                 <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $staff->profileImage?>" ><p><?php echo $staff->firstname?> <?php echo $staff->lastname?></p>
+                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner->profileImage?>" ><p><?php echo $petowner->first_name?> <?php echo $petowner->last_name?></p>
                                 </td>
-                                <td><?php echo $staff->email?></td>
-                                <td><?php echo $staff->address?></td>
-                                <td><?php echo $staff->phone?></td>
-                                <td><?php echo $staff->role?></td>
+                                <td><?php echo $petowner->email?></td>
+                                <td><?php echo $petowner->address?></td>
+                                <td><?php echo $petowner->mobile?></td>
                                 <td class="action">
                                     
                                     <div class="act-icon">
-                                           <a data-staff-id="<?php echo $staff->StaffID?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removeStaff/<?php echo $staff->StaffID ?>" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updateStaff/<?php echo $staff->StaffID ?>" ><i class='bx bx-edit' ></i></a>      
+                                           <a data-staff-id="<?php echo $petowner->id?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removePetowner/<?php echo $petowner->id ?>" ><i class='bx bx-trash'></i></a>
+                                           <a href="<?php echo URLROOT;?>/admin/updatePetowner/<?php echo $petowner->id ?>" ><i class='bx bx-edit' ></i></a>     
+                                           <a href="<?php echo URLROOT;?>/admin/viewProfile/<?php echo $petowner->id ?>" ><i class='bx bx-show'></i></a>  
                                     </div>
                                     
                                 </td>

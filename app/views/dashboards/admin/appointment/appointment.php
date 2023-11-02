@@ -4,75 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/doctor/dashboard.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css"> <!-- for two pic table -->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Dashboard</title>
 </head>
 <body>
 
-<?php include __DIR__ . '/../common/index_common.php'; ?>
-<?php include __DIR__ . '/../common/dashboard-top-side-bar.php'; ?>
 
+
+<?php require_once __DIR__ . '/../../common/appointment_common.php'; ?>
+<?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
+
+
+       
 
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>dashboard</h1>
+                    <h1>Appointment</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">
-                            Dashboard
+                        <li><a href="<?php echo URLROOT;?>/admin">
+                           Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT; ?>/doctor" class="active"> Home</a></li>
+                        <li><a href="<?php echo URLROOT;?>/admin/appointment" class="active">Appointment</a></li>
                     </ul>
                 </div>
-                
+
+
+
+               
             </div>
 
-            <div class="home-box">
-                    <div class="home-left">
-                        <div class="home-text-large">
-                            Welcome back,  <span><?php echo $_SESSION['user_fname']?></span>
-                        </div>
-                        <div class="home-text-small">
-                            You have <span> 20 </span> upcoming appointments.
-                        </div>
-                    </div>
-                    <div class="home-right">
-                        <img src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
-                    </div>
-                </div>
+           
 
-                <div class="home-box2">
-                    <div class="home-left2">
-                        <div class="home-text-large">
-                            Time for Treatment, <span>Garfield!</span>
-                        </div>
-                        <div class="date-time-type">
-                            <div>Date : <span>01-10-2034</span></div>
-                            <div>Time : <span>10.00 A.M</span></div>
-                            <div>Type : <span>Dental</span></div>
-                        </div>
-                        <div class="buttons">
-                            <button class="button cancel-button">Cancel</button>
-                            <button class="button treatment-button">Treatment</button>
-                        </div>
-                    </div>
-                    <div class="home-right">
-                        <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/cat-self.jpg" alt="">
-                    </div>
-                </div>
+            
 
-                <!-- latest patient table is here -->
-
-                <div class="bottom-data">
+            <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users" style="margin-bottom:50px;">
+                <div class="users">
                     <div class="header">
-                    <i class='bx bx-walk' style="font-size:2.5rem;"></i>
-                        <h3>Latest Patients</h3>
+                    <i class='bx bx-calendar' ></i>
+                        <h3>Today Appointment</h3>
                         <i class='bx bx-filter' ></i>
                         <i class='bx bx-search' ></i>
                     </div>
@@ -83,7 +60,6 @@
                                 <th>Id</th>
                                 <th>Pet Owner</th>
                                 <th>Pet</th>
-                                <th>Date</th>
                                 <th>Time</th>
                                 <th>Type</th>
                                 <th>Status</th>
@@ -114,7 +90,7 @@
 
                            
                               
-                                <td>3-11-2023</td>
+
                                 <td>10.00 AM</td>
                                 <td>Dental</td>
                                 <td style="color:#108C81; font-weight:600;">Completed</td>
@@ -134,8 +110,6 @@
                                     <p>Kitty</p>
                                     </div>
                                 </td>
-
-                                <td>3-11-2023</td>
                                 <td>10.30 AM</td>
                                 <td>Dental</td>
                                 <td style="color:#108C81; font-weight:600;">Completed</td>
@@ -155,8 +129,6 @@
                                     <p>Rocky</p>
                                     </div>
                                 </td>
-
-                                <td>3-11-2023</td>
                                 <td>11.00 AM</td>
                                 <td>Dental</td>
                                 <td style="color:#DE1C53; font-weight:600;">Reshedule</td>
@@ -176,8 +148,6 @@
                                     <p>Rex</p>
                                     </div>
                                 </td>
-
-                                <td>3-11-2023</td>
                                 <td>11.30 AM</td>
                                 <td>Dental</td>
                                 <td style="color:#DE1C53; font-weight:600;">Cenceled</td>
@@ -190,10 +160,24 @@
  
             </div> <!-- content over -->
 
-                <!-- latest patient is over -->
-
+             
+                                
         </main>
+
+         
+
+
+
     </div>
+
+   
+
+
+    <!-- staff add model over -->
+
+
+
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
+    
 </body>
 </html>

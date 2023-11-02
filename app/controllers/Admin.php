@@ -14,6 +14,7 @@
                 if($_SESSION['user_role'] != "Admin"){
 
                     // Unauthorized access
+                    redirect('users/staff');
                      
                 }
             }
@@ -388,6 +389,83 @@
         
     }
 
+    /*==================  Appointment ============= 
+        
+        *
+        *Give details to the array and send to the view
+        
+        */
+
+
+    public function appointment(){
+
+        $data =null;
+
+        $this->view('dashboards/admin/appointment/appointment',$data);
+    }
+
+
+    /*==================  pet owner  ============= 
+        
+        *
+        *Give details to the array and send to the view
+        
+        */
+
+
+        public function petowner(){
+
+            $petowners = $this->dashboardModel-> getPetwonerDetails();
+
+            $data = [
+                'petowners' =>$petowners
+            ];
+    
+            $this->view('dashboards/admin/petowner/petowner',$data);
+        }
+
+        public function UpdatePetowner(){
+
+            
+            $data = null;
+
+            $this->view('dashboards/admin/petowner/updatePetowner',$data);
+        }
+
+
+        /*==================  pet owner  ============= 
+        
+        *
+        *Give details to the array and send to the view
+        
+        */
+
+        public function pet(){
+            $data = null;
+            $this->view('dashboards/admin/pet/pet',$data);
+        }
+
+
+        public function Updatepet(){
+            $data = null;
+            $this->view('dashboards/admin/pet/updatePet',$data);
+        }
+
+
+
+        /*================== Settings  ============= 
+        
+        *
+        *Give details to the array and send to the view
+        
+        */
+
+        public function settings(){
+            $data = null;
+            $this->view('dashboards/admin/setting/settings',$data);
+        }
+
+
         
 
-    }
+}

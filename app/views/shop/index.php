@@ -24,6 +24,8 @@
 </head>
 <body>
     <!-- header start  -->
+
+    <!-- navbar -->
      
     <header class="header">
 
@@ -148,6 +150,11 @@
 
     </header>
 
+     <!-- navbar  over -->
+      <!-- header over -->
+
+
+    <!-- after header is here -->
 
     <script src="<?php echo URLROOT; ?>/public/js/store.js"></script>
 </body>

@@ -105,6 +105,121 @@
 
         }
 
+         //get pet owner details
+
+         public function getPetwonerDetails(){
+            $this->db->query('SELECT * FROM petcare_petowner');
+        
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+    
+
+        }
+
+         //get  inventory details
+
+         public function getInventoryDetails(){
+            $this->db->query('SELECT * FROM petcare_inventory');
+        
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+    
+
+        }
+
+         //remove product
+
+         public function removeProduct($id){
+
+            $this->db->query('DELETE  FROM petcare_inventory WHERE id = :id');
+            $this->db->bind(':id' , $id);
+            
+            $row = $this->db->single();
+
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }  
+    
+
+        }
+
+        // add product data
+
+        public function addProduct($data){
+
+            $this->db->query('INSERT INTO petcare_inventory (name,brand,category,stock,price) VALUES(:name, :brand, :category, :stock, :price )');
+
+             //bind values
+        $this->db->bind(':name',$data['pname']);
+        $this->db->bind(':brand',$data['brand']);
+        $this->db->bind(':category',$data['category']);
+        $this->db->bind(':stock',$data['stock']);
+        $this->db->bind(':price',$data['price']);
+        
+
+        //execute
+        if($this->db->execute()){
+            return true;
+
+        }else{
+            return false;
+        }  
+
+        }
+
+
+        // get product data
+
+        public function getProductDetailsById($id){
+
+            $this->db->query('SELECT * FROM petcare_inventory WHERE id = :id');
+        
+
+            $this->db->bind(':id' , $id);
+    
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+
+
+        }
+
+         // update product data
+
+         public function updateProduct($data){
+
+            $this->db->query('UPDATE petcare_inventory SET name = :pname , brand = :brand , category= :category, stock = :stock , price = :price   WHERE id = :id');
+        
+
+            $this->db->bind(':id' , $data['id']);
+            $this->db->bind(':pname',$data['pname']);
+            $this->db->bind(':brand',$data['brand']);
+            $this->db->bind(':category',$data['category']);
+            $this->db->bind(':stock',$data['stock']);
+            $this->db->bind(':price',$data['price']);
+
+    
+                //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }
+
+
+        }
+
+
 
 
 }

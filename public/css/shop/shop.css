@@ -490,6 +490,28 @@ body {
         height: 1.6em; /* Adjust the size as needed */
     }
 
+
+    /* ========================= Nav bar css over here ================================*/
+
+    /*============================  After Nav bar ===================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*====================== Media query start here =============================*/
+
    
 
     @media (min-width: 768px) {
@@ -505,7 +527,23 @@ body {
           .has-drop-down:hover .mega {
             display: block;
           }
+
+
+          /*  nav bar over */
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
 
     
 
@@ -738,6 +776,9 @@ body {
             top: -30px; /* Position the close icon below the menu icon */
             opacity: 0;
           }
+
+
+          /*  nav bar over */
 
          
 

@@ -1,0 +1,96 @@
+
+
+main .bottom-part{
+    background-color: var(--light);
+    padding: 15px;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+main .bottom-part .title{
+    display: flex;
+    grid-gap: 25px;
+    padding-left: 15px;
+    padding: 10px;
+    border-bottom: 2px solid #F0F0F2;
+    margin-bottom: 30px;
+}
+main .bottom-part .title .title-text{
+    font-weight: 550;
+    font-size: 1.1rem;
+}
+
+main .bottom-part .middle-part{
+    padding: 20px 10px 15px 25px ;
+    display: flex;
+    justify-content: space-between;
+}
+main .bottom-part .middle-part .left{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 18px;
+}
+
+main .bottom-part .middle-part .left .item{
+    display: flex;
+    grid-gap: 35px;
+    justify-content: space-between;
+    font-weight: 300;
+    font-size: .9rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid lightgrey;
+    align-items: center;
+}
+
+main .bottom-part .middle-part .left .item .item-text{
+    max-width: 35ch;
+}
+main .bottom-part .middle-part .right .box{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 20px;
+    margin-left: -40px;
+    border: 2px solid lightgrey;
+    padding: 15px;
+    border-radius: 15px;
+}
+main .bottom-part .middle-part .right .box .title{
+    display: flex;
+    padding-left: 0px;
+    margin-bottom: 20px;
+}
+
+main .bottom-part .middle-part .right .box .title .title-text{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+main .bottom-part .middle-part .right .box .line{
+    display: flex;
+    grid-gap: 40px;
+    justify-content: space-between;
+}
+main .bottom-part .middle-part .right .box .sub-total {
+    margin-top: 20px;
+}
+.sub-total-text ,.shipping-total-text ,.order-total-text{
+    font-weight: 500;
+}
+
+main .bottom-part .footer{
+    padding: 15px;
+    margin-top: 23px;
+    padding-left: 0px;
+}
+
+main .bottom-part .footer a{
+    text-decoration: none;
+    color:#222;
+    padding: 10px 30px 10px 30px;
+    margin-left: 40px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    font-weight: 550;
+    font-size: 1.1rem;
+}

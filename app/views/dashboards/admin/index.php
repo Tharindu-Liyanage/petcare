@@ -11,7 +11,7 @@
 <body>
 
 <?php include __DIR__ . '/../common/index_common.php'; ?>
-<?php include 'component/admin-side-bar.php'; ?>
+<?php include __DIR__ . '/../common/dashboard-top-side-bar.php'; ?>
 
 
         <main>
@@ -20,10 +20,10 @@
                     <h1>dashboard</h1>
                     <ul class="breadcrumb">
                         <li><a href="#">
-                            Analytics
+                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="#" class="active"> Shop</a></li>
+                        <li><a href="<?php echo URLROOT; ?>/admin" class="active"> Home</a></li>
                     </ul>
                 </div>
                 

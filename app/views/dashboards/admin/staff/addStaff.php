@@ -11,7 +11,7 @@
    <body>
 
    <?php require_once __DIR__ . '/../../common/staff_common.php'; ?>
-    <?php require_once __DIR__ . '/../component/admin-side-bar.php'; ?>
+   <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
     <main>
 

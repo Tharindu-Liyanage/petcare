@@ -433,16 +433,17 @@
                 case "Assistant":
                     redirect('assistant');
                     break;
-                case "Store manager":
+                case "Store Manager":
                     redirect('storemanager');
                     break;
                 case "Doctor":
                     redirect('doctor');
                     break;
                 case "Nurse":
-                    redirect('nurse');
+                    redirect('doctor');
                     break;
                 default:
+                 
                     // Handle unexpected roles, e.g., redirect to a default page or show an error message.
                     break;
             }
