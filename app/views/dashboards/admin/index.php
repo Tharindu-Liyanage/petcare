@@ -99,40 +99,17 @@
                         </tbody>
                     </table>
                 </div>
-
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <!--reminders-->
                 <div class="reminders">
                     <div class="header">
                         <i class='bx bx-note' ></i>
-                        <h3>reminders</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-plus' ></i>
+                        <h3>Customer</h3>
+                       
                     </div>
-                    <ul class="task-list">
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle' ></i>
-                                <p>Start Our Meeting</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle' ></i>
-                                <p>Analyse Our Site</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-x-circle' ></i>
-                                <p>Play Footbal</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        
-                    </ul>
-                </div>
+
+                    <canvas id="myChart"></canvas>
+                    
 
                 <!-- end of reminder -->
             </div>
@@ -140,5 +117,8 @@
         </main>
     </div>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/customerin.js"></script>
+    
+    
 </body>
 </html>

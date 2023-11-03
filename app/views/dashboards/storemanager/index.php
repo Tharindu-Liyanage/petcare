@@ -99,7 +99,7 @@
                         </tbody>
                     </table>
                 </div>
-
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <!--reminders-->
                 <div class="reminders">
                     <div class="header">
@@ -117,7 +117,7 @@
         </main>
     </div>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/sales.js"></script>
 </body>
 </html>

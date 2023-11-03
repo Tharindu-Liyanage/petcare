@@ -177,5 +177,6 @@
         </main>
     </div>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
+  
 </body>
 </html>
