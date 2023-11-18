@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<?php include __DIR__ . '/../../common/petowner_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/petowner_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 

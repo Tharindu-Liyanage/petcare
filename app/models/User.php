@@ -9,6 +9,19 @@ class User{
             $this->db = new Database;
     }
 
+
+      /*
+        ====================  User Model =============== 
+        
+          ** All database business with LOGIN , SIGNUP  here
+    
+          ** Return data  to  USER (Users.php) controller (app/controller/User) called method
+        
+        =====================================================
+        */
+
+
+
     //login user
 
     public function login($email,$password){

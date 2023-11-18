@@ -15,7 +15,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/pet_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/pet_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -52,43 +52,60 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="pet">
                     <div class="header">
                     <i class='bx bxs-dog' ></i>
                         <h3>Pets</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+
+                        <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
+                    </div>
+
+                    <!-- search container over -->
+
+                        
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Pet</th>
-                                <th>DOB</th>
-                                <th>Breed</th>
-                                <th>Sex</th>
-                                <th>Age</th>
-                                <th>Species</th>
-                                <th>Action</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
+                                <th>Pet <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>DOB <i class='bx bxs-sort-alt sort' data-sort="dob-search"></th>
+                                <th>Breed <i class='bx bxs-sort-alt sort' data-sort="breed-search"></th>
+                                <th>Sex <i class='bx bxs-sort-alt sort' data-sort="sex-search"></th>
+                                <th>Age <i class='bx bxs-sort-alt sort' data-sort="age-search"></th>
+                                <th>Species <i class='bx bxs-sort-alt sort' data-sort="species-search"></th>
+                                <th>Action </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
+
+                        <?php
+
+                            if(count($data['pet']) == 0){
+
+                                echo '<td class="isempty" colspan="7">No data available in table</td>';
+
+                            }else
 
                            
-                        <?php foreach($data['pets'] as $pet) : ?>
+                             foreach($data['pet'] as $pet) : ?>
 
                             
                             <tr>
-                                <td><?php echo $pet->id?></td>
+                                <td class="id-search"><?php echo $pet->id?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> profileImage ?>" ><p><?php echo $pet->pet?></p>
-                                </td>
-                                <td><?php echo $pet->DOB?></td>
-                                <td><?php echo $pet->breed?></td>
-                                <td><?php echo $pet->sex?></td>
-                                <td><?php echo $pet->age?></td>
-                                <td><?php echo $pet->species?></td>
+                                </td class="id-search">
+                                <td class="dob-search"><?php echo $pet->DOB?></td>
+                                <td class="breed-search"><?php echo $pet->breed?></td>
+                                <td class="sex-search"><?php echo $pet->sex?></td>
+                                <td class="age-search"><?php echo $pet->age?></td>
+                                <td class="species-search"><?php echo $pet->species?></td>
                                 <td class="action">
                                     
                                     <div class="act-icon">
@@ -104,6 +121,8 @@
                        
                         </tbody>
                     </table>
+
+                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
                 </div>
  
             </div> <!-- content over -->
@@ -148,10 +167,10 @@
 
 
     
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/petowner/petTable.js"></script>
     
 </body>
 </html>

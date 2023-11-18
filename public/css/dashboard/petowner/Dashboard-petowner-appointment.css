@@ -1,0 +1,55 @@
+
+main .appointment-box{
+    color:var(--dark);
+    background-color: var(--light);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 19px;
+    margin-top: 25px;
+}
+
+main .appointment-box .apppoitnment-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-gap: 30px;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+main .appointment-box .apppoitnment-right{
+    display: block;
+}
+
+
+main .appointment-box .apppoitnment-left .appointment-text-large{
+    font-weight: 550;
+    font-size: 2rem;
+    margin-top: -40px;
+}
+
+main .appointment-box .apppoitnment-left .appointment-text-down{
+    display: flex;
+    grid-gap: 5px;
+   
+    font-size:20px;
+    margin-left: 10px;
+}
+
+main .appointment-box .apppoitnment-left .appointment-text-down a{
+   
+   color:var(--dark)
+}
+
+
+.status-green{
+    color:#108C81;
+    font-weight: 600;
+}
+
+.status-red{
+    color:#DE1C53;
+    font-weight: 600;
+}
+

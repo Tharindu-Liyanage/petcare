@@ -15,7 +15,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/staff_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/staff_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -51,40 +51,63 @@
 
             <div class="bottom-data">
 
-                <!--start od orders-->
-                <div class="users">
+                
+                <div class="users" id="staff">
                     <div class="header">
                     <i class='bx bxs-user-account main' ></i>
                         <h3>Staff</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+
+                    <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
+                    </div>
+
+                    <!-- search container over -->
+
+
+                      
+                        
+                        
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Phone</th>
-                                <th>Role</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
+                                <th>Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>Email <i class='bx bxs-sort-alt sort' data-sort="email-search"></th>
+                                <th>Address <i class='bx bxs-sort-alt sort' data-sort="address-search"></th>
+                                <th>Phone <i class='bx bxs-sort-alt sort' data-sort="phone-search"></th>
+                                <th>Role <i class='bx bxs-sort-alt sort' data-sort="role-search"></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
-                            <?php foreach($data['staff'] as $staff) : ?>
+                            
+
+                            <?php
+
+                            if(count($data['staff']) == 0){
+
+                                echo '<td class="isempty" colspan="7">No data available in table</td>';
+
+                            }else
+                            
+                            
+                            foreach($data['staff'] as $staff) : ?>
 
                             <tr>
-                                <td><?php echo $staff->StaffID?></td>
+                                <td class="id-search"><?php echo $staff->StaffID?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $staff->profileImage?>" ><p><?php echo $staff->firstname?> <?php echo $staff->lastname?></p>
                                 </td>
-                                <td><?php echo $staff->email?></td>
-                                <td><?php echo $staff->address?></td>
-                                <td><?php echo $staff->phone?></td>
-                                <td><?php echo $staff->role?></td>
+                                <td class="email-search"><?php echo $staff->email?></td>
+                                <td class="address-search"><?php echo $staff->address?></td>
+                                <td class="phone-search"><?php echo $staff->phone?></td>
+                                <td class="role-search"><?php echo $staff->role?></td>
                                 <td class="action">
                                     
                                     <div class="act-icon">
@@ -95,9 +118,13 @@
                                 </td>
                             </tr>
 
-                        <?php endforeach; ?>
+                        <?php endforeach;  ?>
                         </tbody>
                     </table>
+
+                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
+
+
                 </div>
  
             </div> <!-- content over -->
@@ -161,6 +188,7 @@
         
     
     ?>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>

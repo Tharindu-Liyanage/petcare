@@ -377,6 +377,7 @@
             
 
             $staff_users = $this->dashboardModel->getStaffDetails();
+            
 
         $data = [
             'staff' =>$staff_users
@@ -410,7 +411,7 @@
         *
         *Give details to the array and send to the view
         
-        */
+     */
 
 
         public function petowner(){

@@ -15,7 +15,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/blog_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/blog_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -124,6 +124,8 @@
 
 
     </div>
+
+    
 
    
 

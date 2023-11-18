@@ -1,39 +1,27 @@
+//search table
+
+var options = {
+    valueNames: ['id-search', 'profile', 'dob-search', 'breed-search', 'sex-search', 'age-search' , 'species-search'],
+    page: 5,
+    pagination: true,
+};
+
+var userList = new List('pet', options);
+
+
+
+document.querySelector('.show-entries').addEventListener('change', function () {
+  var selectedValue = parseInt(this.value);
+  userList.page = selectedValue;
+  userList.update();
+});
+
+
 // Get references to the elements
 const deleteLinks = document.querySelectorAll(".removeLink"); // Select all delete links
 const notification = document.getElementById("removeModel");
 const confirmDeleteButton = document.getElementById("confirmDelete");
 const cancelDeleteButton = document.getElementById("cancelDelete");
-
-
-//search table
-
- 
-
-  var options = {
-      valueNames: ['id-search', 'profile', 'email-search', 'address-search', 'phone-search', 'role-search'],
-      page: 5,
-      pagination: true,
-  };
-
-  var userList = new List('staff', options);
-  
-
-
-  document.querySelector('.show-entries').addEventListener('change', function () {
-    var selectedValue = parseInt(this.value);
-    userList.page = selectedValue;
-    userList.update();
-});
-  
-
-
-//paginantion
-
-
-
-
-
-
 
 // Add click event listener to each delete link
 deleteLinks.forEach((deleteLink) => {

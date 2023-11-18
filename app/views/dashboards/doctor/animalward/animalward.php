@@ -15,7 +15,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/animalward_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/animalward_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -126,7 +126,7 @@
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet3.png" ><p>Rex</p>
                                 </td>
-                                <td>14</td>
+                                <td>5</td>
                                 <td>02-03-2023</td>
                                 <td>Kidney disease</td>
                                 <td>Dog</td>

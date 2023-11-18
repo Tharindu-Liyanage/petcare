@@ -14,7 +14,7 @@
                 if($_SESSION['user_role'] != "Pet Owner"){
 
                     // Unauthorized access
-                    redirect('users/staff');
+                    redirect('users/login');
                      
                 }
             }
@@ -33,10 +33,10 @@
 
         public function pet(){
 
-            $pets = $this->dashboardModel->getPetDetails();
+            $pets = $this->dashboardModel->getPetDetailsByPetownerID($_SESSION['user_id']);
 
             $data = [
-                'pets' =>$pets
+                'pet' =>$pets
             ];
 
             $this->view('dashboards/petowner/pet/pet',$data);
@@ -319,7 +319,17 @@
 
         public function appointment(){
 
-            $data = null;
+            
+            $appointments = $this->dashboardModel->getAppointmentDetailsByPetOwner($_SESSION['user_id']);
+            
+         
+
+
+        $data = [
+            'appointment' =>$appointments
+        ];
+
+           
             $this->view('dashboards/petowner/appointment/appointment', $data);
         }
 

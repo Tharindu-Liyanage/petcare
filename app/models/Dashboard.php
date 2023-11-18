@@ -7,14 +7,42 @@
             $this->db = new Database;
         }
 
+        /*
+        ====================  Dashboard Model =============== 
+        
+          ** All database business with DASHBOARD here
+          ** Return data goes to particular actor controller (app/controller/actor/method) called method
+        
+        =====================================================
+        */
+
+
 
         /*
-        For Admin
+         ============================= For Admin  =======================================
+
+        1. getStaffDetails  ->  get Staff details without own details. 
+
+        2. addStaff -> insert staff data
+
+        3. updateStaff -> update staff details
+
+        4. getStaffUserById -> id given as parameter to this method and return the row
+
+        5. removeStaffUser ->  id given as parameter to this method and remove user
+
+        6. getPetwonerDetails ->  get pet owner details and return results
+
+        ================================================================================
         
         */
 
+
+
+        /*1*/
+
         public function getStaffDetails(){
-            // Assuming you are using a PHP variable in your SQL query
+            
             $userID = $_SESSION['user_id'];
             $this->db->query("SELECT * FROM petcare_staff WHERE StaffID != :userID");
             $this->db->bind(':userID', $userID);
@@ -24,6 +52,8 @@
             return $results;
         }
 
+
+        //2
         public function addStaff($data){
 
             $this->db->query('INSERT INTO petcare_staff (firstname,lastname,email,phone,role,password,address ,profileImage) VALUES(:first_name, :last_name, :email, :mobile, :role,:tmp_pwd, :address , "nopic.png")');
@@ -44,8 +74,13 @@
 
         }else{
             return false;
-        }   
+        }  
+
         }
+
+
+
+        //3
 
         public function updateStaff($data){
 
@@ -73,7 +108,8 @@
 
 
 
-         //find user by id
+         //4 
+
          public function getStaffUserById($id){
             $this->db->query('SELECT * FROM petcare_staff WHERE StaffID = :id');
             $this->db->bind(':id' , $id);
@@ -87,7 +123,7 @@
         }
 
 
-        //remove staff
+        //5
 
         public function removeStaffUser($id){
             $this->db->query('DELETE  FROM petcare_staff WHERE StaffID = :id');
@@ -105,7 +141,8 @@
 
         }
 
-         //get pet owner details
+        
+        //6
 
          public function getPetwonerDetails(){
             $this->db->query('SELECT * FROM petcare_petowner');
@@ -118,7 +155,32 @@
 
         }
 
-         //get  inventory details
+        // ============================  Admin over ===========================================
+
+
+
+
+
+         /*
+         ============================= For Store Manager =======================================
+
+        7. getInventoryDetails  ->  get all inventory details 
+
+        8. removeProduct -> id given as parameter to this method and remove product
+
+        9. addProduct -> insert product details
+
+        10. getProductDetailsById -> id given as parameter to this method and return the product details row
+
+        11. updateProduct ->  id given as parameter to this method and update the product
+
+        ================================================================================
+        
+        */
+
+
+
+         //7
 
          public function getInventoryDetails(){
             $this->db->query('SELECT * FROM petcare_inventory');
@@ -131,7 +193,8 @@
 
         }
 
-         //remove product
+         
+        //8
 
          public function removeProduct($id){
 
@@ -150,7 +213,8 @@
 
         }
 
-        // add product data
+       
+        // 9
 
         public function addProduct($data){
 
@@ -175,7 +239,7 @@
         }
 
 
-        // get product data
+        //10
 
         public function getProductDetailsById($id){
 
@@ -193,7 +257,7 @@
 
         }
 
-         // update product data
+         // 11
 
          public function updateProduct($data){
 
@@ -220,9 +284,37 @@
         }
 
 
-        //get pet details 
+          // ============================  Store Manager over ===========================================
 
-        public function getPetDetails(){
+
+
+
+
+         /*
+         ============================= For Pet Owner =======================================
+
+        12. getPetDetails ->  get pet owner details and return results
+
+        13. addPetDetails ->  insert pet details
+
+        14. updatePetDetails ->  update pet details
+
+        15. removePetDetails -> remove pet details by paramenter id
+
+        16. getPetDetailsByID -> get petdetauls by parameter id
+        
+        17. getAppointmentDetailsByPetOwner -> 
+
+        18. getPetDetails
+
+        ================================================================================
+        
+        */
+
+
+        //12
+
+        public function getAllPetDetails(){
 
             $this->db->query('SELECT * FROM petcare_pet');
         
@@ -237,7 +329,8 @@
 
         }
 
-        //add pet details 
+       
+        //13 
 
         public function addPetDetails($data){
 
@@ -264,7 +357,7 @@
         }
 
 
-        //update pet details 
+        //14
 
         public function updatePetDetails($data){
 
@@ -292,7 +385,7 @@
 
         }
 
-        //remove pet details 
+        //15
 
         public function removePetDetails($id){
 
@@ -311,6 +404,8 @@
 
         }
 
+        //16
+
         public function getPetDetailsByID($id){
 
             $this->db->query('SELECT * FROM petcare_pet WHERE id = :id');
@@ -325,6 +420,46 @@
             return $row;
         }
 
+
+        //17
+       public function getAppointmentDetailsByPetOwner($id){
+
+            $this->db->query(
+
+                'SELECT a.*, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , staff.firstname as fname , staff.lastname as lname , staff.profileImage as vetpic
+                FROM petcare_appointments a
+                JOIN petcare_pet p ON a.pet_id = p.id
+                JOIN petcare_staff staff ON a.vet_id = staff.StaffID
+                WHERE a.petowner_id = :id
+                ORDER BY a.appointment_date DESC , a.appointment_time DESC');
+
+            $this->db->bind(':id' , $id);
+
+            $results = $this->db->resultSet();
+
+            return $results;
+            
+        }
+
+        //18
+
+        public function getPetDetailsByPetownerID($id){
+
+            $this->db->query(
+
+                'SELECT pet.*
+                FROM petcare_pet pet
+                JOIN petcare_petowner po ON pet.petowner_id = po.id
+                WHERE petowner_id = :id
+                ORDER BY pet.id ASC');
+
+            $this->db->bind(':id' , $id);
+
+            $results = $this->db->resultSet();
+
+            return $results;
+
+        }
 
 
 

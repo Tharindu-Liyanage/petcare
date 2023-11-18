@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<?php include __DIR__ . '/../../common/appointment_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/appointment_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 

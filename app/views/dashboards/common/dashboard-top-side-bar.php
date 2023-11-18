@@ -84,7 +84,7 @@
             <i class='bx bx-menu' ></i>
             <form action="#">
                <div class="form-input">
-                  <input type="search" placeholder="Searrch..." >
+                  <input type="search-top" placeholder="Searrch..." >
                   <button class="search-btn" type="submit"><i class='bx bx-search' ></i></button>
                </div>
             </form>

@@ -10,12 +10,15 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Dashboard</title>
+
+ 
+
 </head>
 <body>
 
 
 
-<?php require_once __DIR__ . '/../../common/blog_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/blog_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -99,37 +102,54 @@
                                 <div class="content1-text"> Content </div>
                                 <div class="content1-box">
                                     <i class='bx bx-pencil' ></i>
-                                    <textarea name="content-input" id="" cols="30" rows="10" placeholder="write here"></textarea>
+                                    <textarea class="text" name="content-input" id=""  placeholder="write here"></textarea>
+                                   
                                 </div>
                                 
                             </div>
                         </div>
+
+                        
+
+
                     </div>
 
+                    
+
+                    
+
                     <div class="footer">
+                    
                         <div class="button-set">
                             <button class="reset-button">Reset</button>
                             <button class="update-button">Update</button>
                         </div>
                     </div>
                 </div>
+                
+                
             </div> <!-- content over -->
-
+             
              
                                 
         </main>
 
            
 
-
+        
 
 
     </div>
 
    
 
+    
+
 
     <!-- staff add model over -->
+
+
+
 
 
     

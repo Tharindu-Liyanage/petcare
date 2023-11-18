@@ -15,7 +15,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/inventory_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/inventory_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 

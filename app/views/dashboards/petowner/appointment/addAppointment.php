@@ -16,7 +16,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/appointment_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/appointment_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -122,29 +122,7 @@
                                 
         </main>
 
-            <!-- warninig model here -->
-
-            <div id="removeModel" class="card-all-background">
-             <div class="card">
-                <div class="err-header">
-
-                        <div class="image">
-                            <span class="material-symbols-outlined">warning</span>                   
-                        </div>
-
-                        <div class="err-content">
-                            <span class="title">Remove Account</span>
-                            <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
-                        </div>
-
-                        <div class="err-actions">
-                            <button id="confirmDelete" class="desactivate" type="button">Remove</button>
-                            <button id="cancelDelete" class="cancel" type="button">Cancel</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+           
 
 
 
