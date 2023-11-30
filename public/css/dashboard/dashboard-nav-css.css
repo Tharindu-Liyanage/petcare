@@ -23,6 +23,11 @@
 
     --color-info-dark: #7d8da1;
     --color-dark-variant: #677483;
+
+    --litepicker-container-months-color-bg: #FFFFFD !important; 
+
+    --time-slots:#fff;
+
 }
 
 *{
@@ -58,6 +63,8 @@ body.dark{
     --blue-color:#7F85F5;
     --input-color:#A78BFA;
     --color-dark-variant:#a3bdcc;
+    --litepicker-container-months-color-bg: #181e1e !important; 
+    --time-slots:#25252c;
 }
 
 body{

@@ -1,0 +1,887 @@
+:root {
+  --primary-model: #667EEA;
+  --secondary: #667EEA;
+  --errorColor: red;
+  --stepNumber: 4;
+  --containerWidth: 1000px;
+  --bgColor: #333;
+  --inputBorderColor: lightgray;
+}
+
+.content main .bottom-data{
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    margin-top: 24px;
+    width: 100%;
+    color: var(--dark);
+   
+    
+}
+
+
+/*border unser title Big*/
+.content main .bottom-data .header{
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+    border-bottom: 1px solid #ddd;
+    padding: 1.5rem 1.5rem;
+}
+
+.content main .bottom-data .header h3{
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.content main .bottom-data .header .bx{
+    cursor: pointer;
+    font-size: 2.5rem;
+    
+
+}
+
+
+.content main .bottom-data .users{
+    flex-grow: 1;
+    flex-basis: 500px;
+}
+
+
+/*new css */
+
+
+
+::selection {
+  color: #fff;
+  background: var(--primary-model);
+}
+.container-model {
+  width: var(--containerWidth);
+  background-color:var(--light);
+  border-radius: 20px;
+  text-align: center;
+  margin: auto;
+  padding: 50px 35px 10px 35px;
+}
+.container-model header {
+  font-size: 35px;
+  font-weight: 600;
+  margin: 0 0 30px 0;
+}
+.container-model .form-outer {
+  width: 100%;
+  overflow: hidden;
+}
+.container-model .form-outer form {
+  display: flex;
+  width: calc(100% * var(--stepNumber));
+}
+.form-outer form .page {
+  width: calc(100% / var(--stepNumber));
+  transition: margin-left 0.3s ease-in-out;
+}
+
+
+.form-outer form .page .title{
+  position: relative;
+}
+
+.form-outer form .page .title::before{
+content: "";
+position: absolute;
+left:0;
+bottom:-5px;
+height:3px;
+width:60px;
+background-color:var(--blue-color);
+}
+
+
+.form-outer form .page .title {
+  text-align: left;
+  font-size: 25px;
+  font-weight: 500;
+}
+.form-outer form .page .field {
+  width: var(--containerWidth);
+  height: 45px;
+  margin: 45px 0;
+  display: flex;
+  position: relative;
+}
+form .page .field .label {
+  position: absolute;
+  top: -30px;
+  font-weight: 500;
+}
+form .page.page.slide-page  input {
+  box-sizing: border-box;
+  height: 100%;
+  border-radius: 5px;
+  padding-left: 15px;
+  margin: 0 1px;
+  font-size: 18px;
+  background-color: var(--light);
+  color:var(--dark);
+  border:none;
+  outline: none;
+  width: 100%;
+ 
+}
+
+form .page  input.invalid-input {
+  border-color: var(--errorColor);
+}
+
+
+
+form .page select {
+  width: 100%;
+  padding-left: 10px;
+  font-size: 17px;
+  font-weight: 500;
+}
+form .page .field button {
+  width: 43%;
+  height: calc(100% + 5px);
+  border: none;
+  background: var(--blue-color);
+  margin-top: -20px;
+  border-radius: 5px;
+  color:var(--light);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: 0.5s ease;
+}
+form .page .field button:hover {
+  background: #5e7ad6;
+}
+form .page .btns button {
+  margin-top: -20px !important;
+}
+form .page .btns button.prev {
+  margin-right: 3px;
+  font-size: 17px;
+}
+form .page .btns button.next {
+  margin-left: 3px;
+}
+.container-model .progress-bar {
+  display: flex;
+  margin: 40px 200px;
+  user-select: none;
+}
+.container-model .progress-bar .step {
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+.container-model .progress-bar .step p {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.progress-bar .step .bullet {
+  height: 25px;
+  width: 25px;
+  border: 2px solid var(--dark);
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 25px;
+}
+.progress-bar .step .bullet.active {
+  border-color: var(--primary-model);
+  background: var(--primary-model);
+}
+.progress-bar .step .bullet span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.progress-bar .step .bullet.active span {
+  display: none;
+}
+
+.progress-bar .step .bullet:before, .progress-bar .step .bullet:after {
+  position: absolute;
+    content: "";
+    bottom: 11px;
+    right: -94px;
+    height: 3px;
+    width: 78px;
+    background: var(--dark);
+
+}
+
+.progress-bar .step .bullet.active:after {
+  background: var(--primary-model);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: animate 0.3s linear forwards;
+}
+@keyframes animate {
+  100% {
+      transform: scaleX(1);
+  }
+}
+.progress-bar .step:last-child .bullet:before,
+.progress-bar .step:last-child .bullet:after {
+  display: none;
+}
+.progress-bar .step p.active {
+  color: var(--primary-model);
+  transition: 0.2s linear;
+}
+.progress-bar .step .check {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.progress-bar .step .check.active {
+  display: block;
+  color: #fff;
+}
+
+.inputForm {
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  transition: 0.2s ease-in-out;
+  margin-bottom: 5px;
+}
+
+.input:focus , select:focus {
+  outline: none;
+}
+
+ .inputForm:focus-within {
+  border: 1.5px solid var(--input-color);
+}
+
+.container-model .inputForm i{
+  font-size:1.4rem;
+}
+
+.grid{
+display: grid;
+grid-template-columns: 1fr 1fr;
+column-gap:15px;
+
+}
+
+.grid .col .small-title{
+  margin-top: 25px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.grid .col .label{
+  font-weight: 400;
+  text-align: left;
+}
+
+ .form-slide .page.slide-page .input-container{
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.form-outer form .page.slide-page .input-field {
+  display: flex;
+  width: calc(100% / 2 - 15px);
+  flex-direction: column;
+  margin: 4px 0;
+  text-align: left;
+}
+
+.form-outer form .page.slide-page .input-field .label{
+  margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+/*new css over */
+
+  /* add model css */
+
+  /*
+
+  .add-model{
+   width: 100%;
+    background-color:var(--light);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+
+  }
+
+  .add-model form{
+    position: relative;
+    min-height: 250px;
+    
+     
+  }
+
+  .add-model .form-title{
+    font-size:20px;
+    font-weight: 600;
+    
+  }
+
+  .add-model form .form-title{
+    position: relative;
+  }
+
+  .add-model .form-title::before{
+  content: "";
+  position: absolute;
+  left:0;
+  bottom:-5px;
+  height:3px;
+  width:40px;
+  background-color:var(--blue-color);
+  }
+
+  
+
+
+  .add-model .form .inputForm {
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: 0.2s ease-in-out;
+    margin-bottom: 5px;
+  }
+
+  .add-model .form .input:focus , select:focus {
+    outline: none;
+  }
+
+  .add-model .form .input ,.add-model .form select {
+    margin-left: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 500px;
+    height: 100%;
+    background-color: var(--light);
+    color:var(--dark)
+  }
+
+  .add-model .form .inputForm:focus-within {
+    border: 1.5px solid var(--input-color);
+  }
+
+  
+  
+  .add-model .form .input-field > label {
+    color:var(--dark);
+    font-weight: 600;
+  }
+
+  .add-model i{
+    font-size:1.4rem;
+  }
+
+  .add-model .form .fields{
+    position: relative;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .add-model .form .input-field{
+   display: flex;
+   width: calc(100% / 2 -15px);
+   flex-direction: column;
+   margin:4px 0;
+  }
+
+ 
+
+  
+  .add-model form button.nextBtn , .backBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+    height:40px;
+    max-width: 150px;
+    width:100%;
+    outline: none;
+    border:none;
+    color:var(--light);
+    border-radius:5px ;
+    margin:25px 0;
+    background-color:var(--blue-color) ;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    
+
+  }
+
+  .add-model form button.nextBtn:hover{
+    background-color: #5e7ad6;
+
+  }
+
+  form .buttons{
+    display: flex;
+    align-items: center;
+  }
+
+  form .buttons .backBtn{
+    margin-right:14px;
+  }
+
+  form .backBtn i {
+    transform: rotate(180deg);
+  }
+
+
+.add-model form .form{
+  margin-left: 50px;
+  margin-top: 25px;
+  transition: 0.3s ease;
+}*/
+
+
+/*
+.add-model form .form.two{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+}
+
+form.secActive .form.two{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+form.secActive .form.first{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100%);
+}
+
+.add-model form .form.three{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+}
+
+*/
+
+
+/*
+  
+  .add-model .form {
+
+    display: grid;
+    width:95%;
+    margin: 0 auto;
+    gap:1.8rem;
+    grid-template-columns: auto auto;
+    padding: 30px;
+    
+    
+   /* display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    padding: 30px;
+    width: 900px;
+    max-width: 500px;
+    border-radius: 20px;
+    
+  }
+  
+  .add-model .form button {
+    align-self: flex-end;
+  }
+  
+  .add-model .form .flex-column > label {
+    color:var(--dark);
+    font-weight: 600;
+  }
+
+  .add-model i{
+    font-size:1.4rem;
+  }
+
+
+  
+  .add-model .form .inputForm {
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: 0.2s ease-in-out;
+    margin-bottom: 5px;
+  }
+  
+  .add-model .form .input ,.add-model .form select {
+    margin-left: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 85%;
+    height: 100%;
+    background-color: var(--light);
+    color:var(--dark)
+  }
+  
+  .add-model .form .input:focus , select:focus {
+    outline: none;
+  }
+  
+  .add-model .form .inputForm:focus-within {
+    border: 1.5px solid var(--input-color);
+  }
+  
+  .add-model .form .flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  
+  .add-model .form .flex-row > div > label {
+    font-size: 14px;
+    color: black;
+    font-weight: 400;
+  }
+  
+
+  
+  .add-model .form .button-submit {
+    margin: 20px 0 10px 0;
+    background-color:var(--blue-color);
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 10px;
+    height: 45px;
+    width: 30%;
+    cursor: pointer;
+  }
+
+
+  
+  .add-model .form .button-submit:hover {
+    background-color: #5e7ad6;
+  }
+
+  .button-form{
+    display: flex;
+    gap:10px;
+  }
+
+  .button-form .button-submit:first-child{
+    background-color: #fff;
+    border: 2px solid var(--dark);
+    color:black;
+  }
+
+  .button-form .button-submit:first-child:hover{
+    background-color: #ECF3FF;
+  }
+  
+  /*add model css over*/
+
+  /*erors*/
+
+ .is-invalid {
+    
+    border: 1.5px solid  #dc3545 !important;
+  }
+
+
+.invalid-feedback {
+    
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+
+/*appointment error*/
+.error-container{
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  display: none;
+}
+.error {
+ 
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  background: #FCE8DB;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px -3px #111;
+}
+
+.error__icon i {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  color: #EF665B;
+}
+
+.error__title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #71192F;
+}
+
+.error__close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.error__close path {
+  fill: #71192F;
+}
+
+
+
+
+/*appointment error over*/
+
+
+
+
+/*calender css*/
+
+
+.cal{
+  margin-top: 10px;
+  position: relative;
+}
+
+
+#litepicker {
+  
+  display: none;
+}
+
+.litepicker {
+ 
+  font-size: 14px;
+}
+
+
+.time-slot-container {
+  
+ margin: auto;
+ margin-top: 10px;
+  overflow-y: auto;
+  width: 300px;
+  height: 250px !important;
+  padding: 10px;
+  align-items: center;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  transition: 0.2s ease-in-out;
+}
+
+.time-slot {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 4px;
+ border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: var(--time-slots);
+  user-select: none;
+  
+}
+
+.time-slot:hover{
+  background-color: var(--grey);
+}
+
+.add-model .form .cal-fields{
+  margin-top: 10px;
+  margin-left:50px;
+  display: flex;
+  align-items: center;
+  gap:200px;
+  flex-wrap: wrap;
+ 
+}
+
+.cal-fields .input-field:nth-child(2) label{
+  margin-bottom: 10px;
+}
+
+.add-model .form .time-slot-container:focus-within {
+  border: 1.5px solid var(--input-color);
+}
+
+.time-slot.active {
+  background-color:var(--blue-color);
+  color:var(--light);
+}
+
+/* Hide the radio button */
+.time-slot input {
+  display: none;
+}
+
+.scroll-1::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+}
+
+.scroll-1::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: #888;
+}
+
+
+
+/*calender css over*/
+
+
+
+.is-invalid {
+    
+    border: 1.5px solid  #dc3545 !important;
+   
+}
+
+
+
+
+
+
+
+@media screen and (max-width :768px){
+  
+    /*anything to add admin staff*/
+
+  
+      :root {
+        --containerWidth: 400px;
+    }
+    .container-model .progress-bar {
+      
+      margin: 40px 0px;
+     
+    }
+    .progress-bar .step p {
+        display: none;
+    }
+    .progress-bar .step .bullet::after,
+    .progress-bar .step .bullet::before {
+        display: none;
+    }
+    .progress-bar .step .bullet {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .progress-bar .step .check {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 15px;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+    .step {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+  
+
+      
+}
+
+@media screen and (max-width: 576px){
+    
+    /*anything to add admin staff*/
+
+    :root {
+      --containerWidth: 100%;
+  }
+  .container-model {
+      box-sizing: border-box;
+      border-radius: 0;
+  }
+
+  .litepicker {
+    width: 50%; /* Set your desired width */
+}
+   
+
+  
+
+    .inputForm {
+    
+      width: 100%;
+    }
+    .form-outer form .page.slide-page .input-field {
+     
+      width: calc(100%  - 15px);
+     
+    }
+   
+
+}
+
+
+
+
+
+
+
+
