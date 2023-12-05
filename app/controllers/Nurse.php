@@ -28,6 +28,12 @@
             $this->view('dashboards/nurse/index', $data);
         }
 
+        public function notfound(){
+            $data =null;
+
+            $this->view('error/404',$data);
+        }
+
         
 
     }

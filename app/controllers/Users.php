@@ -8,6 +8,12 @@
 
         }
 
+        public function notfound(){
+            $data =null;
+
+            $this->view('error/404',$data);
+        }
+
         
         public function signup(){
 

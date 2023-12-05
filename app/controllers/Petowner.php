@@ -22,6 +22,12 @@
             $this->dashboardModel = $this->model('Dashboard');
         }
 
+        public function notfound(){
+            $data =null;
+
+            $this->view('error/404',$data);
+        }
+
         public function index(){
 
             $data =null;
@@ -335,7 +341,12 @@
 
         public function addAppointment(){
 
-            $data = null;
+            $pets = $this->dashboardModel->getPetDetailsByPetownerID($_SESSION['user_id']);
+
+            $data = [
+                'pet' =>$pets
+            ];
+
             $this->view('dashboards/petowner/appointment/addAppointment', $data);
         }
 
@@ -344,6 +355,34 @@
             $data = null;
             $this->view('dashboards/petowner/appointment/updateAppointment', $data);
         }
+
+
+        public function checkoutAppointment(){
+            require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
+            \Stripe\Stripe::setApiKey('sk_test_51OIDiCEMWpdWcJS8G3LlaRo4qgZbpY9h0FHWQLqWZOLJEg7eVJDCQkGQLS14M2KkUuGWoiDbfdOFJbRuNR7eUNSK004utEcz6Y');
+        
+            // Create a payment session
+            $paymentSession = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'mode' => 'payment', // Set mode to 'payment' for one-time payments
+                'line_items' => [[
+                    'price' => 'price_1OIZwlEMWpdWcJS8zC9MFJoR', // Use the price ID, not the product ID
+                    'quantity' => 1,
+                ]],
+                'success_url' => 'https://your-website.com/payment/success',
+                'cancel_url' => 'http://localhost/petcare/petowner/appointmentSuccess',
+            ]);
+        
+            // Redirect to the Payment Link URL
+            header('Location: ' . $paymentSession->url);
+            
+        }
+
+        public function appointmentSuccess(){
+
+        }
+        
+        
 
         public function animalWard(){
 

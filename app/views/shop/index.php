@@ -101,7 +101,7 @@
                 </div>  </li>
 
               <li>   <a href="<?php echo URLROOT;?>/shop/">Shop</a></li>
-              <li>  <a href="<?php echo URLROOT;?>/">PetCare</a></li>
+              <li>  <a href="<?php echo URLROOT;?>/home">PetCare</a></li>
               <li>   <a href="#about">About</a></li>
               <li>   <a href="#">Contact</a>  </li>
 
@@ -157,7 +157,7 @@
 
        <!-- Search banner -->
     <section id="search-banner">
-        <img src="<?php echo URLROOT?>/public/img/shop/bg3.png" alt ="bg3">
+        <img class="bg-3"src="<?php echo URLROOT?>/public/img/shop/bg3.png" alt ="bg3">
 
         <div class="search-banner-text">
             <h1> Order Your Pet Items</h1>

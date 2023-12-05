@@ -63,15 +63,13 @@ function initMultiStepForm() {
             current -= 1;
         });
     }
+
     submitBtn.addEventListener("click", function () {
         bullet[current - 1].classList.add("active");
         progressCheck[current - 1].classList.add("active");
         progressText[current - 1].classList.add("active");
         current += 1;
-        setTimeout(function () {
-            alert("Your Form Successfully Signed up");
-            location.reload();
-        }, 800);
+       
     });
 
     function validateInputs(ths) {
@@ -79,7 +77,7 @@ function initMultiStepForm() {
 
         
         if (ths.classList.contains("slide-page")) {
-            const inputs = ths.parentElement.parentElement.querySelectorAll(".page.slide-page input");
+            const inputs = ths.parentElement.parentElement.querySelectorAll(".page.slide-page input ,.page.slide-page select ");
             const errorTitleElement = document.getElementById('error-pageslide-title');
             const errorContainer = document.getElementById('error-pageslide-container');
         

@@ -1,5 +1,7 @@
 var yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
+var currentDate = new Date();
+var endOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + (6 - currentDate.getDay()));
 
 const picker = new Litepicker({ 
   element: document.getElementById('litepicker'), 
@@ -7,6 +9,7 @@ const picker = new Litepicker({
   selectBackward: true,
   resetButton: true,
   minDate: yesterday,
+  maxDate: endOfWeek,
   autoRefresh: true, // Automatically refresh the picker
   inlineMode: true,
   

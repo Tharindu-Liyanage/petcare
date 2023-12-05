@@ -107,7 +107,7 @@
             <div class="form-outer">
 
 
-                <form class="form-slide" action="#">
+                <form class="form-slide" action="<?php echo URLROOT; ?>/petowner/checkoutAppointment" method="POST">
 
 
                     <div class="page slide-page">
@@ -132,7 +132,7 @@
                                     <div class="label">First Name</div>
                                     <div class="inputForm">
                                     <i class='bx bx-purchase-tag-alt' ></i>
-                                    <input id="first-name" type="text" required />
+                                    <input id="first-name" type="text" placeholder ="Enter first Name" required />
                                     </div>
                                     <span class="invalid-feedback"></span>
                             </div>
@@ -143,10 +143,38 @@
                                     <div class="label">Last Name</div>
                                     <div class="inputForm">
                                     <i class='bx bx-purchase-tag-alt' ></i>
-                                    <input id="last-name" type="text" required />
+                                    <input id="last-name" type="text" placeholder ="Enter last Name" required />
                                     </div>
                                     <span class="invalid-feedback"></span>
                                 </div>
+
+                               <div class="input-field">
+                                    <div class="label">Select Pet</div>
+                                    <div class="inputForm">
+                                    <i class='bx bx-purchase-tag-alt' ></i>
+                                    <Select id="pet" placeholder="Select a Pet">
+
+                                    <option disabled selected value=" ">
+                                        Select a Pet
+                                    </option>
+
+
+                                    <?php foreach($data['pet'] as $pet) : ?>
+
+                                        <option value=" <?php echo $pet->id?>">
+                                          Id: <?php echo $pet->id?>  | <?php echo $pet->pet?>
+                                        </option>
+
+
+                                    <?php endforeach; ?>
+
+
+                                    </Select>
+                                    </div>
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                
+                                
                        
                         </div>
                     
