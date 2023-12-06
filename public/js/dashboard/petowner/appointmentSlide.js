@@ -173,6 +173,11 @@ function initMultiStepForm() {
         var timeInput = document.getElementById("time");
         var dateInput = document.getElementById("litepicker");
 
+
+        var selectPet = document.getElementById('pet');
+        var selectOption = selectPet.options[selectPet.selectedIndex];
+        
+
         // Get the value of the input element
         var lastNameValue = lastNameInput.value;
         var firstNameValue = firstNameInput.value;
@@ -180,10 +185,19 @@ function initMultiStepForm() {
         var dateValue = dateInput.value;
 
 
+       // Extract pet ID and name from the selected option
+        var petText = selectOption.text.trim();
+        var petIdMatch = petText.match(/Id: (\d+)/i); // Match the ID pattern
+
+        var petId = petIdMatch ? petIdMatch[1] : ''; // Extract the matched ID, if any
+        var petName = petText.replace(/Id: \d+/i, '').replace(/^\s*\|\s*/, '').trim(); // Remove the ID and leading pipe, if any
+
         // Get the span element by its id
         var petOwnerNameSpan = document.getElementById("pet-owner-name");
         var timeSpan = document.getElementById("time-last");
         var dateSpan = document.getElementById("date-last");
+        var petIdSpan = document.getElementById("pet-id");
+        var petNameSpan = document.getElementById("pet-name");
 
 
     
@@ -191,6 +205,9 @@ function initMultiStepForm() {
         petOwnerNameSpan.innerHTML = firstNameValue + ' ' + lastNameValue;
         timeSpan.innerHTML = timeValue;
         dateSpan.innerHTML = dateValue;
+        petIdSpan.innerHTML = petId;
+        petNameSpan.innerHTML = petName;
+
 
 
     }

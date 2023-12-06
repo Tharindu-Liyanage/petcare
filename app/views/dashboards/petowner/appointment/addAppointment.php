@@ -152,7 +152,7 @@
                                     <div class="label">Select Pet</div>
                                     <div class="inputForm">
                                     <i class='bx bx-purchase-tag-alt' ></i>
-                                    <Select id="pet" placeholder="Select a Pet">
+                                    <select id="pet">
 
                                     <option disabled selected value=" ">
                                         Select a Pet
@@ -161,7 +161,7 @@
 
                                     <?php foreach($data['pet'] as $pet) : ?>
 
-                                        <option value=" <?php echo $pet->id?>">
+                                        <option value="<?php echo $pet->id?>">
                                           Id: <?php echo $pet->id?>  | <?php echo $pet->pet?>
                                         </option>
 
@@ -169,7 +169,7 @@
                                     <?php endforeach; ?>
 
 
-                                    </Select>
+                                    </select>
                                     </div>
                                     <span class="invalid-feedback"></span>
                                 </div>
