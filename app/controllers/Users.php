@@ -426,7 +426,7 @@
 
          public function createStaffUserSession($user){
 
-            $_SESSION['user_id'] = $user->StaffID;
+            $_SESSION['user_id'] = $user->staff_id;
             $_SESSION['user_email'] = $user->email;
             $_SESSION['user_fname'] = $user->firstname;
             $_SESSION['user_lname'] = $user->lastname;
@@ -467,6 +467,7 @@
             unset($_SESSION['user_fname']);
             unset($_SESSION['user_lname'] );
             unset($_SESSION['user_mobile']);
+            unset($_SESSION['user_role']);
             unset( $_SESSION['user_profileimage']);
 
             session_destroy();

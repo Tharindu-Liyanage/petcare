@@ -100,7 +100,7 @@
                             foreach($data['staff'] as $staff) : ?>
 
                             <tr>
-                                <td class="id-search"><?php echo $staff->StaffID?></td>
+                                <td class="id-search"><?php echo $staff->staff_id_generate?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $staff->profileImage?>" ><p><?php echo $staff->firstname?> <?php echo $staff->lastname?></p>
                                 </td>
@@ -111,8 +111,8 @@
                                 <td class="action">
                                     
                                     <div class="act-icon">
-                                           <a data-staff-id="<?php echo $staff->StaffID?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removeStaff/<?php echo $staff->StaffID ?>" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updateStaff/<?php echo $staff->StaffID ?>" ><i class='bx bx-edit' ></i></a>      
+                                           <a data-staff-id="<?php echo $staff->staff_id?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removeStaff/<?php echo $staff->staff_id ?>" ><i class='bx bx-trash'></i></a>
+                                           <a href="<?php echo URLROOT;?>/admin/updateStaff/<?php echo $staff->staff_id ?>" ><i class='bx bx-edit' ></i></a>      
                                     </div>
                                     
                                 </td>

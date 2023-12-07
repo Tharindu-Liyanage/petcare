@@ -44,7 +44,7 @@
         public function getStaffDetails(){
             
             $userID = $_SESSION['user_id'];
-            $this->db->query("SELECT * FROM petcare_staff WHERE StaffID != :userID");
+            $this->db->query("SELECT * FROM petcare_staff WHERE staff_id != :userID");
             $this->db->bind(':userID', $userID);
 
             $results = $this->db->resultSet();
@@ -84,7 +84,7 @@
 
         public function updateStaff($data){
 
-            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile  WHERE StaffID = :id');
+            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile  WHERE staff_id = :id');
 
         //bind values
         $this->db->bind(':id',$data['id']);
@@ -111,7 +111,7 @@
          //4 
 
          public function getStaffUserById($id){
-            $this->db->query('SELECT * FROM petcare_staff WHERE StaffID = :id');
+            $this->db->query('SELECT * FROM petcare_staff WHERE staff_id = :id');
             $this->db->bind(':id' , $id);
     
             $row = $this->db->single();
@@ -126,7 +126,7 @@
         //5
 
         public function removeStaffUser($id){
-            $this->db->query('DELETE  FROM petcare_staff WHERE StaffID = :id');
+            $this->db->query('DELETE  FROM petcare_staff WHERE staff_id = :id');
             $this->db->bind(':id' , $id);
             
             $row = $this->db->single();
@@ -429,11 +429,12 @@
                 'SELECT a.*, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , staff.firstname as fname , staff.lastname as lname , staff.profileImage as vetpic
                 FROM petcare_appointments a
                 JOIN petcare_pet p ON a.pet_id = p.id
-                JOIN petcare_staff staff ON a.vet_id = staff.StaffID
+                JOIN petcare_staff staff ON a.vet_id = staff.staff_id
                 WHERE a.petowner_id = :id
                 ORDER BY a.appointment_date DESC , a.appointment_time DESC');
 
             $this->db->bind(':id' , $id);
+           
 
             $results = $this->db->resultSet();
 

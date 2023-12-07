@@ -97,7 +97,7 @@
 
                             
                             <tr>
-                                <td class="id-search"><?php echo $pet->id?></td>
+                                <td class="id-search"><?php echo $pet->pet_id_generate?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> profileImage ?>" ><p><?php echo $pet->pet?></p>
                                 </td class="id-search">

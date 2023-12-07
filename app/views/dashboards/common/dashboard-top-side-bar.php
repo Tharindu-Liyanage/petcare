@@ -68,7 +68,16 @@
 
          <ul class="sidemenu">
             <li>
-               <a href="<?php echo URLROOT; ?>/users/staffLogout" class="logout">
+            <?php if($_SESSION['user_role'] == "Pet Owner"){
+               echo '<a href="' . URLROOT . '/users/Logout" class="logout">';
+
+            }else{
+               echo '<a href="' . URLROOT . '/users/staffLogout" class="logout">';
+
+            } ?>
+               
+
+
                <i class='bx bx-log-out' ></i>
                <span class="lo">Logout </span> 
                </a>

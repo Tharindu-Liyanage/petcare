@@ -70,7 +70,7 @@
                             <?php foreach($data['petowners'] as $petowner) : ?>
 
                             <tr>
-                                <td><?php echo $petowner->id?></td>
+                                <td><?php echo $petowner->petowner_id_generate?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner->profileImage?>" ><p><?php echo $petowner->first_name?> <?php echo $petowner->last_name?></p>
                                 </td>

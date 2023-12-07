@@ -115,7 +115,7 @@
                             foreach($data['appointment'] as $appointment) : ?>
 
                             <tr>
-                                <td class="id-search"><?php echo $appointment->id?></td>
+                                <td class="id-search"><?php echo $appointment->appointment_id?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $appointment->propic?>" ><p><?php echo $appointment->pet_name?></p>
                                 </td>

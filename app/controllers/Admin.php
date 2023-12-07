@@ -14,6 +14,7 @@
                 if($_SESSION['user_role'] != "Admin"){
 
                     // Unauthorized access
+                    
                     redirect('users/staff');
                      
                 }
@@ -315,7 +316,7 @@
                 $staff_user =$this->dashboardModel-> getStaffUserById($id);
 
 
-                if($staff_user -> StaffID == $_SESSION['user_id']){
+                if($staff_user -> staff_id == $_SESSION['user_id']){
                     redirect('admin/setting');
                 }
 
