@@ -11,5 +11,11 @@
     define('APPROOT', dirname(dirname(__FILE__)));
     // URL Root
     define('URLROOT','http://localhost/petcare');
+
+    //storage path
+
+    define('STORAGE_PATH', 'http://localhost/petcare/public/storage');
+
+
     // Site Name
     define('SITENAME', 'PetCare');

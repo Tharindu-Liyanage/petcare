@@ -1,0 +1,183 @@
+
+main .box{
+    background-color: var(--light);
+    padding: 18px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+main .box .title-line{
+    display: flex;
+    grid-gap: 25px;
+    border-bottom: 2px solid var(--grey);
+    padding: 10px;
+}
+
+main .box .title-line .title-line-text{
+    font-weight: 550;
+    font-size: 1.2rem;
+}
+
+main .box .bottom-part{
+    display: flex;
+    grid-gap: 200px;
+    padding: 50px;  
+}
+
+main .box .bottom-part div{
+    width: 250px;
+}
+
+main .box .bottom-part .pet{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 5px;
+}
+
+.pet-text{
+    font-weight: 500;
+}
+
+.pet-box{
+    border: 2px solid lightgray;
+    padding: 5px;
+    display: flex;
+    grid-gap: 10px;
+    border-radius: 10px;
+}
+
+.bottom-part .right{
+    margin-top: 10px;
+}
+
+.pet-box input{
+    background: none;
+    border: none;
+}
+
+main .box .bottom-part .veterinarian{
+    flex-direction: column;
+    grid-gap: 5px;
+}
+
+.veterinarian-text{
+    font-weight: 500;
+}
+
+.veterinarian-box{
+    border: 2px solid lightgray;
+    padding: 5px;
+    display: flex;
+    grid-gap: 10px;
+    border-radius: 10px;
+}
+
+.veterinarian-box input{
+    background: none;
+    border: none;
+}
+
+.main .box .bottom-part .type{
+    flex-direction: column;
+    grid-gap: 5px;
+}
+
+.type-text{
+    font-weight: 500;
+}
+
+.type-box{
+    border: 2px solid lightgray;
+    padding: 5px;
+    display: flex;
+    grid-gap: 10px;
+    border-radius: 10px;
+}
+
+.type-box input{
+    background: none;
+    border: none;
+}
+
+.bottom-part .right{
+    margin-top: 25px;
+}
+
+.main .box .bottom-part .date{
+    flex-direction: column;
+    grid-gap: 5px;
+}
+
+.date-text{
+    font-weight: 500;
+}
+
+.date-box{
+    border: 2px solid lightgray;
+    padding: 5px;
+    display: flex;
+    grid-gap: 10px;
+    border-radius: 10px;
+}
+
+.date-box input{
+    background: none;
+    border: none;
+}
+
+.main .box .bottom-part .time{
+    flex-direction: column;
+    grid-gap: 5px;
+}
+
+.time-text{
+    font-weight: 500;
+}
+
+.time-box{
+    border: 2px solid lightgray;
+    padding: 5px;
+    display: flex;
+    grid-gap: 10px;
+    border-radius: 10px;
+}
+
+.time-box input{
+    background: none;
+    border: none;
+}
+
+.bottom-part .left div{
+    margin: 10px;
+}
+
+.bottom-part .right div{
+    margin: 10px;
+}
+
+.box .footer .button-set{
+    display: flex;
+    padding-left: 70px;
+    grid-gap: 40px;
+    
+}
+.footer .button-set button{
+    padding: 10px 50px 10px 50px;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    border: 2px solid var(--dark);
+    font-weight: 550;
+    font-size: 0.8rem;
+}
+
+.footer .button-set .update-button{
+    background-color: #1976D2;
+    border: none;
+    color: white;
+}
+
+.selection-dropdown{
+    border: none;
+    background: none;
+    width: 200px;
+}

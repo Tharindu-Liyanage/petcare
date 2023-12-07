@@ -6,11 +6,22 @@
   class Controller {
     // Load model
     public function model($model){
+
+      $modelPath = '../app/models/' . $model . '.php';
+
+
       // Require model file
+    
       require_once '../app/models/' . $model . '.php';
 
       // Instatiate model
       return new $model();
+
+      
+
+         
+
+
     }
 
     // Load view
@@ -20,7 +31,7 @@
         require_once '../app/views/' . $view . '.php';
       } else {
         // View does not exist
-        die('View does not exist');
+        header("Location: " . URLROOT . "/errorhandler/notfound");
       }
     }
   }

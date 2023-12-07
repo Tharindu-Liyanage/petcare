@@ -1,0 +1,107 @@
+
+main .home-box{
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 19px;
+    margin-top: 25px;
+    height: 180px;
+}
+
+main .home-box .home-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+main .home-box .home-left .home-text-large{
+    font-size: 2rem;
+    font-weight: 300;
+}
+main .home-box .home-left .home-text-large span{
+    font-weight: 550;
+    color: var(--dark);
+}
+
+main .home-box .home-left .home-text-small{
+    border-bottom: 1px solid --grey;
+    font-weight: 200;
+}
+
+main .home-box .home-left .home-text-small span{
+    color: var(--primary);
+}
+
+main .home-box .home-right img{
+    position: absolute;
+    margin-top: -65px;
+    margin-left: -150px;
+}
+
+main .home-box2{
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 19px;
+    margin-top: 25px;
+}
+main .home-box2 .home-left2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+
+main .home-box2 .home-left2 .home-text-large{
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+main .home-box2 .home-left2 .home-text-large span{
+    font-weight: 550;
+}
+
+main .home-box2 .home-left2 .date-time-type{
+    display: flex;
+    grid-gap: 20px;
+}
+main .home-box2 .home-left2 .buttons {
+    display: flex;
+    grid-gap: 15px;
+}
+
+main .home-box2 .home-left2 .date-time-type div{
+    font-weight: 450;
+}
+
+main .home-box2 .home-left2 .date-time-type span{
+    font-weight: 150;
+}
+
+main .home-box2 .home-left2 .buttons .button{
+    padding: 5px;
+    border-radius: 5px;
+    background: none;
+    border: 2px solid var(--dark);
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 600;
+}
+
+main .home-box2 .home-left2 .buttons .treatment-button{
+    background-color: #667EEA;
+    border: none;
+    color: white;
+}
+
+main .home-box2 .home-right img{
+    width: 150px; /* Set your desired width */
+  height: 150px; /* Set your desired height */
+  border-radius: 50%;
+  object-fit: cover; /* Maintain aspect ratio and clip overflow */
+
+}
+
+
+/* meadia query*/

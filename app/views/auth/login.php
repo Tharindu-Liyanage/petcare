@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/login.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <title>Login</title>
 </head>
@@ -15,7 +17,7 @@
             <form  action="<?php echo URLROOT; ?>/users/login" method="post">
 
                 <div class="logo">
-                    <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
+                   <a href="<?php echo URLROOT; ?>/home" ><img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png"> </a>
                     <span class="logo-txt">PetCare<span class="logo-dot">.</span></span>
                     
                 </div>
@@ -52,7 +54,14 @@
                   <div class="Q1 Q2">
                     <img class="img img2" src="<?php echo URLROOT;?>/public/img/auth/warn.svg" alt=""><span>Don’t have an account? <a href="<?php echo URLROOT;?>/users/signup">Create your account.</a></span>
                   </div>
+
+                  <div class="Q1 Q2 Q3">
+                    <img class="img img2" src="<?php echo URLROOT;?>/public/img/auth/warn.svg" alt=""><span><a href="<?php echo URLROOT;?>/users/staff">Staff Login Portal.</a></span>
+                  </div>
+
                 </div>
+
+            
 
 
                 </div>
@@ -80,7 +89,7 @@
     <!--this from the helpers -->
 
     <?php toast_notification("Signup Successful","You can now log in with your credentials.","fa-solid fa-xmark close"); ?>
-   <script src="<?php echo URLROOT; ?>/public/js/script.js"></script>
+   <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
 
 
     
