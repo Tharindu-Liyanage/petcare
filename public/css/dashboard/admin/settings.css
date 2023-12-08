@@ -79,24 +79,22 @@
 
 
 .content main .name .name-text{
-    width: 43%;
+   margin-right: 0px;
 }
 
 
 
-.name .right-name{
-    display: flex;
-    margin-left: 30px;
-    grid-gap: 10px;
-}
-.name .right-name input{
-    width: 45%;
-}
+
+
 .lastname-textbox{
-    flex-grow: 1;
+    
+    
+    
 }
 .firstname-textbox{
-    margin-left: 55px;
+    
+    
+    margin-left: 410px;
 }
 
 .content main .email,.address, .mobile, .nic ,.name ,.current-password  {
@@ -269,17 +267,22 @@
 .billing-email .billing-email-left .billing-email-text-small{
     font-size: 0.7rem;
     color: var(--dark-grey);
+
     
 }
 .billing-email .billing-email-left .billing-email-text{
     width: 40%;
 }
 
+.billing-email-textbox{
+    flex-grow: 1;
+}
+
 .text-box1{
     flex-grow: 1;
     border-radius: 10px;
     padding: 5px;
-    border: 1px solid #F8F9FD;
+    border: 1px solid var(--dark-grey);
     
 }
 .content-box .inner-content {
@@ -314,6 +317,7 @@
     width:50%;
     border-radius: 10px;
     border: none;
+    border: 1px solid var(--dark-grey);
 }
 
 .province-email-textbox ,.city-email-textbox {
@@ -444,5 +448,3 @@
         display: none;
     }
 }
-
-
