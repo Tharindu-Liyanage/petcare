@@ -57,16 +57,13 @@
 
     <div class="contents" data-aos="fade-in">
 
-        <div class="left-content" >
+        
             <h3 class="title1"> Welcome to <br><span class="title2">PetCare</span></h3>
             <p>Your Pet's Home for Care. We're passionate about pets and committed to their well-being. Schedule an appointment today and experience top-quality veterinary care!"</p>
-        <div data-aos="fade-up"  data-aos-delay="1"> <a href="#" class="btn" >Make Appointment</a></div> 
-        </div>
+            <div data-aos="fade-up"  data-aos-delay="1"> <a href="#" class="btn" >Make Appointment</a></div> 
+        
 
-        <div class="right-content" >
-            <img src="<?php echo URLROOT;?>/public/img/home/home-dog-1.svg" alt="puppy">
-        </div>
-    
+       
     </div>
 
 

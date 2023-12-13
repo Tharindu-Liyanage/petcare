@@ -307,6 +307,12 @@
 
         18. getPetDetails
 
+        19. getTimeSlots
+
+        20. checkAvailbility  - ajax requst get data
+
+        21. getVetDetails
+
         ================================================================================
         
         */
@@ -461,6 +467,149 @@
             return $results;
 
         }
+
+        //19
+
+        public function getTimeSlots(){
+
+            $this->db->query(
+
+                'SELECT *
+                FROM petcare_timeslots');
+
+            
+
+            $results = $this->db->resultSet();
+
+            return $results;
+
+        }
+
+        //20
+
+        public function checkAvailability($selectedTime, $selectedDate, $selectedVetId){
+
+
+            
+
+            $this->db->query(
+
+                //SELECT * FROM petcare_appointments WHERE appointment_date = "2023-11-18" AND appointment_time = "09:00 AM" AND vet_id=30;
+                
+
+                'SELECT *
+                FROM petcare_appointments
+                WHERE appointment_date =:selectedDate AND appointment_time =:selectedTime AND vet_id = :selectedVetId');
+
+            
+
+            $this->db->bind(':selectedDate' , $selectedDate);
+            $this->db->bind(':selectedTime' , $selectedTime);
+            $this->db->bind(':selectedVetId', $selectedVetId);
+
+
+          
+            $row = $this->db->single();
+
+            
+
+        
+            if($this->db->rowCount()> 0){
+                
+                return false;
+            }else{
+                
+                return true;
+               
+            }
+
+
+
+        }
+
+
+        //21
+
+        public function getVetDetails(){
+
+            $this->db->query(
+
+                'SELECT *
+                FROM petcare_staff
+                WHERE role = "Doctor" ');
+
+
+            $results = $this->db->resultSet();
+
+            return $results;
+
+
+        }
+
+        //22 
+
+        public function getHolidayDetails(){
+
+            $this->db->query(
+
+                'SELECT day
+                FROM petcare_holiday
+                WHERE holiday = "true" ');
+
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        //23 
+
+        public function timeSlotLock($selectedTime, $selectedDate, $selectedVetId,$endTimeLock,$startTimeLock){
+
+            $this->db->query(
+
+                'INSERT INTO petcare_temp_lock_timeslots (time,date,vet_id,end_time,receive_time,status) VALUES(:selectedTime, :selectedDate, :selectedVetId, :endTimeLock,:startTimeLock, "1")');
+
+
+
+                $this->db->bind(':selectedTime',$selectedTime);
+                $this->db->bind(':selectedDate',$selectedDate);
+                $this->db->bind(':selectedVetId',$selectedVetId);
+                $this->db->bind(':endTimeLock',$endTimeLock);
+                $this->db->bind(':startTimeLock',$startTimeLock);
+            
+    
+            //execute
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }
+              
+        }
+
+        //24
+
+        public function checkTimeSlotIsLocked($selectedTime, $selectedDate, $selectedVetId){
+           
+            $this->db->query('
+                SELECT *
+                FROM petcare_temp_lock_timeslots
+                WHERE time = :selectedTime AND date = :selectedDate AND vet_id = :selectedVetId AND status = 1
+            ');
+        
+            $this->db->bind(':selectedTime', $selectedTime);
+            $this->db->bind(':selectedDate', $selectedDate);
+            $this->db->bind(':selectedVetId', $selectedVetId);
+        
+            $row = $this->db->single();
+
+            if($row){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
 
 
 

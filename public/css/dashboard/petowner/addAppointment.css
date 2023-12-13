@@ -749,6 +749,32 @@ form.secActive .form.first{
   
 }
 
+.booked{
+  pointer-events: none;
+  background-color: #FFE6E3;
+  color:#D56059;
+
+}
+
+.booked:hover{
+  background-color: var(--danger-hoover);
+}
+
+.locked{
+  pointer-events: none;
+  background-image:url(../../../img/auth/lock.svg);
+  background-color: #E6EFFF;
+  color:#608CD5;
+  background-repeat: no-repeat;
+  background-position: 30%;
+}
+
+.old-timeslot{
+  pointer-events: none;
+  text-decoration: line-through;
+}
+
+
 .time-slot:hover{
   background-color: var(--grey);
 }

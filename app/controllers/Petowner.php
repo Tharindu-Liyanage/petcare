@@ -342,9 +342,17 @@
         public function addAppointment(){
 
             $pets = $this->dashboardModel->getPetDetailsByPetownerID($_SESSION['user_id']);
+            $vets = $this->dashboardModel->getVetDetails();
+            $time_slots = $this->dashboardModel->getTimeSlots();
+            $holidays = $this->dashboardModel->getHolidayDetails();
+           
 
+        
             $data = [
-                'pet' =>$pets
+                'pet' =>$pets,
+                'time_slots' => $time_slots,
+                'vet' => $vets,
+                'holiday' => $holidays
             ];
 
             $this->view('dashboards/petowner/appointment/addAppointment', $data);
@@ -363,6 +371,8 @@
             require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
             \Stripe\Stripe::setApiKey('sk_test_51OIDiCEMWpdWcJS8G3LlaRo4qgZbpY9h0FHWQLqWZOLJEg7eVJDCQkGQLS14M2KkUuGWoiDbfdOFJbRuNR7eUNSK004utEcz6Y');
             
+            $expiresAt = time() + (30 * 60); // in 30 min this will expire
+            $expirationDescription = date('Y-m-d H:i:s', $expiresAt);
             
             // Create a payment session
             $paymentSession = \Stripe\Checkout\Session::create([
@@ -376,6 +386,8 @@
                 ]],
                 'success_url' => 'http://localhost/petcare/petowner/appointment',
                 'cancel_url' => 'http://localhost/petcare/petowner/',
+                "expires_at" => $expiresAt,
+                
             ]);
         
             // Redirect to the Payment Link URL
@@ -386,6 +398,82 @@
         public function appointmentSuccess(){
 
         }
+
+        public function checkAvailabilityTimeSlots(){
+
+            //this get data from ajax request. 
+
+            $postData = json_decode(file_get_contents('php://input'), true);
+            
+            if (isset($postData['selectedTime'], $postData['selectedDate'], $postData['selectedVetId'])) {
+                $selectedTime = $postData['selectedTime'];
+                $selectedDate = $postData['selectedDate'];
+                $selectedVetId = $postData['selectedVetId'];
+            
+                $availability = $this->dashboardModel->checkAvailability($selectedTime, $selectedDate, $selectedVetId);
+
+                //true mean booked
+
+                echo json_encode(['available' => $availability]);
+            } else {
+                echo json_encode(['error' => 'Missing POST parameters']);
+            }
+        }
+
+        public function timeSlotBookedOrLocked(){
+
+            //this get data from ajax request. 
+
+            $postData = json_decode(file_get_contents('php://input'), true);
+            
+            if (isset($postData['selectedTime'], $postData['selectedDate'], $postData['selectedVetId'])) {
+                $selectedTime = $postData['selectedTime'];
+                $selectedDate = $postData['selectedDate'];
+                $selectedVetId = $postData['selectedVetId'];
+            
+                $isBooked = $this->dashboardModel->checkAvailability($selectedTime, $selectedDate, $selectedVetId);
+                $isLocked = $this->dashboardModel->checkTimeSlotIsLocked($selectedTime, $selectedDate, $selectedVetId);
+
+                $availability = '';
+
+                if($isLocked){
+
+                    $availability ="locked";
+                }else if(!$isBooked){  //true mean book slot availble(not booked)
+
+                    $availability = "booked";
+                }
+
+                echo json_encode(['available' => $availability]);
+            } else {
+                echo json_encode(['error' => 'Missing POST parameters']);
+            }
+        }
+
+
+        public function timeSlotLock(){  //lock time slot
+
+            $postData = json_decode(file_get_contents('php://input'), true);
+            if (isset($postData['selectedTime'], $postData['selectedDate'], $postData['selectedVetId'], $postData['endTimeLock'], $postData['startTimeLock'])) {
+                $selectedTime = $postData['selectedTime'];
+                $selectedDate = $postData['selectedDate'];
+                $selectedVetId = $postData['selectedVetId'];
+                $endTimeLock = $postData['endTimeLock'];
+                $startTimeLock = $postData['startTimeLock'];
+            
+                $locked = $this->dashboardModel->timeSlotLock($selectedTime, $selectedDate, $selectedVetId,$endTimeLock,$startTimeLock);
+                echo json_encode(['locked' => $locked]);
+            } else {
+                echo json_encode(['error' => 'Missing POST parameters']);
+            }
+
+        }
+
+
+        
+
+
+        
         
         
 
