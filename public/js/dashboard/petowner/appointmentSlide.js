@@ -1,5 +1,6 @@
 initMultiStepForm();
 
+
 function initMultiStepForm() {
     const progressNumber = document.querySelectorAll(".step").length;
     const slidePage = document.querySelector(".slide-page");
@@ -37,7 +38,7 @@ function initMultiStepForm() {
             
             // inputsValid = true;
 
-            if (inputsValid) {
+            if (inputsValid) {  // if only valid it goes to next page
                slidePage.style.marginLeft = `-${
                     (100 / stepsNumber) * current
                 }%`;
@@ -65,48 +66,99 @@ function initMultiStepForm() {
     }
 
     submitBtn.addEventListener("click", async function () {
-        submitBtn.disabled = true;
-        
-
+        submitBtn.disabled = true; // bcz stop submitting before check errrors
+    
         var timeInput = document.querySelector('input[type="radio"][name="time"]:checked');
+        var dateInput = document.getElementById("litepicker");
+    
+        try {
 
-        var isBookedOrLocked = await timeSlotBookedOrLocked(timeInput.value);
+                 /*
+                        --ERRORS IN SUBMIT PAGE--
 
-        if(isBookedOrLocked == "booked" || isBookedOrLocked == "locked"){
+                        1.Time can be booked or loked after render submit page.
+                        2.Time slot can be old, eg- now time 8.35 AM and user select old renderd time slot 8.30 AM   * if only selected date today
+                        3.Date can be a holiday.
+                        
 
-            let errorTitleElementFinal = document.getElementById('error-final-title');
-            errorTitleElementFinal.innerHTML = `❌Time slot not available: already booked or locked by another user.`;
-            document.getElementById('error-final-container').style.display = 'block';
+                */
 
-            setTimeout(() => {
-                document.getElementById('error-final-container').style.display = 'none';
-            }, 5000);
 
+            var isBookedOrLocked = await timeSlotBookedOrLocked(timeInput.value);
+            var isHoliday = await checkHoliday();
+
+            var oldtime =false;
+
+            var currentTime = new Date(); 
+
+            if (currentTime.toISOString().split('T')[0] === dateInput.value) { // if selcted date today
+
+                //9:00 AM formate to real time formate
+                 var timeDate = timeFormateToOriginal(timeInput.value);
+
+                if(currentTime.getTime() > timeDate.getTime()){
+                    oldtime = true;
+                }else{
+                    oldtime = false;
+                }
             
+            }
+    
+            if ((isBookedOrLocked === "booked" || isBookedOrLocked === "locked") || isHoliday || oldtime) {
 
 
-        }else if(isBookedOrLocked ==""){
+                let errorTitleElementFinal = document.getElementById('error-final-title');
+                if (isBookedOrLocked === "booked" || isBookedOrLocked === "locked") {
+                    errorTitleElementFinal.innerHTML = `❌Time slot not available: already booked or locked by another user.`;
+                } else if (isHoliday) {
+                    errorTitleElementFinal.innerHTML = `❌The selected date is not accessible as it is marked as a holiday.`;
+                } else if (oldtime) {
+                    errorTitleElementFinal.innerHTML = `❌The selected time is not accessible now.`;
+                }
+                
+                document.getElementById('error-final-container').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('error-final-container').style.display = 'none';
+                }, 5000);
 
-           
-            document.getElementById('error-final-container').style.display = 'none';
 
-            await timeSlotLock(timeInput.value);
-
-
-            bullet[current - 1].classList.add("active");
-            progressCheck[current - 1].classList.add("active");
-            progressText[current - 1].classList.add("active");
-            current += 1;
-
-            document.getElementById('appointment-form').submit();
-
-        }  
+            } else if (isBookedOrLocked === "" && !isHoliday && !oldtime) {
+                document.getElementById('error-final-container').style.display = 'none';
+                await timeSlotLock(timeInput.value);
+                bullet[current - 1].classList.add("active");
+                progressCheck[current - 1].classList.add("active");
+                progressText[current - 1].classList.add("active");
+                current += 1;
+                document.getElementById('appointment-form').submit();
+            }
+        } catch (error) {
+            console.error('Error processing form submission:', error);
+        } finally {
+            // Enable the button after the asynchronous operations
+            submitBtn.disabled = false;
+        }
     });
+
+
+
+// ===========  Validaint Input Function Start ===========  //
+    
 
     async function validateInputs(ths) {
         let inputsValid = true;
 
-        
+        /*
+        There are 4 pages in slide
+
+        1. slide-page (class name) 1st input page
+        2. datecheck (class name)   calender page
+        3. timecheck (class name)   timeslot page
+        4. submit page (class name)  submit page not in this function .
+
+        */
+
+        //===============  1 st page validating =========================//
+
         if (ths.classList.contains("slide-page")) {
             const inputs = ths.parentElement.parentElement.querySelectorAll(".page.slide-page input ,.page.slide-page select ");
             const errorTitleElement = document.getElementById('error-pageslide-title');
@@ -143,10 +195,14 @@ function initMultiStepForm() {
             } else {
                 // Hide the error container if there are no errors
                 errorContainer.style.display = 'none';
+
             }
         }
         
-        
+        //===============  1 st page validating  over =========================//
+
+
+        //===============  2nd page validating ================================//
           
 
         if (ths.classList.contains("datecheck")) {
@@ -161,34 +217,42 @@ function initMultiStepForm() {
                     errorTitleElementDate.innerHTML = `Error: Please Select a Date`;
                     document.getElementById('error-datecheck-container').style.display = 'block';
                 } else {
-                    litepickerInput.classList.remove("is-invalid");
-                    document.getElementById('error-datecheck-container').style.display = 'none';
-                    
-                    if(getDayName(litepickerInput.value) == 'Monday'){
-                        generateTimeSlotsAndAppend(mondayMorningStartTime,mondayMorningEndTime,mondayAfternoonStartTime,mondayAfternoonEndTime,mondayTimeInterval);
-                    }else if(getDayName(litepickerInput.value) == 'Tuesday'){
-                        generateTimeSlotsAndAppend(tuesdayMorningStartTime,tuesdayMorningEndTime,tuesdayAfternoonStartTime,tuesdayAfternoonEndTime,tuesdayTimeInterval);
-                    
-                    }else if(getDayName(litepickerInput.value) == 'Wednesday'){
-                        generateTimeSlotsAndAppend(wednesdayMorningStartTime,wednesdayMorningEndTime,wednesdayAfternoonStartTime,wednesdayAfternoonEndTime,wednesdayTimeInterval);
-                    }
-                    else if(getDayName(litepickerInput.value) == 'Thursday'){
-                        generateTimeSlotsAndAppend(thursdayMorningStartTime,thursdayMorningEndTime,thursdayAfternoonStartTime,thursdayAfternoonEndTime,thursdayTimeInterval);
-                    }
-                    else if(getDayName(litepickerInput.value) == 'Friday'){
-                        generateTimeSlotsAndAppend(fridayMorningStartTime,fridayMorningEndTime,fridayAfternoonStartTime,fridayAfternoonEndTime,fridayTimeInterval);
-                    }
-                    else if(getDayName(litepickerInput.value) == 'Saturday'){
-                        generateTimeSlotsAndAppend(saturdayMorningStartTime,saturdayMorningEndTime,saturdayAfternoonStartTime,saturdayAfternoonEndTime,saturdayTimeInterval);
-                    }
-                    else if(getDayName(litepickerInput.value) == 'Sunday'){
-                        generateTimeSlotsAndAppend(sundayMorningStartTime,sundayMorningEndTime,sundayAfternoonStartTime,sundayAfternoonEndTime,sundayTimeInterval);
-                    }
-                    
 
+                    /*
+                        --ERRORS IN DATECHECK--
+
+                        1.Day Can be a holiday after rendered calender
+                        2.Not selecte a Date
+
+                    */
+                   
+
+                    var isHoliday = await checkHoliday();
+
+                    if(isHoliday){
+
+                        inputsValid = false;
+                        errorTitleElementDate.innerHTML = `❌The selected date is not accessible as it is marked as a holiday.`;
+                        document.getElementById('error-datecheck-container').style.display = 'block';
+                         setTimeout(() => {
+                             document.getElementById('error-datecheck-container').style.display = 'none';
+                        }, 5000);
+
+
+                    }else{
+                        litepickerInput.classList.remove("is-invalid");
+                        document.getElementById('error-datecheck-container').style.display = 'none';
+                        generateDateHelper(litepickerInput.value);
+                    }
+                    
                 }
             }
         }
+
+        //======================       2nd page validating over ===========================//
+
+
+        //======================       3rd page validating ===========================//
 
         if (ths.classList.contains("timecheck")) {
             console.log('im in time');
@@ -207,8 +271,16 @@ function initMultiStepForm() {
                 
             } else {
                 // At least one radio button with id "time" is checked
-             /*   document.getElementById('error-timecheck-container').style.display = 'none';
-                 updateValueLastPage(); //update last page*/
+
+                /*
+                        --ERRORS IN TIME CHECK--
+
+                        1.Time can be booked or loked after render time slots.
+                        2.Time slot can be old, eg- now time 8.35 AM and user select old renderd time slot 8.30 AM
+                        3.NOt select a time slot.
+
+                */
+             
 
 
                  //values for parameters 
@@ -262,13 +334,17 @@ function initMultiStepForm() {
                         // ======== is Time slot locked over =============//
 
                         
-
+                  
                         //going to check errors
 
                         if (isAvailable && !oldtime && !islocked) {
                             // Time slot is available, proceed with your logic
                             document.getElementById('error-timecheck-container').style.display = 'none';
                             updateValueLastPage(); // update last page
+
+                            
+                            
+
                         } else {
                             // Time slot is not available, handle accordingly
                             console.log('Sorry: Time Slot booked');
@@ -293,12 +369,25 @@ function initMultiStepForm() {
 
             }
         }
+
+        //======================    3rd page validating over ===========================//
         
         
         console.log('yatama')
         console.log(inputsValid);
         return inputsValid;
     }
+
+
+// ===========  Validaint Input Function over ===========  //
+
+
+
+                /*
+                Other function start here, which need for validating pages
+                */
+
+
 
     //============================= GetdatName function here ========================================
 
@@ -523,6 +612,72 @@ function initMultiStepForm() {
         }
     }
 
+    //get holiday day name
+
+    async function getHolidayDateName() {
+        try {
+            const response = await fetch('getHolidayDetails', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // No body for this request
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            return data.holidays;
+        } catch (error) {
+            console.error('Error during fetch:', error);
+            throw error; // Propagate the error
+        }
+    }
+
+    async function checkHoliday() {
+        try {
+          var holidayArray = await getHolidayDateName();
+          var HolidayDateArray = await getNextDaysOfWeek(holidayArray);
+          var dateInputForCheckHoliday = document.getElementById("litepicker").value; // Make sure to get the value property
+      
+          var isHoliday = HolidayDateArray.includes(dateInputForCheckHoliday);
+
+          return isHoliday;
+
+        } catch (error) {
+          console.error('Error checking holiday:', error);
+        }
+      }
+
+
+     function generateDateHelper(date){
+
+        if(getDayName(date) == 'Monday'){
+            generateTimeSlotsAndAppend(mondayMorningStartTime,mondayMorningEndTime,mondayAfternoonStartTime,mondayAfternoonEndTime,mondayTimeInterval);
+        }else if(getDayName(date) == 'Tuesday'){
+            generateTimeSlotsAndAppend(tuesdayMorningStartTime,tuesdayMorningEndTime,tuesdayAfternoonStartTime,tuesdayAfternoonEndTime,tuesdayTimeInterval);
+        
+        }else if(getDayName(date) == 'Wednesday'){
+            generateTimeSlotsAndAppend(wednesdayMorningStartTime,wednesdayMorningEndTime,wednesdayAfternoonStartTime,wednesdayAfternoonEndTime,wednesdayTimeInterval);
+        }
+        else if(getDayName(date) == 'Thursday'){
+            generateTimeSlotsAndAppend(thursdayMorningStartTime,thursdayMorningEndTime,thursdayAfternoonStartTime,thursdayAfternoonEndTime,thursdayTimeInterval);
+        }
+        else if(getDayName(date) == 'Friday'){
+            generateTimeSlotsAndAppend(fridayMorningStartTime,fridayMorningEndTime,fridayAfternoonStartTime,fridayAfternoonEndTime,fridayTimeInterval);
+        }
+        else if(getDayName(date) == 'Saturday'){
+            generateTimeSlotsAndAppend(saturdayMorningStartTime,saturdayMorningEndTime,saturdayAfternoonStartTime,saturdayAfternoonEndTime,saturdayTimeInterval);
+        }
+        else if(getDayName(date) == 'Sunday'){
+            generateTimeSlotsAndAppend(sundayMorningStartTime,sundayMorningEndTime,sundayAfternoonStartTime,sundayAfternoonEndTime,sundayTimeInterval);
+        }
+
+     }
+    
+
     //formate if give 9:00 AM to orginal formate
     function timeFormateToOriginal(time){
         var [hours, minutes, period] = time.match(/(\d+):(\d+) ([APMapm]{2})/).slice(1);
@@ -536,15 +691,9 @@ function initMultiStepForm() {
         return timeDate;
     }
 
-    
 
-    
-    
-      
-    
-      
 
-    //============================= UpdateValueLastPage  ========================================
+    //============================= After time check this UpdateValueLastPage function work  ========================================
 
 
 
@@ -617,9 +766,14 @@ function initMultiStepForm() {
     }
 
 
-
-
-    
-    
+    /*
+    =============other function over ==================
+    */
+  
 }
+
+// initMultiStepForm is over here
+
+
+
 

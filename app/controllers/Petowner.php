@@ -469,6 +469,24 @@
 
         }
 
+        public function getHolidayDetails(){  //lock time slot
+
+            
+           
+                
+                $holidays = $this->dashboardModel->getHolidayDetails();
+
+                if(count($holidays) > 0){
+
+                    echo json_encode(['holidays' => $holidays]);
+
+                }else{
+                    echo json_encode(['holidays' => '']);
+                }
+                
+            
+
+        }
 
         
 

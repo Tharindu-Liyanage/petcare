@@ -390,27 +390,9 @@
     <script>
 
            
-          <?php 
+        
 
-          /*
-            get holidays from database and give it to a javascript array
-          */
-
-                if(count($data['holiday']) == 0){
-
-                    echo  'const targetDays = [];';
-
-                }else{
-
-                    echo 'const targetDays = [';
-                    foreach ($data['holiday'] as $holiday) {
-                        echo "'" . $holiday->day . "',";
-                    }
-                    echo '];';
-
-                 
-                }
-            ?>
+          
 
         
             <?php foreach ($data['time_slots'] as $time_slot) : ?>
