@@ -706,12 +706,15 @@ form.secActive .form.first{
 .cal{
   margin-top: 10px;
   position: relative;
+  height: 230px;
 }
 
 
 #litepicker {
   
   display: none;
+  transition: opacity 0.5s ease-in-out; /* Add a smooth transition for opacity */
+  
 }
 
 .litepicker {
@@ -748,6 +751,32 @@ form.secActive .form.first{
   user-select: none;
   
 }
+
+.booked{
+  pointer-events: none;
+  background-color: #FFE6E3;
+  color:#D56059;
+
+}
+
+.booked:hover{
+  background-color: var(--danger-hoover);
+}
+
+.locked{
+  pointer-events: none;
+  background-image:url(../../../img/auth/lock.svg);
+  background-color: #E6EFFF;
+  color:#608CD5;
+  background-repeat: no-repeat;
+  background-position: 30%;
+}
+
+.old-timeslot{
+  pointer-events: none;
+  text-decoration: line-through;
+}
+
 
 .time-slot:hover{
   background-color: var(--grey);

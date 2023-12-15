@@ -183,22 +183,33 @@ body {
 /*============home start=====================*/
 
 .home{
-    min-height: 100vh;
+   
     background-color: var(--background1);
+    background-image:url(../../img/home/home-dog-1.svg);
+    background-size: 750px;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    background-position: top 25% right 0;
+    
+
 
 }
 
 .home .contents{
-    
+    padding: 0 80px;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     
 }
 
-.home .contents .left-content .title2{
+.home .contents  .title2{
     color:var(--primary);
 }
 
-.home .left-content{
+.home .contents{
     max-width:60rem ;
     padding-left: 6rem;
     padding-top: 20rem;
@@ -207,13 +218,13 @@ body {
 
 
 
-.home .left-content h3{
+.home .contents h3{
     font-size: 7rem;
     color:var(--black);
     line-height: 1.2;
 }
 
-.home .left-content p{
+.home .contents p{
     max-width:50rem ; 
     line-height: 2;
     font-size: 1.7rem;
@@ -615,6 +626,23 @@ footer .copyright{
 
 @media (max-width:768px){
 
+    .home{
+   
+        padding: 0 20px;
+        background-position: 120%;
+        background-size: 500px;
+     }
+     
+     .home .contents{
+         padding: 200px 30px;  
+     }
+
+     .home .contents{
+        max-width:50rem ;
+        
+       
+    }
+
     #menu-btn{
         display: inline-block;
         
@@ -666,6 +694,17 @@ footer .copyright{
 }
 
 @media (max-width:450px){
+    .home{
+   
+       padding: 0 20px;
+       background-position: 55%;
+    }
+    
+    .home .contents{
+        padding: 10px 30px;    
+    }
+
+
     
 }
 

@@ -108,14 +108,14 @@
                                             <div class="current-password">
                                                 
                                                 <label class="password-label" for="password">Password</label>
-                                                <input class="password-box" type="password" id="password" name="password" placeholder="*********">
+                                                <input class="password-box text-box" type="password" id="password" name="password" placeholder="*********">
                                             </div>
 
                                             <div class="new-password">
                                                 
                                                 <label class="password-label" for="password">New password</label>
                                                 <div class="new-password-right">
-                                                    <input class="password-box" type="password" id="password" name="password" placeholder="*********">
+                                                    <input class="password-box text-box" type="password" id="password" name="password" placeholder="*********">
                                                     <div class="new-password-text">
                                                         Your new password must be more than 8 characters.
                                                     </div>
@@ -125,7 +125,7 @@
                                             <div class="new-confirm-password">
                                                 
                                                 <label class="password-label" for="password">Confirm New Password</label>
-                                                <input class="password-box" type="password" id="password" name="password" placeholder="*********">
+                                                <input class="password-box text-box" type="password" id="password" name="password" placeholder="*********">
                                             </div>
 
                                         </div>
@@ -153,7 +153,7 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <input type="text" class="text-box1 billing-email-textbox" placeholder="eg: ucsc123@gmail.com">
+                                                <input type="text" class="text-box billing-email-textbox" placeholder="eg: ucsc123@gmail.com">
                                             </div>
 
                                             <div class="facebook">

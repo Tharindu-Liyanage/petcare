@@ -15,19 +15,12 @@
     
 
 
-
-
      <!-- Include Pickadate.js CSS -->
      <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
     
 
    
   
-
-
-
-
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Dashboard</title>
@@ -107,7 +100,7 @@
             <div class="form-outer">
 
 
-                <form class="form-slide" action="<?php echo URLROOT; ?>/petowner/checkoutAppointment" method="POST">
+                <form id="appointment-form" class="form-slide" action="<?php echo URLROOT; ?>/petowner/checkoutAppointment" method="POST">
 
 
                     <div class="page slide-page">
@@ -173,17 +166,39 @@
                                     </div>
                                     <span class="invalid-feedback"></span>
                                 </div>
+
+
+                                <div class="input-field">
+                                    <div class="label">Select Veterinarian</div>
+                                    <div class="inputForm">
+                                    <i class='bx bx-purchase-tag-alt' ></i>
+                                    <select id="vet">
+
+                                    <option disabled selected value=" ">
+                                    Select a Veterinarian
+                                    </option>
+
+
+                                    <?php foreach($data['vet'] as $vet) : ?>
+
+                                        <option value="<?php echo $vet->staff_id?>">
+                                          <?php echo $vet->firstname?> <?php echo $vet->lastname?>  
+                                        </option>
+
+
+                                    <?php endforeach; ?>
+
+
+                                    </select>
+                                    </div>
+                                    <span class="invalid-feedback"></span>
+                                </div>
                                 
                                 
                        
                         </div>
                     
-                 
-
-                        
-
-                        
-
+                
                         <div class="field">
                             <button class="firstNext next">Next</button>
                         </div>
@@ -241,12 +256,9 @@
                         
                         <div class="time-slot-container scroll-1">
                                         
-                                        <label class="time-slot">
-                                            <input type="radio" id="time" name="time" value="8:00 AM">
-                                            8:00 AM - 8.30 AM
-                                        </label>
+                                        
 
-                                        <label class="time-slot">
+                                      <!--  <label class="time-slot">
                                             <input type="radio" id="time" name="time" value="8:00 AM">
                                             8:00 AM
                                         </label>
@@ -274,7 +286,7 @@
                                         <label class="time-slot">
                                             <input type="radio" id="time" name="time" value="8:00 AM">
                                             8:00 AM
-                                        </label>
+                                        </label>  -->
                                         
                                     </div>
 
@@ -301,6 +313,18 @@
                     <div class="page confirmationcheck">
                         <div class="title">Appointment Confirmation</div>
 
+                         <!-- date check error-->
+
+                         <div class="error-container" id="error-final-container">
+                            <div class="error">
+                                <div class="error__icon">
+                                    <i class='bx bx-error-circle'></i>
+                                </div>
+                                <div class="error__title" id="error-final-title"></div>
+                                <div class="error__close"></div>
+                            </div>
+                        </div>
+
 
                         <div class="grid">
 
@@ -319,7 +343,7 @@
                             <div class="col">
                                 <div class="small-title">Appointment Info</div>
                                 
-                                <div class="label">Veterinarin: Anna</div>
+                                <div class="label">Veterinarin: <span id="vet-last"></div>
                                 <div class="label">Time: <span id="time-last"></span></div>
                                 <div class="label">Date: <span id="date-last"></span></div>
                                 <div class="label">Price: LKR 1500</div>
@@ -329,11 +353,6 @@
                         </div>
 
                         
-                            
-                       
-                        
-                        
-
                         <div class="field btns">
                             <button class="prev-4 prev">Previous</button>
                             <button class="submit">Submit</button>
@@ -360,10 +379,97 @@
 
     </div>
 
+
+
+
    
 
 
     <!-- staff add model over -->
+
+    <script>
+
+           
+        
+
+          
+
+        
+            <?php foreach ($data['time_slots'] as $time_slot) : ?>
+
+            
+            
+            <?php if ($time_slot->day == 'monday' && $time_slot->part_of_day == 'morning') : ?>
+                const mondayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
+                const mondayMorningEndTime = '<?php echo $time_slot->end_time; ?>';
+                const mondayTimeInterval = '<?php echo $time_slot->intervel; ?>';
+
+            <?php elseif ($time_slot->day == 'monday' && $time_slot->part_of_day == 'afternoon') : ?>
+                const mondayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
+                const mondayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+            
+            <?php elseif ($time_slot->day == 'tuesday' && $time_slot->part_of_day == 'morning') : ?>
+                const tuesdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
+                const tuesdayMorningEndTime = '<?php echo $time_slot->end_time; ?>';
+                const tuesdayTimeInterval = '<?php echo $time_slot->intervel; ?>';
+
+            <?php elseif ($time_slot->day == 'tuesday' && $time_slot->part_of_day == 'afternoon') : ?>
+                const tuesdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
+                const tuesdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+
+            <?php elseif ($time_slot->day == 'wednesday' && $time_slot->part_of_day == 'morning') : ?>
+                const wednesdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
+                const wednesdayMorningEndTime = '<?php echo $time_slot->end_time; ?>';
+                const wednesdayTimeInterval = '<?php echo $time_slot->intervel; ?>';
+            
+            <?php elseif ($time_slot->day == 'wednesday' && $time_slot->part_of_day == 'afternoon') : ?>
+                const wednesdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
+                const wednesdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+
+             <?php elseif ($time_slot->day == 'thursday' && $time_slot->part_of_day == 'morning') : ?>
+                const thursdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
+                const thursdayMorningEndTime = '<?php echo $time_slot->end_time; ?>';
+                const thursdayTimeInterval = '<?php echo $time_slot->intervel; ?>';
+            
+             <?php elseif ($time_slot->day == 'thursday' && $time_slot->part_of_day == 'afternoon') : ?>
+                const thursdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
+                const thursdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+            
+             <?php elseif ($time_slot->day == 'friday' && $time_slot->part_of_day == 'morning') : ?>
+                const fridayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
+                const fridayMorningEndTime = '<?php echo $time_slot->end_time; ?>';
+                const fridayTimeInterval = '<?php echo $time_slot->intervel; ?>';
+            
+            <?php elseif ($time_slot->day == 'friday' && $time_slot->part_of_day == 'afternoon') : ?>
+                const fridayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
+                const fridayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+
+            <?php elseif ($time_slot->day == 'saturday' && $time_slot->part_of_day == 'morning') : ?>
+                const saturdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
+                const saturdayMorningEndTime = '<?php echo $time_slot->end_time; ?>';
+                const saturdayTimeInterval = '<?php echo $time_slot->intervel; ?>';
+                
+            
+            <?php elseif ($time_slot->day == 'saturday' && $time_slot->part_of_day == 'afternoon') : ?>
+                const saturdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
+                const saturdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+
+            <?php elseif ($time_slot->day == 'sunday' && $time_slot->part_of_day == 'morning') : ?>
+                const sundayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
+                const sundayMorningEndTime = '<?php echo $time_slot->end_time; ?>';
+                const sundayTimeInterval = '<?php echo $time_slot->intervel; ?>';
+            
+            <?php elseif ($time_slot->day == 'sunday' && $time_slot->part_of_day == 'afternoon') : ?>
+                const sundayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
+                const sundayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+
+            <?php endif; ?>
+
+            <?php endforeach; ?>
+
+        
+
+    </script>
 
    
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/petowner/appointmentSlide.js"></script>
