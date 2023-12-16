@@ -121,7 +121,7 @@
                        <div class="input-container">
 
                        
-                            <div class="input-field">
+                         <!--   <div class="input-field">
                                     <div class="label">First Name</div>
                                     <div class="inputForm">
                                     <i class='bx bx-purchase-tag-alt' ></i>
@@ -129,23 +129,14 @@
                                     </div>
                                     <span class="invalid-feedback"></span>
                             </div>
-                            
-
-                            
-                                <div class="input-field">
-                                    <div class="label">Last Name</div>
-                                    <div class="inputForm">
-                                    <i class='bx bx-purchase-tag-alt' ></i>
-                                    <input id="last-name" type="text" placeholder ="Enter last Name" required />
-                                    </div>
-                                    <span class="invalid-feedback"></span>
-                                </div>
+            
+                        -->
 
                                <div class="input-field">
-                                    <div class="label">Select Pet</div>
+                                    <div class="label">Select a Pet</div>
                                     <div class="inputForm">
                                     <i class='bx bx-purchase-tag-alt' ></i>
-                                    <select id="pet">
+                                    <select id="pet" name="pet">
 
                                     <option disabled selected value=" ">
                                         Select a Pet
@@ -169,10 +160,10 @@
 
 
                                 <div class="input-field">
-                                    <div class="label">Select Veterinarian</div>
+                                    <div class="label">Select a Veterinarian</div>
                                     <div class="inputForm">
-                                    <i class='bx bx-purchase-tag-alt' ></i>
-                                    <select id="vet">
+                                    <i class='bx bx-user-plus' ></i>
+                                    <select id="vet" name="vet">
 
                                     <option disabled selected value=" ">
                                     Select a Veterinarian
@@ -183,6 +174,32 @@
 
                                         <option value="<?php echo $vet->staff_id?>">
                                           <?php echo $vet->firstname?> <?php echo $vet->lastname?>  
+                                        </option>
+
+
+                                    <?php endforeach; ?>
+
+
+                                    </select>
+                                    </div>
+                                    <span class="invalid-feedback"></span>
+                                </div>
+
+                                <div class="input-field">
+                                    <div class="label">Select a Reason</div>
+                                    <div class="inputForm">
+                                    <i class='bx bxs-virus' ></i>
+                                    <select id="reason" name="reason">
+
+                                    <option disabled selected value=" ">
+                                    Select a Reason
+                                    </option>
+
+
+                                    <?php foreach($data['reason'] as $reasons) : ?>
+
+                                        <option value="<?php echo $reasons->reason_name?>">
+                                          <?php echo $reasons->reason_name?> 
                                         </option>
 
 
@@ -224,7 +241,7 @@
                         <!-- litepicker lib calender -->
 
                             <div class="cal"  >
-                               <input type="text" id="litepicker" >
+                               <input type="text" id="litepicker" name="date">
                         </div>
 
                         
@@ -334,7 +351,7 @@
 
                                 <div class="label">Pet Id: <span id="pet-id"></span></div>
                                 <div class="label">Pet Name: <span id="pet-name"></span></div>
-                                <div class="label">Pet Owner: <span id="pet-owner-name"></span></div>
+                                <div class="label">Pet Owner: <span id="pet-owner-name"><?php echo $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']; ?> </span></div>
                                 
                                 
 

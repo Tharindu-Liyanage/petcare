@@ -775,6 +775,8 @@ form.secActive .form.first{
 .old-timeslot{
   pointer-events: none;
   text-decoration: line-through;
+  background-repeat: no-repeat;
+  
 }
 
 

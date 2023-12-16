@@ -701,8 +701,6 @@ function initMultiStepForm() {
 
         //1
         //=============== Get the input element by its id=======================
-        var lastNameInput = document.getElementById("last-name");
-        var firstNameInput = document.getElementById("first-name");
         //var timeInput = document.getElementById("time");
         var timeInput = document.querySelector('input[type="radio"][name="time"]:checked');
         var dateInput = document.getElementById("litepicker");
@@ -735,8 +733,6 @@ function initMultiStepForm() {
 
         //2
         // Get the value of the input element
-        var lastNameValue = lastNameInput.value;
-        var firstNameValue = firstNameInput.value;
         var timeValue = timeInput.value;
         var dateValue = dateInput.value;
 
@@ -745,7 +741,6 @@ function initMultiStepForm() {
 
         //3
         // Get the span element by its id
-        var petOwnerNameSpan = document.getElementById("pet-owner-name");
         var timeSpan = document.getElementById("time-last");
         var dateSpan = document.getElementById("date-last");
         var petIdSpan = document.getElementById("pet-id");
@@ -756,8 +751,6 @@ function initMultiStepForm() {
 
         //4
         // Set the innerHTML of the span element to the value of the input
-
-        petOwnerNameSpan.innerHTML = firstNameValue + ' ' + lastNameValue;
         timeSpan.innerHTML = timeValue;
         dateSpan.innerHTML = dateValue;
         petIdSpan.innerHTML = petId;

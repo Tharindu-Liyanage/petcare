@@ -609,6 +609,43 @@
                 return false;
             }
         }
+
+        //25
+
+        public function getAppointmentReasons(){
+
+            $this->db->query(
+
+                'SELECT *
+                FROM petcare_appointment_reason');
+
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        //26
+        public function insertAppointment($vetID, $reason, $petID, $date, $time){
+
+            $this->db->query(
+
+                'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending")');
+
+                $this->db->bind(':vetID',$vetID);
+                $this->db->bind(':reason',$reason);
+                $this->db->bind(':petID',$petID);
+                $this->db->bind(':date',$date);
+                $this->db->bind(':time',$time);
+                $this->db->bind(':petowner_id',$_SESSION['user_id']);
+            
+    
+            //execute
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }
+        }
         
 
 

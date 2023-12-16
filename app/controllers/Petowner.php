@@ -349,6 +349,7 @@
             $vets = $this->dashboardModel->getVetDetails();
             $time_slots = $this->dashboardModel->getTimeSlots();
             $holidays = $this->dashboardModel->getHolidayDetails();
+            $reason = $this->dashboardModel->getAppointmentReasons();
            
 
         
@@ -356,7 +357,8 @@
                 'pet' =>$pets,
                 'time_slots' => $time_slots,
                 'vet' => $vets,
-                'holiday' => $holidays
+                'holiday' => $holidays,
+                'reason' => $reason
             ];
 
             $this->view('dashboards/petowner/appointment/addAppointment', $data);
@@ -370,38 +372,79 @@
 
 
         public function checkoutAppointment(){
-           
-           
-            require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
-            \Stripe\Stripe::setApiKey('sk_test_51OIDiCEMWpdWcJS8G3LlaRo4qgZbpY9h0FHWQLqWZOLJEg7eVJDCQkGQLS14M2KkUuGWoiDbfdOFJbRuNR7eUNSK004utEcz6Y');
-            
-            $expiresAt = time() + (30 * 60); // in 30 min this will expire
-            $expirationDescription = date('Y-m-d H:i:s', $expiresAt);
-            
-            // Create a payment session
-            $paymentSession = \Stripe\Checkout\Session::create([
-                'payment_method_types' => ['card'],
-                'mode' => 'payment', // Set mode to 'payment' for one-time payments
-                'line_items' => [[
-                    'price' => 'price_1OIZwlEMWpdWcJS8zC9MFJoR', // Use the price ID, not the product ID
-                    'quantity' => 1,
-                    
 
-                ]],
-                'success_url' => 'http://localhost/petcare/petowner/appointment',
-                'cancel_url' => 'http://localhost/petcare/petowner/',
-                "expires_at" => $expiresAt,
-                
-            ]);
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
-            // Redirect to the Payment Link URL
-            header('Location: ' . $paymentSession->url);
-
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                // Store POST data to session variables for later use
+                $_SESSION['appointment_vetID'] = trim($_POST['vet']);
+                $_SESSION['appointment_reason'] = trim($_POST['reason']);
+                $_SESSION['appointment_petID'] = trim($_POST['pet']);
+                $_SESSION['appointment_date'] = trim($_POST['date']);
+                $_SESSION['appointment_time'] = trim($_POST['time']);
+                
+        
+                require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
+                \Stripe\Stripe::setApiKey('sk_test_51OIDiCEMWpdWcJS8G3LlaRo4qgZbpY9h0FHWQLqWZOLJEg7eVJDCQkGQLS14M2KkUuGWoiDbfdOFJbRuNR7eUNSK004utEcz6Y');
+        
+                $expiresAt = time() + (30 * 60); // in 30 min this will expire
+                $expirationDescription = date('Y-m-d H:i:s', $expiresAt);
+        
+                // Create a payment session
+                $paymentSession = \Stripe\Checkout\Session::create([
+                    'payment_method_types' => ['card'],
+                    'mode' => 'payment', // Set mode to 'payment' for one-time payments
+                    'line_items' => [[
+                        'price' => 'price_1OIZwlEMWpdWcJS8zC9MFJoR', // Use the price ID, not the product ID
+                        'quantity' => 1,
+                    ]],
+                    'success_url' => 'http://localhost/petcare/petowner/appointmentSuccess', // Add a query parameter for success
+                    'cancel_url' => 'http://localhost/petcare/petowner/appointment', // Add a query parameter for cancel
+                    "expires_at" => $expiresAt,
+                ]);
+        
+                // Redirect to the Payment Link URL
+                header('Location: ' . $paymentSession->url);
+                exit;
+        
+            } else {
+        
+                // Redirect back to the appointment page if not a POST request or payment success
+                redirect('petowner/appointment');
+            }
         }
+
 
         public function appointmentSuccess(){
 
+            $addApp = $this->dashboardModel->insertAppointment($_SESSION['appointment_vetID'], $_SESSION['appointment_reason'], $_SESSION['appointment_petID'], $_SESSION['appointment_date'], $_SESSION['appointment_time']);
+
+           
+
+            if($addApp){
+                $this->destroyAppointmentSessionVariables();
+                redirect('petowner/appointment');
+            }else{
+                die("error in user delete model");
+            }
+
+           
         }
+
+        public function destroyAppointmentSessionVariables(){
+
+            unset($_SESSION['appointment_vetID']);
+            unset($_SESSION['appointment_reason']);
+            unset($_SESSION['appointment_petID']);
+            unset($_SESSION['appointment_date']);
+            unset($_SESSION['appointment_time']);
+        }
+
+        
+        
+
+        
 
         public function checkAvailabilityTimeSlots(){
 

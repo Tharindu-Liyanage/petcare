@@ -136,7 +136,9 @@
                                 <?php
                                         if ($appointment->status === "Confirmed" || $appointment->status === "Completed" ) {
                                             echo '<td class="status-search status-green">' . $appointment->status . '</td>';
-                                        } else {
+                                        } else if($appointment->status === "Pending") {
+                                            echo '<td class="status-search status-yellow">' . $appointment->status . '</td>';
+                                        }else{
                                             echo '<td class="status-search status-red">' . $appointment->status . '</td>';
                                         }
 
