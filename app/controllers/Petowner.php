@@ -30,7 +30,11 @@
 
         public function index(){
 
-            $data =null;
+            $pets = $this->dashboardModel->getPetDetailsByPetownerID($_SESSION['user_id']);
+
+            $data = [
+                'pet' =>$pets
+            ];
    
             
             $this->view('dashboards/petowner/index', $data);

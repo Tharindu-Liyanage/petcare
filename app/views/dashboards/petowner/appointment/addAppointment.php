@@ -155,7 +155,7 @@
                                     <?php foreach($data['pet'] as $pet) : ?>
 
                                         <option value="<?php echo $pet->id?>">
-                                          Id: <?php echo $pet->id?>  | <?php echo $pet->pet?>
+                                          <?php echo $pet->pet_id_generate?>  | <?php echo $pet->pet?>
                                         </option>
 
 

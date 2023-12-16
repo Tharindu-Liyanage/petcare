@@ -34,17 +34,23 @@ main .home-box .home-left .home-text-large{
     margin-top: -40px;
 }
 
+main .my-pet-box .splide__track .splide__list span.is-pet-empty{
+    margin:auto;
+    text-align: center;
+    color:var(--dark);
+    font-weight: 500;
+}
+
 main .my-pet-box{
-    display: flex;
-    justify-content: space-around;
-    background-color: white;
+   overflow: hidden;
+    background-color: var(--light);
     border-radius:19px ;
     align-items: center;
     padding-top: 25px;
     padding-bottom: 25px;
 }
 
-main .my-pet-box div{
+main .my-pet-box .splide__track .splide__list div{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,12 +58,16 @@ main .my-pet-box div{
     grid-gap: 10px;
 }
 
-main .my-pet-box div img{
+main .my-pet-box .splide__track .splide__list div img{
     border-radius: 50%;
     height: 100px;
     width: 100px;
 }
-main .my-pet-box div .bx{
+
+main .my-pet-box .splide__track .splide__list div .pet-name{
+    color: var(--dark);
+}
+main .my-pet-box .splide__track .splide__list div .bx{
     font-size: 100px;
 }
 

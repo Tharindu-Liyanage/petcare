@@ -712,16 +712,19 @@ function initMultiStepForm() {
 
         //=============== Get the selct element by its id vet and pet======================= //
 
-        var selectPet = document.getElementById('pet');  //pet
-        var selectOption = selectPet.options[selectPet.selectedIndex]; //pet
-
+        var selectPet = document.getElementById('pet');  // Assuming 'pet' is the ID of your <select> element
+        var selectOption = selectPet.options[selectPet.selectedIndex];
         
-        // Extract pet ID and name from the selected option
         var petText = selectOption.text.trim();
-        var petIdMatch = petText.match(/Id: (\d+)/i); // Match the ID pattern
+        var petIdMatch = petText.match(/PET-(\d+) \| (.+)/i);
+        
+        var petId = petIdMatch ? 'PET-' + petIdMatch[1] : '';
+        var petName = petIdMatch ? petIdMatch[2] : '';
+        
+        console.log('Pet ID:', petId);
+        console.log('Pet Name:', petName);
+        
 
-        var petId = petIdMatch ? petIdMatch[1] : ''; // Extract the matched ID, if any
-        var petName = petText.replace(/Id: \d+/i, '').replace(/^\s*\|\s*/, '').trim(); // Remove the ID and leading pipe, if any
 
         const selectVet = document.getElementById('vet'); //vet
         const selectedVetName = selectVet.options[selectVet.selectedIndex].text; //vet name
