@@ -1,5 +1,11 @@
 <?php
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+
+
     class Petowner extends Controller {
 
         public function __construct(){
@@ -20,6 +26,9 @@
             }
 
             $this->dashboardModel = $this->model('Dashboard');
+            require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
+          
+            
         }
 
         public function notfound(){
@@ -385,7 +394,7 @@
                 $_SESSION['appointment_time'] = trim($_POST['time']);
                 
         
-                require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
+                
                 \Stripe\Stripe::setApiKey('sk_test_51OIDiCEMWpdWcJS8G3LlaRo4qgZbpY9h0FHWQLqWZOLJEg7eVJDCQkGQLS14M2KkUuGWoiDbfdOFJbRuNR7eUNSK004utEcz6Y');
         
                 $expiresAt = time() + (30 * 60); // in 30 min this will expire
@@ -420,9 +429,8 @@
 
             $addApp = $this->dashboardModel->insertAppointment($_SESSION['appointment_vetID'], $_SESSION['appointment_reason'], $_SESSION['appointment_petID'], $_SESSION['appointment_date'], $_SESSION['appointment_time']);
 
-           
-
             if($addApp){
+                $this->appointmentSuccessMail();
                 $this->destroyAppointmentSessionVariables();
                 redirect('petowner/appointment');
             }else{
@@ -430,6 +438,223 @@
             }
 
            
+        }
+
+        public function appointmentSuccessMail(){
+          
+            
+            
+            
+                require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+            
+                try {
+                    // Create a new PHPMailer instance
+                    $mail = new PHPMailer(true);
+            
+                    // Set mail configuration (replace with your actual details)
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'petcarevetservices@gmail.com';
+                    $mail->Password = 'jwfe xzpp fyft xeqw'; // Replace with your password
+                    $mail->SMTPSecure = 'tls';
+                    $mail->Port = 587;
+            
+                    // Set email sender details
+                    $mail->setFrom('petcarevetservices@gmail.com', 'PetCare');
+            
+                    // Add recipient address
+                    $mail->addAddress('tharinduprabashwara71@gmail.com', 'Pet Owner Name');
+            
+                    // Set subject and body
+                    $mail->Subject = 'Important Update from Pet Care';
+                    $mail->isHTML(true);
+                                        $mail->Body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" lang="en">
+  
+                                        <head<link rel="preconnect" href="https://fonts.googleapis.com">
+                                        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                                        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+                                          <title>Email template</title>
+                                          <meta property="og:title" content="Email template">
+                                          
+                                      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                                      
+                                      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                      
+                                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                          
+                                          <style type="text/css">
+                                         
+                                            a{ 
+                                              text-decoration: underline;
+                                              color: inherit;
+                                              font-weight: bold;
+                                              color: #253342;
+                                            }
+                                            
+                                            h1 {
+                                              font-size: 56px;
+                                            }
+                                            
+                                              h2{
+                                              font-size: 28px;
+                                              font-weight: 900; 
+                                            }
+                                            
+                                            p {
+                                              font-weight: 100;
+                                            }
+                                            
+                                            td {
+                                          vertical-align: top;
+                                            }
+                                            
+                                            #email {
+                                              margin: auto;
+                                              width: 600px;
+                                              background-color: white;
+                                            }
+                                            
+                                            button{
+                                              font: inherit;
+                                              background-color: #FF7A59;
+                                              border: none;
+                                              padding: 10px;
+                                              text-transform: uppercase;
+                                              letter-spacing: 2px;
+                                              font-weight: 900; 
+                                              color: white;
+                                              border-radius: 5px; 
+                                              box-shadow: 3px 3px #d94c53;
+                                            }
+                                            
+                                            .subtle-link {
+                                              font-size: 9px; 
+                                              text-transform:uppercase; 
+                                              letter-spacing: 1px;
+                                              color: #CBD6E2;
+                                            }
+                                            
+                                          </style>
+                                          
+                                        </head>
+                                          
+                                        <body bgcolor="#F5F8FA" style="width: 100%; margin: auto 0; padding:0; font-family: Poppins, sans-serif; font-size:18px; color:#33475B; word-break:break-word">
+                                        
+                                      
+                                        
+                                        
+                                        <! Banner --> 
+                                               <table role="presentation" width="100%">
+                                                  <tr>
+                                               
+                                                   <td bgcolor="#EAF0F6" align="center" style=" display: grid;  vertical-align: middle; text-align:center">
+                                          <div>
+                                              <img alt="Flower" src="https://i.ibb.co/wQncy57/logo-croped.png" style="width: 200px; height: auto;" align="middle">
+                                          </div>
+                                          <div style="color: #222; font-size:20px;">
+                                              <h1> PetCare! </h1>
+                                          </div>
+                                      </td>
+                                      
+                                              </table>
+                                        
+                                        
+                                        
+                                        
+                                          <! First Row --> 
+                                        
+                                        <table role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 30px 60px;">
+                                           <tr>
+                                             <td>
+                                              <h2> Lorem ipsum dolor sit amet</h2>
+                                                  <p>
+                                                    Ut eget semper libero. Vestibulum non maximus nisl, ut iaculis ante. Nunc arcu elit, cursus eget urna et, tempus aliquam eros. Ut eget semper libero. Vestibulum non maximus nisl, ut iaculis ante. Nunc arcu elit, cursus eget urna et, tempus aliquam eros.  
+                                                  </p>
+                                                      <button> 
+                                                        Button 1
+                                                      </button>
+                                                </td> 
+                                                </tr>
+                                                       </table>
+                                        
+                                        <! Second Row with Two Columns--> 
+                                        
+                                          <table role="presentation" border="0" cellpadding="0" cellspacing="10px" width="100%" style="padding: 30px 30px 30px 60px;">
+                                            <tr>
+                                                <td> 
+                                                 <img alt="Blog" src="https://www.hubspot.com/hubfs/assets/hubspot.com/style-guide/brand-guidelines/guidelines_sample-illustration-3.svg" width="200px" align="middle">
+                                                  
+                                               <h2> Vivamus ac elit eget </h2>
+                                                  <p>
+                                                    Vivamus ac elit eget dolor placerat tristique et vulputate nibh. Sed in elementum nisl, quis mollis enim. Etiam gravida dui vel est euismod, at aliquam ipsum euismod. 
+                                            
+                                                    </p>
+                                        
+                                                </td>
+                                              
+                                                <td>
+                                                  
+                                                  <img alt="Shopping" src="https://www.hubspot.com/hubfs/assets/hubspot.com/style-guide/brand-guidelines/guidelines_sample-illustration-5.svg" width="200px" align="middle">
+                                               <h2> Suspendisse tincidunt iaculis </h2>
+                                                  <p>
+                                                    Suspendisse tincidunt iaculis fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras laoreet elit purus, quis pulvinar ipsum pulvinar et. 
+                                            
+                                                    </p> 
+                                                </td>
+                                                </tr>
+                                            
+                                                  <tr>
+                                                    <td> <button> Button 2 </button> </td> 
+                                                    <td> <button> Button 3 </button> </td> 
+                                                    
+                                        </table>
+                                           
+                                              <! Banner Row --> 
+                                        <table role="presentation" bgcolor="#EAF0F6" width="100%" style="margin-top: 50px;" >
+                                            <tr>
+                                                <td align="center" style="padding: 30px 30px;">
+                                                  
+                                               <h2> Nullam porta arcu </h2>
+                                                  <p>
+                                                    Nam vel lobortis lorem. Nunc facilisis mauris at elit pulvinar, malesuada condimentum erat vestibulum. Pellentesque eros tellus, finibus eget erat at, tempus rutrum justo. 
+                                            
+                                                    </p>
+                                                    <a href="#"> Ask us a question</a>      
+                                                </td>
+                                                </tr>
+                                            </table>
+                                        
+                                              <! Unsubscribe Footer --> 
+                                            
+                                        <table role="presentation" bgcolor="#F5F8FA" width="100%" >
+                                            <tr>
+                                                <td align="left" style="padding: 30px 30px;">
+                                                  <p style="color:#99ACC2"> Made with &hearts; at HubSpot HQ </p>
+                                                    <a class="subtle-link" href="#"> Unsubscribe </a>      
+                                                </td>
+                                                </tr>
+                                            </table> 
+                                            </div>
+                                          </body>
+                                            </html>';
+
+            
+                    // Send the email
+                    $mail->send();
+
+            
+                    $this->destroyAppointmentSessionVariables();
+                    redirect('petowner/appointment');
+
+                } catch (Exception $e) {
+                    // Handle exceptions
+                    echo 'Error: ' . $mail->ErrorInfo;
+                }
+            
+            
+            
+
         }
 
         public function destroyAppointmentSessionVariables(){

@@ -414,6 +414,7 @@
             $_SESSION['user_lname'] = $user->last_name;
             $_SESSION['user_mobile'] = $user->mobile;
             $_SESSION['user_profileimage'] = $user->profileImage;
+            $_SESSION['user_email'] = $user->email;
             $_SESSION['user_role'] = 'Pet Owner';
 
             //redirect to dashboard

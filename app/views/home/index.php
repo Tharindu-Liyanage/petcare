@@ -263,11 +263,14 @@
 
 
  <section class="splide our-team" aria-label="Basic Structure Example">
+
+    <h1 class="headings">our team</a></h1>
+
   <div class="splide__track">
     <ul class="splide__list">
       <li class="splide__slide"> 
         
-                    <div class="card swiper-slide">
+                    <div class="card-team">
                         <div class="card__image">
                         <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
                         </div>
@@ -281,7 +284,7 @@
                     </div>
     </li>
 
-      <li class="splide__slide"> <div class="card swiper-slide">
+      <li class="splide__slide"> <div class="card-team">
                         <div class="card__image">
                         <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
                         </div>
@@ -300,6 +303,7 @@
     </ul>
   </div>
 </section>
+
 
 
 
@@ -383,7 +387,7 @@
     var splide = new Splide('.splide', {
         drag: 'free',
         snap: true,
-        perPage: 1,
+        perPage: 4,
     });
 
     splide.mount();
