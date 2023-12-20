@@ -77,12 +77,12 @@ toggler.addEventListener('change' , function(){
 
         // Retrieve the state of the search bar from local storage
         const isSearchBarShown = localStorage.getItem('searchBarShown');
-        const searchBtnIcon = document.querySelector('.content nav form .form-input button .bx');
-        const searchForm = document.querySelector('.content nav form');
+        //const searchBtnIcon = document.querySelector('.content nav form .form-input button .bx');
+        //const searchForm = document.querySelector('.content nav form');
 
         if (isSearchBarShown === 'true') {
-            searchForm.classList.add('show');
-            searchBtnIcon.classList.replace('bx-search', 'bs-x');
+           // searchForm.classList.add('show');
+           // searchBtnIcon.classList.replace('bx-search', 'bs-x');
         }
 
         const sideLinks = document.querySelectorAll('.sidebar .side-menu li a:not(.logout)');
@@ -106,9 +106,9 @@ toggler.addEventListener('change' , function(){
             localStorage.setItem('sidebarClosed', sideBar.classList.contains('close'));
         });
 
-        const searchBtn = document.querySelector('.content nav form .form-input button');
+     //   const searchBtn = document.querySelector('.content nav form .form-input button');
 
-        searchBtn.addEventListener('click', function (e) {
+    /*    searchBtn.addEventListener('click', function (e) {
             if (window.innerWidth > 768) {
                 e.preventDefault();
                 searchForm.classList.toggle('show');
@@ -121,7 +121,7 @@ toggler.addEventListener('change' , function(){
 
             // Store the state of the search bar in local storage
             localStorage.setItem('searchBarShown', searchForm.classList.contains('show'));
-        });
+        });*/
 
         // Your existing code for the theme toggle
         const toggler = document.getElementById('theme-toggle');

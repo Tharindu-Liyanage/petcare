@@ -282,8 +282,12 @@ body{
 .content nav .bx.bx-menu{
     cursor: pointer;
     color: var(--dark);
+    max-width: 400px;  /*new*/
+    width: 100%;  /*new*/
+    margin-right: auto;  /*new*/
 }
 
+/*
 .content nav form{
     max-width: 400px;
     width: 100%;
@@ -325,6 +329,8 @@ body{
     border-radius: 0 36px 36px 0;
     cursor: pointer;
 }
+
+*/
 
 .content nav .notif{
     font-size: 20px;

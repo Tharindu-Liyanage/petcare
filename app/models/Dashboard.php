@@ -646,6 +646,66 @@
                 return false;
             }
         }
+
+        //27
+
+        public function getVetNameByID($vetID){
+
+            $this->db->query(
+
+                'SELECT firstname, lastname
+                FROM petcare_staff
+                WHERE staff_id = :vetID');
+
+                $this->db->bind(':vetID',$vetID);
+            
+    
+            //execute
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+        //28
+
+       public function getPetNameByID($petID){
+
+            $this->db->query(
+
+                'SELECT pet
+                FROM petcare_pet
+                WHERE id = :petID');
+
+                $this->db->bind(':petID',$petID);
+            
+    
+            //execute
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+        public function getGeneratedIDAppointment($vetid,$reson,$petid,$date,$time){
+                
+                $this->db->query(
+    
+                    'SELECT appointment_id
+                    FROM petcare_appointments
+                    WHERE vet_id = :vetid AND appointment_type = :reson AND pet_id = :petid AND appointment_date = :date AND appointment_time = :time');
+    
+                    $this->db->bind(':vetid',$vetid);
+                    $this->db->bind(':reson',$reson);
+                    $this->db->bind(':petid',$petid);
+                    $this->db->bind(':date',$date);
+                    $this->db->bind(':time',$time);
+                
+        
+                //execute
+                $row = $this->db->single();
+    
+                return $row;
+
+        }
         
 
 
