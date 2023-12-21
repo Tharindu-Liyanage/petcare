@@ -5,7 +5,6 @@
     use PHPMailer\PHPMailer\Exception;
 
 
-
     class Petowner extends Controller {
 
         public function __construct(){
@@ -444,8 +443,7 @@
 
             if($addApp){
                 $this->appointmentSuccessMail();
-                $this->destroyAppointmentSessionVariables();
-                redirect('petowner/appointment');
+                
             }else{
                 die("error in user delete model");
             }
@@ -477,7 +475,7 @@
                     $mail->setFrom('petcarevetservices@gmail.com', 'PetCare');
             
                     // Add recipient address
-                    $mail->addAddress('tharinduprabashwara71@gmail.com', 'Pet Owner Name');
+                    $mail->addAddress($_SESSION['user_email'], 'Pet Owner: ' . $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']);
             
                     // Set subject and body
                     $mail->Subject = 'Important Update from Pet Care';
@@ -493,9 +491,10 @@
                     // Send the email
                     $mail->send();
 
-            
+                    
                     $this->destroyAppointmentSessionVariables();
-                    redirect('petowner/appointment');
+                    $this->appointmentSuccessSMS();
+                    
 
                 } catch (Exception $e) {
                     // Handle exceptions
@@ -504,6 +503,21 @@
             
             
             
+
+        }
+
+        public function appointmentSuccessSMS(){
+
+            // Send SMS
+            $userID = '25385';
+            $apiKey = 'oUsVo2GwuQfTQOWJhecb';
+
+            $customMessage ="Hi, " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . ", Your payment has been received, and your appointment is pending. We will confirm your appointment as soon as it is accepted. Thank you for choosing Pet Care. We look forward to serving you!"; // Replace this with your custom message
+            $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
+            $sendEndpoint = str_replace('[TO]', $_SESSION['user_mobile'], $sendEndpoint);
+            $sendResponse = file_get_contents($sendEndpoint);
+            redirect('petowner/appointment');
+
 
         }
 

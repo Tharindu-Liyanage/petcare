@@ -89,16 +89,14 @@
                 if(empty($data['mobile'])){
                     $data['mobile_err'] = 'Please enter mobile number';
                 }else{
-
-                    if(!preg_match("/^(?:\+?94)?(?:7\d{8})$/", $data['mobile'])){ //check mobile in correct formate, SriLanka
-
-                        $data['mobile_err'] = 'Please enter valid mobile number';
- 
-                    }elseif($this->userModel->findUserByMobile($data['mobile'])){  //check mobile in the DB
-                        
+                    if (!preg_match("/^94\d{9}$/", $data['mobile'])) {
+                        // Check mobile in correct format, Sri Lanka
+                        $data['mobile_err'] = 'Please enter a valid Sri Lankan mobile number starting with 94';
+                    } elseif ($this->userModel->findUserByMobile($data['mobile'])) {
+                        // Check if mobile number is already taken in the DB
                         $data['mobile_err'] = 'Mobile number is already taken';
- 
                     }
+                    
 
                     
                 }

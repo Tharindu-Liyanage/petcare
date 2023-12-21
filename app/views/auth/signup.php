@@ -55,7 +55,7 @@
                     <input class="<?php echo (!empty($data['confirm_password_err'])) ? 'is-invalid' : '' ; ?>" type="password" placeholder="Re-type Password" id="rePwd" value="<?php echo $data['re_password']?>"  name="re_password">
                     <span class="invalid-feedback"><?php echo $data['confirm_password_err']; ?></span>
 
-                    <input class="<?php echo (!empty($data['mobile_err'])) ? 'is-invalid' : '' ; ?>" type="text" placeholder="e.g. 771234567" id="mobile" value="<?php echo $data['mobile']?>"  name="mobile"  >
+                    <input class="<?php echo (!empty($data['mobile_err'])) ? 'is-invalid' : '' ; ?>" type="text" placeholder="e.g. 94771234567" id="mobile" value="<?php echo $data['mobile']?>"  name="mobile"  >
                     <span class="invalid-feedback"><?php echo $data['mobile_err']; ?></span>
                     
                 <div class="signUp-but">
