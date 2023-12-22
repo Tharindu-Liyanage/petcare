@@ -101,6 +101,24 @@
                             span.list {
                                 font-weight: 500;
                             }
+
+                            .app-img{
+                                width:60%; 
+                                height:auto;
+                                display:block; 
+                                margin:0 auto;
+                            }
+
+                            @media screen and (max-width: 500px) {
+                               
+                                .app-img{
+                                    width:100%;
+                                    height:auto;
+                                }
+                                
+                            }
+
+
                         </style>
                     
                     </head>
@@ -134,9 +152,18 @@
                                 <td>
                                     <h2 align="center"> Your payment has been received.</h2>
                                     <p align="left">
-                                        Hi, <b><?php echo $_SESSION['user_fname'];?></b> <?php echo ' <b>' . $_SESSION['user_lname'];?></b> <br> Your payment has been received, and your appointment is pending. We will confirm your appointment as soon as it is accepted. Thank you for choosing Pet Care. We look forward to serving you!
-                    
+                                        Hi, <b><?php echo $_SESSION['user_fname'];?></b> <?php echo ' <b>' . $_SESSION['user_lname'];?></b>
                                     </p>
+                                    <p align="left">
+                                        We wanted to inform you that your payment has been successfully received. Your appointment is currently <b>pending</b> confirmation, and we will notify you as soon as it is accepted.
+                                    </p>
+
+                                    <p align="left">
+                                        Best regards,<br>
+                                        PetCare Team
+                                    </p>
+
+
                     
                                 </td>
                             </tr>
@@ -150,7 +177,7 @@
                     
                                <td align="center" style="padding: 30px 30px; text-align: center;">
                         <h2>Your Appointment Details</h2>
-                        <img alt="Shopping" src="https://i.ibb.co/pb4sFBy/undraw-Booking-re-gw4j-1.png" style="width:60%; height:auto; display:block; margin:0 auto;">
+                        <img class="app-img" alt="Shopping" src="https://i.ibb.co/pb4sFBy/undraw-Booking-re-gw4j-1.png" >
                     
                         <ul style="padding: 0; list-style-type: none; text-align: left; display: inline-block; margin: 0;">
                             

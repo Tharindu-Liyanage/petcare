@@ -512,10 +512,10 @@
             $userID = '25385';
             $apiKey = 'oUsVo2GwuQfTQOWJhecb';
 
-            $customMessage ="Hi, " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . ", Your payment has been received, and your appointment is pending. We will confirm your appointment as soon as it is accepted. Thank you for choosing Pet Care. We look forward to serving you!"; // Replace this with your custom message
+            $customMessage ="Hello " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . ", we've received your payment for the appointment. It's currently pending confirmation. Once accepted, we'll send you a confirmation. Thank you for choosing Pet Care—we're excited to serve you!"; // Replace this with your custom message
             $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
             $sendEndpoint = str_replace('[TO]', $_SESSION['user_mobile'], $sendEndpoint);
-            $sendResponse = file_get_contents($sendEndpoint);
+          //  $sendResponse = file_get_contents($sendEndpoint);
             redirect('petowner/appointment');
 
 
