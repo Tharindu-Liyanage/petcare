@@ -1,4 +1,7 @@
 <?php
+  //load Libraries(dotenv)
+  require_once 'libraries/phpdotenv/vendor/autoload.php';
+  
   // Load Config
   require_once 'config/config.php';
 
@@ -7,9 +10,11 @@
   require_once 'helpers/session_helper.php';
 
 
+
+
   // Autoload Core Libraries
   spl_autoload_register(function ($className) {
-    // Exclude the "NotifyLK" class
+   
     
         require_once 'libraries/' . $className . '.php';
     

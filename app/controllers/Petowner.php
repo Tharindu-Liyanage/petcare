@@ -395,7 +395,7 @@
                 
         
                 
-                \Stripe\Stripe::setApiKey('sk_test_51OIDiCEMWpdWcJS8G3LlaRo4qgZbpY9h0FHWQLqWZOLJEg7eVJDCQkGQLS14M2KkUuGWoiDbfdOFJbRuNR7eUNSK004utEcz6Y');
+                \Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
         
                 $expiresAt = time() + (30 * 60); // in 30 min this will expire
                 $expirationDescription = date('Y-m-d H:i:s', $expiresAt);
@@ -455,7 +455,7 @@
           
             
             
-            
+                
                 require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
             
                 try {
@@ -466,13 +466,13 @@
                     $mail->isSMTP();
                     $mail->Host = 'smtp.gmail.com';
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'petcarevetservices@gmail.com';
-                    $mail->Password = 'jwfe xzpp fyft xeqw'; // Replace with your password
+                    $mail->Username = $_ENV['MAIL_USERNAME'];
+                    $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
                     $mail->SMTPSecure = 'tls';
                     $mail->Port = 587;
             
                     // Set email sender details
-                    $mail->setFrom('petcarevetservices@gmail.com', 'PetCare');
+                    $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
             
                     // Add recipient address
                     $mail->addAddress($_SESSION['user_email'], 'Pet Owner: ' . $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']);
@@ -509,8 +509,8 @@
         public function appointmentSuccessSMS(){
 
             // Send SMS
-            $userID = '25385';
-            $apiKey = 'oUsVo2GwuQfTQOWJhecb';
+            $userID = $_ENV['NOTIFY_USERID'];
+            $apiKey = $_ENV['NOTIFY_APIKEY'];
 
             $customMessage ="Hello " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . ", we've received your payment for the appointment. It's currently pending confirmation. Once accepted, we'll send you a confirmation. Thank you for choosing Pet Care—we're excited to serve you!"; // Replace this with your custom message
             $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
