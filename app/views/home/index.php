@@ -114,7 +114,7 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
+                <h3>Pet Store</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -126,7 +126,7 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
+                <h3>Animal Ward</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -138,20 +138,7 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
-                <p>Shop with us for a range of 
-                    pet food, vitamins, grooming products and pet accessories</p>
-            </div>
-        </div>
-
-
-
-        <div class="column">
-            <div class="card">
-                <div class="icon-wrapper">
-                    <i class="fas fa-hammer"></i>
-                </div>
-                <h3>Service Heading</h3>
+                <h3>Surgery</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -164,7 +151,7 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
+                <h3>OPD</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -177,7 +164,20 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
+                <h3>Testing</h3>
+                <p>Shop with us for a range of 
+                    pet food, vitamins, grooming products and pet accessories</p>
+            </div>
+        </div>
+
+
+
+        <div class="column">
+            <div class="card">
+                <div class="icon-wrapper">
+                    <i class="fas fa-hammer"></i>
+                </div>
+                <h3>Grooming</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -189,6 +189,8 @@
     </div>
  </section>
     <!-- service end-->
+
+    <!-- Blog start -->
 
     <!-- ourteam start-->
   
@@ -272,11 +274,11 @@
         
                     <div class="card-team">
                         <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                        <img src="<?php echo URLROOT;?>/public/img/home/doctor1.png">
                         </div>
 
                         <div class="card__content">
-                        <span class="card__title">Web Designer</span>
+                        <span class="card__title">Veterinarian</span>
                         <span class="card__name">Vanessa Martinez</span>
                         <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
                         <button class="card__btn">View More</button>
@@ -285,6 +287,101 @@
     </li>
 
       <li class="splide__slide"> <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/doctor2.png">
+                        </div>
+
+                        <div class="card__content">
+                        <span class="card__title">Veterinarian</span>
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
+        </li>
+
+
+
+        <li class="splide__slide"> <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/doctor3.png">
+                        </div>
+
+                        <div class="card__content">
+                        <span class="card__title">Veterinarian</span>
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
+        </li>
+
+
+
+        <li class="splide__slide"> <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/nurse.png">
+                        </div>
+
+                        <div class="card__content">
+                        <span class="card__title">Nurse</span>
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
+        </li>
+
+
+
+        <li class="splide__slide"> <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                        </div>
+
+                        <div class="card__content">
+                        <span class="card__title">Store Manager</span>
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
+        </li>
+
+
+
+        <li class="splide__slide"> <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                        </div>
+
+                        <div class="card__content">
+                        <span class="card__title">Assistent</span>
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
+        </li>
+
+
+
+        <li class="splide__slide"> <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                        </div>
+
+                        <div class="card__content">
+                        <span class="card__title">Admin</span>
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
+        </li>
+
+
+        <li class="splide__slide"> <div class="card-team">
                         <div class="card__image">
                         <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
                         </div>
@@ -299,6 +396,20 @@
         </li>
 
 
+        <li class="splide__slide"> <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                        </div>
+
+                        <div class="card__content">
+                        <span class="card__title">Web Designer</span>
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
+        </li>
+
       <li class="splide__slide">Slide 03</li>
     </ul>
   </div>
@@ -312,6 +423,70 @@
 
 
     <!--ourBlog start-->
+    <section id="blog">
+        <div class = "blog-heading">
+            <span>My Recent Posts</span>
+            <h3>My Blog</h3>
+        </div>
+
+        <!-- blog-container -->
+        <div class= "blog-container">
+            <!--box1  -->
+            <div class="blog-box">
+                <!-- img -->
+                <div class="blog-img">
+                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                </div>
+
+                <!--text  -->
+                <div class="blog-text">
+                    <span> 18 july 2023</span>
+                    <a href = "#" class = "blog title"> what Has Happened of All of the web design Ideas?</a>
+                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                    <a href="#">Read More </a>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="blog-box">
+                <!-- img -->
+                <div class="blog-img">
+                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                </div>
+
+                <!--text  -->
+                <div class="blog-text">
+                    <span> 18 july 2023</span>
+                    <a href = "#" class = "blog title"> what Has Happened of All of the web design Ideas?</a>
+                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                    <a href="#">Read More </a>
+                </div>
+            </div>
+
+
+
+
+            <div class="blog-box">
+                <!-- img -->
+                <div class="blog-img">
+                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                </div>
+
+                <!--text  -->
+                <div class="blog-text">
+                    <span> 18 july 2023</span>
+                    <a href = "#" class = "blog title"> what Has Happened of All of the web design Ideas?</a>
+                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                    <a href="#">Read More </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
 
     <!-- ourBlog end-->
 
