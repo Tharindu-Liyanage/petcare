@@ -210,6 +210,37 @@
                                     </div>
                                     <span class="invalid-feedback"></span>
                                 </div>
+
+
+                                <div class="input-field">
+                                    <div class="label">Select a Treatment</div>
+                                    <div class="inputForm">
+                                    <i class='bx bxs-capsule'></i>
+                                    <select id="treatment" name="treatment">
+
+                                    <option disabled selected value=" ">
+                                    Select a Treatment
+                                    </option>
+
+                                    <option   value="NONE">
+                                    New Treatment
+                                    </option>
+
+
+                                    <?php foreach($data['medicalreport'] as $treatment) : ?>
+
+                                        <option value="<?php echo $treatment->treatment_id?>">
+                                          TRT-<?php echo $treatment->treatment_id?> 
+                                        </option>
+
+
+                                    <?php endforeach; ?>
+
+
+                                    </select>
+                                    </div>
+                                    <span class="invalid-feedback"></span>
+                                </div>
                                 
                                 
                        
@@ -349,9 +380,10 @@
 
                                 <div class="small-title">User Info</div>
 
-                                <div class="label">Pet Id: <span id="pet-id"></span></div>
-                                <div class="label">Pet Name: <span id="pet-name"></span></div>
-                                <div class="label">Pet Owner: <span id="pet-owner-name"><?php echo $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']; ?> </span></div>
+                                <div class="label">Pet Id: <span id="pet-id" class="fw-for-confirm"></span></div>
+                                <div class="label">Pet Name: <span id="pet-name" class="fw-for-confirm"></span></div>
+                                <div class="label">Pet Owner: <span id="pet-owner-name"class="fw-for-confirm"><?php echo $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']; ?> </span></div>
+                                <div class="label">Treatment: <span id="treatment-id" class="fw-for-confirm"></span></div>
                                 
                                 
 
@@ -360,10 +392,11 @@
                             <div class="col">
                                 <div class="small-title">Appointment Info</div>
                                 
-                                <div class="label">Veterinarin: <span id="vet-last"></div>
-                                <div class="label">Time: <span id="time-last"></span></div>
-                                <div class="label">Date: <span id="date-last"></span></div>
-                                <div class="label">Price: LKR 1500</div>
+                                <div class="label">Veterinarin: <span id="vet-last" class="fw-for-confirm"></div>
+                                <div class="label">Time: <span id="time-last" class="fw-for-confirm"></span></div>
+                                <div class="label">Date: <span id="date-last" class="fw-for-confirm"></span></div>
+                                <div class="label">Reason: <span id="reason-id" class="fw-for-confirm"></span></div>
+                                <div class="label">Price: <span class="fw-for-confirm">LKR 1500</span></div>
                             </div>
 
 

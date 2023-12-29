@@ -719,13 +719,18 @@ function initMultiStepForm() {
         var petId = petIdMatch ? 'PET-' + petIdMatch[1] : '';
         var petName = petIdMatch ? petIdMatch[2] : '';
         
-        console.log('Pet ID:', petId);
-        console.log('Pet Name:', petName);
+       
         
 
 
         const selectVet = document.getElementById('vet'); //vet
         const selectedVetName = selectVet.options[selectVet.selectedIndex].text; //vet name
+
+        var treatment = document.getElementById('treatment'); //treatment
+        var treatmentText = treatment.options[treatment.selectedIndex].text; //treatment name
+
+        var reason =document.getElementById('reason'); //reason
+        var reasonText = reason.options[treatment.selectedIndex].text; //reason name
 
 
         //=============== Get the selct element by its id vet and pet over======================= //
@@ -746,6 +751,8 @@ function initMultiStepForm() {
         var petIdSpan = document.getElementById("pet-id");
         var petNameSpan = document.getElementById("pet-name");
         var vetNameSpan = document.getElementById("vet-last");
+        var treatmentSpan = document.getElementById("treatment-id");
+        var reasonSpan = document.getElementById("reason-id");
 
     
 
@@ -756,6 +763,8 @@ function initMultiStepForm() {
         petIdSpan.innerHTML = petId;
         petNameSpan.innerHTML = petName;
         vetNameSpan.innerHTML = selectedVetName;
+        treatmentSpan.innerHTML = treatmentText;
+        reasonSpan.innerHTML = reasonText;
 
 
 

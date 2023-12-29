@@ -5,7 +5,7 @@
                         <link rel="preconnect" href="https://fonts.googleapis.com">
                         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-                        <title>Email template</title>
+                        <title>Appointment Pending</title>
                         <meta property="og:title" content="Email template">
                     
                         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -221,14 +221,15 @@
                     
                         <! Unsubscribe Footer -->
                     
-                        <!--    <table role="presentation" bgcolor="#F5F8FA" width="100%" >
+                        
+                        <table role="presentation" bgcolor="#F5F8FA" width="100%" >
                                                                 <tr>
-                                                                    <td align="left" style="padding: 30px 30px;">
-                                                                      <p style="color:#99ACC2"> Made with &hearts; at HubSpot HQ </p>
-                                                                        <a class="subtle-link" href="#"> Unsubscribe </a>      
+                                                                    <td align="center" style="padding: 30px 30px;">
+                                                                      <p style="color:#99ACC2"> &copy; 2023-present PetCare. All rights reserved. </p>
+                                                                      <!--  <a class="subtle-link" href="#"> Unsubscribe </a>      -->
                                                                     </td>
                                                                     </tr>
-                                                                </table> -->
+                                                                </table> 
                         </div>
                     </body>
                     

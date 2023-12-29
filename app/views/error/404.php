@@ -11,11 +11,10 @@
         <header>
             <a href = "#" class = "title">404 NOT FOUND</a>
             <div class = "parent-container">
-                <img class = "image" src="<?php echo URLROOT;?>/public/img/error/404.svg">
+                <img class = "image" src="<?php echo URLROOT;?>/public/img/error/404_sad_cat.gif">
                 <div class = "item-container">
-                    <h3>I have a bad news for you</h3>
-                    <p>The page are looking  for might be removed or is
-                    temporarily unavailable
+                    <h3>Woof, Where's the Page? 404 Error</h3>
+                    <p>The page you are seeking may have been removed or is currently temporarily unavailable. We apologize for any inconvenience. Please consider navigating to our homepage or contacting our support team for assistance. Thank you for your understanding.
                     </p>
                     <a href = "#" href  class = "home-page-btn" onclick="goBack()">Go Back</a>
                 </div>

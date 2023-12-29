@@ -1,7 +1,7 @@
 //search table
 
 var options = {
-    valueNames: ['id-search', 'profile', 'date-search', 'time-search', 'species-search', 'type-search', 'profile-three' , 'status-search'],
+    valueNames: ['id-search', 'profile', 'date-search', 'time-search', 'species-search', 'type-search','treatment-search', 'profile-three' , 'status-search'],
     page: 5,
     pagination: true,
 };

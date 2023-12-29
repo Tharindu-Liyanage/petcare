@@ -624,27 +624,52 @@
         }
 
         //26
-        public function insertAppointment($vetID, $reason, $petID, $date, $time){
+        public function insertAppointment($vetID, $reason, $petID, $date, $time,$treatment_id){
 
-            $this->db->query(
+            if($treatment_id == "NONE"){
+                $this->db->query(
 
-                'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending")');
-
-                $this->db->bind(':vetID',$vetID);
-                $this->db->bind(':reason',$reason);
-                $this->db->bind(':petID',$petID);
-                $this->db->bind(':date',$date);
-                $this->db->bind(':time',$time);
-                $this->db->bind(':petowner_id',$_SESSION['user_id']);
-            
+                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending")');
     
-            //execute
-            if($this->db->execute()){
-                return true;
-    
+                    $this->db->bind(':vetID',$vetID);
+                    $this->db->bind(':reason',$reason);
+                    $this->db->bind(':petID',$petID);
+                    $this->db->bind(':date',$date);
+                    $this->db->bind(':time',$time);
+                    $this->db->bind(':petowner_id',$_SESSION['user_id']);
+                
+        
+                //execute
+                if($this->db->execute()){
+                    return true;
+        
+                }else{
+                    return false;
+                }
             }else{
-                return false;
+                $this->db->query(
+
+                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status,treatment_id) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending",:treatment_id)');
+    
+                    $this->db->bind(':vetID',$vetID);
+                    $this->db->bind(':reason',$reason);
+                    $this->db->bind(':petID',$petID);
+                    $this->db->bind(':date',$date);
+                    $this->db->bind(':time',$time);
+                    $this->db->bind(':petowner_id',$_SESSION['user_id']);
+                    $this->db->bind(':treatment_id',$treatment_id);
+                
+        
+                //execute
+                if($this->db->execute()){
+                    return true;
+        
+                }else{
+                    return false;
+                }
             }
+
+           
         }
 
         //27
@@ -706,7 +731,102 @@
                 return $row;
 
         }
-        
+
+
+        //29
+
+        public function getTreatmentDetailsByUserID($id){
+
+            $this->db->query(
+
+                'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname
+                FROM petcare_medical_reports report
+                JOIN petcare_pet pet ON report.pet_id = pet.id
+                JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                WHERE (report.treatment_id, report.visit_date) IN (
+                    SELECT treatment_id, MAX(visit_date) AS max_visit_date
+                    FROM petcare_medical_reports
+                    GROUP BY treatment_id
+                ) AND report.owner_id = :id  -- Added condition for owner_id in the main query
+                ORDER BY report.visit_date DESC
+                ');
+
+                $this->db->bind(':id' , $id);
+                        
+
+                $results = $this->db->resultSet();
+
+                return $results;
+
+
+        }
+
+        //30
+
+        public function getTreatmentDetailsByTreatmentID($id){
+
+            $userID = $_SESSION['user_id'];
+
+            $this->db->query(
+
+                'SELECT report.* , pet.pet as petname , pet.pet_id_generate as genIdPet, pet.sex as petsex, pet.*, staff.firstname as vetfname , staff.lastname as vetlname , petowner.petowner_id_generate as genIdPetOwner , petowner.address as petowneraddress
+                FROM petcare_medical_reports report
+                JOIN petcare_pet pet ON report.pet_id = pet.id
+                JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                JOIN petcare_petowner petowner ON report.owner_id = petowner.id
+                WHERE report.treatment_id = :id AND report.owner_id = :userID -- Added condition for owner_id in the main query
+                ORDER BY report.visit_date DESC
+                ');
+
+                $this->db->bind(':id' , $id);
+                $this->db->bind(':userID' , $userID);
+                        
+
+                $results = $this->db->resultSet();
+
+                return $results;
+        }
+
+
+
+        //31
+
+        public function getPetCareDetails(){
+                
+                $this->db->query(
+    
+                    'SELECT *
+                    FROM petcare_details');
+    
+                $results = $this->db->resultSet();
+                return $results;
+        }
+
+        //32 
+
+        public function getTreatmentDetailsByUserIDOnlyOngoing($id){
+                
+                $this->db->query(
+    
+                    'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname
+                    FROM petcare_medical_reports report
+                    JOIN petcare_pet pet ON report.pet_id = pet.id
+                    JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                    WHERE (report.treatment_id, report.visit_date) IN (
+                        SELECT treatment_id, MAX(visit_date) AS max_visit_date
+                        FROM petcare_medical_reports
+                        GROUP BY treatment_id
+                    ) AND report.owner_id = :id AND report.status = "Ongoing"  -- Added condition for owner_id in the main query
+                    ORDER BY report.visit_date DESC
+                    ');
+    
+                    $this->db->bind(':id' , $_SESSION['user_id']);
+                            
+    
+                    $results = $this->db->resultSet();
+    
+                    return $results;
+        }
 
 
 
