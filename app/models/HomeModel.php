@@ -1,6 +1,6 @@
 <?php
 
-    class Home{
+    class HomeModel{
         private $db;
 
         public function __construct(){
@@ -9,5 +9,6 @@
 
 
         //methods here eg:- public function getAllVetDetails() {...}  after get results return to Home Controller (controllers/Home.php)
+        
 
     }
