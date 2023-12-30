@@ -95,6 +95,10 @@
                             ul li.aid{
                                 list-style-type: "🎫";
                             }
+
+                            ul li.tid{
+                                list-style-type: "💊";
+                            }
                     
                             
                     
@@ -186,6 +190,7 @@
                             <li class="pet"> <span class="list">Pet</span> : <?php echo $_SESSION['appointment_petName'];?></li>
                             <li class="date"> <span class="list">Date</span> : <?php echo $_SESSION['appointment_date'];?></li>
                             <li class="time"> <span class="list">Time</span> : <?php echo $_SESSION['appointment_time'];?></li>
+                            <li class="tid"> <span class="list">Treatment</span> : <?php if($_SESSION['appointment_treatment'] =="NONE"){echo "New Treatment"; }else{ echo $_SESSION['appointment_treatment'];}?></li>
                             <li class="reason"> <span class="list">Reason</span> : <?php echo $_SESSION['appointment_reason'];?></li>
                             <li class="status"> <span class="list">Status</span> : <b>Pending</b></li>
                         </ul>

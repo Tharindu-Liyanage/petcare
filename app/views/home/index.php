@@ -270,7 +270,12 @@
 
   <div class="splide__track">
     <ul class="splide__list">
+
+     <!-- repeat this card for each team member -->
+
       <li class="splide__slide"> 
+
+    
         
                     <div class="card-team">
                         <div class="card__image">
@@ -286,131 +291,9 @@
                     </div>
     </li>
 
-      <li class="splide__slide"> <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/doctor2.png">
-                        </div>
+    <!-- repeat this card for each team member  over -->
 
-                        <div class="card__content">
-                        <span class="card__title">Veterinarian</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-        </li>
-
-
-
-        <li class="splide__slide"> <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/doctor3.png">
-                        </div>
-
-                        <div class="card__content">
-                        <span class="card__title">Veterinarian</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-        </li>
-
-
-
-        <li class="splide__slide"> <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/nurse.png">
-                        </div>
-
-                        <div class="card__content">
-                        <span class="card__title">Nurse</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-        </li>
-
-
-
-        <li class="splide__slide"> <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                        </div>
-
-                        <div class="card__content">
-                        <span class="card__title">Store Manager</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-        </li>
-
-
-
-        <li class="splide__slide"> <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                        </div>
-
-                        <div class="card__content">
-                        <span class="card__title">Assistent</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-        </li>
-
-
-
-        <li class="splide__slide"> <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                        </div>
-
-                        <div class="card__content">
-                        <span class="card__title">Admin</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-        </li>
-
-
-        <li class="splide__slide"> <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                        </div>
-
-                        <div class="card__content">
-                        <span class="card__title">Web Designer</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-        </li>
-
-
-        <li class="splide__slide"> <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                        </div>
-
-                        <div class="card__content">
-                        <span class="card__title">Web Designer</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-        </li>
-
-      <li class="splide__slide">Slide 03</li>
+     
     </ul>
   </div>
 </section>
@@ -441,7 +324,7 @@
                 <!--text  -->
                 <div class="blog-text">
                     <span> 8 May 2023</span>
-                    <h5>what Has Happened of All of the web design Ideas?</h5>
+                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
                     <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
                     <a href="#">Read More </a>
                 </div>
@@ -461,7 +344,7 @@
                 <!--text  -->
                 <div class="blog-text">
                     <span> 18 July 2023</span>
-                   <h5> what Has Happened of All of the web design Ideas?</h5>
+                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
                     <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
                     <a href="#">Read More </a>
                 </div>
@@ -479,7 +362,7 @@
                 <!--text  -->
                 <div class="blog-text">
                     <span> 20 September 2023</span>
-                    <h5> what Has Happened of All of the web design Ideas?</h5>
+                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
                     <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
                     <a href="#">Read More </a>
                 </div>

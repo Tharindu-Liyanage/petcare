@@ -40,13 +40,34 @@
         public function index(){
 
             $pets = $this->dashboardModel->getPetDetailsByPetownerID($_SESSION['user_id']);
+            $greetingmsg = $this->getWelcomeGreeting();
 
             $data = [
-                'pet' =>$pets
+                'pet' =>$pets,
+                'greetingmsg' => $greetingmsg
             ];
    
             
             $this->view('dashboards/petowner/index', $data);
+        }
+
+        public function getWelcomeGreeting(){
+            
+                date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
+
+                $currentTime = date('H:i:s'); // Get the current time in 24-hour format
+
+                if ($currentTime >= '00:00:00' && $currentTime < '12:00:00') {
+                    return "Good morning!";
+                } elseif ($currentTime >= '12:00:00' && $currentTime < '17:00:00') {
+                    return "Good afternoon!";
+                } elseif ($currentTime >= '17:00:00' && $currentTime < '20:00:00') {
+                    return "Good evening!";
+                } else {
+                    return "Good night!";
+                }
+            
+
         }
 
 
@@ -536,6 +557,7 @@
             unset($_SESSION['appointment_vetLname']);
             unset($_SESSION['appointment_petName']);
             unset($_SESSION['appointment_generatedID']);
+            unset($_SESSION['appointment_treatment']);
         }
 
         

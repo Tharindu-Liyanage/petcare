@@ -33,11 +33,11 @@
             <div class="home-box">
                     <div class="home-left">
                         <div class="home-text-large">
-                            Welcome back,  <span><?php echo $_SESSION['user_fname']?>!</span>
+                            <?php echo $data['greetingmsg']; ?> , <span><?php echo $_SESSION['user_fname']?>!</span>
                         </div>
-                        <div class="home-text-small">
+                        <!--<div class="home-text-small">
                             You have <span> 2 </span> upcoming appointments.
-                        </div>
+                        </div> -->
                     </div>
                     <div class="home-right">
                         <img src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
