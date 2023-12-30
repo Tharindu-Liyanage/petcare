@@ -1,0 +1,251 @@
+/* mode: css */
+
+.add-model {
+  width: 90%;
+  margin: auto;
+}
+  
+  .modal-container-footer {
+    padding: 20px 52px;
+    display: flex;
+    align-items: center;
+    
+    border-top: 1px solid #ddd;
+    gap: 12px;
+    position: relative;
+  }
+  
+  .modal-container-footer:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -51px;
+    left: 24px;
+    right: 24px;
+    height: 50px;
+    flex-shrink: 0;
+    /*background-image: linear-gradient(to top, rgba(255, 255, 255, 0.75), transparent);*/
+    pointer-events: none;
+  }
+  
+  .button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    background-color: transparent;
+    border: 0;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.15s ease;
+  }
+
+  button.button.is-primary{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button.button.is-primary .bx{
+    width:1px;
+    height: auto;
+  }
+  .button.is-ghost {
+    background-color: #dfdad7;
+    color:#222;
+  }
+  
+  .button.is-ghost:hover, .button.is-ghost:focus {
+    background-color: #dfdad7;
+  }
+  
+  .button.is-primary {
+    background-color:var(--primary);
+    color:var(--light);
+  }
+  
+  
+
+  /* model: css over */
+.fw-500{
+  font-weight: 500;
+}
+
+.fs-large{
+  font-size: 1.2rem;
+}
+
+
+.report{
+  padding-left:50px;
+  padding-right: 50px;
+}
+  .report-header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid #AAAAAA;
+  }
+
+  .report-logo{
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .report-logo img{
+    width: 60px;
+    height: auto;
+  }
+
+  .report-logo span{
+    font-weight: 500;
+    font-size: 1.3rem;
+  }
+
+  .report-title{
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .report-title .title{
+    font-size: 1.3rem;
+  }
+
+  .report-title span{
+    font-weight: 500;
+  }
+
+.report-contnet{
+  position: relative;
+  padding: 50px 0;
+  overflow-y: auto;
+}
+
+.main-title{
+
+  font-size: 1.5rem;
+  position: relative;
+ margin: 10px 0;
+
+}
+
+
+
+.report-info-both{
+ 
+    margin-top: 10px;
+    background-color:var(--grey);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+
+.report-info-both .title{
+
+  position: relative;
+}
+
+.report-info-both .title::before{
+  content: "";
+  position: absolute;
+  left:0;
+  bottom:0px;
+  height:2px;
+  width:30px;
+  background-color:var(--blue-color);
+}
+
+.report-treatment-info{
+  padding: 10px 20px;
+  background-color: var(--grey);
+  border-radius: 10px;
+  margin-bottom: 50px;
+}
+
+.pet-info{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.report-treatment-info .title{
+
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.report-treatment-info .title::before{
+  content: "";
+  position: absolute;
+  left:0;
+  bottom:0px;
+  height:2px;
+  width:30px;
+  background-color:var(--blue-color);
+}
+
+.hospital-info div{
+  margin: 5px 0;
+}
+
+.petowner-info div{
+  margin: 5px 0;
+}
+
+.pet-info div{
+  margin: 5px 0;
+}
+
+.Pet-diagnostic-summary div{
+  margin: 5px 0;
+}
+
+.Pet-diagnostic-summary{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.report-treatment-info .title{
+  margin-top: 10px;
+}
+
+/*pagination css*/
+
+.splide__pagination li button {
+  background: var(--primary) !important;
+  color:#fff !important;
+  width:20px;
+  height:20px;
+}
+
+
+@media screen and (max-width: 576px){
+
+
+  .Pet-diagnostic-summary{
+    
+    grid-template-columns: 1fr;
+  }
+
+  .pet-info{
+  
+    grid-template-columns: 1fr;
+  }
+
+
+  .report-info-both{
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+

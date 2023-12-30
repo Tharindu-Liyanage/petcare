@@ -12,6 +12,7 @@ body{
     height:120vh;
     padding:3% 4%;
     /* background-color:rgb(224, 224, 224); */
+    background-color: #FBFBFB;
 }
 .title{
     font-size:1.3rem;
@@ -85,7 +86,7 @@ body{
     background-color:rgb(109, 108, 108);
 }
 .image{
-    max-width:500px;
+    max-width:600px;
     height:auto;
     margin-right:17%;
 }

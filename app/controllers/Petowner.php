@@ -11,7 +11,7 @@
            
             if(!isset($_SESSION['user_id'])){
                 
-                redirect('users/staff');
+                redirect('users/login');
 
             }else{
 
@@ -359,6 +359,7 @@
             $time_slots = $this->dashboardModel->getTimeSlots();
             $holidays = $this->dashboardModel->getHolidayDetails();
             $reason = $this->dashboardModel->getAppointmentReasons();
+            $treament_data = $this->dashboardModel->getTreatmentDetailsByUserIDOnlyOngoing($_SESSION['user_id']);
            
 
         
@@ -367,7 +368,8 @@
                 'time_slots' => $time_slots,
                 'vet' => $vets,
                 'holiday' => $holidays,
-                'reason' => $reason
+                'reason' => $reason,
+                'medicalreport' =>$treament_data
             ];
 
             $this->view('dashboards/petowner/appointment/addAppointment', $data);
@@ -392,6 +394,8 @@
                 $_SESSION['appointment_petID'] = trim($_POST['pet']);
                 $_SESSION['appointment_date'] = trim($_POST['date']);
                 $_SESSION['appointment_time'] = trim($_POST['time']);
+                $_SESSION['appointment_treatment'] = trim($_POST['treatment']);
+
                 
         
                 
@@ -427,7 +431,7 @@
 
         public function appointmentSuccess(){
 
-            $addApp = $this->dashboardModel->insertAppointment($_SESSION['appointment_vetID'], $_SESSION['appointment_reason'], $_SESSION['appointment_petID'], $_SESSION['appointment_date'], $_SESSION['appointment_time']);
+            $addApp = $this->dashboardModel->insertAppointment($_SESSION['appointment_vetID'], $_SESSION['appointment_reason'], $_SESSION['appointment_petID'], $_SESSION['appointment_date'], $_SESSION['appointment_time'], $_SESSION['appointment_treatment']);
 
             $vetName = $this->dashboardModel->getVetNameByID($_SESSION['appointment_vetID']);
             $petName = $this->dashboardModel->getPetNameByID($_SESSION['appointment_petID']);
@@ -629,7 +633,34 @@
         }
 
         
+        public function medicalReport(){
 
+
+            $treament_data = $this->dashboardModel->getTreatmentDetailsByUserID($_SESSION['user_id']);
+
+            $data = [
+                'medicalreport' =>$treament_data
+            ];
+           
+            $this->view('dashboards/petowner/medicalreport/medicalReport', $data);
+        }
+
+        public function showMedicalReport($treament_id){
+
+            $treament_data = $this->dashboardModel->getTreatmentDetailsByTreatmentID($treament_id);
+            $petcareInfo = $this->dashboardModel->getPetCareDetails();
+
+            if($treament_data == null){   //if no data found : its mean user try to access url with wrong treatment id(intentionally)
+                redirect('petowner/medicalreport');
+            }
+
+            $data = [
+                'medicalreportview' =>$treament_data,
+                'petcareInfo' => $petcareInfo
+            ];
+
+            $this->view('dashboards/petowner/medicalreport/viewMedicalReport', $data);
+        }
 
         
         
