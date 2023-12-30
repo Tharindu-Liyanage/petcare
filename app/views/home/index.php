@@ -425,8 +425,8 @@
     <!--ourBlog start-->
     <section id="blog">
         <div class = "blog-heading">
-            <span>My Recent Posts</span>
-            <h3>My Blog</h3>
+            
+            <h1>MY BLOG</h1>
         </div>
 
         <!-- blog-container -->
@@ -440,8 +440,8 @@
 
                 <!--text  -->
                 <div class="blog-text">
-                    <span> 18 july 2023</span>
-                    <a href = "#" class = "blog title"> what Has Happened of All of the web design Ideas?</a>
+                    <span> 8 May 2023</span>
+                    <h5>what Has Happened of All of the web design Ideas?</h5>
                     <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
                     <a href="#">Read More </a>
                 </div>
@@ -460,8 +460,8 @@
 
                 <!--text  -->
                 <div class="blog-text">
-                    <span> 18 july 2023</span>
-                    <a href = "#" class = "blog title"> what Has Happened of All of the web design Ideas?</a>
+                    <span> 18 July 2023</span>
+                   <h5> what Has Happened of All of the web design Ideas?</h5>
                     <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
                     <a href="#">Read More </a>
                 </div>
@@ -478,8 +478,8 @@
 
                 <!--text  -->
                 <div class="blog-text">
-                    <span> 18 july 2023</span>
-                    <a href = "#" class = "blog title"> what Has Happened of All of the web design Ideas?</a>
+                    <span> 20 September 2023</span>
+                    <h5> what Has Happened of All of the web design Ideas?</h5>
                     <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
                     <a href="#">Read More </a>
                 </div>
