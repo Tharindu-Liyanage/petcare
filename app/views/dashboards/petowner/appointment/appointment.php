@@ -94,6 +94,7 @@
                                 <th>Date <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
                                 <th>Time <i class='bx bxs-sort-alt sort' data-sort="time-search"></th>
                                 <th>Species <i class='bx bxs-sort-alt sort' data-sort="species-search"></th>
+                                <th>Treatment <i class='bx bxs-sort-alt sort' data-sort="treatment-search"></th>
                                 <th>Type <i class='bx bxs-sort-alt sort' data-sort="type-search"></th>
                                 <th>Status <i class='bx bxs-sort-alt sort' data-sort="status-search"></th>
                                 <th>Action</th>
@@ -130,13 +131,29 @@
                                 <td class="date-search"><?php echo $appointment->appointment_date?></td>
                                 <td class="time-search"><?php echo $appointment->appointment_time?></td>
                                 <td class="species-search"><?php echo $appointment->pet_species?></td>
+
+
+                                <td class="treatment-search">
+                                    
+                                    <?php if($appointment->treatment_id == NULL){
+                                        echo "NEW";
+                                        }else{
+                                            echo 'TRT-'. $appointment->treatment_id;
+                                        
+                                        } ?>
+                                </td>
+
+
+
                                 <td class="type-search"><?php echo $appointment->appointment_type?></td>
 
                                    
                                 <?php
                                         if ($appointment->status === "Confirmed" || $appointment->status === "Completed" ) {
                                             echo '<td class="status-search status-green">' . $appointment->status . '</td>';
-                                        } else {
+                                        } else if($appointment->status === "Pending") {
+                                            echo '<td class="status-search status-yellow">' . $appointment->status . '</td>';
+                                        }else{
                                             echo '<td class="status-search status-red">' . $appointment->status . '</td>';
                                         }
 

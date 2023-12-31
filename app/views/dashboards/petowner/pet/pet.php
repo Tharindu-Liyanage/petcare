@@ -45,6 +45,30 @@
                
             </div>
 
+             <!-- warninig model here -->
+
+             <div id="removeModel" class="card-all-background">
+             <div class="card">
+                <div class="err-header">
+
+                        <div class="image">
+                            <span class="material-symbols-outlined">warning</span>                   
+                        </div>
+
+                        <div class="err-content">
+                            <span class="title">Remove Account</span>
+                            <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
+                        </div>
+
+                        <div class="err-actions">
+                            <button id="confirmDelete" class="desactivate" type="button">Remove</button>
+                            <button id="cancelDelete" class="cancel" type="button">Cancel</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
            
 
             
@@ -109,7 +133,7 @@
                                 <td class="action">
                                     
                                     <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="<?php echo URLROOT;?>/petowner/removePet/<?php echo $pet->id?>" ><i class='bx bx-trash'></i></a>
+                                           <a data-staff-id="<?php echo $pet->id?>" class="removeLink" href="<?php echo URLROOT;?>/petowner/removePet/<?php echo $pet->id?>" ><i class='bx bx-trash'></i></a>
                                            <a href="<?php echo URLROOT;?>/petowner/updatePet/<?php echo $pet->id?>" ><i class='bx bx-edit' ></i></a>     
                                            
                                     </div>
@@ -131,33 +155,7 @@
                                 
         </main>
 
-            <!-- warninig model here -->
-
-            <div id="removeModel" class="card-all-background">
-             <div class="card">
-                <div class="err-header">
-
-                        <div class="image">
-                            <span class="material-symbols-outlined">warning</span>                   
-                        </div>
-
-                        <div class="err-content">
-                            <span class="title">Remove Account</span>
-                            <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
-                        </div>
-
-                        <div class="err-actions">
-                            <button id="confirmDelete" class="desactivate" type="button">Remove</button>
-                            <button id="cancelDelete" class="cancel" type="button">Cancel</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-
-
+        
     </div>
 
    
@@ -172,5 +170,6 @@
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/petowner/petTable.js"></script>
     
+   
 </body>
 </html>

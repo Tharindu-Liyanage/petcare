@@ -42,8 +42,8 @@
 
     
 
-
-    <form class="form" method="post" action="<?php echo URLROOT; ?>/petowner/addPet">
+ 
+    <form class="form" method="post"  enctype="multipart/form-data" action="<?php echo URLROOT; ?>/petowner/addPet">
 
       
 
@@ -108,14 +108,13 @@
 
 
                         <div class="flex-column">
-                            <label>Age</label>
+                            <label>Upload Image</label>
                         </div>
-                        <div class="inputForm <?php echo (!empty($data['age_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-time' ></i>
-                            <input type="text" class="input" name="age" placeholder="Enter pet Age" value="<?php echo $data['age']?>">
+                        <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-image-alt'></i>
+                            <input type="file" class="input" name="pet_img" accept="image/*">
                         </div>
-                        <span class="invalid-feedback"><?php echo $data['age_err']; ?></span>
-
+                        <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
                         
                         
 

@@ -19,6 +19,12 @@ async function initializeLitepicker() {
    
     var HolidayDateArray = await refreshHolidayData()
 
+    if (!HolidayDateArray || !HolidayDateArray.length) {
+      HolidayDateArray = [];
+    }
+
+    
+
     // Create a new Litepicker instance
     picker = new Litepicker({
       element: document.getElementById('litepicker'),

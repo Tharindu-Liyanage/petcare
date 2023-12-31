@@ -701,8 +701,6 @@ function initMultiStepForm() {
 
         //1
         //=============== Get the input element by its id=======================
-        var lastNameInput = document.getElementById("last-name");
-        var firstNameInput = document.getElementById("first-name");
         //var timeInput = document.getElementById("time");
         var timeInput = document.querySelector('input[type="radio"][name="time"]:checked');
         var dateInput = document.getElementById("litepicker");
@@ -712,19 +710,27 @@ function initMultiStepForm() {
 
         //=============== Get the selct element by its id vet and pet======================= //
 
-        var selectPet = document.getElementById('pet');  //pet
-        var selectOption = selectPet.options[selectPet.selectedIndex]; //pet
-
+        var selectPet = document.getElementById('pet');  // Assuming 'pet' is the ID of your <select> element
+        var selectOption = selectPet.options[selectPet.selectedIndex];
         
-        // Extract pet ID and name from the selected option
         var petText = selectOption.text.trim();
-        var petIdMatch = petText.match(/Id: (\d+)/i); // Match the ID pattern
+        var petIdMatch = petText.match(/PET-(\d+) \| (.+)/i);
+        
+        var petId = petIdMatch ? 'PET-' + petIdMatch[1] : '';
+        var petName = petIdMatch ? petIdMatch[2] : '';
+        
+       
+        
 
-        var petId = petIdMatch ? petIdMatch[1] : ''; // Extract the matched ID, if any
-        var petName = petText.replace(/Id: \d+/i, '').replace(/^\s*\|\s*/, '').trim(); // Remove the ID and leading pipe, if any
 
         const selectVet = document.getElementById('vet'); //vet
         const selectedVetName = selectVet.options[selectVet.selectedIndex].text; //vet name
+
+        var treatment = document.getElementById('treatment'); //treatment
+        var treatmentText = treatment.options[treatment.selectedIndex].text; //treatment name
+
+        var reason =document.getElementById('reason'); //reason
+        var reasonText = reason.options[treatment.selectedIndex].text; //reason name
 
 
         //=============== Get the selct element by its id vet and pet over======================= //
@@ -732,8 +738,6 @@ function initMultiStepForm() {
 
         //2
         // Get the value of the input element
-        var lastNameValue = lastNameInput.value;
-        var firstNameValue = firstNameInput.value;
         var timeValue = timeInput.value;
         var dateValue = dateInput.value;
 
@@ -742,24 +746,25 @@ function initMultiStepForm() {
 
         //3
         // Get the span element by its id
-        var petOwnerNameSpan = document.getElementById("pet-owner-name");
         var timeSpan = document.getElementById("time-last");
         var dateSpan = document.getElementById("date-last");
         var petIdSpan = document.getElementById("pet-id");
         var petNameSpan = document.getElementById("pet-name");
         var vetNameSpan = document.getElementById("vet-last");
+        var treatmentSpan = document.getElementById("treatment-id");
+        var reasonSpan = document.getElementById("reason-id");
 
     
 
         //4
         // Set the innerHTML of the span element to the value of the input
-
-        petOwnerNameSpan.innerHTML = firstNameValue + ' ' + lastNameValue;
         timeSpan.innerHTML = timeValue;
         dateSpan.innerHTML = dateValue;
         petIdSpan.innerHTML = petId;
         petNameSpan.innerHTML = petName;
         vetNameSpan.innerHTML = selectedVetName;
+        treatmentSpan.innerHTML = treatmentText;
+        reasonSpan.innerHTML = reasonText;
 
 
 

@@ -1,4 +1,10 @@
 <?php
+    // Load Config
+
+    use Dotenv\Dotenv;
+    
+    $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
+    $dotenv->load();
 
     //DB Params
     define('DB_HOST','localhost');

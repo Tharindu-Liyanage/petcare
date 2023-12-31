@@ -15,11 +15,14 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <!--Animate On Scroll Library -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- link swiper's css -->
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> <!--splide css-->
    
    
 
 
-    <title>Home</title>
+    <title> Home</title>
 </head>
 <body>
     <!-- header start  -->
@@ -111,7 +114,7 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
+                <h3>Pet Store</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -123,7 +126,7 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
+                <h3>Animal Ward</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -135,20 +138,7 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
-                <p>Shop with us for a range of 
-                    pet food, vitamins, grooming products and pet accessories</p>
-            </div>
-        </div>
-
-
-
-        <div class="column">
-            <div class="card">
-                <div class="icon-wrapper">
-                    <i class="fas fa-hammer"></i>
-                </div>
-                <h3>Service Heading</h3>
+                <h3>Surgery</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -161,7 +151,7 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
+                <h3>OPD</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -174,7 +164,20 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-hammer"></i>
                 </div>
-                <h3>Service Heading</h3>
+                <h3>Testing</h3>
+                <p>Shop with us for a range of 
+                    pet food, vitamins, grooming products and pet accessories</p>
+            </div>
+        </div>
+
+
+
+        <div class="column">
+            <div class="card">
+                <div class="icon-wrapper">
+                    <i class="fas fa-hammer"></i>
+                </div>
+                <h3>Grooming</h3>
                 <p>Shop with us for a range of 
                     pet food, vitamins, grooming products and pet accessories</p>
             </div>
@@ -182,104 +185,191 @@
 
 
         
+
     </div>
  </section>
     <!-- service end-->
 
+    <!-- Blog start -->
+
     <!-- ourteam start-->
-    <section class="Team" id="Team">
-    
-    <h1 class="headings">our team</a></h1>
-    
-    <div class="team-row">
-        <!-- column 1 -->
-        <div class="team-column">
-            <div class="team-card">
-                <div class="img-container">
-                <img src="<?php echo URLROOT;?>/public/storage/userprofiles/user1.png">
-                </div>
+  
+    <!-- <section class="swiper mySwiper"> 
 
-            </div>
-            <h3>Luna Turner</h3>
-            <p>Founder</p>
-            <div class="team-icons">
-                <a href="#">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div> 
+    <div class="swiper-wrapper">
+
+      <div class="card swiper-slide">
+        <div class="card__image">
+          <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
         </div>
 
+        <div class="card__content">
+          <span class="card__title">Web Designer</span>
+          <span class="card__name">Vanessa Martinez</span>
+          <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+          <button class="card__btn">View More</button>
+        </div>
+      </div>
 
-
-        <!-- column 2-->
-        <div class="team-column">
-            <div class="team-card">
-                <div class="team-card.img-container"></div>
-                <img src="../../img/pro_pic2.png"/>
-
-            </div>
-            <h3>Luna Turner</h3>
-            <p>Founder</p>
-            <div class="team-icons">
-                <a href="#">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div> 
+      <div class="card swiper-slide">
+        <div class="card__image">
+          <img src="/images/user2.jpg" alt="card image">
         </div>
 
+        <div class="card__content">
+          <span class="card__title">Ui Designer</span>
+          <span class="card__name">Sarah Bowen</span>
+          <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+          <button class="card__btn">View More</button>
+        </div>
+      </div>
 
-
-        <!-- column 3 -->
-        <div class="team-column">
-            <div class="team-card">
-                <div class="img-container"></div>
-                <img src="../../img/pro_pic1.png"/>
-
-            </div>
-            <h3>Luna Turner</h3>
-            <p>Founder</p>
-            <div class="team-icons">
-                <a href="#">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div> 
+      <div class="card swiper-slide">
+        <div class="card__image">
+          <img src="/images/user3.jpg" alt="card image">
         </div>
 
+        <div class="card__content">
+          <span class="card__title">Web Developer</span>
+          <span class="card__name">David Murphy</span>
+          <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+          <button class="card__btn">View More</button>
+        </div>
+      </div>
+
+      <div class="card swiper-slide">
+        <div class="card__image">
+          <img src="/images/user4.jpg" alt="card image">
+        </div>
+
+        <div class="card__content">
+          <span class="card__title">Mobile Designer</span>
+          <span class="card__name">Kelsey West</span>
+          <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+          <button class="card__btn">View More</button>
+        </div>
+      </div>
 
     </div>
-</section>
+  </section>
+    </div>
+
+
+
+   
+
+
+ -->
+ 
+
+
+
+ <section class="splide our-team" aria-label="Basic Structure Example">
+
+    <h1 class="headings">our team</a></h1>
+
+  <div class="splide__track">
+    <ul class="splide__list">
+
+     <!-- repeat this card for each team member -->
+
+      <li class="splide__slide"> 
+
     
+        
+                    <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/doctor1.png">
+                        </div>
+
+                        <div class="card__content">
+                        <span class="card__title">Veterinarian</span>
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
+    </li>
+
+    <!-- repeat this card for each team member  over -->
+
+     
+    </ul>
+  </div>
+</section>
+
+
+
+
+
     <!-- ourteam end-->
 
 
     <!--ourBlog start-->
+    <section id="blog">
+        <div class = "blog-heading">
+            
+            <h1>MY BLOG</h1>
+        </div>
+
+        <!-- blog-container -->
+        <div class= "blog-container">
+            <!--box1  -->
+            <div class="blog-box">
+                <!-- img -->
+                <div class="blog-img">
+                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                </div>
+
+                <!--text  -->
+                <div class="blog-text">
+                    <span> 8 May 2023</span>
+                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
+                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                    <a href="#">Read More </a>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="blog-box">
+                <!-- img -->
+                <div class="blog-img">
+                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                </div>
+
+                <!--text  -->
+                <div class="blog-text">
+                    <span> 18 July 2023</span>
+                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
+                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                    <a href="#">Read More </a>
+                </div>
+            </div>
+
+
+
+
+            <div class="blog-box">
+                <!-- img -->
+                <div class="blog-img">
+                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                </div>
+
+                <!--text  -->
+                <div class="blog-text">
+                    <span> 20 September 2023</span>
+                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
+                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                    <a href="#">Read More </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
 
     <!-- ourBlog end-->
 
@@ -350,6 +440,16 @@
     </div>
 </footer>
     <!-- footer end-->
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script>
+    var splide = new Splide('.splide', {
+        drag: 'free',
+        snap: true,
+        perPage: 4,
+    });
+
+    splide.mount();
+</script>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
@@ -357,8 +457,12 @@
   </script>
 
   <script src="<?php echo URLROOT;?>/public/js/home.js"></script>
+
+  
+ 
 </body>
 </html>
+
 
 
 

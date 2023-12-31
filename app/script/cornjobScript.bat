@@ -1,1 +1,1 @@
-"C:\xampp\php\php.exe" -f "C:\xampp\htdocs\petcare\app\script\cronjobScript.php"
+"C:\xampp\php\php.exe" -f "C:\xampp\htdocs\petcare\app\script\cronjobScriptForUnlockTimeSlots.php"

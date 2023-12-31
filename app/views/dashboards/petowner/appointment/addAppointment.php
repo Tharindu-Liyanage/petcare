@@ -121,7 +121,7 @@
                        <div class="input-container">
 
                        
-                            <div class="input-field">
+                         <!--   <div class="input-field">
                                     <div class="label">First Name</div>
                                     <div class="inputForm">
                                     <i class='bx bx-purchase-tag-alt' ></i>
@@ -129,23 +129,14 @@
                                     </div>
                                     <span class="invalid-feedback"></span>
                             </div>
-                            
-
-                            
-                                <div class="input-field">
-                                    <div class="label">Last Name</div>
-                                    <div class="inputForm">
-                                    <i class='bx bx-purchase-tag-alt' ></i>
-                                    <input id="last-name" type="text" placeholder ="Enter last Name" required />
-                                    </div>
-                                    <span class="invalid-feedback"></span>
-                                </div>
+            
+                        -->
 
                                <div class="input-field">
-                                    <div class="label">Select Pet</div>
+                                    <div class="label">Select a Pet</div>
                                     <div class="inputForm">
                                     <i class='bx bx-purchase-tag-alt' ></i>
-                                    <select id="pet">
+                                    <select id="pet" name="pet">
 
                                     <option disabled selected value=" ">
                                         Select a Pet
@@ -155,7 +146,7 @@
                                     <?php foreach($data['pet'] as $pet) : ?>
 
                                         <option value="<?php echo $pet->id?>">
-                                          Id: <?php echo $pet->id?>  | <?php echo $pet->pet?>
+                                          <?php echo $pet->pet_id_generate?>  | <?php echo $pet->pet?>
                                         </option>
 
 
@@ -169,10 +160,10 @@
 
 
                                 <div class="input-field">
-                                    <div class="label">Select Veterinarian</div>
+                                    <div class="label">Select a Veterinarian</div>
                                     <div class="inputForm">
-                                    <i class='bx bx-purchase-tag-alt' ></i>
-                                    <select id="vet">
+                                    <i class='bx bx-user-plus' ></i>
+                                    <select id="vet" name="vet">
 
                                     <option disabled selected value=" ">
                                     Select a Veterinarian
@@ -183,6 +174,63 @@
 
                                         <option value="<?php echo $vet->staff_id?>">
                                           <?php echo $vet->firstname?> <?php echo $vet->lastname?>  
+                                        </option>
+
+
+                                    <?php endforeach; ?>
+
+
+                                    </select>
+                                    </div>
+                                    <span class="invalid-feedback"></span>
+                                </div>
+
+                                <div class="input-field">
+                                    <div class="label">Select a Reason</div>
+                                    <div class="inputForm">
+                                    <i class='bx bxs-virus' ></i>
+                                    <select id="reason" name="reason">
+
+                                    <option disabled selected value=" ">
+                                    Select a Reason
+                                    </option>
+
+
+                                    <?php foreach($data['reason'] as $reasons) : ?>
+
+                                        <option value="<?php echo $reasons->reason_name?>">
+                                          <?php echo $reasons->reason_name?> 
+                                        </option>
+
+
+                                    <?php endforeach; ?>
+
+
+                                    </select>
+                                    </div>
+                                    <span class="invalid-feedback"></span>
+                                </div>
+
+
+                                <div class="input-field">
+                                    <div class="label">Select a Treatment</div>
+                                    <div class="inputForm">
+                                    <i class='bx bxs-capsule'></i>
+                                    <select id="treatment" name="treatment">
+
+                                    <option disabled selected value=" ">
+                                    Select a Treatment
+                                    </option>
+
+                                    <option   value="NONE">
+                                    New Treatment
+                                    </option>
+
+
+                                    <?php foreach($data['medicalreport'] as $treatment) : ?>
+
+                                        <option value="<?php echo $treatment->treatment_id?>">
+                                          TRT-<?php echo $treatment->treatment_id?> 
                                         </option>
 
 
@@ -224,7 +272,7 @@
                         <!-- litepicker lib calender -->
 
                             <div class="cal"  >
-                               <input type="text" id="litepicker" >
+                               <input type="text" id="litepicker" name="date">
                         </div>
 
                         
@@ -332,9 +380,10 @@
 
                                 <div class="small-title">User Info</div>
 
-                                <div class="label">Pet Id: <span id="pet-id"></span></div>
-                                <div class="label">Pet Name: <span id="pet-name"></span></div>
-                                <div class="label">Pet Owner: <span id="pet-owner-name"></span></div>
+                                <div class="label">Pet Id: <span id="pet-id" class="fw-for-confirm"></span></div>
+                                <div class="label">Pet Name: <span id="pet-name" class="fw-for-confirm"></span></div>
+                                <div class="label">Pet Owner: <span id="pet-owner-name"class="fw-for-confirm"><?php echo $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']; ?> </span></div>
+                                <div class="label">Treatment: <span id="treatment-id" class="fw-for-confirm"></span></div>
                                 
                                 
 
@@ -343,10 +392,11 @@
                             <div class="col">
                                 <div class="small-title">Appointment Info</div>
                                 
-                                <div class="label">Veterinarin: <span id="vet-last"></div>
-                                <div class="label">Time: <span id="time-last"></span></div>
-                                <div class="label">Date: <span id="date-last"></span></div>
-                                <div class="label">Price: LKR 1500</div>
+                                <div class="label">Veterinarin: <span id="vet-last" class="fw-for-confirm"></div>
+                                <div class="label">Time: <span id="time-last" class="fw-for-confirm"></span></div>
+                                <div class="label">Date: <span id="date-last" class="fw-for-confirm"></span></div>
+                                <div class="label">Reason: <span id="reason-id" class="fw-for-confirm"></span></div>
+                                <div class="label">Price: <span class="fw-for-confirm">LKR 1500</span></div>
                             </div>
 
 

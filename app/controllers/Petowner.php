@@ -1,12 +1,17 @@
 <?php
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+
     class Petowner extends Controller {
 
         public function __construct(){
            
             if(!isset($_SESSION['user_id'])){
                 
-                redirect('users/staff');
+                redirect('users/login');
 
             }else{
 
@@ -20,6 +25,10 @@
             }
 
             $this->dashboardModel = $this->model('Dashboard');
+            require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
+            
+          
+            
         }
 
         public function notfound(){
@@ -30,10 +39,35 @@
 
         public function index(){
 
-            $data =null;
+            $pets = $this->dashboardModel->getPetDetailsByPetownerID($_SESSION['user_id']);
+            $greetingmsg = $this->getWelcomeGreeting();
+
+            $data = [
+                'pet' =>$pets,
+                'greetingmsg' => $greetingmsg
+            ];
    
             
             $this->view('dashboards/petowner/index', $data);
+        }
+
+        public function getWelcomeGreeting(){
+            
+                date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
+
+                $currentTime = date('H:i:s'); // Get the current time in 24-hour format
+
+                if ($currentTime >= '00:00:00' && $currentTime < '12:00:00') {
+                    return "Good morning!";
+                } elseif ($currentTime >= '12:00:00' && $currentTime < '17:00:00') {
+                    return "Good afternoon!";
+                } elseif ($currentTime >= '17:00:00' && $currentTime < '20:00:00') {
+                    return "Good evening!";
+                } else {
+                    return "Good night!";
+                }
+            
+
         }
 
 
@@ -58,6 +92,22 @@
 
                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
+
+               
+
+                
+                if (isset($_FILES['pet_img'])) {
+                    $uploadedFileName = $_FILES['pet_img']['name'];
+                    $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                    // Generate a timestamp for uniqueness
+                    $timestamp = time();
+
+                    // Create a unique ID by concatenating values and adding the file extension
+                    $uniqueImgFileName = $_POST['pname'] . '_' . $_POST['dob'] . '_' . $timestamp . '.' . $fileExtension;
+
+                }
+
                 //init data
 
                 $data = [
@@ -66,23 +116,20 @@
                     'species' => trim($_POST['species']),
                     'sex' => trim($_POST['sex']),
                     'breed' => trim($_POST['breed']),
-                    'age' => trim($_POST['age']),
-                    'age_err' => '',
+                    'img' => ($_FILES['pet_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['pet_img'],
+                    'img_err' => '',
                     'pname_err' => '',
                     'dob_err' => '',
                     'species_err' => '',
                     'sex_err' => '',
-                    'breed_err'  =>''
+                    'breed_err'  =>'',
+                    'uniqueImgFileName' =>$uniqueImgFileName
             
                 ];
 
-              
-                
-
-            
-                //validate pName
-                if(empty($data['pname'])){
-                    $data['pname_err'] = 'Please pet name';
+                  //validate pName
+                  if(empty($data['pname'])){
+                    $data['pname_err'] = 'Please enter Pet Name';
                 }
 
                 //validate brand
@@ -91,21 +138,31 @@
                 }
 
                 //validate address
-                if(empty($data['species'])){
-                    $data['species_err'] = 'Please enter Species';
-                }
-
-
-                if (empty($data['sex'])) {
+                if(empty($data['sex'])){
                     $data['sex_err'] = 'Please select Sex';
                 }
 
-                if (empty($data['breed'])) {
-                    $data['breed_err'] = 'Please enter a price';
+                $allowedTypes = ['image/jpeg', 'image/png'];
+
+                if (!isset($_FILES['pet_img']['type']) || ($_FILES['pet_img']['type'] && !in_array($_FILES['pet_img']['type'], $allowedTypes))) {
+                    // Invalid file type
+                    $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
                 }
 
-                if (empty($data['age'])) {
-                    $data['age_err'] = 'Please enter Age';
+                if($_FILES['pet_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                    $data['img_err'] = 'Image size must be less than 5 MB';
+                }
+                
+
+
+                if (empty($data['breed'])) {
+                    $data['breed_err'] = 'Please enter breed';
+                }
+
+               
+
+                if (empty($data['species'])) {
+                    $data['species_err'] = 'Please enter Species';
                 }
                 
 
@@ -113,14 +170,10 @@
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['sex_err']) && empty($data['cat_err']) &&  empty($data['dob_err']) &&   empty($data['age_err'])){
-                    //validated
+                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['species_err']) && empty($data['img_err']) && empty($data['sex_err'])){
                     
                    
-                    
-
-                    //add product
-
+                
                     if($this->dashboardModel->addPetDetails($data)){
                        
                        // $_SESSION['staff_user_added'] = true;
@@ -151,15 +204,15 @@
                     'pname' => '',
                     'dob' => '',
                     'species' => '',
-                    'sex' =>'',
-                    'breed' =>'',
-                    'age' =>'',
-                    'age_err' => '',
+                    'sex' => '',
+                    'breed' => '',
+                    'img_err'=>'',
                     'pname_err' => '',
                     'dob_err' => '',
                     'species_err' => '',
                     'sex_err' => '',
                     'breed_err'  =>''
+            
             
                 ];
 
@@ -182,6 +235,21 @@
 
                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
+
+              
+                    if (isset($_FILES['pet_img'])) {
+                        $uploadedFileName = $_FILES['pet_img']['name'];
+                        $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                        // Generate a timestamp for uniqueness
+                        $timestamp = time();
+
+                        // Create a unique ID by concatenating values and adding the file extension
+                        $uniqueImgFileName = $id . '_' . $_POST['pname'] . '_' . $_POST['dob'] . '_' . $timestamp . '.' . $fileExtension;
+
+                    }
+               
+
                 //init data
 
                 $data = [
@@ -191,16 +259,18 @@
                     'species' => trim($_POST['species']),
                     'sex' => trim($_POST['sex']),
                     'breed' => trim($_POST['breed']),
-                    'age' => trim($_POST['age']),
-                    'age_err' => '',
+                    'img' => ($_FILES['pet_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['pet_img'],
+                    'img_err' => '',
                     'pname_err' => '',
                     'dob_err' => '',
                     'species_err' => '',
                     'sex_err' => '',
-                    'breed_err'  =>''
+                    'breed_err'  =>'',
+                    'uniqueImgFileName' => $uniqueImgFileName
             
                 ];
 
+                
               
                 
 
@@ -220,10 +290,18 @@
                     $data['sex_err'] = 'Please select Sex';
                 }
 
+                $allowedTypes = ['image/jpeg', 'image/png'];
 
-                if (empty($data['age'])) {
-                    $data['age_err'] = 'Please enter Age';
+                if (!isset($_FILES['pet_img']['type']) || ($_FILES['pet_img']['type'] && !in_array($_FILES['pet_img']['type'], $allowedTypes))) {
+                    // Invalid file type
+                    $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
                 }
+
+                if($_FILES['pet_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                    $data['img_err'] = 'Image size must be less than 5 MB';
+                }
+                
+
 
                 if (empty($data['breed'])) {
                     $data['breed_err'] = 'Please enter breed';
@@ -240,7 +318,7 @@
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['age_err']) && empty($data['species_err']) && empty($data['sex_err'])){
+                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['species_err']) && empty($data['img_err']) && empty($data['sex_err'])){
                     //validated
                     
                    
@@ -286,8 +364,7 @@
                     'species' => $pet -> species,
                     'sex' => $pet -> sex,
                     'breed' => $pet -> breed,
-                    'age' => $pet -> age,
-                    'age_err' =>'',
+                    'img_err'=>'',
                     'pname_err' => '',
                     'dob_err' => '',
                     'species_err' => '',
@@ -345,6 +422,8 @@
             $vets = $this->dashboardModel->getVetDetails();
             $time_slots = $this->dashboardModel->getTimeSlots();
             $holidays = $this->dashboardModel->getHolidayDetails();
+            $reason = $this->dashboardModel->getAppointmentReasons();
+            $treament_data = $this->dashboardModel->getTreatmentDetailsByUserIDOnlyOngoing($_SESSION['user_id']);
            
 
         
@@ -352,7 +431,9 @@
                 'pet' =>$pets,
                 'time_slots' => $time_slots,
                 'vet' => $vets,
-                'holiday' => $holidays
+                'holiday' => $holidays,
+                'reason' => $reason,
+                'medicalreport' =>$treament_data
             ];
 
             $this->view('dashboards/petowner/appointment/addAppointment', $data);
@@ -366,38 +447,166 @@
 
 
         public function checkoutAppointment(){
-           
-           
-            require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
-            \Stripe\Stripe::setApiKey('sk_test_51OIDiCEMWpdWcJS8G3LlaRo4qgZbpY9h0FHWQLqWZOLJEg7eVJDCQkGQLS14M2KkUuGWoiDbfdOFJbRuNR7eUNSK004utEcz6Y');
-            
-            $expiresAt = time() + (30 * 60); // in 30 min this will expire
-            $expirationDescription = date('Y-m-d H:i:s', $expiresAt);
-            
-            // Create a payment session
-            $paymentSession = \Stripe\Checkout\Session::create([
-                'payment_method_types' => ['card'],
-                'mode' => 'payment', // Set mode to 'payment' for one-time payments
-                'line_items' => [[
-                    'price' => 'price_1OIZwlEMWpdWcJS8zC9MFJoR', // Use the price ID, not the product ID
-                    'quantity' => 1,
-                    
 
-                ]],
-                'success_url' => 'http://localhost/petcare/petowner/appointment',
-                'cancel_url' => 'http://localhost/petcare/petowner/',
-                "expires_at" => $expiresAt,
-                
-            ]);
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
-            // Redirect to the Payment Link URL
-            header('Location: ' . $paymentSession->url);
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                // Store POST data to session variables for later use
+                $_SESSION['appointment_vetID'] = trim($_POST['vet']);
+                $_SESSION['appointment_reason'] = trim($_POST['reason']);
+                $_SESSION['appointment_petID'] = trim($_POST['pet']);
+                $_SESSION['appointment_date'] = trim($_POST['date']);
+                $_SESSION['appointment_time'] = trim($_POST['time']);
+                $_SESSION['appointment_treatment'] = trim($_POST['treatment']);
 
+                
+        
+                
+                \Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
+        
+                $expiresAt = time() + (30 * 60); // in 30 min this will expire
+                $expirationDescription = date('Y-m-d H:i:s', $expiresAt);
+        
+                // Create a payment session
+                $paymentSession = \Stripe\Checkout\Session::create([
+                    'payment_method_types' => ['card'],
+                    'mode' => 'payment', // Set mode to 'payment' for one-time payments
+                    'line_items' => [[
+                        'price' => 'price_1OIZwlEMWpdWcJS8zC9MFJoR', // Use the price ID, not the product ID
+                        'quantity' => 1,
+                    ]],
+                    'success_url' => 'http://localhost/petcare/petowner/appointmentSuccess', // Add a query parameter for success
+                    'cancel_url' => 'http://localhost/petcare/petowner/appointment', // Add a query parameter for cancel
+                    "expires_at" => $expiresAt,
+                ]);
+        
+                // Redirect to the Payment Link URL
+                header('Location: ' . $paymentSession->url);
+                exit;
+        
+            } else {
+        
+                // Redirect back to the appointment page if not a POST request or payment success
+                redirect('petowner/appointment');
+            }
         }
+
 
         public function appointmentSuccess(){
 
+            $addApp = $this->dashboardModel->insertAppointment($_SESSION['appointment_vetID'], $_SESSION['appointment_reason'], $_SESSION['appointment_petID'], $_SESSION['appointment_date'], $_SESSION['appointment_time'], $_SESSION['appointment_treatment']);
+
+            $vetName = $this->dashboardModel->getVetNameByID($_SESSION['appointment_vetID']);
+            $petName = $this->dashboardModel->getPetNameByID($_SESSION['appointment_petID']);
+            $generatedIDAppointment = $this->dashboardModel->getGeneratedIDAppointment($_SESSION['appointment_vetID'], $_SESSION['appointment_reason'], $_SESSION['appointment_petID'], $_SESSION['appointment_date'], $_SESSION['appointment_time']);
+
+            $_SESSION['appointment_vetFname'] = $vetName->firstname;
+            $_SESSION['appointment_vetLname'] = $vetName->lastname;
+            $_SESSION['appointment_petName'] = $petName->pet;
+            $_SESSION['appointment_generatedID'] = $generatedIDAppointment->appointment_id;
+
+
+
+
+            if($addApp){
+                $this->appointmentSuccessMail();
+                
+            }else{
+                die("error in user delete model");
+            }
+
+           
         }
+
+        public function appointmentSuccessMail(){
+          
+            
+            
+                
+                require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+            
+                try {
+                    // Create a new PHPMailer instance
+                    $mail = new PHPMailer(true);
+            
+                    // Set mail configuration (replace with your actual details)
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = $_ENV['MAIL_USERNAME'];
+                    $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+                    $mail->SMTPSecure = 'tls';
+                    $mail->Port = 587;
+            
+                    // Set email sender details
+                    $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+            
+                    // Add recipient address
+                    $mail->addAddress($_SESSION['user_email'], 'Pet Owner: ' . $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']);
+            
+                    // Set subject and body
+                    $mail->Subject = 'Important Update from Pet Care';
+                    $mail->isHTML(true);
+
+                   ob_start();  // Start output buffering
+                    include(__DIR__ . '/../views/email/appointmentPending.php');
+                    $mailBody = ob_get_clean();
+
+                    $mail->Body = $mailBody;
+
+            
+                    // Send the email
+                    $mail->send();
+
+                    
+                    $this->destroyAppointmentSessionVariables();
+                    $this->appointmentSuccessSMS();
+                    
+
+                } catch (Exception $e) {
+                    // Handle exceptions
+                    echo 'Error: ' . $mail->ErrorInfo;
+                }
+            
+            
+            
+
+        }
+
+        public function appointmentSuccessSMS(){
+
+            // Send SMS
+            $userID = $_ENV['NOTIFY_USERID'];
+            $apiKey = $_ENV['NOTIFY_APIKEY'];
+
+            $customMessage ="Hello " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . ", we've received your payment for the appointment. It's currently pending confirmation. Once accepted, we'll send you a confirmation. Thank you for choosing Pet Care—we're excited to serve you!"; // Replace this with your custom message
+            $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
+            $sendEndpoint = str_replace('[TO]', $_SESSION['user_mobile'], $sendEndpoint);
+          //  $sendResponse = file_get_contents($sendEndpoint);
+            redirect('petowner/appointment');
+
+
+        }
+
+        public function destroyAppointmentSessionVariables(){
+
+            unset($_SESSION['appointment_vetID']);
+            unset($_SESSION['appointment_reason']);
+            unset($_SESSION['appointment_petID']);
+            unset($_SESSION['appointment_date']);
+            unset($_SESSION['appointment_time']);
+            unset($_SESSION['appointment_vetFname']);
+            unset($_SESSION['appointment_vetLname']);
+            unset($_SESSION['appointment_petName']);
+            unset($_SESSION['appointment_generatedID']);
+            unset($_SESSION['appointment_treatment']);
+        }
+
+        
+        
+
+        
 
         public function checkAvailabilityTimeSlots(){
 
@@ -436,12 +645,12 @@
 
                 $availability = '';
 
-                if($isLocked){
+                if(!$isBooked){//true mean book slot availble(not booked)
 
-                    $availability ="locked";
-                }else if(!$isBooked){  //true mean book slot availble(not booked)
+                    $availability ="booked";
+                }else if($isLocked){  
 
-                    $availability = "booked";
+                    $availability = "locked";
                 }
 
                 echo json_encode(['available' => $availability]);
@@ -489,7 +698,34 @@
         }
 
         
+        public function medicalReport(){
 
+
+            $treament_data = $this->dashboardModel->getTreatmentDetailsByUserID($_SESSION['user_id']);
+
+            $data = [
+                'medicalreport' =>$treament_data
+            ];
+           
+            $this->view('dashboards/petowner/medicalreport/medicalReport', $data);
+        }
+
+        public function showMedicalReport($treament_id){
+
+            $treament_data = $this->dashboardModel->getTreatmentDetailsByTreatmentID($treament_id);
+            $petcareInfo = $this->dashboardModel->getPetCareDetails();
+
+            if($treament_data == null){   //if no data found : its mean user try to access url with wrong treatment id(intentionally)
+                redirect('petowner/medicalreport');
+            }
+
+            $data = [
+                'medicalreportview' =>$treament_data,
+                'petcareInfo' => $petcareInfo
+            ];
+
+            $this->view('dashboards/petowner/medicalreport/viewMedicalReport', $data);
+        }
 
         
         
