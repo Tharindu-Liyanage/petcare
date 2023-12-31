@@ -1,11 +1,7 @@
 
 # PetCare
 
-
-![Logo](https://i.ibb.co/wQncy57/logo-croped.png)
 PetCare is a veterinary system for managing pet clinics, developed as a group project.
-
-
 
 ## Important
 
