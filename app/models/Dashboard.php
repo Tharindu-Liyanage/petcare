@@ -44,7 +44,7 @@
         public function getStaffDetails(){
             
             $userID = $_SESSION['user_id'];
-            $this->db->query("SELECT * FROM petcare_staff WHERE staff_id != :userID");
+            $this->db->query("SELECT * FROM petcare_staff WHERE staff_id != :userID AND isRemoved = 0");
             $this->db->bind(':userID', $userID);
 
             $results = $this->db->resultSet();
@@ -55,8 +55,9 @@
 
         //2
         public function addStaff($data){
+            
 
-            $this->db->query('INSERT INTO petcare_staff (firstname,lastname,email,phone,role,password,address ,profileImage) VALUES(:first_name, :last_name, :email, :mobile, :role,:tmp_pwd, :address , "nopic.png")');
+        $this->db->query('INSERT INTO petcare_staff (firstname,lastname,email,phone,role,password,address ,profileImage) VALUES(:first_name, :last_name, :email, :mobile, :role,:tmp_pwd, :address , "nopic.png")');
 
         //bind values
         $this->db->bind(':first_name',$data['first_name']);
@@ -126,7 +127,8 @@
         //5
 
         public function removeStaffUser($id){
-            $this->db->query('DELETE  FROM petcare_staff WHERE staff_id = :id');
+           
+            $this->db->query('UPDATE petcare_staff SET isRemoved = 1 WHERE staff_id = :id');
             $this->db->bind(':id' , $id);
             
             $row = $this->db->single();
@@ -305,13 +307,40 @@
         
         17. getAppointmentDetailsByPetOwner -> 
 
-        18. getPetDetails
+        18. getPetDetailsByPetownerID
 
         19. getTimeSlots
 
         20. checkAvailbility  - ajax requst get data
 
-        21. getVetDetails
+        21. getVetDetails   - get vet details
+
+        22. getHolidayDetails - get holiday details
+        
+        23. timeSlotLock -  lock the time slot
+
+        24. checkTimeSlotIsLocked - also check the time slot is locked or not
+
+        25. getAppointmentReasons - for add appointment
+
+        26. insertAppointment  - insert appointment details
+
+        27. getVetNameByID  - for add appointment
+
+        28. getPetNameByID  - for add appointment
+
+        29. getGeneratedIDAppointment - for add appointment
+
+        30. getTreatmentDetailsByUserID    - to show Medical reports in the table
+
+        31. getTreatmentDetailsByTreatmentID -  to showMedicaReport details , showMedicalReport/2   2 is report id
+
+        32. getPetCareDetails - for medical report details
+
+        33. getTreatmentDetailsByUserIDOnlyOngoing  - for Addappointment
+
+        34. getPetProfileImageByID - for delete the old pro pic
+        
 
         ================================================================================
         
@@ -340,7 +369,9 @@
 
         public function addPetDetails($data){
 
-            $this->db->query('INSERT INTO petcare_pet (pet,DOB,breed,sex,age,species) VALUES(:pet, :DOB, :breed, :sex, :age ,:species)');
+            if($data['img'] === NULL) {
+
+                $this->db->query('INSERT INTO petcare_pet (pet,DOB,breed,sex,species,petowner_id) VALUES(:pet, :DOB, :breed, :sex,:species,:petowner_id)');
 
              //bind values
             $this->db->bind(':pet',$data['pname']);
@@ -348,16 +379,96 @@
             $this->db->bind(':breed',$data['breed']);
             $this->db->bind(':sex',$data['sex']);
             $this->db->bind(':species',$data['species']);
-            $this->db->bind(':age',$data['age']);
+            $this->db->bind(':petowner_id',$_SESSION['user_id']);
         
 
-        //execute
-        if($this->db->execute()){
-            return true;
+            //execute
+            if($this->db->execute()){
+                return true;
 
-        }else{
-            return false;
-        }
+            }else{
+                return false;
+            }
+            
+
+            }else{
+
+               //insert data with img
+               $this->db->query('INSERT INTO petcare_pet (pet,DOB,breed,sex,species,profileImage,petowner_id) VALUES(:pet, :DOB, :breed, :sex ,:species,:filename,:petowner_id)');
+        
+
+                //bind values
+                $this->db->bind(':pet',$data['pname']);
+                $this->db->bind(':DOB',$data['dob']);
+                $this->db->bind(':breed',$data['breed']);
+                $this->db->bind(':sex',$data['sex']);
+                $this->db->bind(':species',$data['species']);
+                $this->db->bind(':filename',$data['uniqueImgFileName']);
+                $this->db->bind(':petowner_id',$_SESSION['user_id']);
+
+    
+                // Specify the source directory (temporary location)
+                $sourceDir = $data['img']['tmp_name'];
+
+                // Specify the destination directory using __DIR__
+                $destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+                // Set the path to move the uploaded file to
+                $uploadPath = $destinationDir . $data['uniqueImgFileName'];
+
+               
+                if (move_uploaded_file($sourceDir, $uploadPath)) {
+
+                    $imageType = exif_imagetype($uploadPath);
+                   // die("success");
+
+                   switch ($imageType) {
+                    case IMAGETYPE_JPEG:
+                        
+                        $source = imagecreatefromjpeg($uploadPath);
+
+                        // Save the compressed image to the same file
+                        imagejpeg($source, $uploadPath,30);  //can adjust the compression level (0-100)
+                    
+                        // Free up resources
+                        imagedestroy($source);
+
+                       
+
+                        break;
+
+                    case IMAGETYPE_PNG:
+                       $source = imagecreatefrompng($uploadPath);
+
+                        // Save the compressed image to the same file
+                        imagepng($source, $uploadPath, 5); // You can adjust the compression level (0-9)
+
+                        // Free up resources
+                        imagedestroy($source);
+                        break;
+                   
+                    default:
+                        echo "Unsupported image format.";
+                        break;
+                }
+        
+                } else {
+                    // Error moving the file
+                   // $data['img_err'] = 'Error moving the file.';
+                   // die("Misson failed");
+                }
+
+
+                    //execute
+                if($this->db->execute()){
+                    return true;
+
+                }else{
+                    return false;
+                }
+
+
+            }
+
             
 
         }
@@ -367,8 +478,13 @@
 
         public function updatePetDetails($data){
 
-            $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB = :DOB , breed= :breed, sex = :sex , species = :species , age = :age   WHERE id = :id');
+            if($data['img'] === NULL) {
+
+
         
+
+                $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB = :DOB , breed= :breed, sex = :sex , species = :species   WHERE id = :id');
+     
 
            //bind values
            $this->db->bind(':id' , $data['id']);
@@ -377,7 +493,6 @@
            $this->db->bind(':breed',$data['breed']);
            $this->db->bind(':sex',$data['sex']);
            $this->db->bind(':species',$data['species']);
-           $this->db->bind(':age',$data['age']);
 
     
                 //execute
@@ -387,6 +502,100 @@
             }else{
                 return false;
             }
+
+
+
+            }else{
+
+                //get image name from database
+                $oldImgFileName = $this->getPetProfileImageByID($data['id']);
+
+
+                // Delete the old image file
+
+                /*
+                $oldImagePath = __DIR__ . '/../../public/storage/uploads/animals/' . $oldImgFileName->profileImage;
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }*/
+
+
+                $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB = :DOB , breed= :breed, sex = :sex , species = :species , profileImage =:filename   WHERE id = :id');
+        
+
+                    //bind values
+                    $this->db->bind(':id' , $data['id']);
+                    $this->db->bind(':pname',$data['pname']);
+                    $this->db->bind(':DOB',$data['dob']);
+                    $this->db->bind(':breed',$data['breed']);
+                    $this->db->bind(':sex',$data['sex']);
+                    $this->db->bind(':species',$data['species']);
+                    $this->db->bind(':filename',$data['uniqueImgFileName']);
+
+
+                    // Specify the source directory (temporary location)
+                    $sourceDir = $data['img']['tmp_name'];
+
+                    // Specify the destination directory using __DIR__
+                    $destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+                    // Set the path to move the uploaded file to
+                    $uploadPath = $destinationDir . $data['uniqueImgFileName'];
+
+                   
+                    if (move_uploaded_file($sourceDir, $uploadPath)) {
+
+                        $imageType = exif_imagetype($uploadPath);
+                       // die("success");
+
+                       switch ($imageType) {
+                        case IMAGETYPE_JPEG:
+                            
+                            $source = imagecreatefromjpeg($uploadPath);
+
+                            // Save the compressed image to the same file
+                            imagejpeg($source, $uploadPath,30);  //can adjust the compression level (0-100)
+                        
+                            // Free up resources
+                            imagedestroy($source);
+
+                           
+
+                            break;
+
+                        case IMAGETYPE_PNG:
+                           $source = imagecreatefrompng($uploadPath);
+
+                            // Save the compressed image to the same file
+                            imagepng($source, $uploadPath, 5); // You can adjust the compression level (0-9)
+
+                            // Free up resources
+                            imagedestroy($source);
+                            break;
+                       
+                        default:
+                            echo "Unsupported image format.";
+                            break;
+                    }
+            
+                    } else {
+                        // Error moving the file
+                       // $data['img_err'] = 'Error moving the file.';
+                       // die("Misson failed");
+                    }
+
+    
+                        //execute
+                    if($this->db->execute()){
+                        return true;
+
+                    }else{
+                        return false;
+                    }
+
+
+            }
+
+            
             
 
         }
@@ -395,7 +604,9 @@
 
         public function removePetDetails($id){
 
-            $this->db->query('DELETE  FROM petcare_pet WHERE id = :id');
+            //update query to set isRemoved = 1
+            $this->db->query('UPDATE petcare_pet SET isRemoved = 1 WHERE id = :id');
+
             $this->db->bind(':id' , $id);
             
             $row = $this->db->single();
@@ -457,7 +668,7 @@
                 'SELECT pet.*
                 FROM petcare_pet pet
                 JOIN petcare_petowner po ON pet.petowner_id = po.id
-                WHERE petowner_id = :id
+                WHERE petowner_id = :id AND pet.isRemoved = 0
                 ORDER BY pet.id ASC');
 
             $this->db->bind(':id' , $id);
@@ -710,6 +921,8 @@
             return $row;
         }
 
+        //29
+
         public function getGeneratedIDAppointment($vetid,$reson,$petid,$date,$time){
                 
                 $this->db->query(
@@ -733,7 +946,7 @@
         }
 
 
-        //29
+        //30
 
         public function getTreatmentDetailsByUserID($id){
 
@@ -761,7 +974,7 @@
 
         }
 
-        //30
+        //31
 
         public function getTreatmentDetailsByTreatmentID($id){
 
@@ -789,7 +1002,7 @@
 
 
 
-        //31
+        //32
 
         public function getPetCareDetails(){
                 
@@ -802,7 +1015,7 @@
                 return $results;
         }
 
-        //32 
+        //33
 
         public function getTreatmentDetailsByUserIDOnlyOngoing($id){
                 
@@ -827,6 +1040,28 @@
     
                     return $results;
         }
+
+        //34
+
+        public function getPetProfileImageByID($id){
+                
+                $this->db->query(
+    
+                    'SELECT profileImage
+                    FROM petcare_pet
+                    WHERE id = :id');
+    
+                    $this->db->bind(':id' , $id);
+                            
+    
+                    $row = $this->db->single();
+    
+                    return $row;
+        }
+
+
+
+        // ============================  Pet Owner over =========================================================================================
 
 
 

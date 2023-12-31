@@ -1,3 +1,9 @@
+// Get references to the elements
+const deleteLinks = document.querySelectorAll(".removeLink"); // Select all delete links
+const notification = document.getElementById("removeModel");
+const confirmDeleteButton = document.getElementById("confirmDelete");
+const cancelDeleteButton = document.getElementById("cancelDelete");
+
 //search table
 
 var options = {
@@ -17,11 +23,7 @@ document.querySelector('.show-entries').addEventListener('change', function () {
 });
 
 
-// Get references to the elements
-const deleteLinks = document.querySelectorAll(".removeLink"); // Select all delete links
-const notification = document.getElementById("removeModel");
-const confirmDeleteButton = document.getElementById("confirmDelete");
-const cancelDeleteButton = document.getElementById("cancelDelete");
+
 
 // Add click event listener to each delete link
 deleteLinks.forEach((deleteLink) => {

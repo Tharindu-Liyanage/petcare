@@ -92,6 +92,22 @@
 
                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
+
+               
+
+                
+                if (isset($_FILES['pet_img'])) {
+                    $uploadedFileName = $_FILES['pet_img']['name'];
+                    $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                    // Generate a timestamp for uniqueness
+                    $timestamp = time();
+
+                    // Create a unique ID by concatenating values and adding the file extension
+                    $uniqueImgFileName = $_POST['pname'] . '_' . $_POST['dob'] . '_' . $timestamp . '.' . $fileExtension;
+
+                }
+
                 //init data
 
                 $data = [
@@ -100,23 +116,20 @@
                     'species' => trim($_POST['species']),
                     'sex' => trim($_POST['sex']),
                     'breed' => trim($_POST['breed']),
-                    'age' => trim($_POST['age']),
-                    'age_err' => '',
+                    'img' => ($_FILES['pet_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['pet_img'],
+                    'img_err' => '',
                     'pname_err' => '',
                     'dob_err' => '',
                     'species_err' => '',
                     'sex_err' => '',
-                    'breed_err'  =>''
+                    'breed_err'  =>'',
+                    'uniqueImgFileName' =>$uniqueImgFileName
             
                 ];
 
-              
-                
-
-            
-                //validate pName
-                if(empty($data['pname'])){
-                    $data['pname_err'] = 'Please pet name';
+                  //validate pName
+                  if(empty($data['pname'])){
+                    $data['pname_err'] = 'Please enter Pet Name';
                 }
 
                 //validate brand
@@ -125,21 +138,31 @@
                 }
 
                 //validate address
-                if(empty($data['species'])){
-                    $data['species_err'] = 'Please enter Species';
-                }
-
-
-                if (empty($data['sex'])) {
+                if(empty($data['sex'])){
                     $data['sex_err'] = 'Please select Sex';
                 }
 
-                if (empty($data['breed'])) {
-                    $data['breed_err'] = 'Please enter a price';
+                $allowedTypes = ['image/jpeg', 'image/png'];
+
+                if (!isset($_FILES['pet_img']['type']) || ($_FILES['pet_img']['type'] && !in_array($_FILES['pet_img']['type'], $allowedTypes))) {
+                    // Invalid file type
+                    $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
                 }
 
-                if (empty($data['age'])) {
-                    $data['age_err'] = 'Please enter Age';
+                if($_FILES['pet_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                    $data['img_err'] = 'Image size must be less than 5 MB';
+                }
+                
+
+
+                if (empty($data['breed'])) {
+                    $data['breed_err'] = 'Please enter breed';
+                }
+
+               
+
+                if (empty($data['species'])) {
+                    $data['species_err'] = 'Please enter Species';
                 }
                 
 
@@ -147,14 +170,10 @@
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['sex_err']) && empty($data['cat_err']) &&  empty($data['dob_err']) &&   empty($data['age_err'])){
-                    //validated
+                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['species_err']) && empty($data['img_err']) && empty($data['sex_err'])){
                     
                    
-                    
-
-                    //add product
-
+                
                     if($this->dashboardModel->addPetDetails($data)){
                        
                        // $_SESSION['staff_user_added'] = true;
@@ -185,15 +204,15 @@
                     'pname' => '',
                     'dob' => '',
                     'species' => '',
-                    'sex' =>'',
-                    'breed' =>'',
-                    'age' =>'',
-                    'age_err' => '',
+                    'sex' => '',
+                    'breed' => '',
+                    'img_err'=>'',
                     'pname_err' => '',
                     'dob_err' => '',
                     'species_err' => '',
                     'sex_err' => '',
                     'breed_err'  =>''
+            
             
                 ];
 
@@ -216,6 +235,21 @@
 
                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
+
+              
+                    if (isset($_FILES['pet_img'])) {
+                        $uploadedFileName = $_FILES['pet_img']['name'];
+                        $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                        // Generate a timestamp for uniqueness
+                        $timestamp = time();
+
+                        // Create a unique ID by concatenating values and adding the file extension
+                        $uniqueImgFileName = $id . '_' . $_POST['pname'] . '_' . $_POST['dob'] . '_' . $timestamp . '.' . $fileExtension;
+
+                    }
+               
+
                 //init data
 
                 $data = [
@@ -225,16 +259,18 @@
                     'species' => trim($_POST['species']),
                     'sex' => trim($_POST['sex']),
                     'breed' => trim($_POST['breed']),
-                    'age' => trim($_POST['age']),
-                    'age_err' => '',
+                    'img' => ($_FILES['pet_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['pet_img'],
+                    'img_err' => '',
                     'pname_err' => '',
                     'dob_err' => '',
                     'species_err' => '',
                     'sex_err' => '',
-                    'breed_err'  =>''
+                    'breed_err'  =>'',
+                    'uniqueImgFileName' => $uniqueImgFileName
             
                 ];
 
+                
               
                 
 
@@ -254,10 +290,18 @@
                     $data['sex_err'] = 'Please select Sex';
                 }
 
+                $allowedTypes = ['image/jpeg', 'image/png'];
 
-                if (empty($data['age'])) {
-                    $data['age_err'] = 'Please enter Age';
+                if (!isset($_FILES['pet_img']['type']) || ($_FILES['pet_img']['type'] && !in_array($_FILES['pet_img']['type'], $allowedTypes))) {
+                    // Invalid file type
+                    $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
                 }
+
+                if($_FILES['pet_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                    $data['img_err'] = 'Image size must be less than 5 MB';
+                }
+                
+
 
                 if (empty($data['breed'])) {
                     $data['breed_err'] = 'Please enter breed';
@@ -274,7 +318,7 @@
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['age_err']) && empty($data['species_err']) && empty($data['sex_err'])){
+                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['species_err']) && empty($data['img_err']) && empty($data['sex_err'])){
                     //validated
                     
                    
@@ -320,8 +364,7 @@
                     'species' => $pet -> species,
                     'sex' => $pet -> sex,
                     'breed' => $pet -> breed,
-                    'age' => $pet -> age,
-                    'age_err' =>'',
+                    'img_err'=>'',
                     'pname_err' => '',
                     'dob_err' => '',
                     'species_err' => '',
