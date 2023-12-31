@@ -1,18 +1,12 @@
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-  body{
-    font-family: 'Poppins', sans-serif;
-  }
-</style>
 # PetCare
 
 
 
-<div style="display:flex; justify-content:center; align-items:center; color:#fff; margin-bottom:10px; gap:10px;">
-    <div><img style="width:100px; height:auto;" src="https://i.ibb.co/wQncy57/logo-croped.png" alt="Logo"></div>
-        <div style="font: 400 50px 'Poppins', sans-serif;">PetCare<span style="color:#1F2E88">.</span></div>
-    </div>
+<div align="center">
+  <img src="https://i.ibb.co/wQncy57/logo-croped.png" alt="Logo" width="100">
+  <h1>PetCare<span style="color: #1F2E88;">.</span></h1>
 </div>
+
 
 - PetCare is a veterinary system for managing pet clinics, developed as a group project.
 
