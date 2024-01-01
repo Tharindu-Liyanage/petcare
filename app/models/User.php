@@ -107,6 +107,20 @@ class User{
 
     }
 
+    public function findUserByEmailForForgotPassword($email){
+        $this->db->query('SELECT * FROM petcare_petowner WHERE email = :email');
+        $this->db->bind(':email' , $email);
+
+        $row = $this->db->single();
+
+      
+
+        
+        return $row;
+    
+
+    }
+
     //find staff by email
     public function findStaffUserByEmail($email){
         $this->db->query('SELECT * FROM petcare_staff WHERE email = :email');
@@ -157,6 +171,86 @@ class User{
         }else{
             return false;
         }
+
+        }
+
+        //send otp code
+        public function sendOtpCode($data){
+
+            $this->db->query('INSERT INTO petcare_otp_codes_forgot_password (user_email, otp_code, expired_at) VALUES (:email, :otp, ADDTIME(NOW(), "0:05:00"))');
+
+
+          
+
+            //bind values
+            $this->db->bind(':email',$data['email']);
+            $this->db->bind(':otp',$data['otp']);
+    
+            //execute
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }
+        }
+
+        //get lastest otp code by email
+
+        public function getOtpCodeByEmail($email){
+
+            $this->db->query('SELECT * FROM petcare_otp_codes_forgot_password WHERE user_email = :email ORDER BY created_at DESC LIMIT 1');
+            $this->db->bind(':email' , $email);
+    
+            $row = $this->db->single();
+    
+            //check row count
+    
+            if($this->db->rowCount() > 0 ){
+                return $row;
+            }else{
+                return false;
+            }
+    
+        }
+
+        //get lastest otp code user email expire time
+
+        public function getExpireTimeOTPCode($email){
+
+            $this->db->query('SELECT * FROM petcare_otp_codes_forgot_password WHERE user_email = :email ORDER BY created_at DESC LIMIT 1');
+            $this->db->bind(':email' , $email);
+    
+            $row = $this->db->single();
+    
+            //check row count
+    
+            if($this->db->rowCount() > 0 ){
+                return $row;
+            }else{
+                return false;
+            }
+    
+        }
+
+
+        //update password
+        public function updatePassword($data){
+
+            $this->db->query('UPDATE petcare_petowner SET password = :password WHERE email = :email');
+    
+            //bind values
+            $this->db->bind(':email',$data['email']);
+            $this->db->bind(':password',$data['password']);
+
+            //execute
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }
+
 
         }
 

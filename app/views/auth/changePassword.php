@@ -11,7 +11,7 @@
     <div class="container">
         <div class="form-container">
 
-            <form action="#">
+            <form action="<?php echo URLROOT; ?>/users/changePassword" method="POST">
 
                 <div class="logo">
                     <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
@@ -34,8 +34,13 @@
                 <div class="input-field">
 
     
-                    <input type="password" placeholder="Password" id="password" required>
-                    <input  class="last"  type="password" placeholder="Re-type Password" id="rePwd" required>
+                    <input class="<?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>" type="password" placeholder="Password" id="password"  name="password" value="<?php echo $data['password']?>" >
+                    <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
+
+                    <input  class="<?php echo (!empty($data['confirm_password_err'])) ? 'is-invalid' : '' ; ?> last"  type="password" placeholder="Re-type Password" id="rePwd" value="<?php echo $data['re_password']?>"  name="re_password">
+                    <span class="invalid-feedback"><?php echo $data['confirm_password_err']; ?></span>
+
+                    
                    
                     
                    

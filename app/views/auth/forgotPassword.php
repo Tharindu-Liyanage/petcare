@@ -11,7 +11,7 @@
     <div class="container">
         <div class="form-container">
 
-            <form action="#">
+            <form action="<?php echo URLROOT; ?>/users/forgotpassword" method="POST">
 
                 <div class="logo">
                     <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
@@ -34,11 +34,12 @@
                 <div class="input-field">
 
     
-                    <input type="text" placeholder="Email" id="email" required>
+            
+                    <input class="<?php echo (!empty($data['email_err'])) ? 'is-invalid' : '' ; ?>" type="text" placeholder="Email" id="email" value="<?php echo $data['email']?>"  name="email" >
+                    <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
                    
                     
-                   
-                      
+      
                 <div class="signUp-but">
                     <button class="but"><img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/submit.svg">Submit</button>
                 </div>

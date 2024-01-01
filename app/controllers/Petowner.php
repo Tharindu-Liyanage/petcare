@@ -75,11 +75,44 @@
 
             $pets = $this->dashboardModel->getPetDetailsByPetownerID($_SESSION['user_id']);
 
+            foreach ($pets as $pet) {
+                // Assuming 'DOB' is the property name, replace it with the correct property name if needed
+                $petDOB = isset($pet->DOB) ? $pet->DOB : null;
+        
+                $pet->age = $this->calculateAge($petDOB);
+            }
+
+           
             $data = [
-                'pet' =>$pets
+                'pet' =>$pets    
             ];
 
             $this->view('dashboards/petowner/pet/pet',$data);
+        }
+
+        public function calculateAge($birthdate) {
+            // Create a DateTime object from the birthdate
+            $birthdate = new DateTime($birthdate);
+            
+            // Get the current date
+            $currentDate = new DateTime();
+            
+            // Calculate the difference in years and months
+            $ageInterval = $currentDate->diff($birthdate);
+        
+            $years = $ageInterval->y;
+            $months = $ageInterval->m;
+        
+            // Build the age string
+            $ageString = '';
+            if ($years > 0) {
+                $ageString .= "$years" . " Years ";
+            }
+            if ($months > 0) {
+                $ageString .= "$months" . " Months";
+            }
+        
+            return $ageString;
         }
 
 
@@ -353,6 +386,11 @@
             }else{
 
                 $pet =$this->dashboardModel-> getPetDetailsByID($id);
+
+
+                if($pet == null){   //if no data found : its mean user try to access url with wrong pet id(intentionally)
+                    redirect('petowner/pet');
+                }
 
 
 
@@ -715,8 +753,17 @@
             $treament_data = $this->dashboardModel->getTreatmentDetailsByTreatmentID($treament_id);
             $petcareInfo = $this->dashboardModel->getPetCareDetails();
 
+        
             if($treament_data == null){   //if no data found : its mean user try to access url with wrong treatment id(intentionally)
                 redirect('petowner/medicalreport');
+            }
+
+            foreach ($treament_data as $treament) {
+                // Assuming 'DOB' is the property name, replace it with the correct property name if needed
+                $petDOB = isset($treament->DOB) ? $treament->DOB : null;
+                $visitDate = isset($treament->visit_date) ? $treament->visit_date : null;
+        
+                $treament->petAge = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
             }
 
             $data = [
@@ -725,6 +772,35 @@
             ];
 
             $this->view('dashboards/petowner/medicalreport/viewMedicalReport', $data);
+        }
+
+
+        public function calculateAgeForMedicalReport($birthdate,$visitDate) {
+
+            /* Age cannot be changed in Report so get different between birthDate and VisitDate */
+
+            // Create a DateTime object from the birthdate
+            $birthdate = new DateTime($birthdate);
+            
+            // Get the current date
+            $visitDate = new DateTime($visitDate);
+            
+            // Calculate the difference in years and months
+            $ageInterval = $visitDate->diff($birthdate);
+        
+            $years = $ageInterval->y;
+            $months = $ageInterval->m;
+        
+            // Build the age string
+            $ageString = '';
+            if ($years > 0) {
+                $ageString .= "$years" . " Years ";
+            }
+            if ($months > 0) {
+                $ageString .= "$months" . " Months";
+            }
+        
+            return $ageString;
         }
 
         

@@ -119,7 +119,7 @@
                                         
                                             <div><span class="fw-500">Id: </span><?php echo $medicalreport->genIdPet?></div>
                                             <div><span class="fw-500">Name: </span><?php echo $medicalreport->pet?></div>
-                                            <div><span class="fw-500">Age: </span><?php echo $medicalreport->age?></div>
+                                            <div><span class="fw-500">Age: </span><?php echo $medicalreport->petAge?></div>
                                             <div><span class="fw-500">Breed: </span><?php echo $medicalreport->breed?></div>
                                             <div><span class="fw-500">Sex: </span><?php echo $medicalreport->petsex?></div>
                                             <div><span class="fw-500">Species: </span><?php echo $medicalreport->species?></div>
