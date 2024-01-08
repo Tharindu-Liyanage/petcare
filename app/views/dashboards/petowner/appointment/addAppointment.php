@@ -162,7 +162,7 @@
                                 <div class="input-field">
                                     <div class="label">Select a Veterinarian</div>
                                     <div class="inputForm">
-                                    <i class='bx bx-user-plus' ></i>
+                                    <i class='bx bx-male-female' ></i>
                                     <select id="vet" name="vet">
 
                                     <option disabled selected value=" ">
@@ -188,7 +188,7 @@
                                 <div class="input-field">
                                     <div class="label">Select a Reason</div>
                                     <div class="inputForm">
-                                    <i class='bx bxs-virus' ></i>
+                                    <i class='bx bx-question-mark' ></i>
                                     <select id="reason" name="reason">
 
                                     <option disabled selected value=" ">

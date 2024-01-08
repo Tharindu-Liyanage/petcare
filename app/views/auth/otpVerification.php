@@ -26,7 +26,7 @@
 
 
             <div class="text">
-                    <p>We emailed you a 4-digit code to <?php if(isset($data['email'])) echo $data['email']; ?>. Enter the code below to confirm your email address.</p>
+                    <p>We emailed you a 4-digit code to <b><?php if(isset($data['email'])) echo $data['email']; ?></b>. Enter the code below to confirm your email address.</p>
                 </div>
 
                

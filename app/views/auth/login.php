@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/login.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
-    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <title>Login</title>
 </head>
@@ -26,6 +26,54 @@
                     <span class="title-text"><b>Login to PetCare</b></span>
                 </div>
 
+                <?php if(isset($_SESSION['session_err_PO'])){
+
+                    //this is the error message from the change password page 
+                    echo "<div class='badges'>
+                            <div class='red'>".$_SESSION['session_err_PO']."</div>
+                        </div>";
+                    
+                    //unset
+                    unset($_SESSION['session_err_PO']);
+                }
+
+                 if(!empty($_SESSION['change_pwd_msg_PO'])){
+
+                    echo "
+                    <div class='badges'>
+                            <div class='green'>".$_SESSION['change_pwd_msg_PO']."</div>   
+                    </div>";
+
+                    //unset
+                    unset($_SESSION['change_pwd_msg_PO']);
+                } 
+
+
+                if(!empty($_SESSION['PO_last_activity'])){
+
+                    echo "
+                    <div class='badges'>
+                            <div class='red'>".$_SESSION['PO_last_activity']."</div>   
+                    </div>";
+
+                    //unset
+                    unset($_SESSION['PO_last_activity']);
+                    session_destroy();
+
+                }
+
+                    
+
+
+                
+                
+                
+                ?>
+
+              
+
+                
+                
 
                 <div class="input-field">
 
