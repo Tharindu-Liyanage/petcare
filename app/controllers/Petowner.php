@@ -65,7 +65,7 @@
 
         public function getWelcomeGreeting(){
             
-                date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
+              
 
                 $currentTime = date('H:i:s'); // Get the current time in 24-hour format
 
