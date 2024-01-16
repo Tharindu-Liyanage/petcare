@@ -1,0 +1,64 @@
+.status-green{
+    color:#108C81;
+    font-weight: 600;
+}
+
+.status-red{
+    color:#DE1C53;
+    font-weight: 600;
+}
+
+.status-yellow{
+    color:#FFCC6A;
+    font-weight: 600;
+}
+
+.action{
+    display: flex;
+    grid-gap: 10px;
+    
+}
+
+.action .bx{
+    font-size: 1.3rem;
+    color: var(--dark);
+}
+
+.action a ::before{
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.action a.rej ::before{
+    background: #FEE4E3;
+    
+}
+
+
+.action a.rej .bx{
+   color: #A0403C;
+
+}
+
+.action a.rej .bx:hover{
+    color: #EA3D2F;
+   
+ }
+
+
+
+.action a.accept ::before{
+    background: #E6EFFF;
+}
+
+.action a.accept .bx{
+   color: #6EA2FE;
+}
+
+.action a.accept .bx:hover{
+    color: #357BF4;
+ }
+
+#appointment{
+    font-size: 15px;
+}

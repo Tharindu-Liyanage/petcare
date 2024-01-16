@@ -56,19 +56,7 @@
                     <div class="home-left2">
                         <div class="home-text-large">
                            Currently, <span  id="petName">No Appointments!</span>
-                        </div>
-
-                        <div class="date-time-type">
-                            <div>Date : <span id="appointmentDate"></span></div>
-                            <div>Time : <span id="appointmentTime"></span></div>
-                            <div>Type : <span id="appointmentType"></span></div>
-                        </div>
-                        <div class="buttons">
-                            <button class="button cancel-button">Cancel</button>
-                            <button class="button treatment-button">Treatment</button>
-                        </div>
-                       
-                        
+                        </div> 
                     </div>
                     <div class="home-right">
                     <img id="petImage" src="' . URLROOT . '/public/img/dashboard/noappointment.svg" alt="">

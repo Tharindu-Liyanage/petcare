@@ -150,7 +150,10 @@
 
         public function appointment(){
 
-            $data =null;
+            $appintment = $this->doctorModel->getAppointmentByVetID();
+            $data =[
+                'appointment' => $appintment
+            ];
 
             $this->view('dashboards/doctor/appointment/appointment',$data);
         }

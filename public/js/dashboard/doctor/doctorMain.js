@@ -40,16 +40,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="home-text-large">
                         Currently, <span id="petName">No Appointments!</span>
                     </div>
-
-                    <div class="date-time-type">
-                        <div>Date : <span id="appointmentDate"></span></div>
-                        <div>Time : <span id="appointmentTime"></span></div>
-                        <div>Type : <span id="appointmentType"></span></div>
-                    </div>
-                    <div class="buttons">
-                        <button class="button cancel-button">Cancel</button>
-                        <button class="button treatment-button">Treatment</button>
-                    </div>
                 </div>
                 <div class="home-right">
                     <img id="petImage" src="http://localhost/petcare/public/img/dashboard/noappointment.svg" alt="">
@@ -82,6 +72,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Example: Refresh appointment details every 30 seconds
+    // Example: Refresh appointment details every 5 seconds
     setInterval(updateAppointmentDetailsAndHTML, 5000);
 });

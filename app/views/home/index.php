@@ -274,21 +274,32 @@
 
     <!-- ===================================================================================================== -->
 
-<!-- meke uda div class="row mb-3" kiyala ekk dnn thinw-->
-    <?php foreach($data['posts']as $post) : ?>
-        <div class="card card-body mb-3">
-            <h4 class= "card-title"><?php echo $post->title; ?></h4>
-            <div class="big-light p-2 mb-3"> 
-                Written by <?php echo $post->name; ?> on <?php echo $post->postcreated; ?>
-                
-            </div>
+<!-- me pallahe  $data eka ethule tiyenn ona home controller eke data array eke ethule dena nama  eg:- denata dala ne , oya dann staff kiyana eka mage example eke tiyen widyata-->
+    <?php foreach($data['staff']as $staff) : ?>
+        
+      <!--  methenta enna ona card eka
+        
+            <li clas ="splide__slide" >
 
-            <p class = "card-text"><?php echo $post->body;?></p>
-            <a href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->postId; ?>" class="btn btn-dark">More</a>
+                <div class="card-team">
+                        <div class="card__image">
+                        <img src="<?php echo URLROOT;?>/public/img/home/doctor1.png">
+                        </div>
 
-        </div>
+                        <div class="card__content">
+                        <span class="card__title"><?php echo $staff->role ?></span>  // $staff->role  meka database eke role column eke value eka
+                        <span class="card__name">Vanessa Martinez</span>
+                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
+                        <button class="card__btn">View More</button>
+                        </div>
+                    </div>
 
 
+
+            </li>
+
+            -->
+        
         <?php endforeach; ?>
 
      <!-- repeat this card for each team member -->

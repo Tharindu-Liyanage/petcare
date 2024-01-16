@@ -15,7 +15,7 @@
 
     // sanandi typing
         public function getStaffDetails(){
-            $this->db->query('SELECT * FROM petcare_staff WHERE role = doctor OR role = nurse');
+            $this->db->query('SELECT * FROM petcare_staff WHERE role = Doctor OR role = Nurse');
 
             $results = $this->db->resultSet();
 

@@ -38,6 +38,35 @@
         }
 
        }
+
+
+         public function getAppointmentByVetID(){
+    
+          $this->db->query(
+                'SELECT a.*, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , po.first_name as fname , po.last_name as lname , po.profileImage as vetpic
+                FROM petcare_appointments a
+                JOIN petcare_pet p ON a.pet_id = p.id
+                JOIN petcare_petowner po ON a.petowner_id = po.id
+                WHERE vet_id = :vet_id
+                AND appointment_date <= CURDATE()
+                ORDER BY appointment_date DESC, appointment_time ASC'
+          
+          );
+    
+         
+          $this->db->bind(':vet_id', $_SESSION['user_id']);
+    
+          $row = $this->db->resultSet();
+    
+          //check row count
+    
+          if($this->db->rowCount() > 0 ){
+                return $row;
+          }else{
+                return null;
+          }
+    
+         }
         
 
     }

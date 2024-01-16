@@ -44,7 +44,7 @@
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/petowner/appointment" class="active">Appointment</a></li>
+                        <li><a href="<?php echo URLROOT;?>/petowner/appointment">Appointment</a></li>
                         <li> > </li> <!-- Include the ">" character within an <li> element -->
                         <li><a href="<?php echo URLROOT;?>/petowner/addAppointment" class="active">Book Appointment</a></li>
                     </ul>
