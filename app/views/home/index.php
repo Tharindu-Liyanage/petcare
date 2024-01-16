@@ -271,6 +271,26 @@
   <div class="splide__track">
     <ul class="splide__list">
 
+
+    <!-- ===================================================================================================== -->
+
+<!-- meke uda div class="row mb-3" kiyala ekk dnn thinw-->
+    <?php foreach($data['posts']as $post) : ?>
+        <div class="card card-body mb-3">
+            <h4 class= "card-title"><?php echo $post->title; ?></h4>
+            <div class="big-light p-2 mb-3"> 
+                Written by <?php echo $post->name; ?> on <?php echo $post->postcreated; ?>
+                
+            </div>
+
+            <p class = "card-text"><?php echo $post->body;?></p>
+            <a href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->postId; ?>" class="btn btn-dark">More</a>
+
+        </div>
+
+
+        <?php endforeach; ?>
+
      <!-- repeat this card for each team member -->
 
       <li class="splide__slide"> 
@@ -457,6 +477,11 @@
   </script>
 
   <script src="<?php echo URLROOT;?>/public/js/home.js"></script>
+
+
+
+
+  
 
   
  
