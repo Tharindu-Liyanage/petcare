@@ -43,6 +43,14 @@
             $this->view('dashboards/assistant/appointment/appointment',$data);
         }
 
+        public function addAppointment(){
+
+            $data =null;
+   
+            
+            $this->view('dashboards/assistant/appointment/addAppointment',$data);
+        }
+
         public function petowner(){
 
             $data =null;

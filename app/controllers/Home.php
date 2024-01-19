@@ -10,7 +10,7 @@
 
         public function index(){
 
-            $data =null;  // now dont send any data to the view(view/home/index.php), 
+             // now dont send any data to the view(view/home/index.php), 
 
             /*
                 =========================================================================
@@ -31,7 +31,11 @@
 
                 **type below normal above number 1 and 2 codes and comment or remove the $data = null; and run the project to see the result
             */
-   
+            $staffData = $this->homeModel->getStaffDetails();
+
+            $data = [
+                'staff' => $staffData
+            ];
             
             $this->view('home/index', $data);
         }

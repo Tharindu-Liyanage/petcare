@@ -275,20 +275,20 @@
     <!-- ===================================================================================================== -->
 
 <!-- me pallahe  $data eka ethule tiyenn ona home controller eke data array eke ethule dena nama  eg:- denata dala ne , oya dann staff kiyana eka mage example eke tiyen widyata-->
-    <?php foreach($data['staff']as $staff) : ?>
+    <?php foreach($data['staff']as $staffmember) : ?>
         
-      <!--  methenta enna ona card eka
+      
         
             <li clas ="splide__slide" >
 
                 <div class="card-team">
                         <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/doctor1.png">
+                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $staffmember->profileImage ?>">
                         </div>
 
                         <div class="card__content">
-                        <span class="card__title"><?php echo $staff->role ?></span>  // $staff->role  meka database eke role column eke value eka
-                        <span class="card__name">Vanessa Martinez</span>
+                        <span class="card__title"><?php echo $staffmember->role ?></span>  
+                        <span class="card__name"><?php echo $staffmember->firstname ?> <?php echo $staffmember->lastname ?>  </span>
                         <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
                         <button class="card__btn">View More</button>
                         </div>
@@ -298,31 +298,11 @@
 
             </li>
 
-            -->
+        
         
         <?php endforeach; ?>
 
-     <!-- repeat this card for each team member -->
-
-      <li class="splide__slide"> 
-
-    
-        
-                    <div class="card-team">
-                        <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/doctor1.png">
-                        </div>
-
-                        <div class="card__content">
-                        <span class="card__title">Veterinarian</span>
-                        <span class="card__name">Vanessa Martinez</span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
-                        </div>
-                    </div>
-    </li>
-
-    <!-- repeat this card for each team member  over -->
+ 
 
      
     </ul>

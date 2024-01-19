@@ -24,12 +24,12 @@
                             Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT; ?>/assistnat/appointment" class="active"> Appointment</a></li>
+                        <li><a href="<?php echo URLROOT; ?>/assistant/appointment" class="active"> Appointment</a></li>
                     </ul>
                 </div>
 
                 <div class="add-button">
-             <a href="<?php echo URLROOT;?>/petowner/addAppointment" ><button id="add-form-button">
+             <a href="<?php echo URLROOT;?>/assistant/addAppointment" ><button id="add-form-button">
                 <i class='bx bx-plus' ></i>
                         Add Appoint 
                 </button> </a>
