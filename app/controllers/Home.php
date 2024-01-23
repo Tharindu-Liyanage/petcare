@@ -5,7 +5,7 @@
         public function __construct(){
 
             $this->homeModel = $this->model('HomeModel');  //homeModel is an object of the Home model class(models/Home.php)
-           
+            $this->homeModel = $this->model('Post');
         }
 
         public function index(){
@@ -34,9 +34,13 @@
                 **type below normal above number 1 and 2 codes and comment or remove the $data = null; and run the project to see the result
             */
             $staffData = $this->homeModel->getStaffDetails();
+            $postData = $this->postModel->getPosts();
+
+
 
             $data = [
-                'staff' => $staffData
+                'staff' => $staffData,
+                'posts' => $postData
             ];
             
             $this->view('home/index', $data);
