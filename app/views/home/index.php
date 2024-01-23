@@ -324,6 +324,7 @@
         </div>
 
         <!-- blog-container -->
+        <?php foreach($data['posts'] as $posts) : ?>
         <div class= "blog-container">
             <!--box1  -->
             <div class="blog-box">
@@ -334,12 +335,13 @@
 
                 <!--text  -->
                 <div class="blog-text">
-                    <span> 8 May 2023</span>
-                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
-                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                    <span> <?php echo $posts->publishdate ; ?></span>
+                    <div class="blog-title"><?php echo $posts->title; ?></div>
+                    <p><?php echo $posts->content; ?></p>
                     <a href="#">Read More </a>
                 </div>
             </div>
+        <?php endforeach ; ?>
 
 
 
@@ -380,10 +382,6 @@
             </div>
         </div>
 
-        <?php foreach($data['posts'] as $post) : ?>
-        <h1><?php echo $post->title ; ?></h1> 
-    <?php endforeach; ?>
-    </section>
 
     
     <?php foreach($data['posts'] as $post) : ?>

@@ -34,7 +34,7 @@
                 **type below normal above number 1 and 2 codes and comment or remove the $data = null; and run the project to see the result
             */
             $staffData = $this->homeModel->getStaffDetails();
-            $postData = $this->postModel->getPosts();
+            $postData = $this->PostModel->getPosts();
 
 
 
