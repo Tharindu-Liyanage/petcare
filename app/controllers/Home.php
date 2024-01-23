@@ -5,7 +5,7 @@
         public function __construct(){
 
             $this->homeModel = $this->model('HomeModel');  //homeModel is an object of the Home model class(models/Home.php)
-            $this->homeModel = $this->model('Post');
+            $this->PostModel = $this->model('Post');
         }
 
         public function index(){
