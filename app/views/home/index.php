@@ -325,68 +325,24 @@
 
         <!-- blog-container -->
         <?php foreach($data['posts'] as $posts) : ?>
-        <div class= "blog-container">
-            <!--box1  -->
-            <div class="blog-box">
-                <!-- img -->
-                <div class="blog-img">
-                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                </div>
+            <div class= "blog-container">
+                <!--box1  -->
+                <div class="blog-box">
+                    <!-- img -->
+                    <div class="blog-img">
+                    <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                    </div>
 
-                <!--text  -->
-                <div class="blog-text">
-                    <span> <?php echo $posts->publishdate ; ?></span>
-                    <div class="blog-title"><?php echo $posts->title; ?></div>
-                    <p><?php echo $posts->content; ?></p>
-                    <a href="#">Read More </a>
+                    <!--text  -->
+                    <div class="blog-text">
+                        <span> <?php echo $posts->publishdate ; ?></span>
+                        <div class="blog-title"><?php echo $posts->title; ?></div>
+                        <p><?php echo $posts->content; ?></p>
+                        <a href="#">Read More </a>
+                    </div>
                 </div>
             </div>
         <?php endforeach ; ?>
-
-
-
-
-
-
-            <div class="blog-box">
-                <!-- img -->
-                <div class="blog-img">
-                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                </div>
-
-                <!--text  -->
-                <div class="blog-text">
-                    <span> 18 July 2023</span>
-                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
-                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
-                    <a href="#">Read More </a>
-                </div>
-            </div>
-
-
-
-
-            <div class="blog-box">
-                <!-- img -->
-                <div class="blog-img">
-                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                </div>
-
-                <!--text  -->
-                <div class="blog-text">
-                    <span> 20 September 2023</span>
-                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
-                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
-                    <a href="#">Read More </a>
-                </div>
-            </div>
-        </div>
-
-
-    
-    <?php foreach($data['posts'] as $post) : ?>
-        <h1><?php echo $post->title ; ?></h1> 
-    <?php endforeach; ?>
 
     
     

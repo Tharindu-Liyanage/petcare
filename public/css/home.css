@@ -534,13 +534,15 @@ a{
     justify-content: center;
     align-items: center;
     margin: 20px 0px;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
+    
+    
 }
 .blog-box{
     width: 350px;
     background-color: #ffffff;
     border: 1px solid #ececec;
-    margin: 20px;
+    margin: 15px;
 
 }
 
