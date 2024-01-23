@@ -27,4 +27,13 @@
 
         }
 
+        //abdulla part here
+
+        /*
+        getPosts method type here
+        
+        */
+
+        
+
     }
