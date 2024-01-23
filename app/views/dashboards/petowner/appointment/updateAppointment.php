@@ -182,7 +182,7 @@
                                 <div class="flex-column">
                                     <label>Reason</label>
                                 </div>
-                                <div class="inputForm <?php echo (!empty($data['reson_err'])) ? 'is-invalid' : '' ; ?>">
+                                <div class="inputForm  <?php echo (!empty($data['reson_err'])) ? 'is-invalid' : '' ; ?>">
                                 <i class='bx bx-question-mark' ></i>
                                     <select id="reason" name="reason">
 

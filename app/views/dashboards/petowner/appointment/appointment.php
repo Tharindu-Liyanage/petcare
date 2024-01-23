@@ -281,6 +281,11 @@
     });
 
     });
+
+    picker.on('clear', () => {
+      console.log("Reset");
+      userList.filter();
+    });
   },
 });
 

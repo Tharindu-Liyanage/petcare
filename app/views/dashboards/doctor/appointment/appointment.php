@@ -144,7 +144,7 @@
                                         
                                 ?>
 
-                                <td class="action"> <a title="Reject" class="rej"><i class='bx bx-block' ></i></a> <a title="Treatment" class="accept"><i class='bx bx-check'></i></a></td>
+                                <td class="action"> <a title="Reject" class="rej"><i class='bx bx-block' ></i></a> <a title="Treatment" class="accept" href="<?php echo URLROOT ?>/doctor/pastReports"><i class='bx bx-check'></i></a></td>
 
                                 
                             </tr>

@@ -144,6 +144,13 @@
 
         }
 
+        public function pastReports(){
+                
+                $data =null;
+    
+                $this->view('dashboards/doctor/treatment/checkBeforeTreatment',$data);
+        }
+
 
 
 
