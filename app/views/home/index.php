@@ -380,7 +380,20 @@
             </div>
         </div>
 
+        <?php foreach($data['posts'] as $post) : ?>
+        <h1><?php echo $post->title ; ?></h1> 
+    <?php endforeach; ?>
     </section>
+
+    
+    <?php foreach($data['posts'] as $post) : ?>
+        <h1><?php echo $post->title ; ?></h1> 
+    <?php endforeach; ?>
+
+    
+    
+    
+
 
     <!-- ourBlog end-->
 
