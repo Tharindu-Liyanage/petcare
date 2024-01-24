@@ -36,6 +36,7 @@
             }
 
             $this->dashboardModel = $this->model('Dashboard');
+            $this->settingsModel= $this->model('Settings') ;
            
 
             
@@ -995,7 +996,12 @@
 
         public function settings(){
 
-            $data = null;
+            $user_id = ($_SESSION['user_id']);
+            $settingsData = $this->settingsModel->getStaffSettingDetails($user_id);
+
+            $data =[
+                'settings' => $settingsData
+            ];
             $this->view('dashboards/petowner/setting/settings', $data);
         }
 

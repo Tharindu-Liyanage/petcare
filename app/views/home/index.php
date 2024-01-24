@@ -324,8 +324,8 @@
         </div>
 
         <!-- blog-container -->
-        <?php foreach($data['posts'] as $posts) : ?>
             <div class= "blog-container">
+            <?php foreach($data['posts'] as $posts) : ?>
                 <!--box1  -->
                 <div class="blog-box">
                     <!-- img -->
@@ -341,8 +341,8 @@
                         <a href="#">Read More </a>
                     </div>
                 </div>
+            <?php endforeach ; ?>
             </div>
-        <?php endforeach ; ?>
 
     
     

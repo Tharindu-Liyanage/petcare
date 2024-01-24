@@ -19,6 +19,8 @@
                 }
             }
 
+            $this->settingsModel= $this->model('Settings') ;
+
         }
 
         public function notfound(){
@@ -61,8 +63,12 @@
 
         public function settings(){
 
-            $data =null;
-   
+            $user_id = ($_SESSION['user_id']);
+            $settingsData = $this->settingsModel->getSettingDetails($user_id);
+
+            $data =[
+                'settings' => $settingsData
+            ];
             
             $this->view('dashboards/assistant/setting/settings',$data);
         }

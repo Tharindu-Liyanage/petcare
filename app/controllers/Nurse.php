@@ -18,6 +18,7 @@
                      
                 }
             }
+            $this->settingsModel= $this->model('Settings') ;
         }
 
         public function index(){
@@ -32,6 +33,16 @@
             $data =null;
 
             $this->view('error/404',$data);
+        }
+
+        public function settings(){
+            $user_id = ($_SESSION['user_id']);
+            $settingsData = $this->settingsModel->getSettingDetails($user_id);
+
+            $data =[
+                'settings' => $settingsData
+            ];
+            $this->view('dashboards/nurse/setting/settings',$data);
         }
 
         
