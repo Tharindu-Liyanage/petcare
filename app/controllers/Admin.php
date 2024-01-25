@@ -486,6 +486,110 @@
             $this->view('dashboards/admin/report/report',$data);
         }
 
+        public function editSettings($id){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data = [
+                    'id' =>$id,
+                    'firstname' => trim($_POST['fname']),
+                    'lastname' => trim($_POST['lname']),
+                    'mobile' =>trim($_POST['mobile']),
+                    'nic' => trim($_POST['nic']),
+                    'address' => trim($_POST['address']),
+                    'email' => trim($_POST['email']),
+                    'firstname_err' => '',
+                    'lastname_err' => '',
+                    'email_err' => '',
+                    'mobile_err' => '',
+                    'nic_err' => '',
+                    'address_err' => ''
+
+
+                ];
+
+                if(empty($data['first_name'])){
+                    $data['fname_err'] = 'Please enter first name';
+                }
+
+                //validate lName
+                if(empty($data['last_name'])){
+                    $data['lname_err'] = 'Please enter last name';
+                }
+
+                if(empty($data['address'])){
+                    $data['address_err'] = 'Please enter address';
+                }
+
+                if(empty($data['nic'])){
+                    $data['nic_err'] = 'Please enter nic';
+                }
+
+                if(empty($data['mobile'])){
+                    $data['mobile_err'] = 'Please enter mobile number';
+                }else{
+                    if (!preg_match("/^94\d{9}$/", $data['mobile'])) {
+                        // Check mobile in correct format, Sri Lanka
+                        $data['mobile_err'] = 'Please enter a valid Sri Lankan mobile number starting with 94';
+                    } elseif ($this->userModel->findUserByMobile($data['mobile'])) {
+                        // Check if mobile number is already taken in the DB
+                        $data['mobile_err'] = 'Mobile number is already taken';
+                    }
+                    
+
+                    
+                }
+                if(empty($data['email_err']) && empty($data['firstname_err']) && empty($data['lastname_err']) && empty($data['nic_err']) && empty($data['address_err'])   && empty($data['mobile_err'])){
+                    //validated
+                    
+                    //hash password
+                    // $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
+
+                    //Regster User
+
+                    if($this->dashboardModel->updateStaff($data)){
+                       
+                       
+                        echo 'updated';
+                       redirect('dashboard/admin/setting/settings');
+
+                    }else{
+                        die("Something went wrong");
+                    }
+
+
+
+                }else{
+                    //load view with errors
+                    $this->view('dashboard/admin/settin/settings',$data);
+                    
+                    
+
+                }
+
+                
+            }else{
+                $data = [
+                    'first_name' => '',
+                    'last_name' =>'' ,
+                    'email' => '',
+                    'password' => '',
+                    're_password' => '',
+                    'mobile' => '',
+                    'fname_err' => '',
+                    'lname_err' => '',
+                    'email_err' => '',
+                    'password_err' => '',
+                    'confirm_password_err' => '',
+                    'mobile_err' => ''
+                ];
+
+                //load view
+                //need to change
+                $this->view('dashboard/admin/setting/settings',$data);
+            }
+        }
+
 
         
 

@@ -13,7 +13,7 @@
             return $results;
         }
 
-        public function getStaffSettingDetails($userid){
+        public function getPetOwnerSettingDetails($userid){
             $this->db->query('SELECT * FROM petcare_petowner WHERE id = '.$userid );
 
             $results = $this->db->single();

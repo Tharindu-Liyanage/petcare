@@ -36,7 +36,6 @@
             }
 
             $this->dashboardModel = $this->model('Dashboard');
-            $this->settingsModel= $this->model('Settings') ;
            
 
             
@@ -971,6 +970,7 @@
         
             $years = $ageInterval->y;
             $months = $ageInterval->m;
+            $days = $ageInterval->d;
         
             // Build the age string
             $ageString = '';
@@ -979,6 +979,9 @@
             }
             if ($months > 0) {
                 $ageString .= "$months" . " Months";
+            }
+            if ($days > 0 && $months == 0 && $years == 0) {
+                $ageString .= "$days" . " Days";
             }
         
             return $ageString;
@@ -996,12 +999,7 @@
 
         public function settings(){
 
-            $user_id = ($_SESSION['user_id']);
-            $settingsData = $this->settingsModel->getStaffSettingDetails($user_id);
-
-            $data =[
-                'settings' => $settingsData
-            ];
+            $data = null;
             $this->view('dashboards/petowner/setting/settings', $data);
         }
 

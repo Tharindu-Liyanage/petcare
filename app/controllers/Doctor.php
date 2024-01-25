@@ -20,7 +20,7 @@
             }
             $this->doctorModel = $this->model('DoctorModel');
             $this->dashboardModel = $this->model('Dashboard');
-            $this->settingsModel= $this->model('Settings') ;
+
            
         }
 
@@ -152,6 +152,81 @@
                 $this->view('dashboards/doctor/treatment/checkBeforeTreatment',$data);
         }
 
+        public function pastReportsFromAppointment($pet_id){
+                    
+                //get treatment details by pet id
+                $treatmentDetails = $this->doctorModel->getTreatmentDetailsByPetID($pet_id);
+                $closedTreatmentDetails = $this->doctorModel->getClosedTreatmentDetailsByPetID($pet_id);
+
+                $data = [
+                    'treatmentDetails' => $treatmentDetails,
+                    'closedTreatmentDetails' => $closedTreatmentDetails
+                ];
+    
+                $this->view('dashboards/doctor/treatment/checkBeforeTreatment',$data);
+
+        }
+
+        public function viewMedicalReport($id){
+                
+                $medicalReport = $this->doctorModel->getTreatmentDetailsByTreatmentID($id);
+                //hospital info from dashboard model 
+                $hospitalInfo = $this->dashboardModel->getPetCareDetails();  
+                
+                if($medicalReport == null){   //if no data found : its mean user try to access url with wrong treatment id(intentionally)
+                    redirect('doctor/appointment');
+                }
+    
+                foreach ($medicalReport as $treament) {
+                    // Assuming 'DOB' is the property name, replace it with the correct property name if needed
+                    $petDOB = isset($treament->DOB) ? $treament->DOB : null;
+                    $visitDate = isset($treament->visit_date) ? $treament->visit_date : null;
+            
+                    $treament->petAge = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+                }
+               
+    
+                $data = [
+                    'medicalreportview' => $medicalReport,
+                    'petcareInfo' => $hospitalInfo
+                ];
+    
+                $this->view('dashboards/doctor/treatment/viewMedicalReport',$data);
+        }
+
+        public function calculateAgeForMedicalReport($birthdate,$visitDate) {
+
+            /* Age cannot be changed in Report so get different between birthDate and VisitDate */
+
+            // Create a DateTime object from the birthdate
+            $birthdate = new DateTime($birthdate);
+            
+            // Get the current date
+            $visitDate = new DateTime($visitDate);
+            
+            // Calculate the difference in years and months
+            $ageInterval = $visitDate->diff($birthdate);
+        
+            $years = $ageInterval->y;
+            $months = $ageInterval->m;
+            $days = $ageInterval->d;
+        
+            // Build the age string
+            $ageString = '';
+            if ($years > 0) {
+                $ageString .= "$years" . " Years ";
+            }
+            if ($months > 0) {
+                $ageString .= "$months" . " Months";
+            }
+            if ($days > 0 && $months == 0 && $years == 0) {
+                $ageString .= "$days" . " Days";
+            }
+        
+            return $ageString;
+        }
+
+
 
 
 
@@ -215,12 +290,7 @@
 
 
         public function settings(){
-            $user_id = ($_SESSION['user_id']);
-            $settingsData = $this->settingsModel->getSettingDetails($user_id);
-
-            $data =[
-                'settings' => $settingsData
-            ];
+            $data = null;
             $this->view('dashboards/doctor/setting/settings',$data);
         }
 

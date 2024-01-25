@@ -28,8 +28,8 @@
                             </div>
                             
                         </div>
-
-        <form class="container" action="">     <!--start of form-->
+    
+        <form class="container" action="<?php echo URLROOT; ?>/admin/editSettings/<?php echo $_SESSION['user_id']; ?>">     <!--start of form-->
                                     <div class="tab-box">                        
                                         <div class="tab-btn active">My Profile</div>
                                         <div class="tab-btn">Password</div>
@@ -52,29 +52,29 @@
 
                                             <div class="name">                  <!--name -->
                                                     <div class="name-text">Name</div>
-                                                    <input type="text" class="text-box firstname-textbox" placeholder="Anna" value="<?php echo $data['settings']->firstname; ?>">
-                                                    <input type="text" class="text-box lastname-textbox" placeholder="Marie" value="<?php echo $data['settings']->lastname; ?>">
+                                                    <input type="text" name="fname" class="text-box firstname-textbox" placeholder="Anna" value="<?php echo $data['settings']->firstname; ?>">
+                                                    <input type="text" name="lname" class="text-box lastname-textbox" placeholder="Marie" value="<?php echo $data['settings']->lastname; ?>">
                                             </div>
 
                                             <div class="email">                     <!-- Email-->
                                                 <div class="email-text">Email</div>
-                                                <input type="text" class="text-box email-textbox" placeholder="Annamarie@petcare.com" value="<?php echo $data['settings']->email; ?>">
+                                                <input type="text" name="email" class="text-box email-textbox" placeholder="Annamarie@petcare.com" value="<?php echo $data['settings']->email; ?>">
                                             </div>
 
                                             <div class="address">                       <!-- address -->
                                                 <div class="address-text">Address</div>
-                                                <input type="text" class="text-box address-textbox" placeholder="290 Chatham Way Reston, Maryland(MD), 20191" value="<?php echo $data['settings']->address; ?>" >
+                                                <input type="text" name="address" class="text-box address-textbox" placeholder="290 Chatham Way Reston, Maryland(MD), 20191" value="<?php echo $data['settings']->address; ?>" >
                                             </div>
                                             
                                             <div class="nic">                       <!-- nic-->
                                                 <div class="nic-text">NIC</div>
-                                                <input type="text" class="text-box nic-textbox" placeholder="1920664892V" value="<?php echo $data['settings']->email; ?>">
+                                                <input type="text" name="nic" class="text-box nic-textbox" placeholder="1920664892V" value="<?php echo $data['settings']->email; ?>">
                                                 <!-- need to add nic to the databse -->
                                             </div>
 
                                             <div class="mobile">                            <!-- mobile-->
                                                 <div class="mobile-text">Mobile</div>
-                                                <input type="text" class="text-box mobile-textbox" placeholder="+94 773456789" value="<?php echo $data['settings']->phone; ?>">
+                                                <input type="text" name="mobile" class="text-box mobile-textbox" placeholder="+94 773456789" value="<?php echo $data['settings']->phone; ?>">
                                             </div>
 
                                             <div class="footer">                            <!-- footer -->
