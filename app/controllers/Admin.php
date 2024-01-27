@@ -23,6 +23,7 @@
             $this->dashboardModel = $this->model('Dashboard');
             $this->userModel = $this->model('User');
             $this->settingsModel= $this->model('Settings') ;
+            
         
         }
 
@@ -42,6 +43,10 @@
             $data = null;
             $this->view('dashboards/admin/index', $data);
         }
+
+
+       
+      
 
 
         /*==================  ADD STAFF ============= */

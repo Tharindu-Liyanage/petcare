@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;800&display=swap');
+
+:root{
+    --primary:#1F2E88; /*main blue color*/
+    --background1:#F7FAFC; /*grey*/
+    --background2:#FFFFFF; /*white*/
+    --border: .2rem solid rgba(0,0,0,.1);
+    --box-shadow:0 0.5rem 1rem rgba(0,0,0,.1);
+    --black:#222;
+    --secondary: #2f66d4;
+    --light-color:#666;
+
+    --icon-color : #453c5c;
+    --icon-primary-color:#ff6b6b;
+    --icon-secondary-color:#794afa;
+
+    --white-color: #fff;
+    --light-bg-color : #f2f3f5;
+    --light-text-color : #7c899a;
+    --border-color:#e5e8ec;
+    --darkcolor : #0a021c;
+
+    --fw3:300;
+    --fw4:400;
+    --fw5:500;
+    --fw6:600;
+    --fw7:700;
+    --fw8:800;
+ 
+
+    --font-small:13px;
+    --font-smaller:11px;
+
+    --percet100:100%;
+    --percent50 : 50%;
+
+    --trans-background-color: .3s ,color .3s;
+    --trans-background: background-color .3s;
+    --trans-color: color .3s;
+
+
+    /*product color drop downm*/
+
+    --first-color: hsl(220, 68%, 54%);
+    --first-color-lighten: hsl(220, 68%, 97%);
+    --title-color: hsl(220, 48%, 28%);
+    --text-color: hsl(220, 12%, 45%);
+    --body-color: hsl(220, 100%, 99%);
+
+            /*========== Font and typography ==========*/
+        /*.5rem = 8px | 1rem = 16px ...*/
+        --body-font: "Poppins", sans-serif;
+        --normal-font-size: .938rem;
+        --small-font-size: .813rem;
+        --smaller-font-size: .75rem;
+        /*========== Font weight ==========*/
+        --font-medium: 500;
+        --font-semi-bold: 600;
+        /*========== z index ==========*/
+}
+
+*{
+    /* right, left, up, bottom margins are 0 */
+    margin : 0;
+    padding : 0;
+    /* To adding seperate paddings to images without errors using box- sizing */
+    box-sizing : border-box; 
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+  /*  transition: .2s linear;*/
+    text-decoration: none;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+body {
+    /* this marging says up and bottom margins are 0 but right and left margins are auto. */
+    margin : 0 auto; 
+    background-color: var(--first-color-lighten);
+    
+}
+
+.header{
+    width: 100%;
+    height: 60px;
+    background-color: red;
+}
+
+.title-part{
+    display: flex;
+    justify-content: space-around;
+}
+
+.left-heading{
+    margin-top: 80px;
+}
+
+.left-heading > div {
+    margin: 5px;
+}
+.left-heading > button {
+    margin: 5px;
+}
+
+.heading1{
+    font-size: 5rem;
+    font-weight: 600;
+    
+    
+}
+
+.heading2{
+    font-size: 5rem;    
+    font-weight: 600;
+}
+
+.heading3{
+    font-weight: 400;
+    font-size: 1.3rem;
+}
+
+.book-now-btn{
+    background-color: var(--secondary);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    
+}
+
+.book-now-btn:hover{
+    cursor: pointer;
+}
+
+/* middle part starts here */
+
+.middle-part{
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.blog-card{
+    width: 250px;
+    height: 380px;
+    justify-content: space-between;
+    padding: 30px;
+
+    flex: 0 0 calc(33.33% - 25px); /* 33.33% width for each item with some spacing  */
+    margin: 5px 10px; 
+    margin-left: 15px;
+    box-sizing: border-box; /* Include padding and border in the calculation */
+
+}
+
+.blog-title{
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 13px 0px;
+}
+
+.blog-date{
+    font-size: 1.3rem;
+    margin: 7px 0px;    
+}
+
+.blog-body{
+    font-size: 1.2rem;
+    margin: 7px 0px 10px 0px; 
+    width: 70%;  
+
+}
+
+.read-more-btn{
+    background-color: var(--primary);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 0px 6px 6px 6px;
+    margin-top: 3px;
+}
+
+.read-more-btn:hover{
+    cursor: pointer;
+}
+

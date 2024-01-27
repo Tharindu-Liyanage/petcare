@@ -39,7 +39,7 @@
         <nav class="navbar">
                 <a href="<?php echo URLROOT;?>/">Home</a>
                 <a href="<?php echo URLROOT;?>/shop/">Shop</a>
-                <a href="#">Blog</a>
+                <a href="<?php echo URLROOT;?>/home/blog">Blog</a>
                 <a href="#about">About</a>
                 <a href="#">Contact</a>  
         </nav>

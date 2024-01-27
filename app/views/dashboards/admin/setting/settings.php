@@ -29,7 +29,7 @@
                             
                         </div>
     
-        <form class="container" action="<?php echo URLROOT; ?>/admin/editSettings/<?php echo $_SESSION['user_id']; ?>">     <!--start of form-->
+        <form class="container" action="<?php echo URLROOT; ?>/admin/editSettings/<?php echo $_SESSION['user_id']; ?>" method="post">     <!--start of form-->
                                     <div class="tab-box">                        
                                         <div class="tab-btn active">My Profile</div>
                                         <div class="tab-btn">Password</div>
