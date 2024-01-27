@@ -69,3 +69,39 @@
     object-fit: cover;
   }
 
+  .action-reports a {
+    /*mouse pointer*/
+    cursor: pointer;
+  }
+
+ 
+  
+
+  .action-reports a ::before{
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.action-reports a:nth-child(1) ::before{
+  background: #FCF2D5;
+}
+
+.action-reports a:nth-child(2) ::before{
+  background: #E6EFFF;
+}
+
+
+.status-green{
+  color:#108C81;
+  font-weight: 600;
+}
+
+.status-red{
+  color:#DE1C53;
+  font-weight: 600;
+}
+
+.status-yellow{
+  color:#FFCC6A;
+  font-weight: 600;
+}

@@ -67,6 +67,94 @@
           }
     
          }
+
+         //get all the treatment details by pet id
+            public function getTreatmentDetailsByPetID($pet_id){
+                 
+                $this->db->query(
+    
+                    'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname
+                    FROM petcare_medical_reports report
+                    JOIN petcare_pet pet ON report.pet_id = pet.id
+                    JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                    WHERE (report.treatment_id, report.visit_date) IN (
+                        SELECT treatment_id, MAX(visit_date) AS max_visit_date
+                        FROM petcare_medical_reports
+                        GROUP BY treatment_id
+                    ) AND report.pet_id = :id AND report.status = "Ongoing"  -- Added condition for owner_id in the main query
+                    ORDER BY report.visit_date DESC
+                    ');
+    
+                    $this->db->bind(':id' , $pet_id);
+                            
+    
+                    $results = $this->db->resultSet();
+    
+                    
+                //check row count
+        
+                if($this->db->rowCount() > 0 ){
+                    return $results;
+                }else{
+                    return null;
+                }
+            }
+
+            public function getClosedTreatmentDetailsByPetID($pet_id){
+                 
+                $this->db->query(
+    
+                    'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname
+                    FROM petcare_medical_reports report
+                    JOIN petcare_pet pet ON report.pet_id = pet.id
+                    JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                    WHERE (report.treatment_id, report.visit_date) IN (
+                        SELECT treatment_id, MAX(visit_date) AS max_visit_date
+                        FROM petcare_medical_reports
+                        GROUP BY treatment_id
+                    ) AND report.pet_id = :id AND report.status = "Closed"  -- Added condition for owner_id in the main query
+                    ORDER BY report.visit_date DESC
+                    ');
+    
+                    $this->db->bind(':id' , $pet_id);
+                            
+    
+                    $results = $this->db->resultSet();
+    
+                    
+                //check row count
+        
+                if($this->db->rowCount() > 0 ){
+                    return $results;
+                }else{
+                    return null;
+                }
+            }
+
+            public function getTreatmentDetailsByTreatmentID($id){
+
+              
+    
+                $this->db->query(
+    
+                    'SELECT report.* , pet.pet as petname , pet.pet_id_generate as genIdPet, pet.sex as petsex, pet.*, staff.firstname as vetfname , staff.lastname as vetlname , petowner.petowner_id_generate as genIdPetOwner , petowner.address as petowneraddress ,petowner.email as petowneremail , petowner.mobile as petownerphone, petowner.first_name as petownerfname, petowner.last_name as petownerlname
+                    FROM petcare_medical_reports report
+                    JOIN petcare_pet pet ON report.pet_id = pet.id
+                    JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                    JOIN petcare_petowner petowner ON report.owner_id = petowner.id
+                    WHERE report.treatment_id = :id 
+                    ORDER BY report.visit_date DESC
+                    ');
+    
+                    $this->db->bind(':id' , $id);
+                
+                            
+    
+                    $results = $this->db->resultSet();
+    
+                    return $results;
+            }
+
         
 
     }
