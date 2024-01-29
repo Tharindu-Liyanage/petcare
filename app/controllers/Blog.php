@@ -14,4 +14,18 @@
         ];
         $this->view('blog/index', $data);
        }
+
+       public function show($id){
+
+        $posts = $this->blogModel->getPostById($id);
+        $recentPosts = $this->blogModel->getRecentPost();
+
+        $data = [
+            'posts' => $posts,
+            'recentPost' => $recentPosts
+        ];
+
+        $this->view('blog/show', $data);
+
+       }
     }

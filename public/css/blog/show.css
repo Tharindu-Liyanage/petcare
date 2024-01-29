@@ -84,6 +84,7 @@ body {
     /* this marging says up and bottom margins are 0 but right and left margins are auto. */
     margin : 0 auto; 
     background-color: var(--first-color-lighten);
+    padding-top: 200px;
     
 }
 
@@ -198,135 +199,71 @@ body {
     background:#ECF3FF;
 }
 
-.title-part{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 80px;
-}
-
-.left-heading{
-    margin-top: 80px;
-}
-
-.left-heading > div {
-    margin: 5px;
-}
-.left-heading > button {
-    margin: 5px;
-}
-
-.heading1{
-    font-size: 5rem;
-    font-weight: 600;
-    color:#2f66d4;
-    
-    
-}
-
-.heading2{
-    font-size: 5rem;    
-    font-weight: 600;
-    color:#453c5c;
-}
-
-.heading3{
-    font-weight: 400;
-    font-size: 1.3rem;
-}
-
-.book-now-btn{
-    background-color: var(--secondary);
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: white;
-    
-}
-
-.book-now-btn:hover{
-    cursor: pointer;
-}
-
-.right-heading img{
-    width: 400px;
-    height: 400px;
-   
-}
-
-/* middle part starts here */
 
 .middle-part{
     display: flex;
-    margin-top: 50px;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.thumbnail{
-    width: 100%;
-    height: auto;
-    
-}
-
-.thumbnail-image{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 15px;
-}
-
-.blog-card{
-    width: 250px;
-    height: 380px;
+    margin: 40px;
     justify-content: space-between;
-    padding: 30px;
-
-    flex: 0 0 calc(33.33% - 25px); /* 33.33% width for each item with some spacing  */
-    margin: 25px 10px; 
-    margin-left: 15px;
-    box-sizing: border-box; /* Include padding and border in the calculation */
     
-
 }
 
-.blog-title{
-    font-size: 1.5rem;
+.left-part{
+    width: 70%;
+}
+
+.left-part > div{
+    margin: 20px;
+}
+
+.left-part .blog-title{
+    font-size: 4.5rem;
     font-weight: 500;
-    margin: 13px 0px;
+    color:#222
 }
 
-.blog-date{
-    font-size: 1.3rem;
-    margin: 7px 0px;    
+.left-part .blog-date{
+    font-size: 1.5rem;
+    color: #1F2E88;
+    margin-top: -15px;
 }
 
-.blog-body{
-    font-size: 1.2rem;
-    margin: 7px 0px 20px 0px; 
-    width: 70%;  
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow:hidden;
-    -webkit-line-clamp: 4; /* Number of lines to show */
-    max-height: calc(1.2em * 4);
+.left-part .thumnail-image img{
+    width: 900px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.left-part .blog-content{
+    font-size: 1.5rem;
+    margin-top: 100px;
+
     text-transform:none;
-    
-
 }
 
-.read-more-btn{
-    background-color: var(--primary);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 0px 6px 6px 6px;
-    margin-bottom: 0px;
-    font-size: 1.3rem;
+.right-part{
+    align-self:normal;
+    margin: 25px;
+    margin-left: 70px;
+    margin-top: 50px;
     
 }
 
-.read-more-btn:hover{
-    cursor: pointer;
+.recent-posts-block{
+    
 }
+
+.recent-post-text{
+    font-size: 2.5rem;
+    text-decoration: solid;
+    font-weight: 400;
+}
+
+.post-title li{
+    font-size: 2rem;
+    padding: 10px;
+}
+
+
 
 
 

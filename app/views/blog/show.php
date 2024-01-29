@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/blog/blog.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/blog/show.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <!--Animate On Scroll Library -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -39,62 +39,40 @@
 
         </header>
 
-
+       
         <!-- end of header -->
-        <div class="title-part">
-            <div class="left-heading">
-                <div class="heading1">Blog</div>
-                <div class="heading2">Latest News</div>
-                <div class="heading3">Your pet's health and wellbeing are our top priority.</div>
-                
-            </div>
-            <div class="right-heading">
-                <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-5.svg" alt="">
-            </div>
-        </div>
+        
         <div class="middle-part">
-                <?php foreach($data['posts'] as $posts) : ?>
-                <div class="blog-card">
-                    <div class="thumbnail">
-                        <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="">
-                    </div>
-                    <div class="blog-title"><?php echo $posts->title ;?></div>
-                    <div class="blog-date"><?php echo $posts->publishdate ; ?></div>
-                    <div class="blog-body">
-                        <p><?php echo $posts->content; ?></p>
-                    </div>
-                    <a class="read-more-btn" href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">READ MORE</a>
+                
+            <div class="left-part">
+                <div class="blog-title">
+                    <?php echo $data['posts']->title; ?>
                 </div>
-                <?php endforeach; ?>
+                <div class="blog-date">
+                    <?php echo $data['posts']->publishdate; ?>
+                </div>
+                <div class="thumnail-image">
+                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="">
+                </div>
+                <div class="blog-content">
+                    <?php echo $data['posts']->content; ?>
+                </div>
+            </div>
 
-                <?php foreach($data['posts'] as $posts) : ?>
-                <div class="blog-card">
-                    <div class="thumbnail">
-                        <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-2.jpg" alt="">
-                    </div>
-                    <div class="blog-title"><?php echo $posts->title ;?></div>
-                    <div class="blog-date"><?php echo $posts->publishdate ; ?></div>
-                    <div class="blog-body">
-                        <p><?php echo $posts->content; ?></p>
-                    </div>
-                    <a class="read-more-btn" href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">READ MORE</a>
-                    
+            <div class="right-part">
+                <div class="recent-posts-block">
+                    <div class="recent-post-text">RECENT POSTS</div>
+                    <?php foreach($data['recentPost'] as $post) : ?>
+                        <ul type="bullet">
+                            <div class="post-title">
+                                <li><a href="<?php echo URLROOT;?>/blog/show/<?php echo $post->blogID ;?>"><?php echo $post->title ; ?></a></li>
+                            </div>
+                        </ul>
+                    <?php endforeach; ?>
                 </div>
-                <?php endforeach; ?>
-
-                <?php foreach($data['posts'] as $posts) : ?>
-                <div class="blog-card">
-                    <div class="thumbnail">
-                        <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-3.jpg" alt="">
-                    </div>
-                    <div class="blog-title"><?php echo $posts->title ;?></div>
-                    <div class="blog-date"><?php echo $posts->publishdate ; ?></div>
-                    <div class="blog-body">
-                        <p><?php echo $posts->content; ?></p>
-                    </div>
-                    <a class="read-more-btn" href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">READ MORE</a>
-                </div>
-                <?php endforeach; ?>
+            </div>
+               
+                
 
                 
 
