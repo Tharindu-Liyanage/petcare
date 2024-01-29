@@ -53,16 +53,7 @@
         }
 
 
-        public function blog(){
-
-            $posts = $this->PostModel->getPosts();
-    
-    
-            $data = [
-                'posts' => $posts
-            ];
-            $this->view('blog/index', $data);
-           }
+        
         
 
     }

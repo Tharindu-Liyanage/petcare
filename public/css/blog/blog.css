@@ -87,15 +87,121 @@ body {
     
 }
 
+
 .header{
-    width: 100%;
-    height: 60px;
-    background-color: red;
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    background:var(--background2);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 9%;
+}
+
+.header .logo{
+   font-weight: bolder;
+   color:var(--black);
+   font-size: 3.0rem;
+   display: flex;
+    position: relative;
+    align-items: center;
+    margin: 0%;
+    margin-bottom: 10px;
+    justify-content: center;
+    margin-left: 0rem;  /*to get center nav*/
+}
+
+.logo-dot{
+    color:#1F2E88;
+}
+
+
+
+.logo-txt{
+    
+    padding-left: 15px;
+    vertical-align: middle;  
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+.logo .logo-icon{
+    width: 55.48px;
+    height: 61px;
+
+}
+
+.header .navbar a{
+
+    font-size: 2.0rem;
+    color:var(--black);
+    margin: 0 4rem;
+    font-weight: 500;
+
+}
+
+.header .navbar a:hover{
+    color: var(--primary);
+
+}
+
+#menu-btn{
+    font-size:3.5rem;
+    cursor: pointer;
+    color:var(--black);
+    margin-left: 1.7rem;
+    display: none;
+}
+
+.header .btn{
+    margin-top: 0;
+   
+}
+
+.login {
+    background-color: #fff;
+    border: 2px solid #1F2E88; /* Specifies width, style, and color */
+    color: #1F2E88;
+    font-weight: 600;
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    background: var(--primary);
+    cursor: pointer;
+    font-size: 1.7rem;
+    border-color: #1F2E88;
+    color:var(--background2);
+
+}
+.login {
+    background-color: #fff;
+    border: 2px solid #1F2E88; /* Specifies width, style, and color */
+    color: #1F2E88;
+    font-weight: 600;
+}
+
+
+
+
+
+.btn:hover{
+    background: var(--secondary);
+}
+
+.login:hover{
+    background:#ECF3FF;
 }
 
 .title-part{
     display: flex;
     justify-content: space-around;
+    margin-top: 80px;
 }
 
 .left-heading{
@@ -112,6 +218,7 @@ body {
 .heading1{
     font-size: 5rem;
     font-weight: 600;
+    color:#2f66d4;
     
     
 }
@@ -119,6 +226,7 @@ body {
 .heading2{
     font-size: 5rem;    
     font-weight: 600;
+    color:#453c5c;
 }
 
 .heading3{
@@ -138,6 +246,12 @@ body {
     cursor: pointer;
 }
 
+.right-heading img{
+    width: 400px;
+    height: 400px;
+   
+}
+
 /* middle part starts here */
 
 .middle-part{
@@ -147,6 +261,20 @@ body {
     flex-wrap: wrap;
 }
 
+.thumbnail{
+    width: 100%;
+    height: auto;
+    
+}
+
+.thumbnail-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+}
+
 .blog-card{
     width: 250px;
     height: 380px;
@@ -154,9 +282,10 @@ body {
     padding: 30px;
 
     flex: 0 0 calc(33.33% - 25px); /* 33.33% width for each item with some spacing  */
-    margin: 5px 10px; 
+    margin: 25px 10px; 
     margin-left: 15px;
     box-sizing: border-box; /* Include padding and border in the calculation */
+    
 
 }
 
@@ -175,6 +304,11 @@ body {
     font-size: 1.2rem;
     margin: 7px 0px 10px 0px; 
     width: 70%;  
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow:hidden;
+    -webkit-line-clamp: 4; /* Number of lines to show */
+    max-height: calc(1.2em * 4);
 
 }
 
@@ -183,10 +317,115 @@ body {
     color: white;
     padding: 5px 10px;
     border-radius: 0px 6px 6px 6px;
-    margin-top: 3px;
+    margin-bottom: 0px;
 }
 
 .read-more-btn:hover{
     cursor: pointer;
 }
 
+
+
+
+
+/* footer start */
+
+
+footer{
+    
+    background-color: var(--background2);
+    display : flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    border-radius: 10px;
+    margin: 80px;
+    padding: 20px;
+    margin-top: 150px;
+    
+}
+
+footer .logo-flex {
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+
+footer .logo-flex span{
+    font-size: 30px;
+    position: relative;
+    top:-15px;
+}
+
+footer .col:nth-child(1){
+    margin-left: 25px;
+}
+
+footer .col{
+    margin-top: 10px;
+    display : flex;
+    flex-direction:column;
+    align-items:flex-start;
+    margin-bottom:20px;   
+}
+
+footer img.logo{
+    margin-bottom: 50px;
+    width: 50px;
+    height: auto;
+}
+
+footer h4{
+    font-size:15px;
+    padding-bottom: 20px;
+    
+}
+
+footer p{
+    font-size:13px;
+   margin: 0 0 8px 0;
+}
+
+footer a{
+    font-size:13px;
+    text-decoration:none;
+    color:#222;
+    margin-bottom: 10px;
+
+   
+}
+
+footer .follow{
+    margin-top: 20px;
+
+
+}
+
+footer .follow i{
+    color:#465b52;
+    padding-right: 4px;
+    cursor: pointer;
+
+}
+
+footer .install .row i{
+   font-size: 50px;
+
+
+}
+
+footer .install i{
+    margin: 10px 0 15px 0;
+}
+
+footer .follow i :hover{
+    color:#088178;
+}
+
+footer .copyright{
+    width:100%;
+    text-align:center;
+
+}
+
+
+/* footer ends here */

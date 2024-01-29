@@ -6,10 +6,9 @@
        }
 
        public function index(){
-
         $posts = $this->blogModel->getPosts();
-
-
+    
+    
         $data = [
             'posts' => $posts
         ];
