@@ -484,19 +484,12 @@
             ];
             $this->view('dashboards/admin/setting/settings',$data);
             // print_r($data['settings']->firstname);
-        }
 
-        public function report(){
-            $data = null;
-            $this->view('dashboards/admin/report/report',$data);
-        }
-
-        public function editSettings($id){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
                 $data = [
-                    'id' =>$id,
+                    'id' =>$user_id,
                     'firstname' => trim($_POST['fname']),
                     'lastname' => trim($_POST['lname']),
                     'mobile' =>trim($_POST['mobile']),
@@ -556,7 +549,7 @@
                        
                        
                         echo 'updated';
-                       redirect('dashboard/admin/setting/settings');
+                        redirect('dashboard/admin/setting/settings');
 
                     }else{
                         die("Something went wrong");
@@ -567,6 +560,7 @@
                 }else{
                     //load view with errors
                     $this->view('dashboard/admin/settin/settings',$data);
+                    
                     
                     
 
@@ -593,7 +587,17 @@
                 //need to change
                 $this->view('dashboard/admin/setting/settings',$data);
             }
+
+
+
         }
+
+        public function report(){
+            $data = null;
+            $this->view('dashboards/admin/report/report',$data);
+        }
+
+       
 
 
         

@@ -29,7 +29,7 @@
                             
                         </div>
     
-        <form class="container" action="<?php echo URLROOT; ?>/admin/editSettings/<?php echo $_SESSION['user_id']; ?>" method="post">     <!--start of form-->
+        <form class="container" action="<?php echo URLROOT; ?>/admin/settings" method="post" >     <!--start of form-->
                                     <div class="tab-box">                        
                                         <div class="tab-btn active">My Profile</div>
                                         <div class="tab-btn">Password</div>
@@ -154,7 +154,7 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <input type="text" class="text-box billing-email-textbox" placeholder="eg: ucsc123@gmail.com">
+                                                <input type="text" class="text-box billing-email-textbox" placeholder="eg: ucsc123@gmail.com" value="<?php echo $data['settings']->email; ?>">
                                             </div>
 
                                             <div class="facebook">
