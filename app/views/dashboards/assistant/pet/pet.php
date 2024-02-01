@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<?php require_once __DIR__ . '/../../common/common_variable/petowner_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/pet_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 

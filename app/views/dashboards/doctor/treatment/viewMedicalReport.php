@@ -218,7 +218,7 @@
 
            
             <footer class="modal-container-footer">
-                    <button type="button"  class="button is-ghost" onclick="window.location.href='<?php echo URLROOT;?>/petowner/medicalReport'">Back</button>
+                <button type="button" class="button is-ghost" onclick="window.history.back()">Back</button>
                     <button  id="downloadPdf" class="button is-primary"><i class='bx bx-download' ></i> Download</button>
             </footer>
     </div> <!-- model over -->
