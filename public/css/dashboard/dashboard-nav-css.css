@@ -29,6 +29,8 @@
 
     --time-slots:#fff;
 
+    --treatment-back:#FFFFFD;
+
 }
 
 *{
@@ -66,6 +68,7 @@ body.dark{
     --color-dark-variant:#a3bdcc;
     --litepicker-container-months-color-bg: #181e1e !important; 
     --time-slots:#25252c;
+    --treatment-back:#25252c;
 }
 
 body{

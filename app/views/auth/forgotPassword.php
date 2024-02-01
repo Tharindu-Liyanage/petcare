@@ -77,6 +77,26 @@
         
     </div>
 
+    <Script>
+     
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function () {
+            const submitButton = form.querySelector('.but');
+            
+            // Disable the submit button to prevent multiple submissions
+            submitButton.disabled = true;
+            
+            // Optionally, you can change the text of the button to indicate loading
+            submitButton.innerHTML = '<img class="btn-svg" src="<?php echo URLROOT;?>/public/img/auth/loading.svg">Loading...';
+        });
+    });
+
+
+    </Script>
+
 
     
 </body>

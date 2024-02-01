@@ -45,6 +45,54 @@
 
     <div class="content-table">
 
+    <!-- this is treatment info-->
+
+            <div class="notifications-container">
+        <div class="info-notifi">
+            <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="info-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+            </svg>
+            </div>
+            <div class="info-prompt-wrap">
+                <p class="">
+                Looking for a new treatment?
+                <a class="info-prompt-link" href="<?php echo URLROOT; ?>/doctor/addTreatment/<?php echo $data['pet_id']; ?>/new">click here to start a new treatment!</a>
+                </p>
+
+                <ul class="app-info">
+
+                <?php if(isset($data['latestTreatmentID'])): ?>
+                    <li>The pet owner has selected the <span class="trt-id">
+                        <?php
+                        if($data['latestTreatmentID']->treatment_id != null){
+                        echo "TRT-".$data['latestTreatmentID']->treatment_id;
+                        }else{
+                            echo "new treatment";
+                        } 
+                        
+                        ?>
+                        
+                        </span> to continue.</li> 
+                        <li>Reason : <span class="trt-id" ><?php echo $data['latestTreatmentID']->appointment_type; ?></span></li>
+                        <li>Pet Name : <span class="trt-id" ><?php echo $data['petDetails']->pet; ?></span></li>
+                        <li>Pet age : <span class="trt-id" ><?php echo $data['petDetails']->DOB; ?></span></li>
+                <?php else: ?>
+                    <li>This treatment continue without an appointment.</li>
+                    <li>Pet Name : <span class="trt-id" ><?php echo $data['petDetails']->pet; ?></span></li>
+                    <li>Pet age : <span class="trt-id" ><?php echo $data['petDetails']->DOB; ?></span></li>
+                <?php endif; ?>
+    
+                </ul>
+                
+            </div>
+        </div>
+        </div>
+        </div>
+
+    <!-- over-->
+
         <div class="title">
             Ongoing Medical Report
         </div>
@@ -92,7 +140,7 @@
 
                         <td class="action-reports">
                             <a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $treatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
-                            <a href="#" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+                            <a href="<?php echo URLROOT;?>/doctor/addTreatment/<?php echo $treatment->pet_id;?>/<?php echo $treatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -158,7 +206,7 @@
                         ?>   
 
                         <td class="action-reports">
-                            <a href="#" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+                            <a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $closedTreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
                             <a href="#" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
                         </td>
                     </tr>

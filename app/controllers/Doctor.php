@@ -152,15 +152,31 @@
                 $this->view('dashboards/doctor/treatment/checkBeforeTreatment',$data);
         }
 
-        public function pastReportsFromAppointment($pet_id){
+        public function requestPastMedicalReports($pet_id){
+
+            
+            
+
                     
                 //get treatment details by pet id
                 $treatmentDetails = $this->doctorModel->getTreatmentDetailsByPetID($pet_id);
                 $closedTreatmentDetails = $this->doctorModel->getClosedTreatmentDetailsByPetID($pet_id);
 
+                //get latest treatment id by pet id from appointment table
+                $latestTreatmentID = $this->doctorModel->getLatestTreatmentID($pet_id);
+
+                //get pet age
+                $petDetails  =$this->doctorModel-> getPetDetailsByPetID($pet_id);
+                $petDOB = $petDetails->DOB;
+                $visitDate = date("Y-m-d");
+                $petDetails->DOB = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+
                 $data = [
                     'treatmentDetails' => $treatmentDetails,
-                    'closedTreatmentDetails' => $closedTreatmentDetails
+                    'closedTreatmentDetails' => $closedTreatmentDetails,
+                    'latestTreatmentID' => $latestTreatmentID,
+                    'petDetails' => $petDetails,
+                    'pet_id' => $pet_id,
                 ];
     
                 $this->view('dashboards/doctor/treatment/checkBeforeTreatment',$data);
@@ -227,6 +243,217 @@
         }
 
 
+        public function addTreatment($id,$trtID){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                 //get pet details and petowner details by pet id
+            $petDetails = $this->doctorModel->getPetDetailsByPetID($id);
+
+            //age calculation
+            $petDOB = $petDetails->DOB;
+            $visitDate = date("Y-m-d");
+            $petDetails->DOB = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+
+                $data = [
+                    'pet_id' => $id,
+                    'trtID' => $trtID,
+                    'main_err' => '',
+                    'diagnosis' => $_POST['diagnosis'],
+                    'treatment_plan' => $_POST['treatment-plan'],
+                    'prescription' => $_POST['prescription'],
+                    'examination' => $_POST['examination'],
+                    'follow-up-reason' => $_POST['follow-up-reason'],
+                    'instructions' => $_POST['instruction'],
+                    'date' => $_POST['follow-up-date'],
+                    'status' => $_POST['status'],
+                    'petDetails' => $petDetails,
+                    'diagnosis_err' => '',
+                    'treatment_plan_err' => '',
+                    'prescription_err' => '',
+                    'examination_err' => '',
+                    'follow-up-reason_err' => '',
+                    'instructions_err' => '',
+                    'date_err' => '',
+                    'status_err' => '',
+                    'visit_date' => date("Y-m-d"),
+
+                ];
+                
+                $error_count =0;
+
+                // Validate data
+                if (empty($data['diagnosis'])) {
+                    $error_count++;
+                    $data['diagnosis_err'] = 'Please enter diagnosis';
+                }
+
+                if (empty($data['treatment_plan'])) {
+                    $error_count++;
+                    $data['treatment_plan_err'] = 'Please enter treatment plan';
+                }
+
+                if (empty($data['prescription'])) {
+                    $error_count++;
+                    $data['prescription_err'] = 'Please enter prescription';
+                }
+
+                if (empty($data['examination'])) {
+                    $error_count++;
+                    $data['examination_err'] = 'Please enter examination';
+                }
+
+                
+
+                if (empty($data['instructions'])) {
+                    $error_count++;
+                    $data['instructions_err'] = 'Please enter instructions';
+
+                }
+
+                if (empty($data['status'])) {
+                    $error_count++;
+                    $data['status_err'] = 'Please select status';
+
+                }
+
+
+
+            
+              
+
+
+
+        
+                // Make sure no errors
+                if($error_count == 0){
+                    // Validated
+
+                    if (empty($data['date']) && $data['status'] == "Ongoing" && empty($data['follow-up-reason'])) {
+
+                        //this if for if user select status as ongoing and not enter follow up date and follow up reason
+
+                        $data['main_err'] = 'You selected status as ongoing. Please enter follow up date and a reson for follow up';
+                        $data['follow-up-reason_err'] = 'Please enter follow up reason';
+                        $data['date_err'] = 'Please enter follow up date';
+
+                        //load with errors
+                        $this->view('dashboards/doctor/treatment/addTreatment',$data);
+
+                    }else if(!empty($data['date']) && $data['status'] == "Ongoing" && empty($data['follow-up-reason'])){
+
+                        //this if for if user select status as ongoing and not enter follow up reason
+
+                        $data['main_err'] = 'You selected status as ongoing. Please enter a reson for follow up';
+                        $data['follow-up-reason_err'] = 'Please enter follow up reason';
+
+                        //load with errors
+                        $this->view('dashboards/doctor/treatment/addTreatment',$data);
+
+                    }else if(empty($data['date']) && $data['status'] == "Ongoing" && !empty($data['follow-up-reason'])){
+
+                        //this if for if user select status as ongoing and not enter follow up date
+
+                        $data['main_err'] = 'You selected status as ongoing. Please select a follow up date';
+                        $data['date_err'] = 'Please enter follow up date';
+                        $data['status_err'] = 'Select status as ongoing';
+
+                        //load with errors
+                        $this->view('dashboards/doctor/treatment/addTreatment',$data);
+                       
+                    }else if(!empty($data['date']) && $data['status'] == "Closed" && !empty($data['follow-up-reason'])){
+
+                        //this if for if user select status as closed and enter follow up date and follow up reason
+
+                        $data['main_err'] = 'You selected status as closed. Please remove follow up date and follow up reason';
+                        $data['follow-up-reason_err'] = 'Please remove follow up reason';
+                        $data['date_err'] = 'Please remove follow up date';
+
+                        //load with errors
+                        $this->view('dashboards/doctor/treatment/addTreatment',$data);
+
+                    }else if(!empty($data['date']) && $data['status'] == "Closed" && empty($data['follow-up-reason'])){
+
+                        //this if for if user select status as closed and enter follow up date and not follow up reason
+
+                        $data['main_err'] = 'You selected status as closed. Please remove follow up date';
+                        $data['date_err'] = 'Please remove follow up date';
+
+                        //load with errors
+                        $this->view('dashboards/doctor/treatment/addTreatment',$data);
+                    }else if(empty($data['date']) && $data['status'] == "Closed" && !empty($data['follow-up-reason'])){
+
+                        //this if for if user select status as closed and not enter follow up date and follow up reason
+
+                        $data['main_err'] = 'You selected status as closed. Please remove follow up reason';
+                        $data['follow-up-reason_err'] = 'Please remove follow up reason';
+
+                        //load with errors
+                        $this->view('dashboards/doctor/treatment/addTreatment',$data);
+                    }
+                    
+                else{
+                        // Validated
+                        // Execute
+                        if($this->doctorModel->addTreatment($data)){
+                            // Redirect to login
+                            redirect('doctor/appointment');
+                        } else {
+                            die('Something went wrong');
+                        }
+                    }
+
+                }else{
+
+                    //main error with error counts
+                    $data['main_err'] = 'Please fill all the fields. You missed '.$error_count.' fields';
+
+                    //load erros
+                    $this->view('dashboards/doctor/treatment/addTreatment',$data);
+
+                }
+
+                    
+
+
+
+            }else{
+
+            //get pet details and petowner details by pet id
+            $petDetails = $this->doctorModel->getPetDetailsByPetID($id);
+
+            //age calculation
+            $petDOB = $petDetails->DOB;
+            $visitDate = date("Y-m-d");
+            $petDetails->DOB = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+
+            
+
+
+                $data = [
+                    'pet_id' => $id,
+                    'trtID' => $trtID,
+                    'main_err' => '',
+                    'petDetails' => $petDetails,
+                    'diagnosis' =>'',
+                    'treatment_plan' => '',
+                    'prescription' => '',
+                    'examination' => '',
+                    'follow-up-reason' =>'',
+                    'instructions' => '',
+                    'date' =>'',
+                    'status' => '',
+                ];
+
+            
+
+               $this->view('dashboards/doctor/treatment/addTreatment',$data); 
+
+            }
+        }
+
+
 
 
 
@@ -264,8 +491,54 @@
         }
 
         public function pet(){
-            $data = null;
-            $this->view('dashboards/admin/pet/pet',$data);
+            
+            //get all pet details
+            $petDetails = $this->doctorModel->getAllPetDetails();
+
+            //age calculation by calculateAge function
+            foreach ($petDetails as $pet) {
+                // Assuming 'DOB' is the property name, replace it with the correct property name if needed
+                $petDOB = isset($pet->DOB) ? $pet->DOB : null;
+                $pet->DOB = $this->calculateAge($petDOB);
+            }
+
+
+            $data = [
+                'pet' => $petDetails
+            ];
+
+
+            $this->view('dashboards/doctor/pet/pet',$data);
+        }
+
+
+        public function calculateAge($birthdate) {
+            // Create a DateTime object from the birthdate
+            $birthdate = new DateTime($birthdate);
+            
+            // Get the current date
+            $currentDate = new DateTime();
+            
+            // Calculate the difference in years, months, and days
+            $ageInterval = $currentDate->diff($birthdate);
+        
+            $years = $ageInterval->y;
+            $months = $ageInterval->m;
+            $days = $ageInterval->d;
+        
+            // Build the age string
+            $ageString = '';
+            if ($years > 0) {
+                $ageString .= "$years" . " Years ";
+            }
+            if ($months > 0 ) {
+                $ageString .= "$months" . " Months ";
+            }
+            if ($days > 0 && $months == 0 && $years == 0) {
+                $ageString .= "$days" . " Days";
+            }
+        
+            return $ageString;
         }
 
         public function blog(){
@@ -284,7 +557,11 @@
         }
 
         public function treatment(){
-            $data = null;
+              //getTreatmentDetailsByVetID
+              $treatmentDetails = $this->doctorModel->getTreatmentDetailsByVetID();
+              $data = [
+                  'treatment' => $treatmentDetails
+              ];
             $this->view('dashboards/doctor/treatment/treatment',$data);
         }
 

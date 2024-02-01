@@ -33,7 +33,7 @@
                         >
                         <li><a href="<?php echo URLROOT;?>/petowner/appointment" >Appointment</a></li>
                         <li> > </li> <!-- Include the ">" character within an <li> element -->
-                        <li><a href="<?php echo URLROOT;?>/petowner/updateAppointment/<?php //echo $data['id'];?>" class="active">Update Appointment</a></li>
+                        <li><a href="<?php echo URLROOT;?>/petowner/updateAppointment/<?php echo $data['appointment_id'];?>" class="active">Update Appointment</a></li>
                     </ul>
                 </div>
 
