@@ -1,0 +1,933 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;800&display=swap');
+
+:root{
+    --primary:#1F2E88; /*main blue color*/
+    --background1:#F7FAFC; /*grey*/
+    --background2:#FFFFFF; /*white*/
+    --border: .2rem solid rgba(0,0,0,.1);
+    --box-shadow:0 0.5rem 1rem rgba(0,0,0,.1);
+    --black:#222;
+    --secondary: #2f66d4;
+    --light-color:#666;
+
+    --icon-color : #453c5c;
+    --icon-primary-color:#ff6b6b;
+    --icon-secondary-color:#794afa;
+
+    --white-color: #fff;
+    --light-bg-color : #f2f3f5;
+    --light-text-color : #7c899a;
+    --border-color:#e5e8ec;
+    --darkcolor : #0a021c;
+
+    --fw3:300;
+    --fw4:400;
+    --fw5:500;
+    --fw6:600;
+    --fw7:700;
+    --fw8:800;
+ 
+
+    --font-small:13px;
+    --font-smaller:11px;
+
+    --percet100:100%;
+    --percent50 : 50%;
+
+    --trans-background-color: .3s ,color .3s;
+    --trans-background: background-color .3s;
+    --trans-color: color .3s;
+
+
+    /*product color drop downm*/
+
+    --first-color: hsl(220, 68%, 54%);
+    --first-color-lighten: hsl(220, 68%, 97%);
+    --title-color: hsl(220, 48%, 28%);
+    --text-color: hsl(220, 12%, 45%);
+    --body-color: hsl(220, 100%, 99%);
+
+            /*========== Font and typography ==========*/
+        /*.5rem = 8px | 1rem = 16px ...*/
+        --body-font: "Poppins", sans-serif;
+        --normal-font-size: .938rem;
+        --small-font-size: .813rem;
+        --smaller-font-size: .75rem;
+        /*========== Font weight ==========*/
+        --font-medium: 500;
+        --font-semi-bold: 600;
+        /*========== z index ==========*/
+}
+
+/*reuse selection*/
+
+.container{
+    max-width:100%;
+    margin: 0 auto;
+    padding: 0 0.938em;
+}
+
+.column{
+    margin-left: -0.938em;
+    margin-right: -0.938em;
+}
+
+.column .row{
+   padding: 0 0.938em;
+}
+
+.flexcol{
+   display: flex;
+   flex-direction: column;
+   gap:1em;
+ }
+
+
+.flexwrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexcenter{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.flexitem{
+    display:flex;
+    align-items: center;
+}
+
+.icon-small , .icon-large{
+    display: flex;
+    align-items:center;
+    padding: 0 0.25em;
+    font-weight:normal ;
+}
+
+.icon-small{
+    font-size: 1.25em;
+    margin: auto;
+}
+
+.icon-large{
+    font-size:2.75em;
+    padding: 0 0.75em 0 0;
+
+}
+
+/*reuse over*/
+
+/*unique store things*/
+
+a{
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+ul{
+    list-style: none;
+}
+
+img{
+    max-width: var(--percet100);
+    vertical-align: middle;
+}
+
+strong {
+    font-weight: var(--fw8);
+}
+
+table{
+    border-collapse: collapse;
+
+}
+
+input::placeholder{
+    font:inherit;
+}
+
+h1,h2,h3,h4{
+    font-family: 'Poppins';
+}
+
+
+h1{
+    font-size:calc(1.3em + 1vw);
+    font-weight: var(--fw8);
+    line-height: 1;
+}
+
+h2{
+    font-size:2.5em;  
+}
+
+h3{
+    font-size:1.2em;  
+    font-weight: var(--fw7);
+}
+
+h4{
+    font-size:1em;  
+    font-weight: var(--fw6);
+}
+
+
+
+/*unique store thing over*/
+
+
+
+
+*{
+    /* right, left, up, bottom margins are 0 */
+    margin : 0;
+    padding : 0;
+    /* To adding seperate paddings to images without errors using box- sizing */
+    box-sizing : border-box; 
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+  /*  transition: .2s linear;*/
+    text-decoration: none;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar{
+    width:.8rem;
+
+}
+
+html::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb{
+    background: var(--primary);
+    border-radius: 5rem;
+}
+
+section {
+    padding: 1rem 7%; /*section bottom paddint default 5rem 7%*/
+}
+
+
+body {
+    /* this marging says up and bottom margins are 0 but right and left margins are auto. */
+    margin : 0 auto; 
+    padding-top: 120px;
+    /* background-color: #1F2E88; */
+    
+    
+    
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.5rem 2rem;
+    border-radius: .5rem;
+    /* background: var(--primary); */
+    cursor: pointer;
+    font-size: 1.7rem;
+    /* color:var(--background2); */
+    border: 2px solid black;
+    
+
+}
+
+.btn:hover{
+    background: var(--secondary);
+}
+
+.headings{
+    font-size: 4rem;
+    text-align: center;
+    color:var(--black);
+    text-transform: uppercase;
+    font-weight: bolder;
+    margin-bottom: 3rem;
+}
+
+/*=============header========================*/
+
+.header{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    background:var(--background2);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 9%;
+}
+
+.header .logo{
+   font-weight: bolder;
+   color:var(--black);
+   font-size: 3.0rem;
+   display: flex;
+    position: relative;
+    align-items: center;
+    margin: 0%;
+    margin-bottom: 10px;
+    justify-content: center;
+   
+}
+
+.logo-dot{
+    color:#1F2E88;
+}
+
+
+
+.logo-txt{
+    
+    padding-left: 15px;
+    vertical-align: middle;  
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+.logo .logo-icon{
+    width: 55.48px;
+    height: 61px;
+   
+}
+
+
+
+
+.header .navbar a{
+
+    font-size: 2.0rem;
+    color:var(--black);
+    margin: 0 2rem;
+    font-weight: 500;
+
+}
+
+.header .navbar a:hover{
+    color: var(--primary);
+
+}
+
+.navbar a {
+    position: relative;
+    display: inline-block; /* Make sure the text and icon are on the same line */
+  }
+
+
+.navbar a span{
+    position: absolute;
+    top:5px;
+}
+
+
+/*cart icon right*/
+
+.fly-item{
+    position:absolute;
+    height: 16px;
+    font-size: var(--font-smaller);
+    padding: 3px;
+    text-align: center;
+    line-height: 10px;
+    color: var(--white-color);
+}
+
+
+
+
+.header .right .icon-large {
+    position: relative;
+   
+}
+
+.header .right .fly-item{
+    top:0;
+    right:16px;
+    width:16px;
+    background-color: var(--icon-color);
+    border-radius: var(--percent50);
+}
+
+
+.icon-large i.profile{
+    border: 2px solid black; /* Define your border style here */
+    border-radius: 50%; /* Makes the border a circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em; /* Adjust the size as needed */
+    height: 1.5em; /* Adjust the size as needed */
+
+}
+
+.icon-text{
+    font-size: 1.25em;
+    margin-right:10px;
+}
+
+.mobile-hide{
+    display: none;
+}
+
+
+.header .right li{
+    margin: 0 0.5rem;
+}
+
+.header .right .icon-text{
+    font-size: 1.3rem;
+}
+
+
+/*search css*/
+
+
+
+
+  /*search css over*/
+
+
+
+
+
+/*=============header over========================*/
+
+/*product drop down*/
+
+.mega .flexcol{
+    flex:1;
+    min-width: 180px;
+    padding-right: 2.5em;
+    margin-bottom:1.5em;
+    z-index: 1;
+}
+
+ /*mega menu*/
+
+.header .navbar .mega{
+    position: absolute;
+    width: var(--percet100);
+    height: auto;
+    top:58px;
+    left:0;
+    right: 0;
+    padding:2.5em;
+
+    line-height: 2em;
+    background-color: var(--body-color);
+    box-shadow: rgb(0 0 0 / 20%) 0 30px 20px -30px;
+    z-index: -1;
+   }
+
+
+ 
+
+  nav .mega .container{
+    margin-left:12rem;
+  }
+  
+ 
+
+
+   .header .navbar .mega .wrapper{
+    display: flex;
+    text-align: left;
+   }
+
+   .header .navbar .mega h4{
+        font-size:1.7em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        color: var(--title-color);
+        font-weight: var(--font-semi-bold);
+   }
+
+   .header .navbar .mega ul li a{
+        font-size:1.5em;
+        font-weight: var(--fw4); 
+        color: var(--text-color); 
+        font-weight: var(--font-medium);
+        margin: 0.25rem 0;
+        transition: color .3s;
+    }
+
+    .header .navbar .mega ul li a:hover{
+        color:var(--title-color);
+    }
+
+    .header .navbar .mega ul li{
+        margin-bottom: 5px;
+    }
+
+    
+
+    .header .navbar .mega li>a{ 
+        margin-left:0em; 
+        
+
+    }
+
+    .header .navbar .mega i{
+        margin-bottom: 10px;
+        color: var(--first-color);
+    }
+
+    .header .navbar .mega i.round{
+        background:  #EEF3FC; /* Define your border style here */
+        border-radius: 50%; /* Makes the border a circle */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.6em; /* Adjust the size as needed */
+        height: 1.6em; /* Adjust the size as needed */
+    }
+
+
+    /* ========================= Nav bar css over here ================================*/
+
+    /*============================  After Nav bar ===================================== */
+
+
+
+    .item-list{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        grid-gap: 20px;
+        border-bottom: 2px solid darkgrey;
+        padding-bottom: 50px;
+        
+    }
+
+    .item-card{
+        flex: 0 0 calc(25% - 25px);
+        /* background-color:lightgray; */
+        border-radius: 2px;
+        padding: 10px;
+        height: 310px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+        border: 2px solid lightgray;
+        
+        
+    }
+
+    .buttons{
+       display: flex;
+       justify-content: space-between;
+       justify-self: flex-end;       
+    }
+
+    .category-title{
+        font-size: 4rem;
+        font-weight: 400;
+        text-decoration: double;
+        text-align: center;
+    }
+    
+    .small-category-title{
+        font-size: 2.8rem;
+        color: #1F2E88;
+        text-decoration: underline;
+    }
+
+    .item-title{
+        font-size: 1.6rem;
+        margin-top: 5px;
+        
+    }
+
+    .item-price{
+        font-size: 2rem;
+        font-weight: 400;
+        align-self: center;
+        
+    }
+
+
+    .buy-now-buttton{
+        background-color: var(--primary);
+        color: white;
+        border: none;
+    }
+
+    .add-to-cart-buttton:hover{
+        background-color: var(--border-color);
+    }
+
+
+    .item-image img{
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 15px;
+    }
+
+
+    .small-category-title{
+        margin: 20px 20px 5px 20px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*====================== Media query start here =============================*/
+
+   
+
+    @media (min-width: 768px) {
+        /* Desktop styles go here  for hover products desktop */
+
+        .has-drop-down .mega {
+            display: none;
+          }
+        
+        
+          
+          /* Apply styles when the <li> is hovered */
+          .has-drop-down:hover .mega {
+            display: block;
+          }
+
+
+          /*  nav bar over */
+
+
+
+
+
+
+      }
+
+
+
+
+
+
+    
+    @media (max-width:991px){
+
+
+        /*nav bar*/
+
+        .navbar::-webkit-scrollbar{
+            width: 0.5rem;
+        }
+
+        .navbar::-webkit-scrollbar-thumb{
+            background-color: hsl(220, 12%, 70%);
+        }
+
+        html{
+            font-size: 55%;
+        }
+
+        .header{
+            padding: 2rem;
+        }
+
+        .header .navbar{
+            position: absolute;
+            top:100%; right:0;
+            width:100%;
+            height: calc(100vh - 3.5rem);
+            overflow: auto;
+            box-shadow: var(--box-shadow);
+            border-radius: .5rem;
+            background-color: var(--body-color);
+            pointer-events: none;
+            opacity:0;
+            transition: top .4s, opacity .3s;
+            
+        }
+
+        .show-menu{
+            opacity: 1 !important;
+            top:10.5rem !important;
+            pointer-events: initial !important;
+        }
+
+        .show-icon .nav__toggle-menu{
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .show-icon .nav__toggle-close{
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+
+        .header .navbar ul.flexitem{
+            display: grid;
+        }
+
+        .header .navbar a{
+            font-size: 2rem;
+            margin: 2rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color .3s;
+            padding: 2.25rem 1.5rem;
+            margin:0;
+           
+        }
+
+
+        
+
+       .header .navbar  .mega{
+            
+            padding:0;
+            box-shadow: none;
+            
+       }
+
+       .header .navbar a:hover{
+        background-color: var(--first-color-lighten);
+       }
+
+       .header .navbar  a.one span{  /*for drop down icon*/
+            
+        left:90%;
+        top:30%;
+        }
+
+        /*mega*/
+        .drop-down-button{
+            cursor: pointer;
+        }
+      
+        
+
+        .has-drop-down .mega {
+            
+            position: static !important;
+            display: inline;
+            z-index: 0 !important;
+            background-color: transparent !important;
+        }
+
+        
+        .header .navbar .mega .wrapper{
+           display: grid;
+
+        }
+
+        nav .mega .container{
+            margin-left:0px;
+        }
+
+        nav .mega .wrapper{
+            margin-left:30px;
+        }
+
+        nav .mega .icon-large{
+            font-size: 3rem;
+        }
+
+        nav .mega .flexcol:first-child{
+            margin-top: 2rem;
+        }
+
+        nav .mega a {
+            font-size: 1.7rem !important;
+        }
+
+        nav .mega h4 {
+            font-size: 2.0rem !important;
+        }
+
+        .header .navbar .mega i.round{
+            background:var(--body-color); /* Define your border style here */
+        }
+
+        /*rotate dropdown iconm */
+        .show-dropdown .drop-down-arrow{
+            transform: rotate(180deg);
+        }
+
+        
+
+
+        .drop-down-group a {
+            padding: 0 !important;
+            row-gap: .25rem;
+        }
+
+        .drop-down-group a:hover {
+            background-color: transparent !important;
+           
+        }
+
+        .header .navbar .mega ul li a{
+            /*gap sub links mobile*/
+            margin: 1.7rem 0;
+        }
+
+        .container{
+            background-color: var(--first-color-lighten);
+            height: 0;
+            overflow: hidden;
+            transition: height .4s;
+        }
+
+        
+        /*logo*/
+
+        .header .logo{
+            font-weight: bolder;
+            color:var(--black);
+            font-size: 2.5rem;
+            
+         }
+         
+         .logo-dot{
+             color:#1F2E88;
+         }
+         
+         
+         
+         .logo-txt{
+             
+             padding-left: 10px;
+           
+         }
+         
+         .logo .logo-icon{
+             width: 45.48px;
+             height: 51px;
+             z-index:1000;
+         
+         }
+
+         
+
+         .mobile-hide{
+            display: block;
+        }
+
+        
+
+       
+
+         /* toggle menu for mobile-tab */
+
+         .nav__toggle {
+            position: relative;
+            width: 32px;
+            height: 32px;
+          }
+          
+          .nav__toggle-menu, .nav__toggle-close {
+            font-size: 3.25rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            transition: opacity 0.1s, transform 0.4s;
+            text-align: center;
+          }
+          
+          .nav__toggle-close {
+            top: -30px; /* Position the close icon below the menu icon */
+            opacity: 0;
+          }
+
+
+          /*  nav bar over */
+
+         
+
+        
+    }
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @media (max-width:768px){
+
+        
+        
+       
+    }
+
+    @media (max-width:450px){
+
+
+        html{
+            font-size: 50%;
+        }
+
+        .logo .logo-icon{
+            width: 25.48px;
+            height: 31px;
+        }
+
+        .user-profile{
+            display: none;
+        }
+
+        
+
+       
+    }

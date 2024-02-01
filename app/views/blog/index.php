@@ -49,7 +49,7 @@
                 
             </div>
             <div class="right-heading">
-                <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-5.svg" alt="">
+                <img src="<?php echo URLROOT;?>/public/img/blog/blog-svg-1.svg" alt="">
             </div>
         </div>
         <div class="middle-part">

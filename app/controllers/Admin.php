@@ -479,32 +479,45 @@
             $user_id = ($_SESSION['user_id']);
             $settingsData = $this->settingsModel->getSettingDetails($user_id);
 
-            $data =[
-                'settings' => $settingsData
-            ];
-            $this->view('dashboards/admin/setting/settings',$data);
-            // print_r($data['settings']->firstname);
+            
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
                 $data = [
                     'id' =>$user_id,
-                    'firstname' => trim($_POST['fname']),
-                    'lastname' => trim($_POST['lname']),
+                    'first_name' => trim($_POST['fname']),
+                    'last_name' => trim($_POST['lname']),
                     'mobile' =>trim($_POST['mobile']),
                     'nic' => trim($_POST['nic']),
                     'address' => trim($_POST['address']),
                     'email' => trim($_POST['email']),
+                    'role' =>'Admin',
+                    'password' =>trim($_POST['password']),
+                    'new_password' => trim($_POST['new-password']),
+                    'new_confirm_password' => trim($_POST['new-confirm-password']),
+                    'fb_url' => trim($_POST['fb_url']),
+                    'insta_url'=> trim($_POST['insta_url']),
+                    'twitter_url' => trim($_POST['twitter_url']),
                     'firstname_err' => '',
                     'lastname_err' => '',
                     'email_err' => '',
                     'mobile_err' => '',
                     'nic_err' => '',
-                    'address_err' => ''
+                    'address_err' => '',
+                    'password_err' =>'',
+                    'new_password_err' => '',
+                    'new_confirm_password_err' => ''
+
+
+
 
 
                 ];
+
+                // if($_POST['profile-button'])
+
+                
 
                 if(empty($data['first_name'])){
                     $data['fname_err'] = 'Please enter first name';
@@ -525,31 +538,64 @@
 
                 if(empty($data['mobile'])){
                     $data['mobile_err'] = 'Please enter mobile number';
-                }else{
-                    if (!preg_match("/^94\d{9}$/", $data['mobile'])) {
-                        // Check mobile in correct format, Sri Lanka
-                        $data['mobile_err'] = 'Please enter a valid Sri Lankan mobile number starting with 94';
-                    } elseif ($this->userModel->findUserByMobile($data['mobile'])) {
-                        // Check if mobile number is already taken in the DB
-                        $data['mobile_err'] = 'Mobile number is already taken';
+                }
+                // }else{
+                //     if (!preg_match("/^94\d{9}$/", $data['mobile'])) {
+                //         // Check mobile in correct format, Sri Lanka
+                //         $data['mobile_err'] = 'Please enter a valid Sri Lankan mobile number starting with 94';
+                //     } elseif ($this->userModel->findStaffUserByMobile($data['mobile'])) {
+                //         // Check if mobile number is already taken in the DB
+                //         $data['mobile_err'] = 'Mobile number is already taken';
+                //     }
+                    
+               if(isset($data['password'])){
+                $hashedPassword = $this->settingsModel->getPasswordById($user_id);
+                // echo $hashedPassword;
+                // $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                // echo  $data['password'];
+                if(password_verify($data['password'],$hashedPassword)){
+                    
+                    
+                    if(isset($data['new_password'])){   
+                        if(strlen($data['new_password']) < 8){
+                            $data['new_password_err'] = 'Password must be at least 8 characters';
+                        }
+                    }else {
+                        $data['new_password_err'] = 'Enter the new password';
+                        
+                    }
+                    if(isset($data['new_confirm_password'])){
+                        if($data['new_password'] != $data['new_confirm_password']){
+                            $data['new_confirm_password_err'] = 'Passwords do not match';
+                        }
+                    }else{
+                        $data['new_confirm_password_err'] = 'retype the new password';
                     }
                     
+                }else{
+                    die ('not mached');
+                }
+               }
 
                     
-                }
-                if(empty($data['email_err']) && empty($data['firstname_err']) && empty($data['lastname_err']) && empty($data['nic_err']) && empty($data['address_err'])   && empty($data['mobile_err'])){
+                // }
+
+                
+                if(empty($data['email_err']) && empty($data['firstname_err']) && empty($data['lastname_err']) && empty($data['nic_err']) && empty($data['address_err'])  && empty($data['password_err'])  && empty($data['new_password_err'])  && empty($data['confirm_new_password_err'])   && empty($data['mobile_err'])){
                     //validated
                     
                     //hash password
-                    // $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
+                     $data['password'] = password_hash($data['new_password'],PASSWORD_DEFAULT);
+                           
+                     
 
                     //Regster User
 
-                    if($this->dashboardModel->updateStaff($data)){
-                       
-                       
-                        echo 'updated';
-                        redirect('dashboard/admin/setting/settings');
+                    if($this->dashboardModel->updateSettings($data)){
+                        
+                        die ($data['password']);
+                        
+                        redirect('admin/settings');
 
                     }else{
                         die("Something went wrong");
@@ -559,7 +605,7 @@
 
                 }else{
                     //load view with errors
-                    $this->view('dashboard/admin/settin/settings',$data);
+                    $this->view('dashboards/admin/setting/settings',$data);
                     
                     
                     
@@ -568,24 +614,16 @@
 
                 
             }else{
-                $data = [
-                    'first_name' => '',
-                    'last_name' =>'' ,
-                    'email' => '',
-                    'password' => '',
-                    're_password' => '',
-                    'mobile' => '',
-                    'fname_err' => '',
-                    'lname_err' => '',
-                    'email_err' => '',
-                    'password_err' => '',
-                    'confirm_password_err' => '',
-                    'mobile_err' => ''
+                // die ("not updated");
+                $data =[
+                    'settings' => $settingsData
                 ];
+                $this->view('dashboards/admin/setting/settings',$data);
+                // print_r($data['settings']->firstname);
 
                 //load view
                 //need to change
-                $this->view('dashboard/admin/setting/settings',$data);
+                
             }
 
 

@@ -13,6 +13,34 @@
             
             $this->view('shop/index', $data);
         }
+        // public function foodAndTreats(){
+
+        //     $data =null;
+   
+            
+        //     $this->view('shop/foodsAndTreats', $data);
+        // }
+        // public function groomingSupplies(){
+
+        //     $data =null;
+   
+            
+        //     $this->view('shop/groomingSupplies', $data);
+        // }
+        // public function healthAndWellness(){
+
+        //     $data =null;
+   
+            
+        //     $this->view('shop/healthAndWellness', $data);
+        // }
+        public function category($category){
+
+            $data =null;
+   
+            
+            $this->view('shop/'.$category , $data);
+        }
 
         public function notfound(){
             $data =null;

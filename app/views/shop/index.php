@@ -47,7 +47,7 @@
                         <div class="wrapper">
                             <div class="flexcol">
                                 <div class="row ">
-                                    <div class="drop-icon icon-large"><i class="fa-solid fa-cookie round"></i></div>
+                                <div class="drop-icon icon-large"><i class="fa-solid fa-burger round"></i></div>
                                     <h4>Food and treats</h4>
                                     <ul class="drop-down-group">
                                         <li><a href="#dry">Dry food</a></li>
@@ -185,24 +185,24 @@
         </div>
 
     <div class=" category-container">
-        <a href="#" class = "category-box">
+        <a href="<?php echo URLROOT; ?>/shop/category/foodAndTreats" class = "category-box">
             <div class="drop-icon icon-large"><i class="fa-solid fa-cookie round"></i></div>
             <span>Foods And Treats </span>
         </a>
 
 
-        <a href="#" class = "category-box">
+        <a href="<?php echo URLROOT; ?>/shop/category/groomingSupplies" class = "category-box">
             <div class="drop-icon icon-large"><i class="fa-solid fa-paw round"></i></div>
-            <span>Grooming Supplies </span>
+            <span>Grooming Supplies </span>''
         </a>
         
 
-        <a href="#" class = "category-box">
+        <a href="<?php echo URLROOT; ?>/shop/category/healthAndWellness" class = "category-box">
             <div class="drop-icon icon-large"><i class="fa-regular fa-heart round"></i></div>
             <span>Health And Welness</span>
         </a>
 
-        <a href="#" class = "category-box"> 
+        <a href="<?php echo URLROOT; ?>/shop/category/toysAndBedding" class = "category-box"> 
         <div class="drop-icon icon-large"><i class="fa-solid fa-basketball round"></i></div>
             <span>Toys And Bedding </span>
         </a>

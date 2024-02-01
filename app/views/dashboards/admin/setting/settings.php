@@ -46,7 +46,7 @@
                                                 <div class="line2">
                                                     <div class="small">Update your profile photo and details here.</div>
                                                     <button class="cancel-btn">Cancel</button>
-                                                    <button class="save-changes-btn">Save Changes</button>
+                                                    <button value="my-profile" name="profile-button" class="save-changes-btn">Save Changes</button>
                                                 </div>
                                             </div>
 
@@ -116,7 +116,7 @@
                                                 
                                                 <label class="password-label" for="password">New password</label>
                                                 <div class="new-password-right">
-                                                    <input class="password-box text-box" type="password" id="password" name="password" placeholder="*********">
+                                                    <input class="password-box text-box" type="password" id="password" name="new-password" placeholder="*********">
                                                     <div class="new-password-text">
                                                         Your new password must be more than 8 characters.
                                                     </div>
@@ -126,7 +126,7 @@
                                             <div class="new-confirm-password">
                                                 
                                                 <label class="password-label" for="password">Confirm New Password</label>
-                                                <input class="password-box text-box" type="password" id="password" name="password" placeholder="*********">
+                                                <input class="password-box text-box" type="password" id="password" name="new-confirm-password" placeholder="*********">
                                             </div>
 
                                         </div>
@@ -163,7 +163,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-facebook-square'></i>
-                                                    <input type="text" class="text-box1 billing-email-textbox" placeholder="https://www.facebook.com/facebook_username">
+                                                    <input type="text" name="fb_url" class="text-box1 billing-email-textbox" placeholder="https://www.facebook.com/facebook_username" value="<?php echo $data['settings']->fb_url; ?>">
                                                 </div>
                                             </div>
 
@@ -173,7 +173,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-instagram-alt' ></i>
-                                                    <input type="text" class="text-box1 city-email-textbox" placeholder="https://www.instagram.com/instagram_username">
+                                                    <input type="text" name="insta_url" class="text-box1 city-email-textbox" placeholder="https://www.instagram.com/instagram_username" value="<?php echo $data['settings']->insta_url; ?>">
                                                 </div>
                                             </div>
 
@@ -184,7 +184,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-twitter' ></i>
-                                                    <input type="text" class="text-box1 province-email-textbox" placeholder="https://twitter.com/twitter_username ">
+                                                    <input type="text" name="twitter_url" class="text-box1 province-email-textbox" placeholder="https://twitter.com/twitter_username" value="<?php echo $data['settings']->twitter_url; ?>">
                                                 </div>
                                             </div>
 
