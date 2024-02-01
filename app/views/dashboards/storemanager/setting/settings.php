@@ -52,28 +52,29 @@
 
                                             <div class="name">                  <!--name -->
                                                     <div class="name-text">Name</div>
-                                                    <input type="text" class="text-box firstname-textbox" placeholder="Anna">
-                                                    <input type="text" class="text-box lastname-textbox" placeholder="Marie">
+                                                    <input type="text" class="text-box firstname-textbox" placeholder="Anna" value="<?php echo $data['settings']->firstname; ?>">
+                                                    <input type="text" class="text-box lastname-textbox" placeholder="Marie" value="<?php echo $data['settings']->lastname; ?>">
                                             </div>
 
                                             <div class="email">                     <!-- Email-->
                                                 <div class="email-text">Email</div>
-                                                <input type="text" class="text-box email-textbox" placeholder="Annamarie@petcare.com">
+                                                <input type="text" class="text-box email-textbox" placeholder="Annamarie@petcare.com" value="<?php echo $data['settings']->email; ?>">
                                             </div>
 
                                             <div class="address">                       <!-- address -->
                                                 <div class="address-text">Address</div>
-                                                <input type="text" class="text-box address-textbox" placeholder="290 Chatham Way Reston, Maryland(MD), 20191">
+                                                <input type="text" class="text-box address-textbox" placeholder="290 Chatham Way Reston, Maryland(MD), 20191" value="<?php echo $data['settings']->address; ?>">
                                             </div>
                                             
                                             <div class="nic">                       <!-- nic-->
                                                 <div class="nic-text">NIC</div>
-                                                <input type="text" class="text-box nic-textbox" placeholder="1920664892V">
+                                                <input type="text" class="text-box nic-textbox" placeholder="1920664892V" value="<?php echo $data['settings']->address; ?>">
+                                                <!-- need to add nic -->
                                             </div>
 
                                             <div class="mobile">                            <!-- mobile-->
                                                 <div class="mobile-text">Mobile</div>
-                                                <input type="text" class="text-box mobile-textbox" placeholder="+94 773456789">
+                                                <input type="text" class="text-box mobile-textbox" placeholder="+94 773456789" value="<?php echo $data['settings']->phone; ?>">
                                             </div>
 
                                             <div class="footer">                            <!-- footer -->

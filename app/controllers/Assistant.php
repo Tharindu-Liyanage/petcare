@@ -19,6 +19,9 @@
                 }
             }
 
+            $this->settingsModel= $this->model('Settings') ;
+            $this->assistantModel = $this->model('AssistantModel');
+
         }
 
         public function notfound(){
@@ -43,9 +46,20 @@
             $this->view('dashboards/assistant/appointment/appointment',$data);
         }
 
-        public function petowner(){
+        public function addAppointment(){
 
             $data =null;
+   
+            
+            $this->view('dashboards/assistant/appointment/addAppointment',$data);
+        }
+
+        public function petowner(){
+
+            $petownerDetails = $this ->assistantModel->getPetownerDetails();
+            $data = [
+                'petowner'=> $petownerDetails
+            ];
    
             
             $this->view('dashboards/assistant/petowner/petowner',$data);
@@ -53,12 +67,18 @@
 
         public function settings(){
 
-            $data =null;
-   
+            $user_id = ($_SESSION['user_id']);
+            $settingsData = $this->settingsModel->getSettingDetails($user_id);
+
+            $data =[
+                'settings' => $settingsData
+            ];
             
             $this->view('dashboards/assistant/setting/settings',$data);
         }
 
-        
+    
+
+
 
     }

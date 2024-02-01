@@ -8,7 +8,32 @@
         }
 
 
-        //methods here eg:- public function getAllVetDetails() {...}  after get results return to Home Controller (controllers/Home.php)
+        
+    //methods here eg:- public function getAllVetDetails() {...}  after get results return to Home Controller (controllers/Home.php)
+
+
+
+    // sanandi typing
+        public function getStaffDetails(){
+            $this->db->query('SELECT * FROM petcare_staff WHERE role = "Doctor" OR role = "Nurse"');
+
+            $results = $this->db->resultSet();
+
+       
+
+            return $results;
+
+
+
+        }
+
+        //abdulla part here
+
+        /*
+        getPosts method type here
+        
+        */
+
         
 
     }

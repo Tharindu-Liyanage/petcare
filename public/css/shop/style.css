@@ -1,4 +1,6 @@
 /*after nav bar css*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;800&display=swap');
 #search-banner{
     max-width: 1250px;
     height: 500px;
@@ -136,7 +138,8 @@
     background-color: #fafafa;
     border-radius:30px;
     min-height: 230px;
-    width:230px;
+    width:180px;
+    height: 180px;
     border:1px solid rgba(0,0,0,0.03);
     
 }

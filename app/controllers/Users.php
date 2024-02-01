@@ -1,10 +1,18 @@
 <?php
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    use donatj\UserAgent\UserAgentParser;
+
     class Users extends Controller{
 
         public function __construct(){
 
             $this->userModel = $this->model('User');
+
+           
 
         }
 
@@ -284,6 +292,11 @@
 
         public function login(){
 
+             //if not unset in change password page
+             if(isset( $_SESSION['User_Role'])){
+                unset( $_SESSION['User_Role']);
+            }
+
             $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
             //check for POST
@@ -294,7 +307,7 @@
                     'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
                     'email_err' => '',
-                    'password_err' => ''
+                    'password_err' => '',
                     
                 ];
 
@@ -380,18 +393,110 @@
 
         public function forgotPassword(){
 
+           
+
             //check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                //process form
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $data = [
+                    
+                    'email' => trim($_POST['email']),
+                    'otp' =>random_int(1000, 9999),
+                    'first_digit' => '',
+                    'second_digit' => '',
+                    'third_digit' => '',
+                    'fourth_digit' => '',
+                    'email_err' => '',
+                ];
+
+                //validate Email
+                if(empty($data['email'])){
+                    $data['email_err'] = 'Please enter email';
+                }else{
+
+                    if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                        $data['email_err'] = 'Please enter valid email';
+                    }else{
+
+                        //Check for user/email
+                        // 1 .check staff (if not found)
+                        //2 . check petowner
+                        //3. check user ban or not
+
+                        if(isset($_SESSION['User_Role']) && $_SESSION['User_Role'] == 'staff'){
+
+                            if(!$this->userModel->findStaffUserByEmail($data['email'])){
+                                //user not found
+                                $data['email_err'] = 'Please check your email and try again.';
+                            }
+
+
+                        }else{
+
+                            if(!$this->userModel->findUserByEmail($data['email'])){
+                                //user not found
+                                $data['email_err'] = 'Please check your email and try again.';
+                            }
+                        }
+
+                    }
+                    
+                }
+
+                //check user is banned or not
+
+                if($this->userModel->isUserBan($data['email'])){
+                    $data['email_err'] = 'Your email temporarily suspended. Please try again later';
+                }
+
+                if(empty($data['email_err'])){
+
+                    // Convert OTP to a string
+                     $otpString = (string) $data['otp'];
+                    // Extract individual digits  for Email
+                    $data['first_digit'] = $otpString[0];
+                    $data['second_digit'] = $otpString[1];
+                    $data['third_digit'] = $otpString[2];
+                    $data['fourth_digit'] = $otpString[3];
+
+                    $this->userModel->sendOtpCode($data);
+                    $userDetails = $this->userModel->findUserByEmailForForgotPassword($data['email']);
+
+                    $data['user_fname'] = $userDetails->first_name;
+                    $data['user_lname'] = $userDetails->last_name;
+                    $data['mobile'] = $userDetails->mobile;
+
+                    $this->sendOtpCodeEmail($data);
+
+                    //create session before redirect to otpVerification
+                    $_SESSION['forgotUser_email'] = $data['email'];
+                    $_SESSION['forgotUser_fname'] = $userDetails->first_name;
+                    $_SESSION['forgotUser_lname'] = $userDetails->last_name;
+                    $_SESSION['forgotUser_Try_Attempt'] = 3;
+
+
+                    redirect('users/otpVerification');
+
+
+
+
+
+                }else{
+
+                    //load view with errors
+                    $this->view('auth/forgotPassword',$data);
+                }
+
+                
             }else{
 
                 //init data
                 $data = [
                     
                     'email' => '',
-                    'password' => '',
-                    'email_err' => '',
-                    'password_err' => ''   
+                    'email_err' => '',  
                 ];
 
                 //load view
@@ -400,6 +505,283 @@
 
         }
 
+
+        //send email with otp code
+
+        public function sendOtpCodeEmail($data){
+
+            require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+            
+            try {
+                // Create a new PHPMailer instance
+                $mail = new PHPMailer(true);
+        
+                // Set mail configuration (replace with your actual details)
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = $_ENV['MAIL_USERNAME'];
+                $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+        
+                // Set email sender details
+                $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+        
+                // Add recipient address
+                $mail->addAddress($data['email'], 'User: ' . $data['email']);
+        
+                // Set subject and body
+                $mail->Subject = 'Password Reset OTP - PetCare';
+                $mail->isHTML(true);
+
+                $filePath = __DIR__ . '/../views/email/otpCodeForForgotPassword.php';
+                $emailContent = file_get_contents($filePath);
+
+                $emailContent = str_replace('{pet_owner_fname}', $data['user_fname'], $emailContent);
+                $emailContent = str_replace('{pet_owner_lname}', $data['user_lname'], $emailContent);
+                $emailContent = str_replace('{first-digit}',$data['first_digit'], $emailContent);
+                $emailContent = str_replace('{second-digit}',$data['second_digit'], $emailContent);
+                $emailContent = str_replace('{third-digit}',$data['third_digit'], $emailContent);
+                $emailContent = str_replace('{fourth-digit}',$data['fourth_digit'], $emailContent);
+
+
+                $mail->Body = $emailContent;
+
+                // Send the email
+                $mail->send();
+
+                
+               
+                
+
+            } catch (Exception $e) {
+                // Handle exceptions
+                echo 'Error: ' . $mail->ErrorInfo;
+            }
+        
+
+            
+        }
+
+        public function otpVerification(){
+
+           
+            //unothorized access block
+
+            if(!isset($_SESSION['forgotUser_email'])){
+                redirect('users/forgotPassword');
+            }
+
+            
+          
+            //check for POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+
+
+
+                if (isset($_POST['resend'])) {
+
+                    $data = [
+                    
+                        'first_digit' => '',
+                        'second_digit' => '',
+                        'third_digit' => '',
+                        'fourth_digit' => '',
+                        'otp_err' => '',
+                        'user_fname' => $_SESSION['forgotUser_fname'],
+                        'user_lname' => $_SESSION['forgotUser_lname'],
+                        'email' => $_SESSION['forgotUser_email'],
+                        'otp' =>'',
+                        'expire_at' => ''
+                    ];
+
+                    //get expire time
+                    
+
+                   
+
+                    if($_SESSION['forgotUser_Try_Attempt'] == 0){
+                        $data['otp_err'] = 'You have exceeded the maximum number of attempts. Please try again later.';
+
+                        $expireTime = $this->userModel->getExpireTimeOTPCode($_SESSION['forgotUser_email']);
+                        $data['expire_at'] = $expireTime->expired_at; //assign expire time to data array
+
+                        $this->view('auth/otpVerification',$data);
+                    }else{
+
+                        
+
+                        $data['otp'] = random_int(1000, 9999);
+                        // Convert OTP to a string
+                        $otpString = (string) $data['otp'];
+                        // Extract individual digits  for Email
+                        $data['first_digit'] = $otpString[0];
+                        $data['second_digit'] = $otpString[1];
+                        $data['third_digit'] = $otpString[2];
+                        $data['fourth_digit'] = $otpString[3];
+
+                        $this->userModel->sendOtpCode($data); //to database
+                        $this->sendOtpCodeEmail($data); //send Email again
+
+                        //after send new otp get new expire time
+                        $expireTime = $this->userModel->getExpireTimeOTPCode($_SESSION['forgotUser_email']);
+                        $data['expire_at'] = $expireTime->expired_at; //assign expire time to data array
+                        
+
+                        $this->view('auth/otpVerification',$data);
+
+                    }
+
+                }else if(isset($_POST['mainSubmit'])){
+
+                    $data = [
+                    
+                        'first_digit' => trim($_POST['first_digit_input']),
+                        'second_digit' => trim($_POST['second_digit_input']),
+                        'third_digit' => trim($_POST['third_digit_input']),
+                        'fourth_digit' => trim($_POST['fourth_digit_input']),
+                        'otp_err' => '',
+                        'email' => $_SESSION['forgotUser_email'],
+                        'expire_at' => ''
+                    ];
+
+                  //  die(var_dump($data));
+
+                   
+
+
+                    //get expire time
+                    $expireTime = $this->userModel->getExpireTimeOTPCode($_SESSION['forgotUser_email']);
+                    $data['expire_at'] = $expireTime->expired_at; //assign expire time to data array
+
+                    $otp = $data['first_digit'].$data['second_digit'].$data['third_digit'].$data['fourth_digit'];
+
+                    $latestOTPCodeQuery =  $this->userModel->getOtpCodeByEmail($_SESSION['forgotUser_email']);
+                    $latestOTPCode = $latestOTPCodeQuery->otp_code;
+
+
+
+                    if($_SESSION['forgotUser_Try_Attempt'] == 0){
+
+                        //checking the last attempt
+
+                        $data['otp_err'] = 'You have exceeded the maximum number of attempts.<br>Please try again later.';
+                        $this->view('auth/otpVerification',$data);
+
+
+                    }else{
+                    
+                        if ($data['first_digit'] !== "" && $data['second_digit'] !== "" && $data['third_digit'] !== "" && $data['fourth_digit'] !== "") {
+
+                            
+                           //Now error are empty
+
+
+
+                            //current time 
+
+                            $currentTime = new DateTime('now'); 
+                          //  die(var_dump($currentTime , $expireTime->expired_at));
+
+                           
+
+                            if($otp == $latestOTPCode){
+
+
+
+                                if(($currentTime->format('Y-m-d H:i:s') > $expireTime->expired_at)){
+
+                                    //checking OTP is expired!
+
+                                    $data['otp_err'] = 'OTP code has expired. Please try again.';
+                                    $this->view('auth/otpVerification',$data);
+
+
+                                }else{
+
+                                    //all good , now go to changePassword page
+
+                                    //unset session variables
+                                    $_SESSION['VerifiedUser_email'] = $_SESSION['forgotUser_email'];
+                                    $_SESSION['VerifiedUser_PWD_Session_LastActivity'] = time(); //time of last activity
+                                    unset($_SESSION['forgotUser_email']);
+                                    unset($_SESSION['forgotUser_fname']);
+                                    unset($_SESSION['forgotUser_lname']);
+                                    unset($_SESSION['forgotUser_Try_Attempt']);
+
+
+
+                                    redirect('users/changePassword');
+                                }
+
+                            }else{
+
+                                //wrong code type
+
+                                
+                                $_SESSION['forgotUser_Try_Attempt'] = $_SESSION['forgotUser_Try_Attempt'] - 1;
+
+                                if($_SESSION['forgotUser_Try_Attempt'] == 0){
+                                    $data['otp_err'] = 'You have exceeded the maximum number of attempts.<br>Please try again later.';
+
+                                    $this->sendUnauthorizedAccessEmail($data);
+                                    $this->userModel->tempBanUser();
+
+                                }else{
+                                    $data['otp_err'] = 'Wrong OTP Code. You have '.$_SESSION['forgotUser_Try_Attempt'].' attempts left.';
+                                }
+                                
+                                $this->view('auth/otpVerification',$data);
+                            }  
+
+
+
+                        }else{
+                            
+                            //nothing type
+
+                            $data['otp_err'] = 'Please enter the OTP code.';
+                            $this->view('auth/otpVerification',$data);
+                        } 
+
+                    }
+
+                    
+
+                }
+
+            }else{
+
+                //normal loading 1st time
+
+                 //get expire time
+                 $expireTime = $this->userModel->getExpireTimeOTPCode($_SESSION['forgotUser_email']);
+                    
+                    //init data
+                    $data = [
+                    
+                        'first_digit' => '',
+                        'second_digit' => '',
+                        'third_digit' => '',
+                        'fourth_digit' => '',
+                        'otp_err' => '',
+                        'email' => $_SESSION['forgotUser_email'],
+                        'otp' =>'',
+                        'expire_at' => $expireTime->expired_at
+                    ];
+    
+                    //load view
+                    $this->view('auth/otpVerification',$data);
+            }
+
+           
+            
+
+        }
 
         //  ====================== Create User session =======================
 
@@ -414,6 +796,7 @@
             $_SESSION['user_profileimage'] = $user->profileImage;
             $_SESSION['user_email'] = $user->email;
             $_SESSION['user_role'] = 'Pet Owner';
+            $_SESSION['PO_last_activity'] = time(); //time of last activity
 
             //redirect to dashboard
             redirect('petowner');
@@ -585,5 +968,227 @@
         }
 
     }
+
+
+
+    public function changePassword(){
+
+        //unothorized access block
+        if(!isset($_SESSION['VerifiedUser_email'])){
+
+            redirect('users/forgotPassword');
+        }
+
+
+        //session expire if user idle for 5 minutes
+        $currentTime = time();
+        $inactiveTime = 300; //5 minutes -> 300sec
+
+        if(isset($_SESSION['VerifiedUser_PWD_Session_LastActivity']) && ($currentTime - $_SESSION['VerifiedUser_PWD_Session_LastActivity'] > $inactiveTime)){
+            //last request was more than 5 minutes ago
+            
+            //messages for login page
+            $_SESSION['session_err_PO'] = "<i class='bx bx-error'></i> Session expired! Please try again.";  // for login page. for loading without any errors
+
+            //unset session variables
+            unset($_SESSION['VerifiedUser_PWD_Session_LastActivity']);
+            unset($_SESSION['VerifiedUser_email']);
+
+            if(isset($_SESSION['User_Role']) && $_SESSION['User_Role'] == 'staff'){
+
+                if(isset( $_SESSION['User_Role'])){
+                    unset( $_SESSION['User_Role']);
+                }
+
+                redirect('users/staff');
+
+            }else{
+
+                redirect('users/login');
+
+            }
+
+            
+
+        }else{
+
+
+            $_SESSION['VerifiedUser_PWD_Session_LastActivity'] = $currentTime;
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $data = [
+                    
+                    'password' => trim($_POST['password']),
+                    're_password' => trim($_POST['re_password']),
+                    'password_err' => '',
+                    'confirm_password_err' => '',
+                    'email' => $_SESSION['VerifiedUser_email']
+                    
+                ];
+
+                //validate password
+                if(empty($data['password'])){
+                    $data['password_err'] = 'Please enter password';
+                }elseif(strlen($data['password']) < 8){
+                    $data['password_err'] = 'Password must be at least 8 characters';
+                }
+
+                //validate password ,checking confirm
+                if(empty($data['re_password'])){
+                    $data['confirm_password_err'] = 'Please confirm password';
+                }else{
+
+                    if($data['password'] != $data['re_password'])
+                    $data['confirm_password_err'] = 'Passwords do not match';
+                }
+
+                //Make sure errors are empty
+                if(empty($data['password_err']) && empty($data['confirm_password_err'])){
+
+                    //hash password
+                    $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
+
+                    //update password
+                    if($this->userModel->updatePassword($data)){
+
+                        //messages for login page
+                        $_SESSION['change_pwd_msg_PO'] = "<i class='bx bx-check-circle' ></i>Password changed successfully!";  // for change password page. for loading without any errors
+
+                          //unset session variables
+                          unset($_SESSION['VerifiedUser_PWD_Session_LastActivity']);
+                          unset($_SESSION['VerifiedUser_email']);
+
+
+                        if(isset($_SESSION['User_Role']) && $_SESSION['User_Role'] == 'staff'){
+
+                            if(isset( $_SESSION['User_Role'])){
+                                unset( $_SESSION['User_Role']);
+                            }
+
+                            redirect('users/staff');
+
+
+                        }else{
+                            redirect('users/login');
+                        }
+                       
+
+                        
+                    }else{
+                        die('Something went wrong');
+                    }
+
+                }else{
+
+                    //load view with errors
+                    $this->view('auth/changepassword',$data);
+                }
+        
+
+            //
+        }else{
+
+            $data = [
+                
+                're_password' => '',
+                'password' => '',
+                'password_err' => '',
+                're_password_err' => '' ,
+                'confirm_password_err' => '',  
+            ];
+    
+            //load view
+            $this->view('auth/changepassword',$data);
+
+
+
+
+        }
+        }
+    }
+
+    //change password for staff
+
+    public function changePasswordStaff(){
+
+        //set this session variable to idnetify the user is staff
+
+        $_SESSION['User_Role'] = 'staff';
+        redirect('users/forgotpassword');
+    
+    }
+
+
+    public function sendUnauthorizedAccessEmail($data){
+
+          
+
+            require __DIR__ . '/../libraries/PhpUserAgent/vendor/autoload.php'; 
+            require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+
+            // this for PhpUserAgent
+
+            $parser = new UserAgentParser(); 
+
+            // object-oriented call
+            $ua = $parser->parse();
+
+            // PhpUserAgent end
+                
+            try {
+
+                $date = date("Y-m-d");
+                $time = date("H:i:s");
+
+                
+
+                // Create a new PHPMailer instance
+                $mail = new PHPMailer(true);
+        
+                // Set mail configuration (replace with your actual details)
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = $_ENV['MAIL_USERNAME'];
+                $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+        
+                // Set email sender details
+                $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+        
+                // Add recipient address
+                $mail->addAddress($data['email'], 'User: ' . $data['email']);
+        
+                // Set subject and body
+                $mail->Subject = 'Unauthorized Access - PetCare';
+                $mail->isHTML(true);
+    
+                $filePath = __DIR__ . '/../views/email/forgotpasswordTempBan.php';
+                $emailContent = file_get_contents($filePath);
+    
+                $emailContent = str_replace('{pet_owner_fname}', $_SESSION['forgotUser_fname'], $emailContent);
+                $emailContent = str_replace('{pet_owner_lname}', $_SESSION['forgotUser_lname'], $emailContent);
+                $emailContent = str_replace('{date}',$date, $emailContent);
+                $emailContent = str_replace('{time}',$time, $emailContent);
+                $emailContent = str_replace('{user_os}',$ua->platform() . PHP_EOL, $emailContent);
+                $emailContent = str_replace('{user_browser}',$ua->browser() . PHP_EOL, $emailContent);
+
+                $mail->Body = $emailContent;
+                // Send the email
+                $mail->send();
+
+        }
+
+        catch (Exception $e) {
+            // Handle exceptions
+            echo 'Error: ' . $mail->ErrorInfo;
+        }
+
+    }
+
 
 }

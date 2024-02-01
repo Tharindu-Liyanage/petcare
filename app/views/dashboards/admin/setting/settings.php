@@ -28,8 +28,8 @@
                             </div>
                             
                         </div>
-
-        <form class="container" action="">     <!--start of form-->
+    
+        <form class="container" action="<?php echo URLROOT; ?>/admin/settings" method="post" >     <!--start of form-->
                                     <div class="tab-box">                        
                                         <div class="tab-btn active">My Profile</div>
                                         <div class="tab-btn">Password</div>
@@ -46,34 +46,35 @@
                                                 <div class="line2">
                                                     <div class="small">Update your profile photo and details here.</div>
                                                     <button class="cancel-btn">Cancel</button>
-                                                    <button class="save-changes-btn">Save Changes</button>
+                                                    <button value="my-profile" name="profile-button" class="save-changes-btn">Save Changes</button>
                                                 </div>
                                             </div>
 
                                             <div class="name">                  <!--name -->
                                                     <div class="name-text">Name</div>
-                                                    <input type="text" class="text-box firstname-textbox" placeholder="Anna">
-                                                    <input type="text" class="text-box lastname-textbox" placeholder="Marie">
+                                                    <input type="text" name="fname" class="text-box firstname-textbox" placeholder="Anna" value="<?php echo $data['settings']->firstname; ?>">
+                                                    <input type="text" name="lname" class="text-box lastname-textbox" placeholder="Marie" value="<?php echo $data['settings']->lastname; ?>">
                                             </div>
 
                                             <div class="email">                     <!-- Email-->
                                                 <div class="email-text">Email</div>
-                                                <input type="text" class="text-box email-textbox" placeholder="Annamarie@petcare.com">
+                                                <input type="text" name="email" class="text-box email-textbox" placeholder="Annamarie@petcare.com" value="<?php echo $data['settings']->email; ?>">
                                             </div>
 
                                             <div class="address">                       <!-- address -->
                                                 <div class="address-text">Address</div>
-                                                <input type="text" class="text-box address-textbox" placeholder="290 Chatham Way Reston, Maryland(MD), 20191">
+                                                <input type="text" name="address" class="text-box address-textbox" placeholder="290 Chatham Way Reston, Maryland(MD), 20191" value="<?php echo $data['settings']->address; ?>" >
                                             </div>
                                             
                                             <div class="nic">                       <!-- nic-->
                                                 <div class="nic-text">NIC</div>
-                                                <input type="text" class="text-box nic-textbox" placeholder="1920664892V">
+                                                <input type="text" name="nic" class="text-box nic-textbox" placeholder="1920664892V" value="<?php echo $data['settings']->email; ?>">
+                                                <!-- need to add nic to the databse -->
                                             </div>
 
                                             <div class="mobile">                            <!-- mobile-->
                                                 <div class="mobile-text">Mobile</div>
-                                                <input type="text" class="text-box mobile-textbox" placeholder="+94 773456789">
+                                                <input type="text" name="mobile" class="text-box mobile-textbox" placeholder="+94 773456789" value="<?php echo $data['settings']->phone; ?>">
                                             </div>
 
                                             <div class="footer">                            <!-- footer -->
@@ -115,7 +116,7 @@
                                                 
                                                 <label class="password-label" for="password">New password</label>
                                                 <div class="new-password-right">
-                                                    <input class="password-box text-box" type="password" id="password" name="password" placeholder="*********">
+                                                    <input class="password-box text-box" type="password" id="password" name="new-password" placeholder="*********">
                                                     <div class="new-password-text">
                                                         Your new password must be more than 8 characters.
                                                     </div>
@@ -125,7 +126,7 @@
                                             <div class="new-confirm-password">
                                                 
                                                 <label class="password-label" for="password">Confirm New Password</label>
-                                                <input class="password-box text-box" type="password" id="password" name="password" placeholder="*********">
+                                                <input class="password-box text-box" type="password" id="password" name="new-confirm-password" placeholder="*********">
                                             </div>
 
                                         </div>
@@ -153,7 +154,7 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <input type="text" class="text-box billing-email-textbox" placeholder="eg: ucsc123@gmail.com">
+                                                <input type="text" class="text-box billing-email-textbox" placeholder="eg: ucsc123@gmail.com" value="<?php echo $data['settings']->email; ?>">
                                             </div>
 
                                             <div class="facebook">
@@ -162,7 +163,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-facebook-square'></i>
-                                                    <input type="text" class="text-box1 billing-email-textbox" placeholder="https://www.facebook.com/facebook_username">
+                                                    <input type="text" name="fb_url" class="text-box1 billing-email-textbox" placeholder="https://www.facebook.com/facebook_username" value="<?php echo $data['settings']->fb_url; ?>">
                                                 </div>
                                             </div>
 
@@ -172,7 +173,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-instagram-alt' ></i>
-                                                    <input type="text" class="text-box1 city-email-textbox" placeholder="https://www.instagram.com/instagram_username">
+                                                    <input type="text" name="insta_url" class="text-box1 city-email-textbox" placeholder="https://www.instagram.com/instagram_username" value="<?php echo $data['settings']->insta_url; ?>">
                                                 </div>
                                             </div>
 
@@ -183,7 +184,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-twitter' ></i>
-                                                    <input type="text" class="text-box1 province-email-textbox" placeholder="https://twitter.com/twitter_username ">
+                                                    <input type="text" name="twitter_url" class="text-box1 province-email-textbox" placeholder="https://twitter.com/twitter_username" value="<?php echo $data['settings']->twitter_url; ?>">
                                                 </div>
                                             </div>
 

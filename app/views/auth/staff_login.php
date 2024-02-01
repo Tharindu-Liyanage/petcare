@@ -23,6 +23,51 @@
                 <div class="title">
                     <span class="title-text"><b>Staff Login Portal</b></span>
                 </div>
+                
+
+                 <?php if(isset($_SESSION['session_err_PO'])){
+
+                    //this is the error message from the change password page 
+                    echo "<div class='badges'>
+                            <div class='red'>".$_SESSION['session_err_PO']."</div>
+                        </div>";
+                    
+                    //unset
+                    unset($_SESSION['session_err_PO']);
+                }
+
+                 if(!empty($_SESSION['change_pwd_msg_PO'])){
+
+                    echo "
+                    <div class='badges'>
+                            <div class='green'>".$_SESSION['change_pwd_msg_PO']."</div>   
+                    </div>";
+
+                    //unset
+                    unset($_SESSION['change_pwd_msg_PO']);
+                } 
+
+
+                if(!empty($_SESSION['PO_last_activity'])){
+
+                    echo "
+                    <div class='badges'>
+                            <div class='red'>".$_SESSION['PO_last_activity']."</div>   
+                    </div>";
+
+                    //unset
+                    unset($_SESSION['PO_last_activity']);
+                    session_destroy();
+
+                }
+
+                    
+
+
+                
+                
+                
+                ?>
 
 
                 <div class="input-field">
@@ -36,7 +81,7 @@
 
                     <div class="footer">
                         <div class="Q1">
-                          <img class="img" src="<?php echo URLROOT;?>/public/img/auth/question.svg" alt=""><span><a href="<?php echo URLROOT;?>/users/forgotPassword">Forgotten Password?</a></span>
+                          <img class="img" src="<?php echo URLROOT;?>/public/img/auth/question.svg" alt=""><span><a href="<?php echo URLROOT;?>/users/changePasswordStaff">Forgotten Password?</a></span>
                         </div>
                       
                 <div class="signUp-but">

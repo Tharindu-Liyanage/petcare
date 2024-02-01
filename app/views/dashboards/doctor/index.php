@@ -33,7 +33,7 @@
             <div class="home-box">
                     <div class="home-left">
                         <div class="home-text-large">
-                            Welcome back,  <span><?php echo $_SESSION['user_fname']?></span>
+                        <?php echo $data['greetingmsg']; ?>,  <span><?php echo $_SESSION['user_fname']?></span>
                         </div>
                         <div class="home-text-small">
                             You have <span> 20 </span> upcoming appointments.
@@ -44,15 +44,39 @@
                     </div>
                 </div>
 
-                <div class="home-box2">
+                <div class="home-box2" id="appointmentDetails-container">
+
+                <?php
+
+                    if($data['appointmentDetails'] == null){
+
+                        echo '
+
+                       
                     <div class="home-left2">
                         <div class="home-text-large">
-                            Time for Treatment, <span>Garfield!</span>
+                           Currently, <span  id="petName">No Appointments!</span>
+                        </div> 
+                    </div>
+                    <div class="home-right">
+                    <img id="petImage" src="' . URLROOT . '/public/img/dashboard/noappointment.svg" alt="">
+                    </div>
+                ';
+
+                    
+                    }else{
+
+                        echo '
+
+                        
+                    <div class="home-left2">
+                        <div class="home-text-large">
+                            Time for Treatment, <span id="petName">'. $data['appointmentDetails']->pet .'!</span>
                         </div>
                         <div class="date-time-type">
-                            <div>Date : <span>01-10-2034</span></div>
-                            <div>Time : <span>10.00 A.M</span></div>
-                            <div>Type : <span>Dental</span></div>
+                            <div>Date : <span id="appointmentDate">'. $data['appointmentDetails']->appointment_date .'</span></div>
+                            <div>Time : <span id="appointmentTime">'. $data['appointmentDetails']->appointment_time .'</span></div>
+                            <div>Type : <span id="appointmentType">'. $data['appointmentDetails']->appointment_type .'</span></div>
                         </div>
                         <div class="buttons">
                             <button class="button cancel-button">Cancel</button>
@@ -60,9 +84,16 @@
                         </div>
                     </div>
                     <div class="home-right">
-                        <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/cat-self.jpg" alt="">
+                    <img id="petImage" src="' . URLROOT . '/public/storage/uploads/animals/'. $data['appointmentDetails']->profileImage .'" alt="">
                     </div>
+                     ';
+
+                    }
+
+                ?>
+
                 </div>
+                
 
                 <!-- latest patient table is here -->
 
@@ -195,5 +226,8 @@
         </main>
     </div>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/doctor/doctorMain.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </body>
 </html>

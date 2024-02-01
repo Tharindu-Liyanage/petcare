@@ -1,6 +1,8 @@
 <?php
     // Load Config
 
+    date_default_timezone_set('Asia/Kolkata');
+
     use Dotenv\Dotenv;
     
     $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');

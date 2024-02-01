@@ -1,0 +1,177 @@
+.content-table .title{
+    position: relative;
+  }
+  
+  .content-table .title::before{
+  content: "";
+  position: absolute;
+  left:0;
+  bottom:-5px;
+  height:3px;
+  width:60px;
+  background-color:var(--blue-color);
+  }
+
+
+  
+  
+  .content-table .title {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .content-table{
+    padding: 20px;
+   
+    
+  }
+
+  .table-content table{
+    width: 100%;
+ 
+  }
+
+  table.dataTable{
+    background-color: var(--treatment-back);
+  }
+
+  
+
+  td{
+    padding: 10px;
+  }
+
+/*even row color chnge*/
+    .table-content table tr:nth-child(even){
+        background-color: var(--grey);
+    }
+
+   
+ 
+
+
+  .table-content{
+    margin-top: 20px;
+    background: var(--light);
+    overflow-y: auto;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    
+  }
+
+  .profile-three {
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+   
+  }
+  
+  .profile-three img{
+    width: 36px;
+    height: 36px;
+     border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .action-reports a {
+    /*mouse pointer*/
+    cursor: pointer;
+  }
+
+ 
+  
+
+  .action-reports a ::before{
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.action-reports a:nth-child(1) ::before{
+  background: #DCF7E4;
+}
+
+.action-reports a:nth-child(2) ::before{
+  background: #E6EFFF;
+}
+
+
+.status-green{
+  color:#108C81;
+  font-weight: 600;
+}
+
+.status-red{
+  color:#DE1C53;
+  font-weight: 600;
+}
+
+.status-yellow{
+  color:#FFCC6A;
+  font-weight: 600;
+}
+
+/*notfication here blue bar*/
+
+.notifications-container {
+  width: 100%;
+  height: auto;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 5px;
+  margin-bottom: 20px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.info-notifi {
+  background-color: rgb(239, 246, 255);
+  border-left-width: 4px;
+  border-radius: 0.375rem;
+  padding: 1rem;
+}
+
+.info-svg{
+  height: 1.25rem;
+  width: 1.25rem;
+  opacity: 70%;
+  color: rgb(29, 78, 216);
+}
+
+.info-prompt-wrap {
+  margin-left: 0.75rem;
+  color: rgb(29, 78, 216);
+}
+
+.info-prompt-link {
+  font-weight: 500;
+  color: rgb(0, 29, 110);
+  text-decoration: underline;
+}
+
+.info-prompt-link:hover {
+  color: rgb(29, 78, 216);
+}
+
+.app-info{
+  margin: 10px 0px 0px 10px;
+}
+
+ul.app-info li{
+  list-style: square;
+}
+
+.trt-id{
+  color:rgb(0, 29, 110);;
+  font-weight: 500;
+}

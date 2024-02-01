@@ -39,7 +39,7 @@
         <nav class="navbar">
                 <a href="<?php echo URLROOT;?>/">Home</a>
                 <a href="<?php echo URLROOT;?>/shop/">Shop</a>
-                <a href="#">Blog</a>
+                <a href="<?php echo URLROOT;?>/blog/">Blog</a>
                 <a href="#about">About</a>
                 <a href="#">Contact</a>  
         </nav>
@@ -271,27 +271,38 @@
   <div class="splide__track">
     <ul class="splide__list">
 
-     <!-- repeat this card for each team member -->
 
-      <li class="splide__slide"> 
+    <!-- ===================================================================================================== -->
 
-    
+<!-- me pallahe  $data eka ethule tiyenn ona home controller eke data array eke ethule dena nama  eg:- denata dala ne , oya dann staff kiyana eka mage example eke tiyen widyata-->
+    <?php foreach($data['staff']as $staffmember) : ?>
         
-                    <div class="card-team">
+      
+        
+            <li clas ="splide__slide" >
+
+                <div class="card-team">
                         <div class="card__image">
-                        <img src="<?php echo URLROOT;?>/public/img/home/doctor1.png">
+                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $staffmember->profileImage ?>">
                         </div>
 
                         <div class="card__content">
-                        <span class="card__title">Veterinarian</span>
-                        <span class="card__name">Vanessa Martinez</span>
+                        <span class="card__title"><?php echo $staffmember->role ?></span>  
+                        <span class="card__name"><?php echo $staffmember->firstname ?> <?php echo $staffmember->lastname ?>  </span>
                         <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
                         <button class="card__btn">View More</button>
                         </div>
                     </div>
-    </li>
 
-    <!-- repeat this card for each team member  over -->
+
+
+            </li>
+
+        
+        
+        <?php endforeach; ?>
+
+ 
 
      
     </ul>
@@ -313,63 +324,30 @@
         </div>
 
         <!-- blog-container -->
-        <div class= "blog-container">
-            <!--box1  -->
-            <div class="blog-box">
-                <!-- img -->
-                <div class="blog-img">
-                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                </div>
+            <div class= "blog-container">
+            <?php foreach($data['posts'] as $posts) : ?>
+                <!--box1  -->
+                <div class="blog-box">
+                    <!-- img -->
+                    <div class="blog-img">
+                    <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                    </div>
 
-                <!--text  -->
-                <div class="blog-text">
-                    <span> 8 May 2023</span>
-                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
-                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
-                    <a href="#">Read More </a>
+                    <!--text  -->
+                    <div class="blog-text">
+                        <span> <?php echo $posts->publishdate ; ?></span>
+                        <div class="blog-title"><?php echo $posts->title; ?></div>
+                        <p><?php echo $posts->content; ?></p>
+                        <a href="#">Read More </a>
+                    </div>
                 </div>
+            <?php endforeach ; ?>
             </div>
 
+    
+    
+    
 
-
-
-
-
-            <div class="blog-box">
-                <!-- img -->
-                <div class="blog-img">
-                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                </div>
-
-                <!--text  -->
-                <div class="blog-text">
-                    <span> 18 July 2023</span>
-                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
-                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
-                    <a href="#">Read More </a>
-                </div>
-            </div>
-
-
-
-
-            <div class="blog-box">
-                <!-- img -->
-                <div class="blog-img">
-                <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
-                </div>
-
-                <!--text  -->
-                <div class="blog-text">
-                    <span> 20 September 2023</span>
-                    <div class="blog-title">what Has Happened of All of the web design Ideas?</div>
-                    <p>lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
-                    <a href="#">Read More </a>
-                </div>
-            </div>
-        </div>
-
-    </section>
 
     <!-- ourBlog end-->
 
@@ -457,6 +435,11 @@
   </script>
 
   <script src="<?php echo URLROOT;?>/public/js/home.js"></script>
+
+
+
+
+  
 
   
  

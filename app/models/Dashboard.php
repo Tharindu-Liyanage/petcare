@@ -85,7 +85,7 @@
 
         public function updateStaff($data){
 
-            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile  WHERE staff_id = :id');
+            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile   WHERE staff_id = :id');
 
         //bind values
         $this->db->bind(':id',$data['id']);
@@ -95,6 +95,12 @@
         $this->db->bind(':email',$data['email']);
         $this->db->bind(':role',$data['role']);
         $this->db->bind(':address',$data['address']);
+        // $this->db->bind(':fb_url',$data['fb_url']);
+        // $this->db->bind(':insta_url',$data['insta_url']);
+        // $this->db->bind(':twitter_url',$data['twitter_url']);
+        // $this->db->bind(':password',$data['password']);
+
+        
         
 
         //execute
@@ -106,6 +112,42 @@
         }  
 
         }
+
+        public function updateSettings($data){
+
+            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile , password = :password , fb_url = :fb_url , twitter_url = :twitter_url , insta_url = :insta_url  WHERE staff_id = :id');
+
+        //bind values
+        $this->db->bind(':id',$data['id']);
+        $this->db->bind(':first_name',$data['first_name']);
+        $this->db->bind(':last_name',$data['last_name']);
+        $this->db->bind(':mobile',$data['mobile']);
+        $this->db->bind(':email',$data['email']);
+        $this->db->bind(':role',$data['role']);
+        $this->db->bind(':address',$data['address']);
+        $this->db->bind(':fb_url',$data['fb_url']);
+        $this->db->bind(':insta_url',$data['insta_url']);
+        $this->db->bind(':twitter_url',$data['twitter_url']);
+        $this->db->bind(':password',$data['password']);
+
+        
+        
+
+        //execute
+        if($this->db->execute()){
+            return true;
+
+        }else{
+            return false;
+        }  
+
+        }
+
+
+
+        // public function updatePassword(){
+
+        // }
 
 
 
@@ -625,10 +667,11 @@
 
         public function getPetDetailsByID($id){
 
-            $this->db->query('SELECT * FROM petcare_pet WHERE id = :id');
+            $this->db->query('SELECT * FROM petcare_pet WHERE id = :id AND petowner_id = :petowner_id');
         
 
             $this->db->bind(':id' , $id);
+            $this->db->bind(':petowner_id' , $_SESSION['user_id']);
     
             $row = $this->db->single();
     
@@ -1057,6 +1100,57 @@
                     $row = $this->db->single();
     
                     return $row;
+        }
+
+        //35
+
+        public function getAppointmentDetailsByID($id,$petowner){
+                
+                $this->db->query(
+    
+                    'SELECT *
+                    FROM petcare_appointments a
+                    WHERE a.id = :id AND a.petowner_id = :petowner');
+    
+                $this->db->bind(':id' , $id);
+                $this->db->bind(':petowner' , $_SESSION['user_id']);
+            
+    
+                $row = $this->db->single();
+    
+                return $row;
+        }
+
+        //36
+
+        public function updateAppointment($data){
+                
+            $this->db->query('UPDATE petcare_appointments SET vet_id = :vet_id , appointment_type = :appointment_type , pet_id= :pet_id, appointment_date = :appointment_date , appointment_time = :appointment_time , status = "Pending" , treatment_id = :treatment_id  WHERE id = :id');
+
+            $this->db->bind(':id' , $data['appointment_id']);
+            $this->db->bind(':vet_id',$data['vet_post']);
+            $this->db->bind(':appointment_type',$data['reason_post']);
+            $this->db->bind(':pet_id',$data['pet_post']);
+            $this->db->bind(':appointment_date',$data['date_post']);
+            $this->db->bind(':appointment_time',$data['time_post']);
+
+            // Check if treatment_post is set to 'NONE', if so, set treatment_id to NULL, otherwise, bind the value as usual
+            if ($data['treatment_post'] == 'NONE') {
+                $this->db->bind(':treatment_id', null, PDO::PARAM_NULL);
+            } else {
+                $this->db->bind(':treatment_id', $data['treatment_post']);
+            }
+
+                
+    
+        
+                    //execute
+                if($this->db->execute()){
+                    return true;
+    
+                }else{
+                    return false;
+                }
         }
 
 

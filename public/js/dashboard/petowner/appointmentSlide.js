@@ -46,6 +46,8 @@ function initMultiStepForm() {
                 progressCheck[current - 1].classList.add("active");
                 progressText[current - 1].classList.add("active");
                 current += 1;
+
+                /* bullet 0 add active */
             }
             
            

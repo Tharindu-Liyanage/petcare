@@ -13,6 +13,8 @@
     <title>Dashboard</title>
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
 
 
@@ -70,6 +72,23 @@
                     <i class='bx bx-calendar'></i>
                         <h3>Appointment</h3>
 
+                     <!-- Search Container -->
+
+                     
+                   
+                     
+                     <!-- HTML -->
+                    <div class="date-filter-container" >
+                    
+                    <input type="text" id="datepicker" name="text" class="search" placeholder="Filter Dates..">
+                    <i class='bx bx-calendar date-filter'></i>
+                    </div>
+
+                     
+                    
+
+                    <!-- search container over -->
+
                     <!-- Search Container -->
 
                     <div class="search-container-table">
@@ -102,7 +121,7 @@
                         </thead>
                         <tbody class="list">
 
-                            
+                        
 
                             <?php
 
@@ -115,7 +134,10 @@
                             
                             foreach($data['appointment'] as $appointment) : ?>
 
-                            <tr>
+              
+
+
+                            <tr data-id="<?php echo $appointment->appointment_id?>" data-profile="<?php echo $appointment->pet_name?>" data-date="<?php echo $appointment->appointment_date?>">
                                 <td class="id-search"><?php echo $appointment->appointment_id?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $appointment->propic?>" ><p><?php echo $appointment->pet_name?></p>
@@ -205,11 +227,85 @@
   
 
 
-    
-    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+   
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/petowner/appointmentTable.js"></script>
+
+    <script>
+   
+
+
+      const picker = new easepick.create({
+  element: "#datepicker",
+  css: [
+    "https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css"
+  ],
+  zIndex: 100,
+ // autoApply: false,
+  AmpPlugin: {
+        resetButton: true,
+        darkMode: false,
+    },
+   
+  plugins: [
+    "RangePlugin",
+    "AmpPlugin",
+   
+  ],
+
+  setup(picker) {
+    picker.on('select', (date) => {
+      var startDate = picker.getStartDate();
+      var endDate = picker.getEndDate();
+      console.log("Start Date:", startDate, "End Date:", endDate);
+
+    // Convert to IST and format as "YYYY-MM-DD"
+    var options = { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit' };
+    var formattedStartDate = startDate.toLocaleString('en-IN', options).split(',')[0];
+    var formattedEndDate = endDate.toLocaleString('en-IN', options).split(',')[0];
+
+    // Convert to "YYYY-MM-DD" format
+    var isoFormattedStartDate = formattedStartDate.split('/').reverse().join('-');
+    var isoFormattedEndDate = formattedEndDate.split('/').reverse().join('-');
+
+    console.log("Start FDate:", isoFormattedStartDate, "End FDate:", isoFormattedEndDate);
+
+
+      userList.filter(function (item) {
+       
+        var itemDate = item.values().date;
+        console.log(itemDate);
+         return itemDate >= isoFormattedStartDate && itemDate <= isoFormattedEndDate;
+         
+    });
+
+    });
+
+    picker.on('clear', () => {
+      console.log("Reset");
+      userList.filter();
+    });
+  },
+});
+
+
+var itemsInList = [];
+
+<?php foreach($data['appointment'] as $appointment) : ?>
+    itemsInList.push({  date: "<?php echo $appointment->appointment_date?>" })
+    <?php endforeach;  ?>
+
+
+
+
+
+   
+           
+    </script>
+
+
+   
     
 </body>
 </html>

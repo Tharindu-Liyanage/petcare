@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/dashboard/doctor/accordination.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -15,7 +16,7 @@
 
 
 
-<?php require_once __DIR__ . '/../../common/treatment_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/treatment_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -34,13 +35,13 @@
                     </ul>
                 </div>
 
-                <div class="add-button">
-             <a href="<?php echo URLROOT;?>/doctor/addTreatment" ><button id="add-form-button">
+     <!--           <div class="add-button">
+             <a href="<?php// echo URLROOT;?>/doctor/addTreatment" ><button id="add-form-button">
                 <i class='bx bx-user-plus' ></i>
                         Add Treatment
                 </button> </a>
             </div>
-
+    -->
 
                
             </div>
@@ -52,121 +53,71 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="treatment">
                     <div class="header">
                     <i class='bx bxs-capsule' ></i>
                         <h3>Latest Treatment</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+                       
+                        <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
+                    </div>
+
+                    <!-- search container over -->
+
+
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Pet</th>
-                                <th>Treatment Date</th>
-                                <th>Time</th>
-                                <th>Type</th>
-                                <th>Species</th>
-                                <th>Follow-Up-Date</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
+                                <th>Pet <i class='bx bxs-sort-alt sort' data-sort="profile"></i></th>
+                                <th>Visit Date <i class='bx bxs-sort-alt sort' data-sort="visit-date-search"></i></th>
+                                <th>Diagnosis <i class='bx bxs-sort-alt sort' data-sort="diagnosis-search"></i></th>
+                                <th>Species <i class='bx bxs-sort-alt sort' data-sort="species-search"></i></th>
+                                <th>Follow-Up-Date <i class='bx bxs-sort-alt sort' data-sort="followup-search"></i></th>
+                                <th>Status <i class='bx bxs-sort-alt sort' data-sort="status-search"></i></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
                            
-
+                        <?php foreach($data['treatment'] as $treatment): ?>
                             <tr>
-                                <td>1</td>
+                                <td class="id-search">TRT-<?php echo $treatment-> treatment_id ?></td>
                                 <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet1.png" ><p>Rex</p>
+                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $treatment->petpic?>" ><p><?php echo $treatment->petname ?></p>
                                 </td>
-                                <td>02-03-2023</td>
-                                <td>11-00 AM</td>
-                                <td>Dental</td>
-                                <td>Dog</td>
-                                <td>2-08-2023</td>
-                                <td class="action">
+                                <td class="visit-date-search"><?php echo $treatment->visit_date ?></td>
+                                <td class="diagnosis-search"><?php echo $treatment->diagnosis ?></td>
+                                <td class="species-search"><?php echo $treatment->petspecies ?></td>
+                                 <td class="followup-search"><?php echo $treatment->followup_date !== null ? $treatment->followup_date : '----------'; ?></td>
+
+                        <?php
+                                        if ($treatment->status === "Ongoing" ) {
+                                            echo '<td class="status-search status-green">' . $treatment->status . '</td>';
+                                        } else{
+                                            echo '<td class="status-search status-red">' . $treatment->status . '</td>';
+                                        }
+                        ?>   
+                                
+                                <td class="action-reports">
                                     
-                                    <div class="act-icon">
-                                            <i class='bx bx-show' ></i>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateTreatment" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
+                                    <a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $treatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
                                 </td>
                             </tr>
+                            <?php endforeach; ?>
 
-
-                            <tr>
-                                <td>2</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet2.png" ><p>Rex</p>
-                                </td>
-                                <td>02-03-2023</td>
-                                <td>11-00 AM</td>
-                                <td>Dental</td>
-                                <td>Cat</td>
-                                <td>2-08-2023</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                            <i class='bx bx-show' ></i>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateTreatment" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>3</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet3.png" ><p>Rex</p>
-                                </td>
-                                <td>02-03-2023</td>
-                                <td>12-00 AM</td>
-                                <td>Dental</td>
-                                <td>Dog</td>
-                                <td>2-08-2023</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                            <i class='bx bx-show' ></i>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateTreatment" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>4</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet4.png" ><p>Rex</p>
-                                </td>
-                                <td>02-03-2023</td>
-                                <td>8-00 AM</td>
-                                <td>Dental</td>
-                                <td>Cat</td>
-                                <td style="color: #DE1C53; font-weight:600;">None</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                            <i class='bx bx-show' ></i>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateTreatment" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
+                            
 
                         
                         </tbody>
                     </table>
+                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
                 </div>
  
             </div> <!-- content over -->
@@ -211,10 +162,10 @@
 
 
     
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/doctor/treatmentTable.js"></script>
     
 </body>
 </html>

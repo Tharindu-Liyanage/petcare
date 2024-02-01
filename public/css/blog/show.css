@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;800&display=swap');
+
+:root{
+    --primary:#1F2E88; /*main blue color*/
+    --background1:#F7FAFC; /*grey*/
+    --background2:#FFFFFF; /*white*/
+    --border: .2rem solid rgba(0,0,0,.1);
+    --box-shadow:0 0.5rem 1rem rgba(0,0,0,.1);
+    --black:#222;
+    --secondary: #2f66d4;
+    --light-color:#666;
+
+    --icon-color : #453c5c;
+    --icon-primary-color:#ff6b6b;
+    --icon-secondary-color:#794afa;
+
+    --white-color: #fff;
+    --light-bg-color : #f2f3f5;
+    --light-text-color : #7c899a;
+    --border-color:#e5e8ec;
+    --darkcolor : #0a021c;
+
+    --fw3:300;
+    --fw4:400;
+    --fw5:500;
+    --fw6:600;
+    --fw7:700;
+    --fw8:800;
+ 
+
+    --font-small:13px;
+    --font-smaller:11px;
+
+    --percet100:100%;
+    --percent50 : 50%;
+
+    --trans-background-color: .3s ,color .3s;
+    --trans-background: background-color .3s;
+    --trans-color: color .3s;
+
+
+    /*product color drop downm*/
+
+    --first-color: hsl(220, 68%, 54%);
+    --first-color-lighten: hsl(220, 68%, 97%);
+    --title-color: hsl(220, 48%, 28%);
+    --text-color: hsl(220, 12%, 45%);
+    --body-color: hsl(220, 100%, 99%);
+
+            /*========== Font and typography ==========*/
+        /*.5rem = 8px | 1rem = 16px ...*/
+        --body-font: "Poppins", sans-serif;
+        --normal-font-size: .938rem;
+        --small-font-size: .813rem;
+        --smaller-font-size: .75rem;
+        /*========== Font weight ==========*/
+        --font-medium: 500;
+        --font-semi-bold: 600;
+        /*========== z index ==========*/
+}
+
+*{
+    /* right, left, up, bottom margins are 0 */
+    margin : 0;
+    padding : 0;
+    /* To adding seperate paddings to images without errors using box- sizing */
+    box-sizing : border-box; 
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+  /*  transition: .2s linear;*/
+    text-decoration: none;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+body {
+    /* this marging says up and bottom margins are 0 but right and left margins are auto. */
+    margin : 0 auto; 
+    background-color: var(--first-color-lighten);
+    padding-top: 200px;
+    
+}
+
+
+.header{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    background:var(--background2);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 9%;
+}
+
+.header .logo{
+   font-weight: bolder;
+   color:var(--black);
+   font-size: 3.0rem;
+   display: flex;
+    position: relative;
+    align-items: center;
+    margin: 0%;
+    margin-bottom: 10px;
+    justify-content: center;
+    margin-left: 0rem;  /*to get center nav*/
+}
+
+.logo-dot{
+    color:#1F2E88;
+}
+
+
+
+.logo-txt{
+    
+    padding-left: 15px;
+    vertical-align: middle;  
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+.logo .logo-icon{
+    width: 55.48px;
+    height: 61px;
+
+}
+
+.header .navbar a{
+
+    font-size: 2.0rem;
+    color:var(--black);
+    margin: 0 4rem;
+    font-weight: 500;
+
+}
+
+.header .navbar a:hover{
+    color: var(--primary);
+
+}
+
+#menu-btn{
+    font-size:3.5rem;
+    cursor: pointer;
+    color:var(--black);
+    margin-left: 1.7rem;
+    display: none;
+}
+
+.header .btn{
+    margin-top: 0;
+   
+}
+
+.login {
+    background-color: #fff;
+    border: 2px solid #1F2E88; /* Specifies width, style, and color */
+    color: #1F2E88;
+    font-weight: 600;
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    background: var(--primary);
+    cursor: pointer;
+    font-size: 1.7rem;
+    border-color: #1F2E88;
+    color:var(--background2);
+
+}
+.login {
+    background-color: #fff;
+    border: 2px solid #1F2E88; /* Specifies width, style, and color */
+    color: #1F2E88;
+    font-weight: 600;
+}
+
+
+
+
+
+.btn:hover{
+    background: var(--secondary);
+}
+
+.login:hover{
+    background:#ECF3FF;
+}
+
+
+.middle-part{
+    display: flex;
+    margin: 40px;
+    justify-content: space-between;
+    
+}
+
+.left-part{
+    width: 70%;
+}
+
+.left-part > div{
+    margin: 20px;
+}
+
+.left-part .blog-title{
+    font-size: 4.5rem;
+    font-weight: 500;
+    color:#222
+}
+
+.left-part .blog-date{
+    font-size: 1.5rem;
+    color: #1F2E88;
+    margin-top: -15px;
+}
+
+.left-part .thumnail-image img{
+    width: 900px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.left-part .blog-content{
+    font-size: 1.5rem;
+    margin-top: 100px;
+
+    text-transform:none;
+}
+
+.right-part{
+    align-self:normal;
+    margin: 25px;
+    margin-left: 70px;
+    margin-top: 50px;
+    
+}
+
+.recent-posts-block{
+    
+}
+
+.recent-post-text{
+    font-size: 2.5rem;
+    text-decoration: solid;
+    font-weight: 400;
+}
+
+.post-title li{
+    font-size: 2rem;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+/* footer start */
+
+
+footer{
+    
+    background-color: var(--background2);
+    display : flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    border-radius: 10px;
+    margin: 80px;
+    padding: 20px;
+    margin-top: 150px;
+    
+}
+
+footer .logo-flex {
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+
+footer .logo-flex span{
+    font-size: 30px;
+    position: relative;
+    top:-15px;
+}
+
+footer .col:nth-child(1){
+    margin-left: 25px;
+}
+
+footer .col{
+    margin-top: 10px;
+    display : flex;
+    flex-direction:column;
+    align-items:flex-start;
+    margin-bottom:20px;   
+}
+
+footer img.logo{
+    margin-bottom: 50px;
+    width: 50px;
+    height: auto;
+}
+
+footer h4{
+    font-size:15px;
+    padding-bottom: 20px;
+    
+}
+
+footer p{
+    font-size:13px;
+   margin: 0 0 8px 0;
+}
+
+footer a{
+    font-size:13px;
+    text-decoration:none;
+    color:#222;
+    margin-bottom: 10px;
+
+   
+}
+
+footer .follow{
+    margin-top: 20px;
+
+
+}
+
+footer .follow i{
+    color:#465b52;
+    padding-right: 4px;
+    cursor: pointer;
+
+}
+
+footer .install .row i{
+   font-size: 50px;
+
+
+}
+
+footer .install i{
+    margin: 10px 0 15px 0;
+}
+
+footer .follow i :hover{
+    color:#088178;
+}
+
+footer .copyright{
+    width:100%;
+    text-align:center;
+
+}
+
+
+/* footer ends here */
