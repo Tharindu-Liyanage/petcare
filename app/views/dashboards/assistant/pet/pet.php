@@ -57,10 +57,10 @@
             <tr>
                 
                 <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
-                <th>Petowner <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
-                <th>Address <i class='bx bxs-sort-alt sort' data-sort="dob-search"></th>
-                <th>Mobile <i class='bx bxs-sort-alt sort' data-sort="breed-search"></th>
-                <th>Email <i class='bx bxs-sort-alt sort' data-sort="sex-search"></th>
+                <th>Pet<i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                <th>DOB <i class='bx bxs-sort-alt sort' data-sort="dob-search"></th>
+                <th>breed <i class='bx bxs-sort-alt sort' data-sort="breed-search"></th>
+                <th>sex<i class='bx bxs-sort-alt sort' data-sort="sex-search"></th>
                 <th>Action </th>
             </tr>
         </thead>
@@ -68,24 +68,24 @@
 
         <?php
 
-            if(count($data['petowner']) == 0){
+            if(count($data['pet']) == 0){
 
                 echo '<td class="isempty" colspan="7">No data available in table</td>';
 
             }else
 
            
-             foreach($data['petowner'] as $petowner) : ?>
+             foreach($data['pet'] as $pet) : ?>
 
             
             <tr>
-                <td class="id-search"><?php echo $petowner->petowner_id_generate?></td>
+                <td class="id-search"><?php echo $pet->pet_id_generate?></td>
                 <td class="profile">
-                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner-> profileImage ?>" ><p><?php echo $petowner-> first_name?> <?php echo $petowner-> last_name?></p>
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $pet-> species ?>" ><p><?php echo $pet->profileImage?> <?php echo $pet-> petowner_id?></p>
                 </td class="id-search">
-                <td class="dob-search"><?php echo $petowner->address?></td>
-                <td class="breed-search"><?php echo $petowner->mobile?></td>
-                <td class="sex-search"><?php echo $petowner->email?></td>
+                <td class="dob-search"><?php echo $pet->DOB?></td>
+                <td class="breed-search"><?php echo $pet->breed?></td>
+                <td class="sex-search"><?php echo $pet->sex?></td>
                 
                 <td class="action">
                     

@@ -65,6 +65,17 @@
             $this->view('dashboards/assistant/petowner/petowner',$data);
         }
 
+
+        public function pet(){
+
+            $petDetails = $this ->assistantModel ->getPetDetails ();
+            $data = [
+                'pet' => $petDetails
+            ];
+
+            $this ->view('dashboards/assistant/pet/pet', $data);
+        }
+
         public function settings(){
 
             $user_id = ($_SESSION['user_id']);
