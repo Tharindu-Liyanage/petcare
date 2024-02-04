@@ -20,6 +20,7 @@
             }
             $this->doctorModel = $this->model('DoctorModel');
             $this->dashboardModel = $this->model('Dashboard');
+            $this->postModel = $this->model('Post');
 
            
         }
@@ -542,18 +543,177 @@
         }
 
         public function blog(){
-            $data = null;
+            $blog = $this->postModel->getPosts();
+            $data = [
+                'blog' => $blog
+            ];
             $this->view('dashboards/doctor/blog/blog',$data);
         }
 
-        public function addBlog(){
-            $data = null;
-            $this->view('dashboards/doctor/blog/addBlog',$data);
+        public function updateBlog($id){
+
+            
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                 $data = [
+                    'id' => $id,
+                    'title' => trim($_POST['title']),
+                    'category' => trim($_POST['category']),
+                    'tags' => trim($_POST['tags']),
+                    'user_id' => $_SESSION['user_id'],
+                    'thumbnail' => trim($_POST['thumbnail']),
+                    'content' => trim($_POST['content-input']),
+                    'title_err' => '',
+                    'content_err' => ''
+                 ];
+
+
+                //  $this->view('dashboards/doctor/blog/addBlog',$data);
+
+
+
+                if(empty($data['title'])){
+                    $data['title_err'] = 'Please enter the title';
+                 }
+
+                 if(empty($data['content'])){
+                    $data['content_err'] = 'please fill the content field';
+                 }
+
+                 
+                 if(empty($data['title_err']) && empty($data['content_err'])){
+                    if($this->postModel->updateBlog($data)){
+                       
+                        redirect('doctor/blog');
+                        
+                        
+                     }else{
+                         die("Something went wrong");
+                     }
+                 }else{
+                    //load with errors
+                    $this->view('dashboards/doctor/blog/updateBlog',$data);
+
+                 }
+
+                 
+
+            }else{
+
+                $post = $this->postModel->getPostById($id);
+
+                $data = [
+                    'id' => $id,
+                    'title' => $post->title,
+                    'category' => $post->category,
+                    'tags' => $post->tags,
+                    'thumbnail' => $post->thumbnail,
+                    'content' => $post->content,
+                    'title_err' => '',
+                    'content_err' => ''
+                 ];
+
+
+                 //validate
+
+                 
+
+                //  print_r($data['title_err']);
+                 $this->view('dashboards/doctor/blog/updateBlog',$data);
+
+            }
+
+
+
+            
         }
 
-        public function updateBlog(){
-            $data = null;
-            $this->view('dashboards/doctor/blog/updateBlog',$data);
+        public function deleteBlog($id){
+            // if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                // die ("delete");
+                if($this->postModel->deleteBlog($id)){
+                    redirect('doctor/blog');
+                }else{
+                    die ('something went wrong');
+                }
+            // }else{
+                redirect('doctor/blog');
+            // }
+        }
+
+        public function addBlog(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                 $data = [
+                    'title' => trim($_POST['title']),
+                    'category' => trim($_POST['category']),
+                    'tags' => trim($_POST['tags']),
+                    'user_id' => $_SESSION['user_id'],
+                    'thumbnail' => trim($_POST['thumbnail']),
+                    'content' => trim($_POST['content-input']),
+                    'title_err' => '',
+                    'content_err' => ''
+                 ];
+
+
+                //  $this->view('dashboards/doctor/blog/addBlog',$data);
+
+
+
+                if(empty($data['title'])){
+                    $data['title_err'] = 'Please enter the title';
+                 }
+
+                 if(empty($data['content'])){
+                    $data['content_err'] = 'please fill the content field';
+                 }
+
+                 echo $data['title_err'];
+
+                 
+                 if(empty($data['title_err']) && empty($data['content_err'])){
+                    if($this->postModel->addBlog($data)){
+                       
+                        redirect('doctor/blog');
+                        
+                        
+                     }else{
+                         die("Something went wrong");
+                     }
+                 }else{
+                    //load with errors
+                    $this->view('dashboards/doctor/blog/addBlog',$data);
+
+                 }
+
+                 
+
+            }else{
+                $data = [
+                    'title' => '',
+                    'category' => '',
+                    'tags' => '',
+                    'thumbail_text' => '',
+                    'content' => '',
+                    'title_err' => '',
+                    'content_err' => ''
+                 ];
+
+
+                 //validate
+
+                 
+
+                //  print_r($data['title_err']);
+                 $this->view('dashboards/doctor/blog/addBlog',$data);
+
+            }
+
+
+
+            
         }
 
         public function treatment(){

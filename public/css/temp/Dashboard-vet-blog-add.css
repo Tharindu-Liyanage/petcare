@@ -199,3 +199,31 @@ main .box .bottom-part .select-category{
     display:inline;
 
  }
+
+ 
+.inputForm {
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: 0.2s ease-in-out;
+    margin-bottom: 5px;
+  }
+
+.is-invalid {
+    
+    border: 1.5px solid  #dc3545 !important;
+   
+}
+
+.invalid-feedback {
+    
+    width: 100%;
+    margin-top: 0 ;
+    margin-left: 10px;
+    font-size: 80%;
+    color: #dc3545;
+    margin-top: -10px;
+}

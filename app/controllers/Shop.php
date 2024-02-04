@@ -36,10 +36,12 @@
         // }
         public function category($category){
 
-            $data =null;
+            $data =[
+                'title' => $category
+            ];
    
             
-            $this->view('shop/'.$category , $data);
+            $this->view('shop/category' , $data);
         }
 
         public function notfound(){

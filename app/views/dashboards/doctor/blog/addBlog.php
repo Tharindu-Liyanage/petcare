@@ -47,9 +47,11 @@
            
 
             
-
+        <form class="form" method="post" action="<?php echo URLROOT; ?>/doctor/addBlog">
             <div class="box">
-                    <div class="title-line">
+
+            <!-- ned to change -->
+                    <div class=" title-line">
                         <i class='bx bxs-file-plus'></i>
                         <div class="title-line-text">Add Article</div>
                     </div>
@@ -57,21 +59,24 @@
                         <div class="left">
                             <div class="article-title">
                                 <div class="article-title-text">Article Title </div>
-                                <div class="article-title-box">
+                                
+                                <div class=" article-title-box inputForm <?php echo (!empty($data['title_err'])) ? 'is-invalid' : '' ; ?>">
                                     <i class='bx bx-pencil' ></i>
-                                    <input type="text" placeholder="Enter Title Name">
+                                    <input name="title" type="text" class="input " placeholder="Enter title " value="<?php echo $data['title']?>" >
                                 </div>
+                                <span class="invalid-feedback"><?php echo $data['title_err']; ?></span>
+                            
                             </div>
                             <div class="select-category">
                                 <div class="select-category-text"> Select Category </div>
                                 <div class="select-category-box">
                                     <i class='bx bxs-dashboard' ></i>
                                     
-                                    <select id="my-selection" class="selection-dropdown">
-                                        <option value="option1"  >Pet Adoption</option>
-                                        <option value="option2">Health Tips</option>
-                                        <option value="option3">petcare</option>
-                                        <option value="option4">Nutrition & Diet</option>
+                                    <select name="category" id="my-selection" class="selection-dropdown">
+                                        <option value="Pet Adoption"  >Pet Adoption</option>
+                                        <option value="Health Tips">Health Tips</option>
+                                        <option value="petcare">petcare</option>
+                                        <option value="Nutrition & Diet">Nutrition & Diet</option>
                                     </select>
                                 </div>
                             </div>
@@ -79,11 +84,11 @@
                                 <div class="tags-text"> Tags </div>
                                 <div class="tags-box">
                                     <i class='bx bx-purchase-tag' ></i>
-                                    <select id="my-selection" class="selection-dropdown">
-                                        <option value="option1" >All Categories</option>
-                                        <option value="option2">Pet Adopt</option>
-                                        <option value="option3">petcare</option>
-                                        <option value="option4">Nutrition & Diet</option>
+                                    <select name="tags" id="my-selection" class="selection-dropdown">
+                                        <option value="Pet Adopt, Petcare , Nutrition & Diet" >All Categories</option>
+                                        <option value="Pet Adopt">Pet Adopt</option>
+                                        <option value="petcare">petcare</option>
+                                        <option value="Nutrition & Diet">Nutrition & Diet</option>
                                     </select>
                                 </div>
                             </div>
@@ -94,18 +99,18 @@
                                 <div class="thumbnail-text"> Thumbnail</div>
                                 <div class="thumbnail-box">
                                     <i class='bx bx-notepad' ></i>
-                                    <input type="text" placeholder="Enter thumbnail">
+                                    <input name="thumbnail" type="text" placeholder="Enter thumbnail">
                                 </div>
                                 
                             </div>
                             <div class="content1">
                                 <div class="content1-text"> Content </div>
-                                <div class="content1-box">
+                                <div class="content1-box inputForm <?php echo (!empty($data['content_err'])) ? 'is-invalid' : '' ; ?>">
                                     <i class='bx bx-pencil' ></i>
-                                    <textarea class="text" name="content-input" id=""  placeholder="write here"></textarea>
-                                   
+                                    <textarea class="text"  name="content-input" id=""  placeholder="write here"><?php echo $data['content'] ; ?></textarea>
                                 </div>
-                                
+                                <span class="invalid-feedback"><?php echo $data['content_err']; ?></span>
+                            
                             </div>
                         </div>
 
@@ -129,6 +134,7 @@
                 
                 
             </div> <!-- content over -->
+        </form>
              
              
                                 

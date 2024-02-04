@@ -71,87 +71,31 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
+                                <?php foreach($data['blog'] as $blog) : ?>
+                                    <?php  if($_SESSION['user_id'] == $blog->user_id ) { ; ?>
+                                    <tr>
+                                        <td><?php echo $blog->blogID ; ?></td>
+                                        <td>
+                                        <?php echo $blog->title ; ?>
+                                        </td>
+                                        <td><?php echo $blog->category ; ?></td>
+                                        <td><?php echo $blog->tags ; ?></td>
+                                        <td><?php echo $blog->publishdate ; ?></td>
+                                        <td class="action">
+                                            
+                                            <div class="act-icon">
+                                                <a data-blog-id="<?php echo $blog->blogID?>" class="removeLink" href="<?php echo URLROOT;?>/doctor/deleteBlog/<?php echo $blog->blogID ; ?>" ><i class='bx bx-trash'></i></a>
+                                                <a href="<?php echo URLROOT;?>/doctor/updateBlog/<?php echo $blog->blogID ; ?>" ><i class='bx bx-edit' ></i></a>     
+                                                
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                    <?php  }; ?>
+                                <?php endforeach ; ?>
+                            
 
-                           
-
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                How to Keep Your Pet Healthy
-                                </td>
-                                <td>Pet Care</td>
-                                <td>pet health, preventive</td>
-                                <td>02-10-2023</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateBlog" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                Adopting a Pet
-                                </td>
-                                <td>Pet Adopt</td>
-                                <td>Pet Adopt</td>
-                                <td>10-10-2023</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updatePet" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>3</td>
-                                <td>
-                                How to Train Your Pet
-                                </td>
-                                <td>Pet Training</td>
-                                <td>Animal Training</td>
-                                <td>09-09-2023</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updatePet" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                How to Keep Your Pet Healthy
-                                </td>
-                                <td>Pet Care</td>
-                                <td>pet health, preventive</td>
-                                <td>02-10-2023</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updatePet" ><i class='bx bx-edit' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
 
                         
                         </tbody>
