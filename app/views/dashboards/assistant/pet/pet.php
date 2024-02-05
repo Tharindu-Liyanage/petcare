@@ -38,13 +38,13 @@
 <!--start od orders-->
 <div class="users" id="pet">
     <div class="header">
-    <i class='bx bx-user'></i>
+    <i class='bx bxs-dog'></i>
         <h3>Pet</h3>
 
         <!-- Search Container -->
 
     <div class="search-container-table">
-     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+     <input type="text"  id="petSearch" name="text" class="search" placeholder="Search here..">
      <i class='bx bx-search' ></i>
     </div>
 
@@ -81,7 +81,7 @@
             <tr>
                 <td class="id-search"><?php echo $pet->pet_id_generate?></td>
                 <td class="profile">
-                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $pet-> species ?>" ><p><?php echo $pet->profileImage?> <?php echo $pet-> petowner_id?></p>
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animal/<?php echo $pet-> profileImage ?>" ><p><?php echo $pet->species?> <?php echo $pet-> petowner_id?></p>
                 </td class="id-search">
                 <td class="dob-search"><?php echo $pet->DOB?></td>
                 <td class="breed-search"><?php echo $pet->breed?></td>
