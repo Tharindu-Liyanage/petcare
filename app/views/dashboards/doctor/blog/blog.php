@@ -51,12 +51,22 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="blog">
                     <div class="header">
                     <i class='bx bxl-blogger' ></i>
                         <h3>Blogs</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+                        
+
+                         <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
+                    </div>
+
+                    <!-- search container over -->
+
+
                     </div>
                     <table>
                         <thead>
@@ -69,21 +79,21 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
                             
                                 <?php foreach($data['blog'] as $blog) : ?>
                                     <?php  if($_SESSION['user_id'] == $blog->author ) { ; ?>
                                     <tr>
-                                        <td><?php echo $blog->blogID ; ?></td>
-                                        <td>
+                                        <td class="id-search"><?php echo $blog->blogID ; ?></td>
+                                        <td class="title-search">
                                         <?php echo $blog->title ; ?>
                                         </td>
-                                        <td><?php echo $blog->categoryname ; ?></td>
-                                        <td><?php echo $blog->publishdate ; ?></td>
+                                        <td class="category-search"><?php echo $blog->categoryname ; ?></td>
+                                        <td class="publish-search"><?php echo $blog->publishdate ; ?></td>
                                         <td class="action">
                                             
                                             <div class="act-icon">
-                                                <a data-blog-id="<?php echo $blog->blogID?>" class="removeLink" href="<?php echo URLROOT;?>/doctor/deleteBlog/<?php echo $blog->blogID ; ?>" ><i class='bx bx-trash'></i></a>
+                                                <a data-blog-id="<?php echo $blog->blogID?>" class="removeLink" href="<?php echo URLROOT;?>/doctor/deleteBlogs/<?php echo $blog->blogID ; ?>" ><i class='bx bx-trash'></i></a>
                                                 <a href="<?php echo URLROOT;?>/doctor/updateBlog/<?php echo $blog->blogID ; ?>" ><i class='bx bx-edit' ></i></a>     
                                                 
                                             </div>
@@ -98,6 +108,7 @@
                         
                         </tbody>
                     </table>
+                    <?php  include __DIR__ . '/../../common/pagination_footer.php'; ?>
                 </div>
  
             </div> <!-- content over -->
@@ -117,8 +128,8 @@
                         </div>
 
                         <div class="err-content">
-                            <span class="title">Remove Account</span>
-                            <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
+                            <span class="title">Remove Blog</span>
+                            <p class="message">Are you sure you want to remove this blog?</p>
                         </div>
 
                         <div class="err-actions">
@@ -142,10 +153,10 @@
 
 
     
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/doctor/blogTable.js"></script>
     
 </body>
 </html>

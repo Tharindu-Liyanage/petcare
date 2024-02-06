@@ -11,21 +11,22 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
-      valueNames: ['id-search', 'profile', 'email-search', 'address-search', 'phone-search', 'role-search'],
+      valueNames: ['id-search', 'title-search', 'category-search', 'publish-search'],
       page: 5,
       pagination: true,
   };
 
-  var userList = new List('staff', options);
+  var userList = new List('blog', options);
   
 
 
+
   if (showEntriesDropdown) {
-    showEntriesDropdown.addEventListener('change', function () {
-        var selectedValue = parseInt(this.value);
-        userList.page = selectedValue;
-        userList.update();
-    });
+      showEntriesDropdown.addEventListener('change', function () {
+          var selectedValue = parseInt(this.value);
+          userList.page = selectedValue;
+          userList.update();
+      });
   }
   
 
