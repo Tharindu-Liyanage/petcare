@@ -643,19 +643,39 @@
         }
 
         public function addBlog(){
+
+            //get categories
+            $categories = $this->doctorModel->getBlogCategoryDetails();
+
+
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                  $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                 if (isset($_FILES['blog_img'])) {
+                    $uploadedFileName = $_FILES['blog_img']['name'];
+                    $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                    // Generate a timestamp for uniqueness
+                    $timestamp = time();
+
+                    // Create a unique ID by concatenating values and adding the file extension
+                    $uniqueImgFileName = $_POST['title'] . '_' . $_SESSION['user_id'] . '_' . $timestamp . '.' . $fileExtension;
+
+                }
 
                  $data = [
                     'title' => trim($_POST['title']),
                     'category' => trim($_POST['category']),
-                    'tags' => trim($_POST['tags']),
                     'user_id' => $_SESSION['user_id'],
-                    'thumbnail' => trim($_POST['thumbnail']),
-                    'content' => trim($_POST['content-input']),
+                    'category_err' => '',
+                    'content' => trim($_POST['content']),
                     'title_err' => '',
-                    'content_err' => ''
+                    'content_err' => '',
+                    'img' => '',    //watch petowner addpet method
+                    'img_err' => '',
+                    'categories' => $categories,
                  ];
+
 
 
                 //  $this->view('dashboards/doctor/blog/addBlog',$data);
@@ -667,13 +687,29 @@
                  }
 
                  if(empty($data['content'])){
-                    $data['content_err'] = 'please fill the content field';
+                    $data['content_err'] = 'Please fill the content field';
                  }
 
-                 echo $data['title_err'];
+                 if($data['category'] == "Select Category"){
+                    $data['category_err'] = 'Please select a category';
+                 }
+
+                 //handle error in img here
+                 /*
+                    mandotary to upload image before post
+
+                    1.file not upload
+                    2.dimension
+                    3. img type jpg or png
+
+                    need to update method , remove tags , 
+                    
+                    img dir -> storage/uploads/blogs 
+                    img uniquefile name insert to the db
+                 */
 
                  
-                 if(empty($data['title_err']) && empty($data['content_err'])){
+                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['category_err'])){
                     if($this->postModel->addBlog($data)){
                        
                         redirect('doctor/blog');
@@ -694,11 +730,12 @@
                 $data = [
                     'title' => '',
                     'category' => '',
-                    'tags' => '',
-                    'thumbail_text' => '',
                     'content' => '',
                     'title_err' => '',
-                    'content_err' => ''
+                    'content_err' => '',
+                    'category_err' => '',
+                    'img_err' => '',
+                    'categories' => $categories,
                  ];
 
 

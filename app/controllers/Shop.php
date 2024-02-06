@@ -50,6 +50,11 @@
             $this->view('error/404',$data);
         }
 
-        
+        public function searchpage(){
+            $data =null;
+
+            $this->view('shop/searchPage',$data);
+        }
+
 
     }

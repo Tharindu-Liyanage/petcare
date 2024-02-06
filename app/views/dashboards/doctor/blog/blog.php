@@ -65,22 +65,20 @@
                                 <th>Id</th>
                                 <th>Title</th>
                                 <th>Category</th>
-                                <th>Tags</th>
-                                <th>Create Date</th>
+                                <th>Publish Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             
                                 <?php foreach($data['blog'] as $blog) : ?>
-                                    <?php  if($_SESSION['user_id'] == $blog->user_id ) { ; ?>
+                                    <?php  if($_SESSION['user_id'] == $blog->author ) { ; ?>
                                     <tr>
                                         <td><?php echo $blog->blogID ; ?></td>
                                         <td>
                                         <?php echo $blog->title ; ?>
                                         </td>
-                                        <td><?php echo $blog->category ; ?></td>
-                                        <td><?php echo $blog->tags ; ?></td>
+                                        <td><?php echo $blog->categoryname ; ?></td>
                                         <td><?php echo $blog->publishdate ; ?></td>
                                         <td class="action">
                                             

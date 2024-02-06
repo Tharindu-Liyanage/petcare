@@ -375,6 +375,22 @@
                 }
             }
 
+
+            public function getBlogCategoryDetails(){
+                //get all from petcare_products_category
+                $this->db->query(
+                    'SELECT *
+                     FROM petcare_blogs_category
+                    '
+                );
+
+                $results = $this->db->resultSet();
+
+                return $results;
+
+
+            }
+
             
 
 

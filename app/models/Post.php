@@ -7,7 +7,9 @@
         }
 
         public function getPosts(){
-            $this->db->query('SELECT * FROM petcare_blogs');
+            $this->db->query('SELECT * , category.category_name as categoryname
+            FROM petcare_blogs
+            JOIN petcare_blogs_category category ON petcare_blogs.category = category.id');
 
             $results = $this->db->resultSet();
             return $results;
@@ -31,10 +33,10 @@
             $this->db->bind(':title' , $data['title']);
             $this->db->bind(':thumbnail' , $data['thumbnail']);
             $this->db->bind(':content' , $data['content']);
-            $this->db->bind(':tags' , $data['tags']);
+            $this->db->bind(':tags' , $data['tags']);  // remove this
             $this->db->bind(':category' , $data['category']);
-            $this->db->bind(':author' , '31');
-            $this->db->bind(':user_id' , $data['user_id']);
+            $this->db->bind(':author' , '31');  /* important update this to $_session['user_id']*/ 
+            $this->db->bind(':user_id' , $data['user_id']);  //remove this  
 
 
            if($this->db->execute()){
