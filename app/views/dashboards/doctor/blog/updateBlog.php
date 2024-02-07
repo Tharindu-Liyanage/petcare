@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard-vet-blog-update.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/addStaff.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/doctor/postBlog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Dashboard</title>
+
+    <style>
+        .form{
+            display: block !important;
+            padding: 30px 200px !important;
+        }
+    </style>
+
+ 
+
 </head>
 <body>
 
@@ -21,7 +31,7 @@
 
        
 
-<main>
+        <main>
         <div class="header">
                 <div class="left">
                     <h1>Blog</h1>
@@ -32,7 +42,7 @@
                         >
                         <li><a href="<?php echo URLROOT;?>/doctor/blog">Blog</a></li> 
 
-                        <li><a href="<?php echo URLROOT;?>/doctor/updateBlog" class="active"> > Update Blog</a></li>
+                        <li><a href="<?php echo URLROOT;?>/doctor/addBlog" class="active"> > Add Blog</a></li>
                     </ul>
                 </div>
 
@@ -44,119 +54,115 @@
            
 
             
-        <form class="form" method="post" action="<?php echo URLROOT; ?>/doctor/updateBlog/<?php echo $data['id'] ; ?>">
-            <div class="box">
+            <div class="bottom-data">
 
-            <!-- ned to change -->
-                    <div class=" title-line">
-                        <i class='bx bxs-file-plus'></i>
-                        <div class="title-line-text">Update Article</div>
-                    </div>
-                    <div class="bottom-part">
-                        <div class="left">
-                            <div class="article-title">
-                                 <div class="article-title-text">Article Title </div>
-                                <!-- <div class="article-title-box">
-                                    <i class='bx bx-pencil' ></i>
-                                    <input name="title" value="<?php echo $data['title'] ; ?>" type="text" placeholder="Enter Title Name" >
-                                </div> --> 
-                            
-                                
-                                <div class=" article-title-box inputForm <?php echo (!empty($data['title_err'])) ? 'is-invalid' : '' ; ?>">
-                                    <i class='bx bx-pencil' ></i>
-                                    <input name="title" type="text" class="input " placeholder="Enter title " value="<?php echo $data['title']?>" >
-                                </div>
-                                <span class="invalid-feedback"><?php echo $data['title_err']; ?></span>
-                            
-                            </div>
+            
 
-                            <div class="select-category">
-                                <div class="select-category-text"> Select Category </div>
-                                <div class="select-category-box">
-                                    <i class='bx bxs-dashboard' ></i>
-                                    
-                                    <select name="category"  id="my-selection" class="selection-dropdown">
-                                        <option value="Pet Adoption" <?php echo (($data['category']) == 'Pet Adoption') ? 'selected' : '' ; ?>  >Pet Adoption</option>
-                                        <option value="Health Tips" <?php echo (($data['category']) == 'Health Tips') ? 'selected' : '' ; ?> >Health Tips</option>
-                                        <option value="petcare" <?php echo (($data['category']) == 'petcare') ? 'selected' : '' ; ?> >petcare</option>
-                                        <option value="Nutrition & Diet" <?php echo (($data['category']) == 'Nutrition & Diet') ? 'selected' : '' ; ?> >Nutrition & Diet</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="tags">
-                                <div class="tags-text"> Tags </div>
-                                <div class="tags-box">
-                                    <i class='bx bx-purchase-tag' ></i>
-                                    <select name="tags" id="my-selection" class="selection-dropdown">
-                                        <option value="Pet Adopt, Petcare , Nutrition & Diet" <?php echo (($data['tags']) == 'Pet Adopt, Petcare , Nutrition & Diet') ? 'selected' : '' ; ?> >All Categories</option>
-                                        <option value="Pet Adopt" <?php echo (($data['tags']) == 'Pet Adopt') ? 'selected' : '' ; ?>>Pet Adopt</option>
-                                        <option value="petcare" <?php echo (($data['tags']) == 'petcare') ? 'selected' : '' ; ?>>petcare</option>
-                                        <option value="Nutrition & Diet" <?php echo (($data['tags']) == 'Nutrition & Diet') ? 'selected' : '' ; ?>>Nutrition & Diet</option>
-                                    </select>
-                                </div>
-                            </div>
+<!-- staff add model here -->
+<div class="add-model">
 
+   <div class="header">
+    <i class='bx bx-file'></i>
+        <h3>Eidt Blog</h3>       
+    </div>
+
+    
+        <div class="form-container">
+ 
+    <form class="form" method="post"  enctype="multipart/form-data" action="<?php echo URLROOT; ?>/doctor/addBlog">
+
+      
+
+    <div class="column">
+
+        <div class="flex-column">
+
+                            <label>Title</label>
                         </div>
-                        <div class="right">
-                            <div class="thumbnail">
-                                <div class="thumbnail-text"> Thumbnail</div>
-                                <div class="thumbnail-box">
-                                    <i class='bx bx-notepad' ></i>
-                                    <input name="thumbnail" value="<?php echo $data['thumbnail'] ; ?>" type="text" placeholder="Enter thumbnail">
-                                </div>
-                                
-                            </div>
-                            <div class="content1">
-                                <div class="content1-text"> Content </div>
-                                <div class="content1-box inputForm <?php echo (!empty($data['content_err'])) ? 'is-invalid' : '' ; ?>">
-                                    <i class='bx bx-pencil' ></i>
-                                    <textarea class="text"  name="content-input" id=""  placeholder="write here"><?php echo $data['content'] ; ?></textarea>
-                                </div>
-                                <span class="invalid-feedback"><?php echo $data['content_err']; ?></span>
-                            
-                                
-                            </div>
+                        <div class="inputForm <?php echo (!empty($data['title_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-edit-alt'></i>
+                            <input type="text" class="input" name="title" placeholder="Enter title" value="<?php echo $data['title']?>">
                         </div>
+                        <span class="invalid-feedback"><?php echo $data['title_err']; ?></span>
+
+                        <div class="flex-column">
+                            <label>Category</label>
+                        </div>
+                        <div class="inputForm <?php echo (!empty($data['category_err'])) ? 'is-invalid' : '' ; ?>">
+                            <i class='bx bxs-dashboard' ></i>
+                        <select name="category" id="my-selection" class="selection-dropdown">
+                                        <option value="Select Category" selected>Select Category</option>
+                                        <?php foreach($data['categories'] as $category) : ?>
+                                        <option <?php if($data['category'] == $category->id) echo 'selected' ; ?> value="<?php echo $category->id; ?>"><?php echo $category->category_name; ?></option>
+                                        <?php endforeach; ?>
+                                        
+                                    </select>
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['category_err']; ?></span>
+
+                       
 
                         
 
+    </div> <!-- column tag close -->
 
-                    </div>
+    <div class="column">
 
                     
 
-                    
 
-                    <div class="footer">
-                    
-                        <div class="button-set">
-                            <button class="reset-button">Reset</button>
-                            <button class="update-button">Update</button>
+                        <div class="flex-column">
+                            <label>Upload Tumbnail</label>
                         </div>
-                    </div>
-                </div>
+                        <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-image-alt'></i>
+                            <input type="file" class="input" name="blog_img" accept="image/*">
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
+
+                        <div class="flex-column">
+                            <label>Content</label>
+                        </div>
+                        
+                        
+                            <textarea class="<?php echo (!empty($data['content_err'])) ? 'is-invalid' : '' ; ?>" name="content" id="content"   placeholder="Type here"><?php echo $data['content']; ?></textarea>
+                        
+                        <span class="invalid-feedback"><?php echo $data['content_err']; ?></span>
+                        
+                </div> <!-- column close -->
+
+               
+
+                <div class="button-form">
+                            <button type="reset"  class="button-submit">Reset</button> 
+                            <button type="submit" id="button-submit" class="button-submit">Post</button>
+                         </div>
                 
-                
+
+            </form>
+            </div>
+
+            </div> <!-- model over -->
             </div> <!-- content over -->
-        </form>
-             
-             
-                                
-        </main>
+
+            </main>
 
            
 
-
+        
 
 
     </div>
 
-    
-
    
+
+    
 
 
     <!-- staff add model over -->
+
+
+
 
 
     
