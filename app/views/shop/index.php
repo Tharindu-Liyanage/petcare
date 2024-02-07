@@ -163,11 +163,11 @@
             <h1> Order Your Pet Items</h1>
             <strong>#Free Delivery</strong>
 
-            <from action="" class ="search-box">
+            <form id="searchForm" action="<?php echo URLROOT;?>/shop/searchpage/" class ="search-box" method="post">
                 <i class="fas fa-search"></i>
-                <input type= "text" class = "search-input" placeholder = "Search your pet item" name = "search" required>
-                <input type = "submit" class= "search-btn" value = "Search">
-            </from>
+                <input type="search" class="search-input" placeholder="Search your pet item" name="search" required>
+                <button type="submit" class="search-btn" >Search</button>
+            </form>
 
         </div>
         
@@ -332,7 +332,23 @@
 
 
 
-   
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevents the default form submission
+
+        // Extract the search keyword from the input field and replace spaces with hyphens
+        var searchKeyword = document.querySelector('.search-input').value.trim().replace(/\s+/g, '-');
+
+        // Construct the URL for redirection
+        var redirectUrl = '<?php echo URLROOT; ?>/shop/searchpage/' + encodeURIComponent(searchKeyword);
+
+        // Redirect to the constructed URL
+        window.location.href = redirectUrl;
+    });
+});
+</script>
+
 
     <script src="<?php echo URLROOT; ?>/public/js/store.js"></script>
 </body>

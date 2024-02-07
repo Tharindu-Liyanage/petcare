@@ -152,6 +152,31 @@ ul.pagination li.active{
     border:1px solid #667EEA;
     transition:all ease 0.3s;
 }
+
+.not-found-img{
+    margin:auto;
+    display:grid;
+    align-items:center;
+    margin-left:200px;
+
+}
+
+.not-found-img img{
+    width: 600px;
+    height: auto;
+}
+
+.not-found-img p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #202020;
+    margin-left:100px;
+    margin-top: 20px;
+}
+
+
+
+
       
         </style>
 
@@ -291,7 +316,7 @@ ul.pagination li.active{
 
             <div class="filter-wrapper">
 
-                <form action="" method="get" >
+                
                  <!-- Filter options go here -->
                <!-- <h2 class="filter-title"> <i class='bx bx-filter-alt'></i> Filter</h2> -->
 
@@ -310,39 +335,45 @@ ul.pagination li.active{
 
                 </div>
 
+                <form action="<?php echo URLROOT;?>/shop/searchpage/<?php echo $data['forForm'];?>" method="get" >
+
                 <div class="part">
 
                     <span class="category main-title">Category:</span>
 
                    <div class="checkbox-field">
 
+                   <?php $displayedCategories = array(); ?>
+
+                   <?php foreach($data['products'] as $product) : ?>
+
+                    <?php if(in_array($product->categoryname, $displayedCategories)) continue; ?>
+
+                    <?php array_push($displayedCategories, $product->categoryname); ?>
+
                     <label class="container">
-                        <span class="checkbox-title">Food and Treats</span>
-                        <input type="checkbox" checked="checked" >
-                        <span class="checkmark"></span>
-                    </label>
+                        <span class="checkbox-title"><?php echo $product->categoryname ?></span>
 
-                    <label class="container"> 
+                        <input type="checkbox"  name="category[]" value="<?php echo $product->category;?>"
+
+                        <?php if($data['GETCategory'] != null) :?>
+
+                         <?php foreach ($data['GETCategory'] as $GETCategory): ?>
                             
-                        <span class="checkbox-title">Grooming Supplies</span>
-                        <input type="checkbox">
+                            <?php if($GETCategory == $product->category) echo 'checked'; ?>
+
+                            <?php endforeach; ?>
+
+                        <?php endif; ?>
+
+                        >
+
                         <span class="checkmark"></span>
                     </label>
 
-                    <label class="container"> 
-                           
-                        <span class="checkbox-title">Health and Wellness</span>
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
+                    <?php endforeach; ?>
 
-                    <label class="container"> 
-                        <span class="checkbox-title">Toys and Bedding</span>
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-
-                    </div>
+                   </div>
                 
                    
 
@@ -355,30 +386,36 @@ ul.pagination li.active{
 
                     <div class="checkbox-field">
 
-                    <label class="container">
-                        <span class="checkbox-title">Kong</span>
-                        <input type="checkbox" checked="checked" >
-                        <span class="checkmark"></span>
-                    </label>
+                    <?php $displayedBrand = array(); ?>
 
-                    <label class="container"> 
+                    <?php foreach($data['products'] as $product) : ?>
+
+                    <?php if(in_array($product->brand, $displayedBrand)) continue; ?>
+
+                    <?php array_push($displayedBrand, $product->brand); ?>
+
+                    <label class="container">
+                        <span class="checkbox-title"><?php echo $product->brand?></span>
+                        <input type="checkbox" name ="brand[]"  value="<?php echo $product->brand?>"
+
+                        <?php if($data['GETBrand'] != null) :?>
                         
-                        <span class="checkbox-title">West Paw</span>
-                        <input type="checkbox">
+                        <?php foreach ($data['GETBrand'] as $GETBrand): ?>
+                            
+                            <?php if($GETBrand == $product->brand) echo 'checked'; ?>
+
+                            <?php endforeach; ?>
+                        
+                        <?php endif; ?>
+                        
+                         >
                         <span class="checkmark"></span>
                     </label>
 
-                    <label class="container"> 
-                        <span class="checkbox-title">Ruffwear</span>
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
+                    <?php endforeach; ?>
 
-                    <label class="container">
-                        <span class="checkbox-title">Blue Buffalo</span>
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
+
+                    
 
                     
 
@@ -396,20 +433,20 @@ ul.pagination li.active{
                             <div class="price-input">
                                 <div class="field">
                                 <span>Min</span>
-                                <input type="number" class="input-min" value="2500">
+                                <input name="minprice" type="number" class="input-min" value="<?php echo $data['minprice']; ?>">
                                 </div>
                                 <div class="separator">-</div>
                                 <div class="field">
                                 <span>Max</span>
-                                <input type="number" class="input-max" value="7500">
+                                <input name="maxprice" type="number" class="input-max" value="<?php  echo $data['maxprice']; ?>">
                                 </div>
                             </div>
                             <div class="slider">
                                 <div class="progress"></div>
                             </div>
                             <div class="range-input">
-                                <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
-                                <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
+                                <input type="range" class="range-min" min="0" max="<?php echo $data['rangeMaxprice'];?>" value="<?php if(isset($_GET['minprice'])) echo $_GET['minprice']; else echo $data['minprice']; ?>" step="100">
+                                <input type="range" class="range-max" min="0" max="<?php echo $data['rangeMaxprice'];?>" value="<?php if(isset($_GET['maxprice'])) echo $_GET['maxprice']; else echo $data['maxprice']; ?>" step="100" <?php if ($data['minprice'] == $data['maxprice']) echo 'disabled'; ?>>
                             </div>
                     </div>
                 </div>
@@ -445,117 +482,46 @@ ul.pagination li.active{
        </div> -->
 
     <div id="before-list">
+
+    <?php if($data['products'] == null) : ?>
+        <div class="not-found-img">
+            <img src="<?php echo URLROOT?>/public/img/shop/notfound.png" alt="not-found">
+            <p>Apologies, we couldn't find any results for your search.</p>
+        </div>
+
+    <?php else : ?>
        
     
     <ul class="product-container list">
 
+    
+
+    <?php foreach ($data['products'] as $product) : ?>
+
         <li class="product-box">
             <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong class="name">Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
+            <strong class="name"><?php echo $product->name ; ?></strong>
+            <span class="quantity"> Quntity <?php echo $product->stock ; ?> </span>
+            <span class ="price">Rs.<?php echo $product->price; ?></span>
             <!-- cart btn -->
             <a href="#" class="cart-btn">
                 <i class="fas fa-shopping-bag"></i> Add To Cart
             </a>
 
             <!-- heart-btn -->
-            <a href="#" class="like-btn">
+          <!--  <a href="#" class="like-btn"> 
                 <i class="far fa-heart"></i>
-            </a>
+            </a> -->
 
         </li>
 
-        <li class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong class="name">Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </li>
-
-        <li class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong class="name">Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </li>
-
-        <li class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong class="name">Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </li>
-
-        <li class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong class="name">Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </li>
-
-        <li class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong class="name">Happy Cat Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </li>
+        <?php endforeach; ?>
         
        </ul>
 
        <ul class="pagination"></ul>
        </div>
-
+    <?php endif; ?>
        
 
   
@@ -581,7 +547,7 @@ ul.pagination li.active{
 
     var monkeyList = new List('before-list', {
     valueNames: ['product-box','name'],
-    page: 3,
+    page: 6,
     pagination: true
     });
 
