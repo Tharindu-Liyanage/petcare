@@ -11,6 +11,14 @@
 
             $currentTime = time();
             $inactiveTime =300; // 5 minutes in seconds
+
+            if (!isset($_SESSION['PO_last_activity'])) {
+                $_SESSION['PO_last_activity'] = $currentTime; // Set initial last activity time
+            } else {
+                // Update last activity time to current time
+                $_SESSION['PO_last_activity'] = $currentTime;
+            }
+           
            
             if(!isset($_SESSION['user_id'])){
                 
@@ -30,7 +38,8 @@
                 unset($_SESSION['user_mobile']);
                 unset($_SESSION['user_role']);
                 unset( $_SESSION['user_profileimage']);
-                $_SESSION['PO_last_activity'] ="Session Expired. Please login again.";
+                unset($_SESSION['PO_last_activity']);
+                $_SESSION['error_msg_from_petowner'] ="Session Expired. Please login again.";
                 redirect('users/login');*/
 
             }

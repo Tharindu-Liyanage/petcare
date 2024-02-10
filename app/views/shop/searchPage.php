@@ -174,6 +174,13 @@ ul.pagination li.active{
     margin-top: 20px;
 }
 
+.showing-results{
+    margin-top: 10px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #202020;
+}
+
 
 
 
@@ -276,7 +283,7 @@ ul.pagination li.active{
         
 
 
-            <a href="#" class="iscart flexitem">
+            <a href="<?php echo URLROOT; ?>/shop/shopcart" class="iscart flexitem">
                 <div class="icon-large">
                     <i class="ri-shopping-cart-line"></i>
                     <div class="fly-item"><span class="item-number">0</span></div>
@@ -445,8 +452,8 @@ ul.pagination li.active{
                                 <div class="progress"></div>
                             </div>
                             <div class="range-input">
-                                <input type="range" class="range-min" min="0" max="<?php echo $data['rangeMaxprice'];?>" value="<?php if(isset($_GET['minprice'])) echo $_GET['minprice']; else echo $data['minprice']; ?>" step="100">
-                                <input type="range" class="range-max" min="0" max="<?php echo $data['rangeMaxprice'];?>" value="<?php if(isset($_GET['maxprice'])) echo $_GET['maxprice']; else echo $data['maxprice']; ?>" step="100" <?php if ($data['minprice'] == $data['maxprice']) echo 'disabled'; ?>>
+                                <input type="range" class="range-min" min="0" max="<?php echo $data['rangeMaxprice'];?>" value="<?php if(isset($_GET['minprice'])) echo $_GET['minprice']; else echo $data['minprice']; ?>" step="50">
+                                <input type="range" class="range-max" min="0" max="<?php echo $data['rangeMaxprice'];?>" value="<?php if(isset($_GET['maxprice'])) echo $_GET['maxprice']; else echo $data['maxprice']; ?>" step="50" <?php if ($data['minprice'] == $data['maxprice']) echo 'disabled'; ?>>
                             </div>
                     </div>
                 </div>
@@ -473,6 +480,22 @@ ul.pagination li.active{
         <!-- Product display goes here -->
         <h2><i class='bx bx-search-alt'></i> Search Results</h2>
 
+        <?php
+        $totalProducts = count($data['products']);
+        $perPage = 6;
+
+        $startIndex = 1;
+        $endIndex = $totalProducts%$perPage;
+
+        if($perPage>$totalProducts){
+            $endIndex = 1;
+        }
+        ?>
+
+        <p class="showing-results">Showing <?php echo $startIndex; ?>-<?php echo $endIndex; ?> of <?php echo $totalProducts; ?> results</p>
+
+
+    
          <!-- popular product -->
     <section id = "search-product">
        <!--<div class= "product-heading">
@@ -504,7 +527,7 @@ ul.pagination li.active{
             <span class="quantity"> Quntity <?php echo $product->stock ; ?> </span>
             <span class ="price">Rs.<?php echo $product->price; ?></span>
             <!-- cart btn -->
-            <a href="#" class="cart-btn">
+            <a href="#" class="cart-btn" data-product-id ="<?php echo $product->id ?>"  data-product-price="<?php echo $product->price; ?>">
                 <i class="fas fa-shopping-bag"></i> Add To Cart
             </a>
 
@@ -540,72 +563,30 @@ ul.pagination li.active{
 
 
     </main>
-    
+
+   
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
-       <Script>
-
-    var monkeyList = new List('before-list', {
-    valueNames: ['product-box','name'],
-    page: 6,
-    pagination: true
-    });
-
-    var searchInput = document.getElementById('search-filter');
-    searchInput.addEventListener('input', function () {
-            var searchString = searchInput.value.toLowerCase();
-            monkeyList.search(searchString);
+    <script>
+        // Initialize List.js with pagination
+        var monkeyList = new List('before-list', {
+            valueNames: ['product-box', 'name'],
+            page: 6,
+            pagination: true,
+            
         });
 
-        //list over
-
-        //range start
-    
-        const rangeInput = document.querySelectorAll(".range-input input"),
-priceInput = document.querySelectorAll(".price-input input"),
-range = document.querySelector(".slider .progress");
-let priceGap = 1000;
-
-priceInput.forEach(input =>{
-    input.addEventListener("input", e =>{
-        let minPrice = parseInt(priceInput[0].value),
-        maxPrice = parseInt(priceInput[1].value);
-        
-        if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
-            if(e.target.className === "input-min"){
-                rangeInput[0].value = minPrice;
-                range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-            }else{
-                rangeInput[1].value = maxPrice;
-                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-            }
-        }
-    });
-});
-
-rangeInput.forEach(input =>{
-    input.addEventListener("input", e =>{
-        let minVal = parseInt(rangeInput[0].value),
-        maxVal = parseInt(rangeInput[1].value);
-
-        if((maxVal - minVal) < priceGap){
-            if(e.target.className === "range-min"){
-                rangeInput[0].value = maxVal - priceGap
-            }else{
-                rangeInput[1].value = minVal + priceGap;
-            }
-        }else{
-            priceInput[0].value = minVal;
-            priceInput[1].value = maxVal;
-            range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
-            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-        }
-    });
-});
+        monkeyList.on('updated', function() {
+            attachAddToCartListeners();
+            console.log('Pagination updated');
+        });
 
 
+    </script>
+ 
+    <script src="<?php echo URLROOT; ?>/public/js/shop/searchPage.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/shop/shopcartHeader.js"></script>
 
-       </Script>
             
         
     </body>

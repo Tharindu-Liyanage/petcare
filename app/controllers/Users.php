@@ -297,6 +297,10 @@
                 unset( $_SESSION['User_Role']);
             }
 
+            if(isLoggedIn()){ // this user alredy login from shop
+                redirect('petowner');
+            }
+
             $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
             //check for POST
@@ -796,10 +800,22 @@
             $_SESSION['user_profileimage'] = $user->profileImage;
             $_SESSION['user_email'] = $user->email;
             $_SESSION['user_role'] = 'Pet Owner';
-            $_SESSION['PO_last_activity'] = time(); //time of last activity
+           
 
             //redirect to dashboard
-            redirect('petowner');
+            if(isset($_SESSION['shop_user_shopcart'])){
+                //unset
+                unset($_SESSION['shop_user_shopcart']);
+                unset($_SESSION['shop_user']);
+                redirect('shop/shopcart');
+
+            }
+            elseif(isset($_SESSION['shop_user'])){
+                unset($_SESSION['shop_user']);
+                redirect('shop');
+            }else{
+                redirect('petowner');
+            }
 
         }
 
@@ -853,7 +869,13 @@
             unset( $_SESSION['user_profileimage']);
 
             session_destroy();
-            redirect('users/login');
+
+            if(isset($_SESSION['shop_user'])){
+                unset($_SESSION['shop_user']);
+                redirect('shop');
+            } else{
+                redirect('users/login');
+            }
         }
 
 

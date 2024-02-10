@@ -30,7 +30,7 @@
 
                     //this is the error message from the change password page 
                     echo "<div class='badges'>
-                            <div class='red'>".$_SESSION['session_err_PO']."</div>
+                            <div class='red a'>".$_SESSION['session_err_PO']."</div>
                         </div>";
                     
                     //unset
@@ -49,16 +49,30 @@
                 } 
 
 
-                if(!empty($_SESSION['PO_last_activity'])){
+                if(!empty( $_SESSION['error_msg_from_petowner'] )){
 
                     echo "
                     <div class='badges'>
-                            <div class='red'>".$_SESSION['PO_last_activity']."</div>   
+                            <div class='red b'>". $_SESSION['error_msg_from_petowner'] ."</div>   
                     </div>";
 
                     //unset
-                    unset($_SESSION['PO_last_activity']);
+                    unset( $_SESSION['error_msg_from_petowner'] );
                     session_destroy();
+
+                }
+
+
+                if(!empty( $_SESSION['error_msg_from_shop'] )){
+
+                    echo "
+                    <div class='badges'>
+                            <div class='red'>". $_SESSION['error_msg_from_shop'] ."</div>   
+                    </div>";
+
+                    //unset
+                    unset( $_SESSION['error_msg_from_shop'] );
+                    
 
                 }
 

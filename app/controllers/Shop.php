@@ -6,6 +6,12 @@
 
             $this->shopModel = $this->model('ShopModel');
             $this->PostModel = $this->model('Post');
+
+            if(isset($_SESSION['shop_user'])){
+    
+                unset($_SESSION['shop_user']);
+
+            }
            
         }
 
@@ -15,6 +21,25 @@
    
             
             $this->view('shop/index', $data);
+        }
+
+        public function createAccount(){
+
+            $_SESSION['shop_user'] = true;
+
+            redirect('users/signup');
+        }
+
+        public function login(){
+                
+                $_SESSION['shop_user'] = true;
+    
+                redirect('users/login');
+        }
+
+        public function logout(){
+            $_SESSION['shop_user'] = true;
+            redirect('users/logout');
         }
         // public function foodAndTreats(){
 
@@ -132,6 +157,213 @@
 
             
         }
+
+
+        public function addToCart(){
+            $postData = json_decode(file_get_contents('php://input'), true);
+
+            // Check if productId and quantity are provided
+            if (isset($_POST['productId']) && isset($_POST['quantity'])) {
+                // Get productId and quantity from the request
+                $productId = $_POST['productId'];
+                $quantity = $_POST['quantity'];
+                
+
+                // Store product in the cart session variable
+                $_SESSION['cart'][$productId] = $quantity;
+
+                // Send success response
+                echo json_encode(['success' => true]);
+            } else {
+                // Send error response
+                echo json_encode(['success' => false, 'error' => 'Missing productId or quantity']);
+            }
+         }
+
+         public function updateCartInfo() {
+            // Initialize cart information
+            $cartInfo = array(
+                'total' => 0.00, // Total cart value
+                'itemCount' => 0 // Number of items in the cart
+            );
+        
+            // Example: Retrieve cart information from session
+            if (isset($_SESSION['cart'])) {
+                foreach ($_SESSION['cart'] as $productId => $quantity) {
+                    // You need to fetch the product details from the database
+                    // and calculate the total based on product price and quantity
+                   
+                    $price = $this->shopModel->getProductPrice($productId);
+                    
+        
+                    $cartInfo['total'] += $price * $quantity;
+                    $cartInfo['itemCount'] += $quantity;
+                }
+            }
+        
+            // Set the content type to JSON
+            header('Content-Type: application/json');
+        
+            // Output the cart information as JSON
+            echo json_encode($cartInfo);
+        }
+
+
+        public function shopcart() {
+            // Initialize data array
+            $data = ['cart' => '',
+                    'total' => ''];
+        
+            // Check if the 'cart' session variable is set
+            if (isset($_SESSION['cart'])) {
+                $cart = $_SESSION['cart'];
+        
+                // Check if the cart is not empty
+                if (!empty($cart)) {
+                    // Extract product IDs from the cart
+                    $productIds = array_keys($cart);
+        
+                    // Get cart products from the database
+                    $cartProducts = $this->shopModel->getProductsByCart($productIds);
+
+                    
+        
+                    // Assign cart products to the data array
+                    $data['cart'] = $cartProducts;
+                
+                }
+            }
+
+            
+        
+            // Load the view with the data
+            $this->view('shop/shopcart', $data);
+        }
+
+        public function removeFromCart(){
+            $postData = json_decode(file_get_contents('php://input'), true);
+
+
+
+                // Check if productId is provided in the request
+                if(isset($_POST['productId'])) {
+                    $productId = $_POST['productId'];
+
+                    // Remove the product from the cart session variable
+                    if(isset($_SESSION['cart'][$productId])) {
+                        unset($_SESSION['cart'][$productId]);
+                        // Optionally, you might want to do some additional cleanup or logging here
+                        // For example, logging the removal of the product or updating other related data
+                        // depending on your application's requirements.
+                        echo json_encode(array('success' => true)); // Send success response
+                        exit;
+                    } else {
+                        // If product with given productId is not found in the cart
+                        echo json_encode(array('success' => false, 'message' => 'Product not found in cart.'));
+                        exit;
+                    }
+                } else {
+                    // If productId is not provided in the request
+                    echo json_encode(array('success' => false, 'message' => 'Product ID not provided.'));
+                    exit;
+                }
+
+         }
+
+         public function updateCartQuantity(){
+
+            $postData = json_decode(file_get_contents('php://input'), true);
+                        // Check if productId and quantity are provided in the request
+            if(isset($_POST['productId']) && isset($_POST['quantity'])) {
+                $productId = $_POST['productId'];
+                $quantity = $_POST['quantity'];
+
+                // Update the quantity in the cart session variable
+                if(isset($_SESSION['cart'][$productId])) {
+                    $_SESSION['cart'][$productId] = $quantity;
+                    echo json_encode(array('success' => true)); // Send success response
+                    exit;
+                } else {
+                    // If product with given productId is not found in the cart
+                    echo json_encode(array('success' => false, 'message' => 'Product not found in cart.'));
+                    exit;
+                }
+            } else {
+                // If productId or quantity is not provided in the request
+                echo json_encode(array('success' => false, 'message' => 'Product ID or quantity not provided.'));
+                exit;
+            }
+         }
+
+         public function payment(){
+
+            if(isLoggedIn() == false){
+                $_SESSION['shop_user_shopcart'] = true;
+                $_SESSION['error_msg_from_shop'] = 'Please login to continue.';
+                redirect('shop/login');
+
+
+            }else{
+
+
+                $_SESSION['shop_user_shopcart'] = false;
+
+                $cart = $_SESSION['cart'];
+                $productIds = array_keys($cart);
+                 // Get cart products from the database
+                $cartProducts = $this->shopModel->getProductsByCart($productIds);
+
+                $lineItems = array();
+                foreach ($cartProducts as $product) {
+                    $lineItems[] = array(
+                        'price_data' => array(
+                            'currency' => 'lkr',
+                            'product_data' => array(
+                                'name' => $product->name,
+                                //'images' => array($product->image),
+                                'images' => array(URLROOT . '/public/img/shop/popular.png'), // Concatenate URLROOT with the image path
+                            ),
+                            'unit_amount' => $product->price * 100, // Convert price to cents
+                        ),
+                        'quantity' => $cart[$product->id],
+                    );
+                }
+
+                require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
+                \Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
+        
+                $expiresAt = time() + (30 * 60); // in 30 min this will expire
+                $expirationDescription = date('Y-m-d H:i:s', $expiresAt);
+        
+                // Create a payment session
+                $paymentSession = \Stripe\Checkout\Session::create([
+                    'payment_method_types' => ['card'],
+                    'mode' => 'payment', // Set mode to 'payment' for one-time payments
+                    'line_items' => $lineItems,
+                    'success_url' => 'http://localhost/petcare/shop/index/', // Add a query parameter for success
+                    'cancel_url' => 'http://localhost/petcare/shop/shopcart', // Add a query parameter for cancel
+                    "customer_email" => $_SESSION['user_email'], // set customer email
+                    "expires_at" => $expiresAt,
+                ]);
+        
+                // Redirect to the Payment Link URL
+                header('Location: ' . $paymentSession->url);
+                exit;
+
+            }
+           
+        
+                
+        
+            
+         }
+
+
+        
+
+
+        
+        
 
 
     }

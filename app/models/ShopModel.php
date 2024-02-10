@@ -146,6 +146,39 @@
         return $results;
        }
 
+       public function getProductPrice($productID){
+
+        $this->db->query('SELECT price FROM petcare_inventory WHERE id = :id');
+        $this->db->bind(':id' , $productID);
+
+        $results = $this->db->single();
+        return $results->price;
+
+       }
+
+       public function getProductsByCart($productID){
+
+            $query ='SELECT * FROM petcare_inventory WHERE id IN (';
+        
+            foreach ($productID as $index => $id) {
+                if ($index > 0) {
+                    $query .= ', ';
+                }
+                $query .= $id;
+            }
+            $query .= ')';
+
+
+            $this->db->query($query);
+
+        $results = $this->db->resultSet(); 
+        return $results;
+
+       
+       }
+
+       
+
         
 
     }
