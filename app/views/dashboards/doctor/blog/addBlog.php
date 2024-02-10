@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/addStaff.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/doctor/postBlog.css">
+     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -80,7 +78,7 @@
                             <label>Title</label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['title_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-edit-alt'></i>
+                            <i class='bx bx-edit-alt'></i>
                             <input type="text" class="input" name="title" placeholder="Enter title" value="<?php echo $data['title']?>">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['title_err']; ?></span>
@@ -99,6 +97,8 @@
                                     </select>
                         </div>
                         <span class="invalid-feedback"><?php echo $data['category_err']; ?></span>
+
+                        
 
                        
 

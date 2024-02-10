@@ -573,7 +573,7 @@
                     }
                     
                 }else{
-                    die ('not mached');
+                    die ('not matched');
                 }
                }
 

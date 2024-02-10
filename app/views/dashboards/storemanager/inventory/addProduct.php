@@ -78,10 +78,10 @@
                             <i class='bx bx-category' ></i>
                             <select name="category">
                                 <option value=""  selected>Select Category</option>
-                                <option value="Food">Food</option>
-                                <option value="Toys">Toys</option>
-                                <option value="Accessories">Accessories</option>
-                                <option value="Treats">Treats</option>
+                                <option value="1">Food</option>
+                                <option value="2">Toys</option>
+                                <option value="3">grooming</option>
+                                <option value="4">Accessories</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
