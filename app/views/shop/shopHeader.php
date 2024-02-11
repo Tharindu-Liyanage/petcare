@@ -93,7 +93,7 @@
               
 
 
-                <a href="#" class="iscart flexitem">
+                <a href="<?php echo URLROOT?>/shop/shopcart" class="iscart flexitem">
                     <div class="icon-large">
                         <i class="ri-shopping-cart-line"></i>
                         <div class="fly-item"><span class="item-number">0</span></div>
@@ -130,8 +130,8 @@
                         <hr>
 
                         <a href="#" class="sub-menu-link">
-                            <i class="ri-user-line icon"></i>
-                            <p>Edit Profile</p>
+                            <i class="ri-shopping-bag-line icon"></i>
+                            <p>My Orders</p>
                             <span>></span>
                         </a>
 
@@ -156,7 +156,7 @@
                         <hr>
 
                         <a href="<?php echo URLROOT?>/shop/createAccount" class="sub-menu-link">
-                            <i class="ri-account-circle-line icon"></i>
+                            <i class="ri-user-add-line"></i>
                             <p>Create an Account</p>
                             <span>></span>
                         </a>
@@ -214,3 +214,4 @@ function toggleMenu() {
 
 
     <script src="<?php echo URLROOT; ?>/public/js/store.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/shop/shopcartHeader.js"></script>

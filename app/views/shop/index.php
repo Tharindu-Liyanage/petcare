@@ -181,7 +181,7 @@
                         <hr>
 
                         <a href="<?php echo URLROOT?>/shop/createAccount" class="sub-menu-link">
-                            <i class="ri-account-circle-line icon"></i>
+                            <i class="ri-user-add-line icon"></i>
                             <p>Create an Account</p>
                             <span>></span>
                         </a>

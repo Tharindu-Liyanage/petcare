@@ -6,6 +6,13 @@
 
             $this->homeModel = $this->model('HomeModel');  //homeModel is an object of the Home model class(models/Home.php)
             $this->PostModel = $this->model('Post');
+
+            //unset  $_SESSION['shop_user']
+            if(isset($_SESSION['shop_user'])){
+                unset($_SESSION['shop_user']);
+            }
+           
+
         }
 
         public function index(){

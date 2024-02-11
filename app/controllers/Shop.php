@@ -297,11 +297,28 @@
 
          public function payment(){
 
+             //calcualte total price in cart
+            $total = 0;
+            if(isset($_SESSION['cart'])){
+                $cart = $_SESSION['cart'];
+                $productIds = array_keys($cart);
+                $cartProducts = $this->shopModel->getProductsByCart($productIds);
+                foreach ($cartProducts as $product) {
+                    $total += $product->price * $cart[$product->id];
+                }
+            }
+
+
             if(isLoggedIn() == false){
                 $_SESSION['shop_user_shopcart'] = true;
                 $_SESSION['error_msg_from_shop'] = 'Please login to continue.';
                 redirect('shop/login');
 
+
+            }elseif($total == 0){//if cart total is 0
+               
+                $_SESSION['shop_user_shopcart_error'] = "Your cart is empty. Please add products to the cart to continue.";
+                redirect('shop/shopcart');
 
             }else{
 
@@ -340,8 +357,8 @@
                     'payment_method_types' => ['card'],
                     'mode' => 'payment', // Set mode to 'payment' for one-time payments
                     'line_items' => $lineItems,
-                    'success_url' => 'http://localhost/petcare/shop/index/', // Add a query parameter for success
-                    'cancel_url' => 'http://localhost/petcare/shop/shopcart', // Add a query parameter for cancel
+                    'success_url' => 'http://localhost/petcare/shop/paymentSuccess', // Add a query parameter for success
+                    'cancel_url' => 'http://localhost/petcare/shop/paymentCancel', // Add a query parameter for cancel
                     "customer_email" => $_SESSION['user_email'], // set customer email
                     "expires_at" => $expiresAt,
                 ]);
@@ -351,12 +368,57 @@
                 exit;
 
             }
-           
         
-                
-        
-            
          }
+
+            public function paymentSuccess(){
+                
+                $_SESSION['shop_payment_success'] = true;
+
+
+                //unset
+                unset($_SESSION['cart']);
+    
+                redirect('shop/confirmMessage');
+            }
+
+            public function paymentCancel(){
+                $_SESSION['shop_payment_cancel'] = true;
+                redirect('shop/confirmMessage');
+            }
+
+            public function confirmMessage(){
+
+                if(!isset($_SESSION['shop_payment_success']) && !isset($_SESSION['shop_payment_cancel'])){
+                    redirect('shop');
+                }
+    
+                if(isset($_SESSION['shop_payment_success'])){
+
+                    //unset
+                    unset($_SESSION['shop_payment_success']);
+                    $data = [
+                        'title' => 'Your Payment Is Complete!',
+                        'msg' => 'You will receive a confirmation email with order details.',
+                        'btn-msg' => 'Explore more Products',
+                        'btn-link' => 'shop'
+                    ];
+
+
+                }else if(isset($_SESSION['shop_payment_cancel'])){
+                    //unset
+                    unset($_SESSION['shop_payment_cancel']);
+                    $data = [
+                        'title' => 'Your Payment Is Incomplete!',
+                        'msg' => 'You can try again.',
+                        'btn-msg' => 'Visit Cart',
+                        'btn-link' => 'shop/shopcart'
+                    ];
+                }
+    
+                
+                $this->view('shop/orderMessage', $data);
+            }
 
 
         
