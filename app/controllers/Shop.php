@@ -302,11 +302,19 @@
             if(isset($_SESSION['cart'])){
                 $cart = $_SESSION['cart'];
                 $productIds = array_keys($cart);
-                $cartProducts = $this->shopModel->getProductsByCart($productIds);
-                foreach ($cartProducts as $product) {
-                    $total += $product->price * $cart[$product->id];
+
+                if($_SESSION['cart'] != null){
+                   
+                
+                    $cartProducts = $this->shopModel->getProductsByCart($productIds);
+                    foreach ($cartProducts as $product) {
+                        $total += $product->price * $cart[$product->id];
+                    }
+
                 }
             }
+
+            
 
 
             if(isLoggedIn() == false){
@@ -338,7 +346,7 @@
                             'product_data' => array(
                                 'name' => $product->name,
                                 //'images' => array($product->image),
-                                'images' => array(URLROOT . '/public/img/shop/popular.png'), // Concatenate URLROOT with the image path
+                               // 'images' => array('http://localhost/petcare/public/img/shop/popular.png'), // Concatenate URLROOT with the image path
                             ),
                             'unit_amount' => $product->price * 100, // Convert price to cents
                         ),
