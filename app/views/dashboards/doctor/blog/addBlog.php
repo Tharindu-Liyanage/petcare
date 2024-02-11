@@ -98,7 +98,17 @@
                         </div>
                         <span class="invalid-feedback"><?php echo $data['category_err']; ?></span>
 
-                        
+                        <!--   <div class="name-text">Name</div>
+                                                    <div class="inputForm <?php echo (!empty($data['firstname_err'])) ? 'is-invalid' : '' ; ?>">
+                                                        <i class='bx bx-dollar' ></i>
+                                                        <input type="text" name="fname" class="input text-box firstname-textbox" placeholder="Anna" value="<?php echo $data['settings']->firstname; ?>">
+                                                    </div>
+                                                    <span class="invalid-feedback"><?php echo $data['lastname_err']; ?></span>
+                                                    <div class="inputForm <?php echo (!empty($data['lastname_err'])) ? 'is-invalid' : '' ; ?>">
+                                                        <i class='bx bx-dollar' ></i>
+                                                        <input type="text" name="lname" class="input text-box lastname-textbox" placeholder="Marie" value="<?php echo $data['settings']->lastname; ?>">
+                                                    </div>
+                                                    <span class="invalid-feedback"><?php echo $data['lastname_err']; ?></span> -->
 
                        
 

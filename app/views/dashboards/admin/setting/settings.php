@@ -29,7 +29,9 @@
                             
                         </div>
     
-        <form class="container" action="<?php echo URLROOT; ?>/admin/settings" method="post" >     <!--start of form-->
+        <form class="container" name="form1" action="<?php echo URLROOT; ?>/admin/settings" method="post" >     <!--start of form-->
+
+                                <input type="hidden" name="formType" value="1">
                                     <div class="tab-box">                        
                                         <div class="tab-btn active">My Profile</div>
                                         <div class="tab-btn">Password</div>
@@ -92,8 +94,12 @@
                                                         </div>
                                                 </div>
                                             </div>          <!-- end o ffooter-->
-                                        </div>                 <!-- end of inner content 1 (My profile)-->
+                                        </div>  
+        </form>
+        <form class="container" name="form1" action="<?php echo URLROOT; ?>/admin/settings" method="post" >     <!--start of form-->
+                                        <!-- end of inner content 1 (My profile)-->
 
+                                        <input type="hidden" name="formType" value="2">
                                         <div class="inner-content">                 <!-- start of inner content2 (Passsword)-->
                                             <div class="personal-info">                 <!-- personal info-->
                                                 <div class="large">
@@ -131,8 +137,10 @@
 
                                         </div>
 
-
+</form>
+<form class="container" name="form1" action="<?php echo URLROOT; ?>/admin/settings" method="post" >     <!--start of form-->
                                         
+                                        <input type="hidden" name="formType" value="3">
                                         <div class="inner-content">                 <!-- start of content 4 (Social profile)-->
                                             <div class="personal-info">                 <!-- personal info-->
                                                 <div class="large">

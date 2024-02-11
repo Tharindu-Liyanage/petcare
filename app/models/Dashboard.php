@@ -113,34 +113,57 @@
 
         }
 
-        public function updateSettings($data){
+        public function updateSettings1($data){
 
-            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile , password = :password , fb_url = :fb_url , twitter_url = :twitter_url , insta_url = :insta_url  WHERE staff_id = :id');
+       
 
-        //bind values
-        $this->db->bind(':id',$data['id']);
-        $this->db->bind(':first_name',$data['first_name']);
-        $this->db->bind(':last_name',$data['last_name']);
-        $this->db->bind(':mobile',$data['mobile']);
-        $this->db->bind(':email',$data['email']);
-        $this->db->bind(':role',$data['role']);
-        $this->db->bind(':address',$data['address']);
-        $this->db->bind(':fb_url',$data['fb_url']);
-        $this->db->bind(':insta_url',$data['insta_url']);
-        $this->db->bind(':twitter_url',$data['twitter_url']);
-        $this->db->bind(':password',$data['password']);
+                $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email,  address = :address , phone = :mobile   WHERE staff_id = :id');
+
+            //bind values
+            $this->db->bind(':id',$data['id']);
+            $this->db->bind(':first_name',$data['first_name']);
+            $this->db->bind(':last_name',$data['last_name']);
+            $this->db->bind(':mobile',$data['mobile']);
+            $this->db->bind(':email',$data['email']);
+            $this->db->bind(':address',$data['address']);
 
         
-        
 
-        //execute
-        if($this->db->execute()){
-            return true;
+            
+            
+            
 
-        }else{
-            return false;
-        }  
+            //execute
+            if($this->db->execute()){
+                return true;
 
+            }else{
+                return false;
+            }  
+
+        }
+
+        public function updateSettings2($data){
+
+          
+            $this->db->query('UPDATE petcare_staff SET   password = :password  WHERE staff_id = :id');
+    
+            //bind values
+            $this->db->bind(':id',$data['id']);
+            $this->db->bind(':password',$data['password']);
+    
+            
+            
+            
+    
+            //execute
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }  
+    
         }
 
 
