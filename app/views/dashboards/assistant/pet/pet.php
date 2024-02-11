@@ -81,7 +81,7 @@
             <tr>
                 <td class="id-search"><?php echo $pet->pet_id_generate?></td>
                 <td class="profile">
-                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animal/<?php echo $pet-> profileImage ?>" ><p><?php echo $pet->species?> <?php echo $pet-> petowner_id?></p>
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> profileImage ?>" ><p><?php echo $pet-> pet?></p>
                 </td class="id-search">
                 <td class="dob-search"><?php echo $pet->DOB?></td>
                 <td class="breed-search"><?php echo $pet->breed?></td>
