@@ -28,12 +28,30 @@
                         <li><a href="<?php echo URLROOT; ?>/assistnat" class="active"> Home</a></li>
                     </ul>
                 </div>
+
+                <!-- button is here -->
+
+                <!-- change href to <?php echo URLROOT;?>/assistant/addPetowner (assistant is controller , addPetowner is method)  AND Add Staff Member to Add Petowner -->
+
+                <div class="add-button">
+             <a href="<?php echo URLROOT;?>" ><button id="add-form-button">
+                <i class='bx bx-user-plus' ></i>
+                        Add Staff Member 
+                </button> </a>
+            </div>
+
+
+                
                 
             </div>
+
+            
 
            
 
             <div class="bottom-data">
+
+            
 
 <!--start od orders-->
 <div class="users" id="pet">
