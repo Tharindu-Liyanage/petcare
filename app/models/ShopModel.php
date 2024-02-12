@@ -177,6 +177,61 @@
        
        }
 
+       public function addToCart(){
+        $this->db->query('INSERT INTO petcare_carts (user_id) VALUES (:user_id)');
+
+        $this->db->bind(':user_id' , $_SESSION['user_id']);
+        
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            die('Something went wrong in adding to cart');
+        }
+
+       }
+
+
+
+         public function getCartID(){
+          $this->db->query('SELECT cart_id FROM petcare_carts WHERE user_id = :user_id ORDER BY cart_id DESC LIMIT 1');
+
+            $this->db->bind(':user_id' , $_SESSION['user_id']);
+
+            $result = $this->db->single();
+            return $result->cart_id;
+         }
+
+         public function addToCartItems($cart_id, $product_id, $quntity, $price){
+            $this->db->query('INSERT INTO petcare_cart_items (cart_id, product_id, quantity, price) VALUES (:cart_id, :product_id, :quantity, :price)');
+
+            $this->db->bind(':cart_id' , $cart_id);
+            $this->db->bind(':product_id' , $product_id);
+            $this->db->bind(':quantity' , $quntity);
+            $this->db->bind(':price' , $price);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                die('Something went wrong in adding to cart items');
+            }
+         }
+
+
+         public function removeStock($product_id,$quntity){
+            $this->db->query('UPDATE petcare_inventory SET stock = stock - :quantity WHERE id = :id');
+
+            $this->db->bind(':id' , $product_id);
+            $this->db->bind(':quantity' , $quntity);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                die('Something went wrong in removing stock');
+            }
+
+         }
+
        
 
         

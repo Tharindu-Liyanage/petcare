@@ -298,7 +298,41 @@
             }
 
             if(isLoggedIn()){ // this user alredy login from shop
-                redirect('petowner');
+
+               // redirect('petowner');
+               //login according to roles
+
+               if(isset($_SESSION['user_role'])){
+
+                switch ($_SESSION['user_role']) {
+                    case "Pet Owner":
+                        redirect('petowner');
+                        break;
+                    case "Vet":
+                        redirect('vet');
+                        break;
+                    case "Admin":
+                        redirect('admin');
+                        break;
+                    case "Assistant":
+                        redirect('assistant');
+                        break;
+                    case "Store Manager":
+                        redirect('storemanager');
+                        break;
+                    case "Doctor":
+                        redirect('doctor');
+                        break;
+                    case "Nurse":
+                        redirect('doctor');
+                        break;
+                    default:
+                     
+                        // Handle unexpected roles, e.g., redirect to a default page or show an error message.
+                        break;
+                    }
+                }
+
             }
 
             $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);

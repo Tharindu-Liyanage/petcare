@@ -10,7 +10,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="http://localhost/petcare/public/img/favicons/favicon-16x16.png">
         <link rel="icon" href="http://localhost/petcare/public/img/favicons/favicon.ico" type="image/x-icon">
 
-        <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/shop/foodAndTreats.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/shop/shop.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/shop/searchpage.css">
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <!--Animate On Scroll Library -->
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -524,12 +524,33 @@ ul.pagination li.active{
         <li class="product-box">
             <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
             <strong class="name"><?php echo $product->name ; ?></strong>
+
+
+            <?php if($product->stock > 0) : ?>
             <span class="quantity"> Quntity <?php echo $product->stock ; ?> </span>
+            <?php else : ?>
+            <span class="quantity" style="color:#E5605E">OUT OF STOCK</span>
+            <?php endif; ?>
+
+
+
             <span class ="price">Rs.<?php echo $product->price; ?></span>
             <!-- cart btn -->
+
+
+             <?php if($product->stock > 0) : ?>
+
             <a href="#" class="cart-btn" data-product-id ="<?php echo $product->id ?>"  data-product-price="<?php echo $product->price; ?>">
                 <i class="fas fa-shopping-bag"></i> Add To Cart
             </a>
+
+            <?php else : ?>
+
+            <a href="#" class="cart-btn" style="background-color:#FF7276; color:#ffffff; pointer-events: none;" data-product-id ="<?php echo $product->id ?>"  data-product-price="<?php echo $product->price; ?>">
+                <i class="fas fa-shopping-bag"></i> Out of Stock
+            </a>
+
+            <?php endif; ?>
 
             <!-- heart-btn -->
           <!--  <a href="#" class="like-btn"> 
