@@ -47,8 +47,8 @@
                                                 </div>
                                                 <div class="line2">
                                                     <div class="small">Update your profile photo and details here.</div>
-                                                    <button class="cancel-btn">Cancel</button>
-                                                    <button value="my-profile" name="profile-button" class="save-changes-btn">Save Changes</button>
+                                                    <button type="reset" value="reset" class="cancel-btn">Cancel</button>
+                                                    <button type="submit" value="my-profile" name="profile-button" class="save-changes-btn">Save Changes</button>
                                                 </div>
                                             </div>
 
