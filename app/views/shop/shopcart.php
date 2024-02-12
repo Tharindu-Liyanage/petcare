@@ -200,13 +200,35 @@
                             <div class="name">
                                 <a href="#"><?php echo $product -> name; ?></a>
                             </div>
+
+                            <?php if($product->stock > 0) : ?>
                             <div class="description"><?php echo $product->stock?> left</div>
+                            <?php else: ?>
+                            <div class="description" style="color:#E5605E">OUT OF STOCK</div>
+                            <?php endif; ?>
+
                             <div class="price">LKR <?php echo $product->price ?></div>
                         </div>
                     </div>
                     <div class="col right">
                         <div class="quantity">
-                            <input type="number" class="quantity" min="0" max="<?php echo $product->stock?>" step="1" value="<?php echo $_SESSION['cart'][$product->id] ;?>" data-product-id="<?php echo $product->id ?>" data-product-price="<?php echo $product->price ?>">
+
+
+                            <input 
+                                type="number" 
+                                class="quantity" 
+                                min="<?php if($product->stock > 0) { echo "1";} else echo "0" ?>" 
+                                max="<?php echo $product->stock?>" step="1" 
+                                value="<?php  if($product->stock > 0 ) { echo $_SESSION['cart'][$product->id] ;} else echo "0"; ?>" 
+                                data-product-id="<?php echo $product->id ?>" 
+                                data-product-price="<?php echo $product->price ?>" 
+
+                                style="
+                                <?php
+                                if(isset( $_SESSION['shop_user_shopcart_error_product_id']) && in_array($product->id, $_SESSION['shop_user_shopcart_error_product_id'])) {
+                                    echo "border: 1px solid #E5605E;"; 
+                                }?>"
+                                >
                         </div>
                         <div class="remove">
                             <button type="button"><i class='bx bx-x-circle'></i></button>
@@ -216,6 +238,7 @@
                 <!-- one product-->
 
                 <?php endforeach; ?>
+                <?php  unset($_SESSION['shop_user_shopcart_error_product_id']); ?>
         </ul>
     </section>
 

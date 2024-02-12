@@ -339,24 +339,36 @@
 
              //calcualte total price in cart
             $total = 0;
+           
             if(isset($_SESSION['cart'])){
                 $cart = $_SESSION['cart'];
                 $productIds = array_keys($cart);
-
+                $quntityZero = false;
+                $noStock = false;
                 if($_SESSION['cart'] != null){
                    
                 
                     $cartProducts = $this->shopModel->getProductsByCart($productIds);
                     foreach ($cartProducts as $product) {
                         $total += $product->price * $cart[$product->id];
-                    }
 
+                        if($cart[$product->id] == 0){
+                            $quntityZero = true;
+                        }
+
+                       //check if stock is available
+                        if($cart[$product->id] > $product->stock){
+                            $noStock = true;
+
+                            //get product ids to the array session variable  
+                            $_SESSION['shop_user_shopcart_error_product_id'][] = $product->id; // this var used in shopcart
+                        }
+
+                    }
                 }
             }
 
-            
-
-
+            // Check if the user is logged in
             if(isLoggedIn() == false){
                 $_SESSION['shop_user_shopcart'] = true;
                 $_SESSION['error_msg_from_shop'] = 'Please login to continue.';
@@ -367,6 +379,30 @@
                
                 $_SESSION['shop_user_shopcart_error'] = "Your cart is empty. Please add products to the cart to continue.";
                 redirect('shop/shopcart');
+
+            }elseif($quntityZero){
+
+                $_SESSION['shop_user_shopcart_error'] = "Quantity of a product in the cart is 0. Please remove the product from the cart to continue.";
+                redirect('shop/shopcart');
+
+            }elseif($noStock){
+
+                $_SESSION['shop_user_shopcart_error'] = "Cart quantity exceeds available stock. Please remove product to proceed.";
+                redirect('shop/shopcart');
+
+
+
+            }elseif($total <= $this->exchangeCurrencyUSDtoLKR()){
+
+                $lkr_value = $this->exchangeCurrencyUSDtoLKR();
+                //formate to 2 decimal places
+
+                $lkr_value_formatted = number_format($lkr_value, 2);
+
+                $_SESSION['shop_user_shopcart_error'] = "Your cart total is less than LKR $lkr_value_formatted . Please add more products to the cart to continue.";
+                redirect('shop/shopcart');
+
+
 
             }else{
 
@@ -423,6 +459,36 @@
                 
                 $_SESSION['shop_payment_success'] = true;
 
+                //add to petcare_cart table
+                $cart = $_SESSION['cart'];
+                $productIds = array_keys($cart);
+                $cartProducts = $this->shopModel->getProductsByCart($productIds);
+                $total = 0;
+              
+                foreach ($cartProducts as $product) {
+                    $total += $product->price * $cart[$product->id];
+                }
+
+               $addtocart = $this->shopModel->addToCart();
+
+               if($addtocart){
+                     //get cart id
+                    $cart_id = $this->shopModel->getCartId();
+
+                    //add cart items to petcare_cart_items table
+                    foreach ($cartProducts as $product) {
+                        $this->shopModel->addToCartItems($cart_id, $product->id, $cart[$product->id], $product->price);
+                    }
+
+                    //remove stock from petcare_inventory
+                    foreach ($cartProducts as $product) {
+                        $this->shopModel->removeStock($product->id, $cart[$product->id]);
+                    }
+
+               }else{
+                     die('Something went wrong in adding to cart');
+               }
+
 
                 //unset
                 unset($_SESSION['cart']);
@@ -466,6 +532,25 @@
     
                 
                 $this->view('shop/orderMessage', $data);
+            }
+
+
+            public function exchangeCurrencyUSDtoLKR(){
+                // API key
+                $apiKey = $_ENV['CURRENCY_EXCHANGE_APIKEY'];
+
+                // Endpoint URL
+                $url = "https://api.currencyapi.com/v3/latest?apikey=$apiKey&currencies=LKR";
+
+                // Make the HTTP request
+                $response = file_get_contents($url);
+
+                // Decode the JSON response
+                $data = json_decode($response, true);
+
+                $lkr_value = $data['data']['LKR']['value'];
+
+                return $lkr_value/2;
             }
 
 

@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (xhr.status === 200) {
                     // Update the total price after removing the product
                     productItem.remove(); // Remove the product item from the list
+                    updateCartInfo();
                     updateTotal(-subtotal); // Update the total price after removing the product
+                    
                 } else {
                     // Handle errors if needed
                     console.error('Failed to remove product from cart.');
@@ -68,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function updateTotal(change = 0) {
+function updateTotal(change = 0) {  //this function not working
     var total = 0;
     if (quantityInputs) { // Ensure quantityInputs is defined before using it
         quantityInputs.forEach(function(input) {
@@ -77,8 +79,12 @@ function updateTotal(change = 0) {
             total += quantity * price;
         });
     }
+   
+    console.log('change',change);
+    
     total += change; // Add the change to the total (change can be negative if removing an item)
-    document.getElementById('total').textContent = 'LKR ' + total.toFixed(2);
+    console.log('total',total);
+   // document.getElementById('total').textContent = 'LKR ' + total.toFixed(2);
 }
 
 // Update cart info
@@ -94,6 +100,7 @@ function updateCartInfo() {
             // Update the cart total and item number in the HTML
             document.querySelector('.cart-total').textContent = 'LKR ' + cartInfo.total.toFixed(2);
             document.querySelector('.item-number').textContent = cartInfo.itemCount;
+            document.getElementById('total').textContent = 'LKR ' + cartInfo.total.toFixed(2);
 
             // Store cart info in local storage
             localStorage.setItem('cartInfo', JSON.stringify(cartInfo));
