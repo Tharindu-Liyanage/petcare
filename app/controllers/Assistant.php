@@ -66,6 +66,34 @@
         }
 
 
+        /*
+        New task :- Make addPetowner Method here
+         
+        eg:- public function addPetowner(){
+
+
+
+            }
+
+        *and view path shold be 'dashboards/assistant/petowner/addPetowner'  this is loaction to addPetowner php to from view folder
+
+        set $data = null
+        
+    
+        */
+
+        public function addPetowner(){
+
+            $data =null;
+   
+            
+            $this->view('dashboards/assistant/petowner/addPetowner',$data);
+        }   
+
+
+
+
+
         public function pet(){
 
             $petDetails = $this ->assistantModel ->getPetDetails ();
