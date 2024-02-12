@@ -52,31 +52,75 @@
                                                 </div>
                                             </div>
 
-                                            <div class="name">                  <!--name -->
+                            
+
+
+                                            <div class="name">  
+                                                <div class="name-left">                <!--name -->
                                                     <div class="name-text">Name</div>
-                                                    <input type="text" name="fname" class="text-box firstname-textbox" placeholder="Anna" value="<?php echo $data['settings']->firstname; ?>">
-                                                    <input type="text" name="lname" class="text-box lastname-textbox" placeholder="Marie" value="<?php echo $data['settings']->lastname; ?>">
-                                            </div>
+                                                </div>
+                                                <div class="name-right">
+                                                    <div class="first-name">
+                                                        <div class="inputForm <?php echo (!empty($data['firstname_err'])) ? 'is-invalid' : '' ; ?> first-name-inputform">
+                                                        
+                                                            <input type="text" name="fname" class="text-box firstname-textbox input" placeholder="Anna" value="<?php echo $data['first_name'] ; ?>">
+                                                        </div>
+                                                        <span class="invalid-feedback"><?php echo $data['firstname_err']; ?></span>
+                                                    </div>
+                                                    <div class="last-name">
+                                                        <div class="inputForm <?php echo (!empty($data['lastname_err'])) ? 'is-invalid' : '' ; ?> first-name-inputform">
+                                                                
+                                                                <input type="text" name="lname" class="text-box firstname-textbox input" placeholder="Marie" value="<?php echo $data['last_name'] ; ?>">
+                                                        </div>
+                                                        <span class="invalid-feedback"><?php echo $data['lastname_err']; ?></span>
+                                                    </div>
+                                                </div>
+                                             </div>
 
                                             <div class="email">                     <!-- Email-->
                                                 <div class="email-text">Email</div>
-                                                <input type="text" name="email" class="text-box email-textbox" placeholder="Annamarie@petcare.com" value="<?php echo $data['settings']->email; ?>">
+                                                <div class="email-box">
+                                                    <div class="inputForm <?php echo (!empty($data['email_err'])) ? 'is-invalid' : '' ; ?>">
+                                                        
+                                                        <input type="text" name="email" class="text-box email-textbox input" placeholder="Annamarie@petcare.com" value="<?php echo $data['email'] ; ?>">
+                                                    </div>
+                                                    <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
+                                                </div>
+                                                
                                             </div>
 
                                             <div class="address">                       <!-- address -->
                                                 <div class="address-text">Address</div>
-                                                <input type="text" name="address" class="text-box address-textbox" placeholder="290 Chatham Way Reston, Maryland(MD), 20191" value="<?php echo $data['settings']->address; ?>" >
+                                                <div class="address-box">
+                                                    <div class="inputForm <?php echo (!empty($data['address_err'])) ? 'is-invalid' : '' ; ?>">
+                                                        
+                                                        <input type="text" name="address" class="text-box address-textbox input" placeholder="290 Chatham Way Reston, Maryland(MD), 20191" value="<?php echo $data['address'] ; ?>">
+                                                    </div>
+                                                    <span class="invalid-feedback"><?php echo $data['address_err']; ?></span>
+                                                </div>
                                             </div>
                                             
                                             <div class="nic">                       <!-- nic-->
                                                 <div class="nic-text">NIC</div>
-                                                <input type="text" name="nic" class="text-box nic-textbox" placeholder="1920664892V" value="<?php echo $data['settings']->email; ?>">
+                                                <div class="nic-box">
+                                                    <div class="inputForm <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : '' ; ?>">
+                                                        
+                                                        <input type="text" name="nic" class="text-box nic-textbox input" placeholder="1920664892V@" value="<?php echo $data['nic'] ; ?>">
+                                                    </div>
+                                                    <span class="invalid-feedback"><?php echo $data['nic_err']; ?></span>
+                                                </div>
                                                 <!-- need to add nic to the databse -->
                                             </div>
 
                                             <div class="mobile">                            <!-- mobile-->
                                                 <div class="mobile-text">Mobile</div>
-                                                <input type="text" name="mobile" class="text-box mobile-textbox" placeholder="+94 773456789" value="<?php echo $data['settings']->phone; ?>">
+                                                <div class="mobile-box">
+                                                    <div class="inputForm <?php echo (!empty($data['mobile_err'])) ? 'is-invalid' : '' ; ?>">
+                                                        
+                                                        <input type="text" name="mobile" class="text-box mobile-textbox input" placeholder="+94 773456789@" value="<?php echo $data['mobile'] ; ?>">
+                                                    </div>
+                                                    <span class="invalid-feedback"><?php echo $data['mobile_err']; ?></span>
+                                                </div>
                                             </div>
 
                                             <div class="footer">                            <!-- footer -->
@@ -115,24 +159,40 @@
                                             <div class="current-password">
                                                 
                                                 <label class="password-label" for="password">Password</label>
-                                                <input class="password-box text-box" type="password" id="password" name="password" placeholder="*********">
+                                                <div class="current-password-box">
+                                                    <div class="inputForm <?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>">                         
+                                                            <input type="password" name="password" id="password" class="password-box text-box input" placeholder="*********">
+                                                    </div>
+                                                    <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
+                                                </div>
                                             </div>
 
                                             <div class="new-password">
                                                 
                                                 <label class="password-label" for="password">New password</label>
                                                 <div class="new-password-right">
-                                                    <input class="password-box text-box" type="password" id="password" name="new-password" placeholder="*********">
+                                                
+                                                    <div class="inputForm <?php echo (!empty($data['new_password_err'])) ? 'is-invalid' : '' ; ?>">                         
+                                                            <input type="password" name="new_password" id="password" class="password-box text-box input" placeholder="*********">
+                                                    </div>
                                                     <div class="new-password-text">
                                                         Your new password must be more than 8 characters.
                                                     </div>
+                                                    <span class="invalid-feedback"><?php echo $data['new_password_err']; ?></span>
+                                                
+                                                    
                                                 </div>
                                             </div>
 
                                             <div class="new-confirm-password">
                                                 
                                                 <label class="password-label" for="password">Confirm New Password</label>
-                                                <input class="password-box text-box" type="password" id="password" name="new-confirm-password" placeholder="*********">
+                                                <div class="confirm-password-box">
+                                                    <div class="inputForm <?php echo (!empty($data['new_confirm_password_err'])) ? 'is-invalid' : '' ; ?>">                         
+                                                            <input type="password" name="new_confirm_password" id="password" class="password-box text-box input" placeholder="*********">
+                                                    </div>
+                                                    <span class="invalid-feedback"><?php echo $data['new_confirm_password_err']; ?></span>
+                                                </div>
                                             </div>
 
                                         </div>
@@ -162,7 +222,7 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <input type="text" class="text-box billing-email-textbox" placeholder="eg: ucsc123@gmail.com" value="<?php echo $data['settings']->email; ?>">
+                                                <input type="text" class="text-box billing-email-textbox" placeholder="eg: ucsc123@gmail.com" value="<?php echo $data['email']; ?>">
                                             </div>
 
                                             <div class="facebook">
@@ -171,7 +231,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-facebook-square'></i>
-                                                    <input type="text" name="fb_url" class="text-box1 billing-email-textbox" placeholder="https://www.facebook.com/facebook_username" value="<?php echo $data['settings']->fb_url; ?>">
+                                                    <input type="text" name="fb_url" class="text-box1 billing-email-textbox" placeholder="https://www.facebook.com/facebook_username" value="<?php echo $data['fb_url'];; ?>">
                                                 </div>
                                             </div>
 
@@ -181,7 +241,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-instagram-alt' ></i>
-                                                    <input type="text" name="insta_url" class="text-box1 city-email-textbox" placeholder="https://www.instagram.com/instagram_username" value="<?php echo $data['settings']->insta_url; ?>">
+                                                    <input type="text" name="insta_url" class="text-box1 city-email-textbox" placeholder="https://www.instagram.com/instagram_username" value="<?php echo $data['insta_url'];; ?>">
                                                 </div>
                                             </div>
 
@@ -192,7 +252,7 @@
                                                 </div>
                                                 <div class="input-container">
                                                     <i class='bx bxl-twitter' ></i>
-                                                    <input type="text" name="twitter_url" class="text-box1 province-email-textbox" placeholder="https://twitter.com/twitter_username" value="<?php echo $data['settings']->twitter_url; ?>">
+                                                    <input type="text" name="twitter_url" class="text-box1 province-email-textbox" placeholder="https://twitter.com/twitter_username" value="<?php echo $data['twitter_url'];; ?>">
                                                 </div>
                                             </div>
 

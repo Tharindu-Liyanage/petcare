@@ -143,6 +143,34 @@
 
         }
 
+        public function updateSettings3($data){
+
+       
+
+            $this->db->query('UPDATE petcare_staff SET fb_url = :fb_ur; , insta_url = :insta_url , twitter_url= :twitter_url   WHERE staff_id = :id');
+
+        //bind values
+        $this->db->bind(':id',$data['id']);
+        $this->db->bind(':fb_ur',$data['fb_url']);
+        $this->db->bind(':insta_url',$data['insta_url']);
+        $this->db->bind(':twitter_url',$data['twitter_url']);
+
+    
+
+        
+        
+        
+
+        //execute
+        if($this->db->execute()){
+            return true;
+
+        }else{
+            return false;
+        }  
+
+    }
+
         public function updateSettings2($data){
 
           

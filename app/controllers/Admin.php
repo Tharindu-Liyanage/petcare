@@ -481,6 +481,8 @@
 
             
             
+            
+            
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 if($_POST['formType'] == 1){
@@ -502,6 +504,7 @@
                         'nic_err' => '',
                         'address_err' => '',
                         'formType' => '1',
+                        'settings' => $settingsData
                        
 
 
@@ -568,7 +571,6 @@
 
 
                     }else{
-
                         // die ('eroor noted');
                         //load view with errors
                         $this->view('dashboards/admin/setting/settings',$data);
@@ -584,12 +586,12 @@
                     $data = [
                         'id' =>$user_id,
                         'password' =>trim($_POST['password']),
-                        'new_password' => trim($_POST['new-password']),
-                        'new_confirm_password' => trim($_POST['new-confirm-password']),
+                        'new_password' => trim($_POST['new_password']),
+                        'new_confirm_password' => trim($_POST['new_confirm_password']),
                         'password_err' =>'',
                         'new_password_err' => '',
                         'new_confirm_password_err' => '',
-                        'formType' => '2',
+                       
                     ];
             
                     if(isset($data['password'])){
@@ -645,6 +647,7 @@
 
                     }else{
                         //load view with errors
+                        
                         $this->view('dashboards/admin/setting/settings',$data);
                         
 
@@ -652,11 +655,75 @@
 
 
                 }
+
+                elseif($_POST['formType'] == 3){
+                    // die ($_POST['formType']);
+                    $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                    $data = [
+                        'fb_url' => trim($_POST['fb_url']),
+                        'insta_url' => trim($_POST['insta_url']),
+                        'twitter_url' => trim($_POST['twitter_url']),
+                        'formType' => '3',
+                        'settings' => $settingsData
+                    ];
+            
+                    
+
+                   if(!empty($data['fb_url']) || !empty($data['twitter_url']) || !empty($data['insta_url'])){
+                    if($this->dashboardModel->updateSettings3($data)){
+                        redirect('admin/settings');
+                    }else{
+
+                        die("Something went wrong");
+                        
+                    }
+
+
+                   }else{
+                    //load view with errors
+                        
+                    $this->view('dashboards/admin/setting/settings',$data);
+                        
+                   }
+
+
+                        
+                       
+                        
+
+                    
+
+
+                }
                 
             }else{
                 // die ("not updated");
-                $data =[
-                    'settings' => $settingsData
+                
+
+                $data = [
+                    'id' =>$user_id,
+                    'first_name' => $settingsData->firstname,
+                    'last_name' => $settingsData->lastname,
+                    'mobile' =>$settingsData->phone,
+                    'nic' => $settingsData->email,
+                    'address' => $settingsData->address,
+                    'email' => $settingsData->email,
+                    'fb_url' => $settingsData->fb_url,
+                    'insta_url' => $settingsData->insta_url,
+                    'twitter_url' => $settingsData->twitter_url,
+                    'firstname_err' => '',
+                    'lastname_err' => '',
+                    'email_err' => '',
+                    'mobile_err' => '',
+                    'nic_err' => '',
+                    'address_err' => '',
+                    'password_err' =>'',
+                    'new_password_err' => '',
+                    'new_confirm_password_err' => '',
+                    
+      
+                
                 ];
                 $this->view('dashboards/admin/setting/settings',$data);
                 // print_r($data['settings']->firstname);

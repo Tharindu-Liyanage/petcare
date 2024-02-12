@@ -72,10 +72,30 @@
 .content main .name{
     border-bottom: 2px solid #E4E4E4;
     display: flex;
+    padding-top :15px;
+    padding-bottom: 15px;
+    align-items: center;
     justify-content: space-between;
+    /* width: 100%; */
     
     
 }
+
+.first-name{
+    
+}
+
+
+.name-right{
+    display: flex;
+    justify-self: end;
+    /* width: 100%; */
+    grid-gap: 50px;
+}
+
+
+
+
 
 
 .content main .name .name-text{
@@ -89,13 +109,14 @@
 .lastname-textbox{
     
     
+    border: 3px solid rebeccapurple;
     
 }
-.firstname-textbox{
+/* .firstname-textbox{
     
     
-    margin-left: 410px;
-}
+    margin-left: 200px;
+} */
 
 .content main .email,.address, .mobile, .nic ,.name ,.current-password  {
     border-bottom: 2px solid #E4E4E4;
@@ -103,6 +124,8 @@
     padding-top :15px;
     padding-bottom: 15px;
     align-items: center;
+    /* justify-content: center; */
+    
 }
 .new-password ,.new-confirm-password ,.billing-email ,.street-address ,.city ,.province ,.twitter ,.facebook ,.instagram{
     border-bottom: 2px solid #E4E4E4;
@@ -239,10 +262,9 @@
     width: 400px;
 }
 
-.inner-content .new-password .new-password-right{
-    display: flex;
-    flex-direction: column;
-
+.inner-content .new-password .new-password-right div{
+    margin: 2px;
+    
 }
 
 .inner-content .new-password .new-password-right .new-password-text{
@@ -328,9 +350,10 @@
     width: 60%;
 }
 
-.input-container ,.text-box ,.text-box-1 ,.text-box2{
+.input-container  ,.text-box-1 ,.text-box2{
     border: 1px solid var(--dark-grey);
 }
+
 
 
 
@@ -372,13 +395,26 @@
 .inputForm {
     border: 1.5px solid #ddd;
     border-radius: 10px;
-    height: 50px;
+    height: 45px;
+    width: 550px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 0px;
     transition: 0.2s ease-in-out;
     margin-bottom: 5px;
   }
+
+.inputForm:focus-within {
+    /* border: 1.5px solid var(--input-color); */
+}
+
+
+
+
+input:focus-within{
+    border: none;
+}
+
 
 .is-invalid {
     
@@ -395,6 +431,21 @@
     color: #dc3545;
     margin-top: -10px;
 }
+
+input{
+    width: 100%;
+    flex-grow: 1;
+}
+
+
+.first-name-inputform{
+    width: 250px;
+}
+
+.last-name-inputform{
+    width: 250px;
+}
+  
 
 
 
