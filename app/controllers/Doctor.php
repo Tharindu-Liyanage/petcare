@@ -552,6 +552,7 @@
 
         public function updateBlog($id){
 
+            $categories = $this->doctorModel->getBlogCategoryDetails();
             
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                  $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
@@ -562,10 +563,12 @@
                     'category' => trim($_POST['category']),
                     'tags' => trim($_POST['tags']),
                     'user_id' => $_SESSION['user_id'],
-                    'thumbnail' => trim($_POST['thumbnail']),
+                    'img' => trim($_POST['blog_img']),
                     'content' => trim($_POST['content-input']),
+                    // 'categories' => $categories,
                     'title_err' => '',
-                    'content_err' => ''
+                    'content_err' => '',
+                    'img_err' => '',
                  ];
 
 
@@ -607,11 +610,15 @@
                     'id' => $id,
                     'title' => $post->title,
                     'category' => $post->category,
-                    'tags' => $post->tags,
-                    'thumbnail' => $post->thumbnail,
+                    // 'tags' => $post->tags,
+                    'img' => $post->thumbnail,
                     'content' => $post->content,
                     'title_err' => '',
-                    'content_err' => ''
+                    'content_err' => '',
+                    'img_err' => '',
+                    'category_err' => '',
+                    'categories' => $categories,
+                    
                  ];
 
 
@@ -649,7 +656,10 @@
 
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
                  $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                 
 
                  if (isset($_FILES['blog_img'])) {
                     $uploadedFileName = $_FILES['blog_img']['name'];
@@ -671,9 +681,10 @@
                     'content' => trim($_POST['content']),
                     'title_err' => '',
                     'content_err' => '',
-                    'img' => '',    //watch petowner addpet method
+                    'img' => ($_FILES['blog_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['blog_img'],
                     'img_err' => '',
                     'categories' => $categories,
+                    'uniqueImgFileName' =>$uniqueImgFileName
                  ];
 
 
@@ -694,6 +705,17 @@
                     $data['category_err'] = 'Please select a category';
                  }
 
+                $allowedTypes = ['image/jpeg', 'image/png'];
+
+                if (!isset($_FILES['blog_img']['type']) || ($_FILES['blog_img']['type'] && !in_array($_FILES['blog_img']['type'], $allowedTypes))) {
+                    // Invalid file type
+                    $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
+                }
+
+                if($_FILES['blog_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                    $data['img_err'] = 'Image size must be less than 5 MB';
+                }
+
                  //handle error in img here
                  /*
                     mandotary to upload image before post
@@ -709,7 +731,7 @@
                  */
 
                  
-                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['category_err'])){
+                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])  &&  empty($data['category_err'])){
                     if($this->postModel->addBlog($data)){
                        
                         redirect('doctor/blog');
@@ -719,6 +741,7 @@
                          die("Something went wrong");
                      }
                  }else{
+                    
                     //load with errors
                     $this->view('dashboards/doctor/blog/addBlog',$data);
 

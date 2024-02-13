@@ -91,7 +91,7 @@
                         <div class="inputForm <?php echo (!empty($data['category_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bxs-dashboard' ></i>
                         <select name="category" id="my-selection" class="selection-dropdown">
-                                        <option value="Select Category" selected>Select Category</option>
+                                        <option value="Select Category" >Select Category</option>
                                         <?php foreach($data['categories'] as $category) : ?>
                                         <option <?php if($data['category'] == $category->id) echo 'selected' ; ?> value="<?php echo $category->id; ?>"><?php echo $category->category_name; ?></option>
                                         <?php endforeach; ?>
