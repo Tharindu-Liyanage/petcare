@@ -51,6 +51,12 @@
                 <div class="blog-date">
                     <?php echo $data['posts']->publishdate; ?>
                 </div>
+
+                <div class="blog-author">
+                    By <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $data['posts']->authorImage?>"> <?php echo $data['posts']->authorfname.' '.$data['posts']->authorlname ; ?>
+                </div>
+
+
                 <div class="thumnail-image">
                     <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="">
                 </div>

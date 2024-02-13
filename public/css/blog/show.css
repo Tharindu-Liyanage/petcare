@@ -224,7 +224,22 @@ body {
 .left-part .blog-date{
     font-size: 1.5rem;
     color: #1F2E88;
-    margin-top: -15px;
+   /* margin-top: -15px;*/
+}
+
+.blog-author{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;   
+}
+
+.blog-author img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+    object-fit: cover;
+    margin-left: 5px;
 }
 
 .left-part .thumnail-image img{

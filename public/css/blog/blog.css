@@ -198,15 +198,28 @@ body {
     background:#ECF3FF;
 }
 
-.title-part{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 80px;
+.main-part{
+    margin-top: 105px;
+    padding: 20px;
+    padding-bottom: 0px;
+    padding-left: 60px;
+    padding-right: 60px
+    
 }
 
-.left-heading{
-    margin-top: 80px;
+.title-part{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #E6EFFE;
+    border-radius: 30px;
+    height:500px;
 }
+
+/*.left-heading{
+    margin-top: 80px;
+}*/
 
 .left-heading > div {
     margin: 5px;
@@ -255,11 +268,22 @@ body {
 
 /* middle part starts here */
 
+.main-title{
+    font-size: 5rem;
+    font-weight: 600;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    color:#2f66d4;
+
+}
 .middle-part{
-    display: flex;
     margin-top: 50px;
     justify-content: space-around;
     flex-wrap: wrap;
+    padding-bottom: 0px;
+    padding-left: 60px;
+    padding-right: 60px
 }
 
 .thumbnail{
@@ -276,17 +300,24 @@ body {
     border-radius: 15px;
 }
 
-.blog-card{
-    width: 250px;
-    height: 380px;
-    justify-content: space-between;
-    padding: 30px;
+.blog-cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 50px;
 
-    flex: 0 0 calc(33.33% - 25px); /* 33.33% width for each item with some spacing  */
-    margin: 25px 10px; 
-    margin-left: 15px;
-    box-sizing: border-box; /* Include padding and border in the calculation */
-    
+}
+
+.blog-card{
+    width: 30%;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    overflow: hidden;
+    background-color: var(--background2);
+    transition: .3s;
+    padding: 15px;
+    cursor: pointer;
 
 }
 
@@ -301,10 +332,27 @@ body {
     margin: 7px 0px;    
 }
 
+.blog-author{
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    margin: 7px 0px;    
+}
+
+.blog-author img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+    object-fit: cover;
+    margin-left: 5px;
+}
+
+
 .blog-body{
     font-size: 1.2rem;
     margin: 7px 0px 20px 0px; 
-    width: 70%;  
+    width: 100%;  
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow:hidden;
@@ -345,7 +393,7 @@ footer{
     border-radius: 10px;
     margin: 80px;
     padding: 20px;
-    margin-top: 150px;
+    margin-top: 50px;
     
 }
 
@@ -434,3 +482,83 @@ footer .copyright{
 
 
 /* footer ends here */
+
+ul.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    list-style:none;
+    margin-top:20px;
+    padding:0px;
+    font-size:13px;
+}
+
+ul.pagination li{
+    margin:0px 5px;
+    padding:5px 12px;
+    border:1px solid #d3d3d3;
+    border-radius:5px;
+    cursor:pointer;
+    background-color:#fff;
+    transition:all ease 0.3s;
+}
+
+ul.pagination li a{
+    color:#2f66d4;
+    text-decoration:none;
+}
+
+ul.pagination li.active{
+    background-color:#2f66d4;
+    border:1px solid #2f66d4;
+    transition:all ease 0.3s;
+}
+
+ul.pagination li.active a{ 
+    color:#fff; 
+}
+
+
+/*search bar*/
+
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 250px;
+   }
+   
+   .input {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #fff;
+    color: #0d0c22;
+    transition: .3s ease;
+   }
+   
+   .input::placeholder {
+    color: #9e9ea7;
+   }
+   
+   .input:focus, input:hover {
+    outline: none;
+    border-color: rgba(76, 145, 234, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(62, 36, 231, 0.1);
+   }
+   
+   .icon-search {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+   }
+      

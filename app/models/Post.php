@@ -7,23 +7,30 @@
         }
 
         public function getPosts(){
-            $this->db->query('SELECT * , category.category_name as categoryname
+            $this->db->query('SELECT * , category.category_name as categoryname , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
             FROM petcare_blogs
-            JOIN petcare_blogs_category category ON petcare_blogs.category = category.id');
+            JOIN petcare_blogs_category category ON petcare_blogs.category = category.id
+            JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id
+            ');
 
             $results = $this->db->resultSet();
             return $results;
         }
 
         public function getPostById($id){
-            $this->db->query('SELECT * FROM petcare_blogs WHERE blogID = :id');
+
+            $this->db->query('SELECT * , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
+                              FROM petcare_blogs
+                              JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id
+                              WHERE blogID = :id');
+
             $this->db->bind(':id' , $id);
             $row = $this->db->single();
             return $row;
         }
 
         public function getRecentPost(){
-            $this->db->query('SELECT * FROM petcare_blogs ORDER BY publishdate DESC');
+            $this->db->query('SELECT * FROM petcare_blogs ORDER BY publishdate DESC LIMIT 3');
             $result = $this->db->resultSet();
             return $result;
         }
