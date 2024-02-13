@@ -46,13 +46,7 @@
             $this->view('dashboards/assistant/appointment/appointment',$data);
         }
 
-        public function addAppointment(){
-
-            $data =null;
-   
-            
-            $this->view('dashboards/assistant/appointment/addAppointment',$data);
-        }
+        
 
         public function petowner(){
 
@@ -77,14 +71,7 @@
 
             }
 
-            /*
-
-        *and view path shold be 'dashboards/assistant/petowner/addPetowner'  this is loaction to addPetowner php to from view folder
-
-        set $data = null
-        
-    
-        */
+            
 
         public function addPetowner(){
 
@@ -92,6 +79,16 @@
    
             
             $this->view('dashboards/assistant/petowner/addPetowner',$data);
+        }   
+
+
+
+        public function addPet(){
+
+            $data =null;
+   
+            
+            $this->view('dashboards/assistant/pet/addPet',$data);
         }   
 
 
