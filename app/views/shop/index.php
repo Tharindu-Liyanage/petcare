@@ -244,27 +244,24 @@
         </div>
 
     <div class=" category-container">
-        <a href="<?php echo URLROOT; ?>/shop/category/foodAndTreats" class = "category-box">
-            <div class="drop-icon icon-large"><i class="fa-solid fa-cookie round"></i></div>
-            <span>Foods And Treats </span>
-        </a>
 
+        <?php foreach($data['category'] as $category) : ?>                       
+           <a href="<?php echo URLROOT; ?>/shop/category/<?php echo $category-> categoryname ; ?>/<?php echo $category-> id ; ?>" class = "category-box">
+                <?php if($category-> categoryname == 'Food'){ ;?>
+                    <div class="drop-icon icon-large"><i class="fa-solid fa-bowl-food"></i></div>
+                <?php } elseif ($category-> categoryname == 'Toys'){ ; ?>
+                    <div class="drop-icon icon-large"><i class="fa-solid fa-bread-slice"></i></div>
+                <?php } elseif ($category-> categoryname == 'Grooming'){ ; ?>
+                    <div class="drop-icon icon-large"><i class="fa-solid fa-paw"></i></div>
+                <?php } elseif ($category-> categoryname == 'Accessories'){ ; ?>
+                    <div class="drop-icon icon-large"><i class="fa-solid fa-table-cells-large"></i></div>
+                <?php } ; ?>
+                
+                <span> <?php echo  $category -> categoryname ; ?> </span>
+            </a>  
+        <?php endforeach ; ?>
 
-        <a href="<?php echo URLROOT; ?>/shop/category/groomingSupplies" class = "category-box">
-            <div class="drop-icon icon-large"><i class="fa-solid fa-paw round"></i></div>
-            <span>Grooming Supplies </span>''
-        </a>
         
-
-        <a href="<?php echo URLROOT; ?>/shop/category/healthAndWellness" class = "category-box">
-            <div class="drop-icon icon-large"><i class="fa-regular fa-heart round"></i></div>
-            <span>Health And Welness</span>
-        </a>
-
-        <a href="<?php echo URLROOT; ?>/shop/category/toysAndBedding" class = "category-box"> 
-        <div class="drop-icon icon-large"><i class="fa-solid fa-basketball round"></i></div>
-            <span>Toys And Bedding </span>
-        </a>
         
         
 

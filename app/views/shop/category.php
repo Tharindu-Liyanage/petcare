@@ -21,7 +21,7 @@
 
         <title>shop category</title>
     </head>
-        <body>
+    <body>
 
         <header class="header">
 
@@ -147,17 +147,14 @@
         </header>
 
 
-        <!-- FOODS AND TREATS STARTS HERE -->
+        
 
 
-        <?php if($data['title'] == 'foodAndTreats'){ ?>
             
-            <div class="category-title">Food And Treats </div>
+            
+                <div class="category-title"><?php echo strtoupper($data['title']); ?> </div>
 
-            <!-- <?php echo $data['product']->categoryName; ?>  -->
                 <div class="category" id="dryfoods">
-                    
-
                     <div class="item-list">
                         <?php foreach($data['product'] as $product) : ?>
                             <div class="item-card">
@@ -174,111 +171,12 @@
                                 </div>
                             </div>
                         <?php endforeach ; ?>
-
-                        
-
-                        
-
-                        
                     </div>
                 </div>
 
 
-        <?php }?>
         
-
-
-        <!-- GROOMING PRODUCTS STARTS HERE -->
-
-
-        <?php if($data['title'] == 'groomingSupplies'){ ?>
-            <div class="category-title">Grooming Supplies</div>
-            <div class="category">
-                
-                
-
-                <div class="item-list">
-                    <?php foreach($data['product'] as $product) : ?>
-                            <div class="item-card">
-                                <div class="item-image">
-                                <a href="<?php echo URLROOT ; ?>/shop/show/<?php echo $product->id ;?>">
-                                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="" >
-                                </a>
-                                </div>
-                                <div class="item-title"><?php echo $product->name ; ?></div>
-                                <div class="item-price"><?php echo $product->price ; ?></div>
-                                <div class="buttons">
-                                    <a href="" class="btn buy-now-buttton">Buy Now</a>
-                                    <a href="" class="btn add-to-cart-buttton">Add To Cart</a>
-                                </div>
-                            </div>
-                    <?php endforeach ; ?>
-                </div>
-            </div>
-        <?php }?>
-
-
-        <!-- HEALTH AND WELLNESS STARTS HERE -->
-
-
-        <?php if($data['title'] == 'healthAndWellness'){ ?>
-            <div class="category-title">Health and wellness</div>
-            <div class="category">
-                
-                
-
-                <div class="item-list">
-                        <?php foreach($data['product'] as $product) : ?>
-                            <div class="item-card">
-                                <div class="item-image">
-                                <a href="<?php echo URLROOT ; ?>/shop/show/<?php echo $product->id ;?>">
-                                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="" >
-                                </a>
-                                </div>
-                                <div class="item-title"><?php echo $product->name ; ?></div>
-                                <div class="item-price"><?php echo $product->price ; ?></div>
-                                <div class="buttons">
-                                    <a href="" class="btn buy-now-buttton">Buy Now</a>
-                                    <a href="" class="btn add-to-cart-buttton">Add To Cart</a>
-                                </div>
-                            </div>
-                        <?php endforeach ; ?>
-                </div>
-            </div>
-        <?php }?>
-
-
-
-        <!-- TOYS AND BEDDING STARTS HERE -->
-
-
-        <?php if($data['title'] == 'toysAndBedding'){ ?>
-            <div class="category-title">Toys and Bedding</div>
-            <div class="category">
-                
-                
-
-                <div class="item-list">
-                        <?php foreach($data['product'] as $product) : ?>
-                            <div class="item-card">
-                                <div class="item-image">
-                                <a href="<?php echo URLROOT ; ?>/shop/show/<?php echo $product->id ;?>">
-                                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="" >
-                                </a>
-                                </div>
-                                <div class="item-title"><?php echo $product->name ; ?></div>
-                                <div class="item-price"><?php echo $product->price ; ?></div>
-                                <div class="buttons">
-                                    <a href="" class="btn buy-now-buttton">Buy Now</a>
-                                    <a href="" class="btn add-to-cart-buttton">Add To Cart</a>
-                                </div>
-                            </div>
-                        <?php endforeach ; ?>
-                </div>
-            </div> 
-        <?php }?>
         
-
-        
+ 
     </body>
 </html>

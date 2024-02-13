@@ -25,7 +25,12 @@ use PHPMailer\PHPMailer\Exception;
 
         public function index(){
 
-            $data =null;
+            $categories = $this->shopModel->getCategories();
+
+
+            $data =[
+                'category' => $categories
+            ];
    
             
             $this->view('shop/index', $data);
@@ -70,28 +75,14 @@ use PHPMailer\PHPMailer\Exception;
             
         //     $this->view('shop/healthAndWellness', $data);
         // }
-        public function category($category){
+        public function category($category,$catId){
 
-            $catTitle = '';
-            switch($category){
-                case 'foodAndTreats' : $catTitle = 1 ;
-                break;
-                case 'groomingSupplies' : $catTitle = 3 ;
-                break;
-                case 'healthAndWellness' : $catTitle = 4 ;
-                break;
-                case 'toysAndBedding' : $catTitle = 2 ;
-                break;
-                case 'other' : $catTitle = 5 ;
-                break;
-                default  : $catTitle = 0;
-
-            }
+            
            
            
             
             
-            $product = $this->shopModel->getProductInfo($catTitle);
+            $product = $this->shopModel->getProductInfo($catId);
 
             $data =[
                 'title' => $category,
