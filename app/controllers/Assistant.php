@@ -66,14 +66,18 @@
         }
 
 
-        /*
-        New task :- Make addPetowner Method here
+        
+       
          
-        eg:- public function addPetowner(){
-
+         public function addAppointment(){
+             $data =null;
+ 
+            $this->view('dashboards/assistant/petowner/addPetowner',$data);
 
 
             }
+
+            /*
 
         *and view path shold be 'dashboards/assistant/petowner/addPetowner'  this is loaction to addPetowner php to from view folder
 

@@ -34,9 +34,9 @@
                 <!-- change href to <?php echo URLROOT;?>/assistant/addPetowner (assistant is controller , addPetowner is method)  AND Add Staff Member to Add Petowner -->
 
                 <div class="add-button">
-             <a href="<?php echo URLROOT;?>" ><button id="add-form-button">
+             <a href="<?php echo URLROOT;?>/assistant/addPetowner" ><button id="add-form-button">
                 <i class='bx bx-user-plus' ></i>
-                        Add Staff Member 
+                        Add PET OWNER
                 </button> </a>
             </div>
 
