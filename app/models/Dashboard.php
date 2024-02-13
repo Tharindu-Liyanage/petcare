@@ -1205,6 +1205,53 @@
         }
 
 
+        public function getMyOrdersByPetownerID($id){
+            //get user orders from petcare_carts and total amount from petcare_shop_invoices
+
+            $this->db->query('SELECT cart.*, invoice.total_amount as total_price, invoice.invoice_id as invoice_id, invoice.invoice_date as order_date
+            FROM petcare_carts cart
+            JOIN petcare_shop_invoices invoice ON cart.cart_id = invoice.cart_id
+            WHERE cart.user_id = :id
+            ORDER BY invoice.invoice_date DESC');
+
+            $this->db->bind(':id', $id);
+
+            $results = $this->db->resultSet();
+
+            return $results;
+
+        }
+
+        public function getCartDetailsByCartID($id){
+
+            $this->db->query('SELECT cart.* , invoice.invoice_date as order_date , invoice.invoice_id as invoice_id , invoice.total_amount as total_price
+            FROM petcare_carts cart
+            JOIN petcare_shop_invoices invoice ON cart.cart_id = invoice.cart_id
+            WHERE cart.cart_id = :id');
+
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+    
+            return $row;
+
+        }
+
+        public function getProductsByCartID($id){
+                
+                $this->db->query('SELECT inventory.* , cart.quantity as ordered_quantity
+                FROM petcare_cart_items cart
+                JOIN petcare_inventory inventory ON cart.product_id = inventory.id
+                WHERE cart.cart_id = :id');
+    
+                $this->db->bind(':id', $id);
+    
+                $results = $this->db->resultSet();
+    
+                return $results;
+        }
+
+
 
         // ============================  Pet Owner over =========================================================================================
 

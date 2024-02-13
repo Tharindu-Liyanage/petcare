@@ -1,5 +1,9 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
     class Shop extends Controller {
 
         public function __construct(){
@@ -485,6 +489,12 @@
                         $this->shopModel->removeStock($product->id, $cart[$product->id]);
                     }
 
+                    //generate invoice
+                    $invoice = $this->shopModel->generateInvoiceAndReturnId($cart_id, $total);
+
+                    //send email
+                    $this->sendInvoiceEmail($invoice,$cartProducts,$total);
+
                }else{
                      die('Something went wrong in adding to cart');
                }
@@ -552,6 +562,85 @@
 
                 return $lkr_value/2;
             }
+
+
+            public function sendInvoiceEmail($invoice,$cartProducts,$total){
+
+                require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+
+                //date
+                $today = date("Y-m-d");
+
+                $productList ="";
+                $cart = $_SESSION['cart'];
+
+                foreach($cartProducts as $product){
+
+                    $price = $product->price * $cart[$product->id];
+                    
+                    $text = '<p style="font-size:14px;margin:0;padding:10px;border:solid 1px #ddd;font-weight:bold;">
+                    <span style="display:block;font-size:13px;font-weight:normal;">' . $product->name . '</span> LKR ' . $price . ' <b style="font-size:12px;font-weight:300;">| Quantity - ' . $cart[$product->id] . ' | Unit Price - LKR ' .$product->price. '</b>
+                  </p>';
+
+                    $productList .= $text; // Concatenate $text to $productList
+
+                    
+                }
+            
+                try {
+                    // Create a new PHPMailer instance
+                    $mail = new PHPMailer(true);
+            
+                    // Set mail configuration (replace with your actual details)
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = $_ENV['MAIL_USERNAME'];
+                    $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+                    $mail->SMTPSecure = 'tls';
+                    $mail->Port = 587;
+            
+                    // Set email sender details
+                    $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+            
+                    // Add recipient address
+                    $mail->addAddress($_SESSION['user_email'], 'User: ' . $_SESSION['user_email']);
+            
+                    // Set subject and body
+                    $mail->Subject = 'PetCare Shop Invoice';
+                    $mail->isHTML(true);
+    
+                    $filePath = __DIR__ . '/../views/email/petcareInvoice.php';
+                    $emailContent = file_get_contents($filePath);
+    
+                    $emailContent = str_replace('{order-date}',$today, $emailContent);
+                    $emailContent = str_replace('{invoice-id}',$invoice, $emailContent);
+                    $emailContent = str_replace('{total}',$total, $emailContent);
+                    $emailContent = str_replace('{fname}',$_SESSION['user_fname'], $emailContent);
+                    $emailContent = str_replace('{lname}',$_SESSION['user_lname'], $emailContent);
+                    $emailContent = str_replace('{email}',$_SESSION['user_email'], $emailContent);
+                    $emailContent = str_replace('{address}',$_SESSION['user_address'], $emailContent);
+                    $emailContent = str_replace('{phone}',$_SESSION['user_mobile'], $emailContent);
+                    $emailContent = str_replace('{products}',$productList, $emailContent);
+    
+    
+                    $mail->Body = $emailContent;
+    
+                    // Send the email
+                    $mail->send();
+    
+                    
+                   
+                    
+    
+                } catch (Exception $e) {
+                    // Handle exceptions
+                    echo 'Error: ' . $mail->ErrorInfo;
+                }
+            
+            }
+
+
 
 
         

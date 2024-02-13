@@ -833,6 +833,7 @@
             $_SESSION['user_mobile'] = $user->mobile;
             $_SESSION['user_profileimage'] = $user->profileImage;
             $_SESSION['user_email'] = $user->email;
+            $_SESSION['user_address'] = $user->address;
             $_SESSION['user_role'] = 'Pet Owner';
            
 
@@ -901,6 +902,7 @@
             unset($_SESSION['user_mobile']);
             unset($_SESSION['user_role']);
             unset( $_SESSION['user_profileimage']);
+            unset($_SESSION['user_address']);
 
             session_destroy();
 

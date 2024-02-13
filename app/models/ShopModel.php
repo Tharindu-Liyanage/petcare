@@ -232,6 +232,23 @@
 
          }
 
+         public function generateInvoiceAndReturnId($cart_id,$total){
+            $this->db->query('INSERT INTO petcare_shop_invoices(cart_id, total_amount,user_id) VALUES (:cart_id, :total, :user_id)');
+
+            $this->db->bind(':cart_id' , $cart_id);
+            $this->db->bind(':total' , $total);
+            $this->db->bind(':user_id' , $_SESSION['user_id']);
+
+            if($this->db->execute()){
+                $this->db->query('SELECT invoice_id FROM petcare_shop_invoices WHERE cart_id = :cart_id');
+                $this->db->bind(':cart_id' , $cart_id);
+                $result = $this->db->single();
+                return $result->invoice_id;
+            }else{
+                die('Something went wrong in generating invoice');
+            }
+         }
+
        
 
         
