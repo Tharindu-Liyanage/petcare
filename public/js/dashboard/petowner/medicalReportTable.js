@@ -1,3 +1,5 @@
+var showEntriesDropdown = document.querySelector('.show-entries');
+
 //search table
 var options = {
     valueNames: ['id-search', 'profile', 'date-search', 'diagnosis-search','followup-search', 'status-search', 'type-search', 'profile-three'],
@@ -9,8 +11,10 @@ var userList = new List('medicalreport', options);
 
 
 
-document.querySelector('.show-entries').addEventListener('change', function () {
-  var selectedValue = parseInt(this.value);
-  userList.page = selectedValue;
-  userList.update();
-});
+if (showEntriesDropdown) {
+  showEntriesDropdown.addEventListener('change', function () {
+      var selectedValue = parseInt(this.value);
+      userList.page = selectedValue;
+      userList.update();
+  });
+}

@@ -46,13 +46,7 @@
             $this->view('dashboards/assistant/appointment/appointment',$data);
         }
 
-        public function addAppointment(){
-
-            $data =null;
-   
-            
-            $this->view('dashboards/assistant/appointment/addAppointment',$data);
-        }
+        
 
         public function petowner(){
 
@@ -63,6 +57,52 @@
    
             
             $this->view('dashboards/assistant/petowner/petowner',$data);
+        }
+
+
+        
+       
+         
+         public function addAppointment(){
+             $data =null;
+ 
+            $this->view('dashboards/assistant/petowner/addPetowner',$data);
+
+
+            }
+
+            
+
+        public function addPetowner(){
+
+            $data =null;
+   
+            
+            $this->view('dashboards/assistant/petowner/addPetowner',$data);
+        }   
+
+
+
+        public function addPet(){
+
+            $data =null;
+   
+            
+            $this->view('dashboards/assistant/pet/addPet',$data);
+        }   
+
+
+
+
+
+        public function pet(){
+
+            $petDetails = $this ->assistantModel ->getPetDetails ();
+            $data = [
+                'pet' => $petDetails
+            ];
+
+            $this ->view('dashboards/assistant/pet/pet', $data);
         }
 
         public function settings(){

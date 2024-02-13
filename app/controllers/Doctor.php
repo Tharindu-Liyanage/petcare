@@ -20,6 +20,7 @@
             }
             $this->doctorModel = $this->model('DoctorModel');
             $this->dashboardModel = $this->model('Dashboard');
+            $this->postModel = $this->model('Post');
 
            
         }
@@ -542,18 +543,214 @@
         }
 
         public function blog(){
-            $data = null;
+            $blog = $this->postModel->getPosts();
+            $data = [
+                'blog' => $blog
+            ];
             $this->view('dashboards/doctor/blog/blog',$data);
         }
 
-        public function addBlog(){
-            $data = null;
-            $this->view('dashboards/doctor/blog/addBlog',$data);
+        public function updateBlog($id){
+
+            
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                 $data = [
+                    'id' => $id,
+                    'title' => trim($_POST['title']),
+                    'category' => trim($_POST['category']),
+                    'tags' => trim($_POST['tags']),
+                    'user_id' => $_SESSION['user_id'],
+                    'thumbnail' => trim($_POST['thumbnail']),
+                    'content' => trim($_POST['content-input']),
+                    'title_err' => '',
+                    'content_err' => ''
+                 ];
+
+
+                //  $this->view('dashboards/doctor/blog/addBlog',$data);
+
+
+
+                if(empty($data['title'])){
+                    $data['title_err'] = 'Please enter the title';
+                 }
+
+                 if(empty($data['content'])){
+                    $data['content_err'] = 'please fill the content field';
+                 }
+
+                 
+                 if(empty($data['title_err']) && empty($data['content_err'])){
+                    if($this->postModel->updateBlog($data)){
+                       
+                        redirect('doctor/blog');
+                        
+                        
+                     }else{
+                         die("Something went wrong");
+                     }
+                 }else{
+                    //load with errors
+                    $this->view('dashboards/doctor/blog/updateBlog',$data);
+
+                 }
+
+                 
+
+            }else{
+
+                $post = $this->postModel->getPostById($id);
+
+                $data = [
+                    'id' => $id,
+                    'title' => $post->title,
+                    'category' => $post->category,
+                    'tags' => $post->tags,
+                    'thumbnail' => $post->thumbnail,
+                    'content' => $post->content,
+                    'title_err' => '',
+                    'content_err' => ''
+                 ];
+
+
+                 //validate
+
+                 
+
+                //  print_r($data['title_err']);
+                 $this->view('dashboards/doctor/blog/updateBlog',$data);
+
+            }
+
+
+
+            
         }
 
-        public function updateBlog(){
-            $data = null;
-            $this->view('dashboards/doctor/blog/updateBlog',$data);
+        public function deleteBlog($id){
+            // if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                // die ("delete");
+                if($this->postModel->deleteBlog($id)){
+                    redirect('doctor/blog');
+                }else{
+                    die ('something went wrong');
+                }
+            // }else{
+                redirect('doctor/blog');
+            // }
+        }
+
+        public function addBlog(){
+
+            //get categories
+            $categories = $this->doctorModel->getBlogCategoryDetails();
+
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                 if (isset($_FILES['blog_img'])) {
+                    $uploadedFileName = $_FILES['blog_img']['name'];
+                    $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                    // Generate a timestamp for uniqueness
+                    $timestamp = time();
+
+                    // Create a unique ID by concatenating values and adding the file extension
+                    $uniqueImgFileName = $_POST['title'] . '_' . $_SESSION['user_id'] . '_' . $timestamp . '.' . $fileExtension;
+
+                }
+
+                 $data = [
+                    'title' => trim($_POST['title']),
+                    'category' => trim($_POST['category']),
+                    'user_id' => $_SESSION['user_id'],
+                    'category_err' => '',
+                    'content' => trim($_POST['content']),
+                    'title_err' => '',
+                    'content_err' => '',
+                    'img' => '',    //watch petowner addpet method
+                    'img_err' => '',
+                    'categories' => $categories,
+                 ];
+
+
+
+                //  $this->view('dashboards/doctor/blog/addBlog',$data);
+
+
+
+                if(empty($data['title'])){
+                    $data['title_err'] = 'Please enter the title';
+                 }
+
+                 if(empty($data['content'])){
+                    $data['content_err'] = 'Please fill the content field';
+                 }
+
+                 if($data['category'] == "Select Category"){
+                    $data['category_err'] = 'Please select a category';
+                 }
+
+                 //handle error in img here
+                 /*
+                    mandotary to upload image before post
+
+                    1.file not upload
+                    2.dimension
+                    3. img type jpg or png
+
+                    need to update method , remove tags , 
+                    
+                    img dir -> storage/uploads/blogs 
+                    img uniquefile name insert to the db
+                 */
+
+                 
+                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['category_err'])){
+                    if($this->postModel->addBlog($data)){
+                       
+                        redirect('doctor/blog');
+                        
+                        
+                     }else{
+                         die("Something went wrong");
+                     }
+                 }else{
+                    //load with errors
+                    $this->view('dashboards/doctor/blog/addBlog',$data);
+
+                 }
+
+                 
+
+            }else{
+                $data = [
+                    'title' => '',
+                    'category' => '',
+                    'content' => '',
+                    'title_err' => '',
+                    'content_err' => '',
+                    'category_err' => '',
+                    'img_err' => '',
+                    'categories' => $categories,
+                 ];
+
+
+                 //validate
+
+                 
+
+                //  print_r($data['title_err']);
+                 $this->view('dashboards/doctor/blog/addBlog',$data);
+
+            }
+
+
+
+            
         }
 
         public function treatment(){

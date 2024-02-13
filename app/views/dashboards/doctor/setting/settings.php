@@ -56,6 +56,12 @@
                                                     <input type="text" class="text-box lastname-textbox" placeholder="Marie" value="<?php echo $data['settings']->lastname; ?>">
                                             </div>
 
+                                            <!-- <div class="inputForm <?php echo (!empty($data['title_err'])) ? 'is-invalid' : '' ; ?>">
+                                                <input type="text" class="text-box firstname-textbox" placeholder="Anna" value="<?php echo $data['settings']->firstname; ?>">
+                                                <input type="text" class="input" name="title" placeholder="Enter title" value="<?php echo $data['title']?>">
+                                            </div>
+                                            <span class="invalid-feedback"><?php echo $data['title_err']; ?></span> -->
+
                                             <div class="email">                     <!-- Email-->
                                                 <div class="email-text">Email</div>
                                                 <input type="text" class="text-box email-textbox" placeholder="Annamarie@petcare.com" value="<?php echo $data['settings']->email; ?>">

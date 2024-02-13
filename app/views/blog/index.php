@@ -12,6 +12,9 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+
+</style>
 
 </head>
     <body>
@@ -41,64 +44,47 @@
 
 
         <!-- end of header -->
+    <div class="main-part">
         <div class="title-part">
             <div class="left-heading">
                 <div class="heading1">Blog</div>
                 <div class="heading2">Latest News</div>
                 <div class="heading3">Your pet's health and wellbeing are our top priority.</div>
+                <div class="group">
+                    <svg class="icon-search" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+                    <input placeholder="Search Topic..." type="search" class="input" id="search-filter">
+                </div>
                 
             </div>
             <div class="right-heading">
                 <img src="<?php echo URLROOT;?>/public/img/blog/blog-svg-1.svg" alt="">
             </div>
         </div>
-        <div class="middle-part">
-                <?php foreach($data['posts'] as $posts) : ?>
-                <div class="blog-card">
+    </div>
+        <div class="middle-part"  id ="blogs">
+
+        <div class="main-title">
+            Our Recent Blogs
+        </div>
+
+
+            <ul class="blog-cards list">
+                        <?php foreach($data['posts'] as $posts) : ?>
+                <li class="blog-card" id="post" onclick="window.location.href = '<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>'">
                     <div class="thumbnail">
                         <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="">
                     </div>
                     <div class="blog-title"><?php echo $posts->title ;?></div>
                     <div class="blog-date"><?php echo $posts->publishdate ; ?></div>
+                    <div class="blog-author">By <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $posts->authorImage?>"> <?php echo $posts->authorfname.' '.$posts->authorlname ; ?> </div>
                     <div class="blog-body">
                         <p><?php echo $posts->content; ?></p>
                     </div>
                     <a class="read-more-btn" href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">READ MORE</a>
-                </div>
+                </li>
                 <?php endforeach; ?>
-
-                <?php foreach($data['posts'] as $posts) : ?>
-                <div class="blog-card">
-                    <div class="thumbnail">
-                        <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-2.jpg" alt="">
-                    </div>
-                    <div class="blog-title"><?php echo $posts->title ;?></div>
-                    <div class="blog-date"><?php echo $posts->publishdate ; ?></div>
-                    <div class="blog-body">
-                        <p><?php echo $posts->content; ?></p>
-                    </div>
-                    <a class="read-more-btn" href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">READ MORE</a>
-                    
-                </div>
-                <?php endforeach; ?>
-
-                <?php foreach($data['posts'] as $posts) : ?>
-                <div class="blog-card">
-                    <div class="thumbnail">
-                        <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-3.jpg" alt="">
-                    </div>
-                    <div class="blog-title"><?php echo $posts->title ;?></div>
-                    <div class="blog-date"><?php echo $posts->publishdate ; ?></div>
-                    <div class="blog-body">
-                        <p><?php echo $posts->content; ?></p>
-                    </div>
-                    <a class="read-more-btn" href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">READ MORE</a>
-                </div>
-                <?php endforeach; ?>
-
-                
-
-                
+             </ul>
+             <ul class="pagination"></ul>
         </div>
 
     
@@ -168,4 +154,24 @@
 
         <!-- end of footer -->
     </body>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+    <script>
+        // Initialize List.js with pagination
+        var monkeyList = new List('blogs', {
+            valueNames: ['blog-title'],
+            page: 6,
+            pagination: true,
+            
+        });
+
+        var searchInput = document.getElementById('search-filter');
+        searchInput.addEventListener('input', function () {
+                var searchString = searchInput.value.toLowerCase();
+                monkeyList.search(searchString);
+            });
+    </script>
+
+
 </html>

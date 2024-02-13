@@ -7,11 +7,19 @@
         public function __construct(){
             $this->db = new Database;
         }
- public function getPetownerDetails(){
+
+    public function getPetownerDetails(){
     $this->db->query('SELECT * FROM petcare_petowner WHERE isRemoved = 0');
 
             $results = $this->db->resultSet();
             return $results;
+ }
+
+ public function getPetDetails(){
+    $this ->db -> query ('SELECT * FROM petcare_pet WHERE isRemoved = 0');
+
+         $results = $this->db->resultSet();
+         return $results;
  }
  
 

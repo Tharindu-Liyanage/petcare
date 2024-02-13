@@ -113,23 +113,51 @@
 
         }
 
-        public function updateSettings($data){
+        public function updateSettings1($data){
 
-            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile , password = :password , fb_url = :fb_url , twitter_url = :twitter_url , insta_url = :insta_url  WHERE staff_id = :id');
+       
+
+                $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email,  address = :address , phone = :mobile   WHERE staff_id = :id');
+
+            //bind values
+            $this->db->bind(':id',$data['id']);
+            $this->db->bind(':first_name',$data['first_name']);
+            $this->db->bind(':last_name',$data['last_name']);
+            $this->db->bind(':mobile',$data['mobile']);
+            $this->db->bind(':email',$data['email']);
+            $this->db->bind(':address',$data['address']);
+
+        
+
+            
+            
+            
+
+            //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }  
+
+        }
+
+        public function updateSettings3($data){
+
+       
+
+            $this->db->query('UPDATE petcare_staff SET fb_url = :fb_ur; , insta_url = :insta_url , twitter_url= :twitter_url   WHERE staff_id = :id');
 
         //bind values
         $this->db->bind(':id',$data['id']);
-        $this->db->bind(':first_name',$data['first_name']);
-        $this->db->bind(':last_name',$data['last_name']);
-        $this->db->bind(':mobile',$data['mobile']);
-        $this->db->bind(':email',$data['email']);
-        $this->db->bind(':role',$data['role']);
-        $this->db->bind(':address',$data['address']);
-        $this->db->bind(':fb_url',$data['fb_url']);
+        $this->db->bind(':fb_ur',$data['fb_url']);
         $this->db->bind(':insta_url',$data['insta_url']);
         $this->db->bind(':twitter_url',$data['twitter_url']);
-        $this->db->bind(':password',$data['password']);
 
+    
+
+        
         
         
 
@@ -141,6 +169,29 @@
             return false;
         }  
 
+    }
+
+        public function updateSettings2($data){
+
+          
+            $this->db->query('UPDATE petcare_staff SET   password = :password  WHERE staff_id = :id');
+    
+            //bind values
+            $this->db->bind(':id',$data['id']);
+            $this->db->bind(':password',$data['password']);
+    
+            
+            
+            
+    
+            //execute
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }  
+    
         }
 
 
@@ -1151,6 +1202,53 @@
                 }else{
                     return false;
                 }
+        }
+
+
+        public function getMyOrdersByPetownerID($id){
+            //get user orders from petcare_carts and total amount from petcare_shop_invoices
+
+            $this->db->query('SELECT cart.*, invoice.total_amount as total_price, invoice.invoice_id as invoice_id, invoice.invoice_date as order_date
+            FROM petcare_carts cart
+            JOIN petcare_shop_invoices invoice ON cart.cart_id = invoice.cart_id
+            WHERE cart.user_id = :id
+            ORDER BY invoice.invoice_date DESC');
+
+            $this->db->bind(':id', $id);
+
+            $results = $this->db->resultSet();
+
+            return $results;
+
+        }
+
+        public function getCartDetailsByCartID($id){
+
+            $this->db->query('SELECT cart.* , invoice.invoice_date as order_date , invoice.invoice_id as invoice_id , invoice.total_amount as total_price
+            FROM petcare_carts cart
+            JOIN petcare_shop_invoices invoice ON cart.cart_id = invoice.cart_id
+            WHERE cart.cart_id = :id');
+
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+    
+            return $row;
+
+        }
+
+        public function getProductsByCartID($id){
+                
+                $this->db->query('SELECT inventory.* , cart.quantity as ordered_quantity
+                FROM petcare_cart_items cart
+                JOIN petcare_inventory inventory ON cart.product_id = inventory.id
+                WHERE cart.cart_id = :id');
+    
+                $this->db->bind(':id', $id);
+    
+                $results = $this->db->resultSet();
+    
+                return $results;
         }
 
 

@@ -297,6 +297,44 @@
                 unset( $_SESSION['User_Role']);
             }
 
+            if(isLoggedIn()){ // this user alredy login from shop
+
+               // redirect('petowner');
+               //login according to roles
+
+               if(isset($_SESSION['user_role'])){
+
+                switch ($_SESSION['user_role']) {
+                    case "Pet Owner":
+                        redirect('petowner');
+                        break;
+                    case "Vet":
+                        redirect('vet');
+                        break;
+                    case "Admin":
+                        redirect('admin');
+                        break;
+                    case "Assistant":
+                        redirect('assistant');
+                        break;
+                    case "Store Manager":
+                        redirect('storemanager');
+                        break;
+                    case "Doctor":
+                        redirect('doctor');
+                        break;
+                    case "Nurse":
+                        redirect('doctor');
+                        break;
+                    default:
+                     
+                        // Handle unexpected roles, e.g., redirect to a default page or show an error message.
+                        break;
+                    }
+                }
+
+            }
+
             $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
             //check for POST
@@ -795,11 +833,24 @@
             $_SESSION['user_mobile'] = $user->mobile;
             $_SESSION['user_profileimage'] = $user->profileImage;
             $_SESSION['user_email'] = $user->email;
+            $_SESSION['user_address'] = $user->address;
             $_SESSION['user_role'] = 'Pet Owner';
-            $_SESSION['PO_last_activity'] = time(); //time of last activity
+           
 
             //redirect to dashboard
-            redirect('petowner');
+            if(isset($_SESSION['shop_user_shopcart'])){
+                //unset
+                unset($_SESSION['shop_user_shopcart']);
+                unset($_SESSION['shop_user']);
+                redirect('shop/shopcart');
+
+            }
+            elseif(isset($_SESSION['shop_user'])){
+                unset($_SESSION['shop_user']);
+                redirect('shop');
+            }else{
+                redirect('petowner');
+            }
 
         }
 
@@ -851,9 +902,16 @@
             unset($_SESSION['user_mobile']);
             unset($_SESSION['user_role']);
             unset( $_SESSION['user_profileimage']);
+            unset($_SESSION['user_address']);
 
             session_destroy();
-            redirect('users/login');
+
+            if(isset($_SESSION['shop_user'])){
+                unset($_SESSION['shop_user']);
+                redirect('shop');
+            } else{
+                redirect('users/login');
+            }
         }
 
 

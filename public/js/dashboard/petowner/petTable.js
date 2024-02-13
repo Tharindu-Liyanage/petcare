@@ -3,6 +3,7 @@ const deleteLinks = document.querySelectorAll(".removeLink"); // Select all dele
 const notification = document.getElementById("removeModel");
 const confirmDeleteButton = document.getElementById("confirmDelete");
 const cancelDeleteButton = document.getElementById("cancelDelete");
+var showEntriesDropdown = document.querySelector('.show-entries');
 
 //search table
 
@@ -16,11 +17,13 @@ var userList = new List('pet', options);
 
 
 
-document.querySelector('.show-entries').addEventListener('change', function () {
-  var selectedValue = parseInt(this.value);
-  userList.page = selectedValue;
-  userList.update();
-});
+if (showEntriesDropdown) {
+  showEntriesDropdown.addEventListener('change', function () {
+      var selectedValue = parseInt(this.value);
+      userList.page = selectedValue;
+      userList.update();
+  });
+}
 
 
 
