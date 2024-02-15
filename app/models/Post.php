@@ -98,7 +98,7 @@
                 } else {
                         // Error moving the file
                     // $data['img_err'] = 'Error moving the file.';
-                     die("Misson failed img not moved");
+                    //  die("Misson failed img not moved");
                 }
 
 

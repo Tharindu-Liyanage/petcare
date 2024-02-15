@@ -718,7 +718,7 @@
                     'content' => trim($_POST['content']),
                     'title_err' => '',
                     'content_err' => '',
-                    'img' => $_FILES['blog_img'],
+                    'img' => ($_FILES['blog_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['blog_img'],
                     'img_err' => '',
                     'categories' => $categories,
                     'uniqueImgFileName' =>$uniqueImgFileName
