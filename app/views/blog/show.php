@@ -58,7 +58,7 @@
 
 
                 <div class="thumnail-image">
-                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="">
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/blog/<?php echo $data['posts']->thumbnail?>" alt="">
                 </div>
                 <div class="blog-content">
                     <?php echo $data['posts']->content; ?>

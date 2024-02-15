@@ -7,6 +7,49 @@
       <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/settings.css">
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
       <title>Dashboard</title>
+
+      <style>
+        .billing-email input{
+            width: 50%;
+            height: 40px;
+            border: 1px solid #D3D3D3;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 5px;
+
+        }
+
+        .otp-code{
+            width: 30% !important;
+        }
+
+        .verify-btn{
+            width: 10%;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .invalid-feedback{
+            font-size: 12px;
+        }
+
+        .is-right{
+            color:green;
+            font-size: 14px;
+        }
+
+      
+
+      
+
+
+      </style>
    </head>
    <body>
 
@@ -29,12 +72,15 @@
                             
                         </div>
 
-        <form class="container" action="">     <!--start of form-->
+
+
+        <form class="container" method="POST" action="<?php echo URLROOT?>/petowner/settings" id="myForm">     <!--start of form-->
                                     <div class="tab-box">                        
                                         <div class="tab-btn active">My Profile</div>
                                         <div class="tab-btn">Password</div>
                                         <div class="tab-btn">Billing</div>
                                         <div class="tab-btn">Social Profiles</div>
+                                        <div class="tab-btn">Change Email</div>
                                         <div class="line"></div>
                                     </div>
                                     <div class="content-box">
@@ -243,6 +289,72 @@
                                             
 
                                         </div>          <!-- end of inner content 4 (Social profile)-->
+
+
+                                        <div class="inner-content">                 <!-- start of content 5 (Change Email  profile)-->
+                                            <div class="personal-info">                 <!-- personal info-->
+                                                <div class="large">
+                                                    Change Email
+                                                </div>
+                                                <div class="line2">
+                                                    <div class="small">Update your email.</div>
+                                                    <button class="cancel-btn">Cancel</button>
+                                                    <button class="save-changes-btn" type="submit" name="email-button" onclick="submitForm()">Save Changes</button>
+                                                </div>
+                                            </div>
+                                            <div class="billing-email">
+                                                <div class="billing-email-left">
+                                                    <div class="billing-email-text">
+                                                      Current Email
+                                                    </div>
+                                                    <div class="billing-email-text-small">
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                                <input type="text" class="text-box1 billing-email-textbox" placeholder="eg: ucsc123@gmail.com" value="<?php echo $_SESSION['user_email']?>" readonly disable>
+                                            </div>
+
+                                            <div class="billing-email">
+                                                <div class="billing-email-left">
+                                                    <div class="billing-email-text">
+                                                    New Email
+                                                    </div>
+                                                    <div class="billing-email-text-small">
+                                                        OTP will be sent to this email address.
+                                                        <span class="invalid-feedback"><?php echo '<br>'.$data['newemail_err']; ?></span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <input type="text" class="form-control <?php echo !empty($data['newemail_err']) ? 'is-invalid' : ''; ?>" placeholder="Enter your new email" name="new-email" value="<?php echo isset($data['newemail']) ? $data['newemail'] : ''; ?>">
+
+        
+                                            </div>
+                                            
+                                            <?php if($data['otp'] == 1) : ?>
+                                            <div class="billing-email">
+                                                <div class="billing-email-left">
+                                                    <div class="billing-email-text">
+                                                    Enter OTP Here
+                                                    </div>
+                                                    <div class="billing-email-text-small">
+                                                        Check your email for the OTP code.
+                                                        <span class="invalid-feedback"><?php echo '<br>'.$data['otp_err']; ?></span>
+                                                        <span class="is-right"><?php if($data['otp-right']==1) echo '<br>*OTP verified. Click save button' ?></span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <input type="text" class="text-box1 billing-email-textbox otp-code <?php echo !empty($data['otp_err']) ? 'is-invalid' : ''; ?>" placeholder="Enter otp code" name="otp-code" value="<?php echo $data['otp-code'] ?>">
+                                                <!-- verify button -->
+                                                <button class="verify-btn" name="otp-button" type="submit">Verify</button>
+
+                                            </div>
+
+                                            <?php endif; ?>
+
+                                            
+
+                                        </div> 
 
                                                             
                                     

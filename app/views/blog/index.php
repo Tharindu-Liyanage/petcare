@@ -72,7 +72,7 @@
                 <?php foreach($data['posts'] as $posts) : ?>
                     <li class="blog-card" id="post" onclick="window.location.href = '<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>'">
                         <div class="thumbnail">
-                            <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="">
+                            <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/storage/uploads/blog/<?php echo $posts->thumbnail?>" alt="">
                         </div>
                         <div class="blog-title"><?php echo $posts->title ;?></div>
                         <div class="blog-date"><?php echo $posts->publishdate ; ?></div>

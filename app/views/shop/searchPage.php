@@ -485,7 +485,10 @@ ul.pagination li.active{
         $perPage = 6;
 
         $startIndex = 1;
-        $endIndex = $totalProducts%$perPage;
+        $endIndex = $totalProducts/$perPage;
+
+        $endIndex = floor($endIndex);
+        $endIndex += 1;
 
         if($perPage>$totalProducts){
             $endIndex = 1;

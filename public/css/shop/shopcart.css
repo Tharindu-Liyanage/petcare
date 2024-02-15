@@ -7,7 +7,7 @@
     overflow: scroll;
   }
   
-  img {
+  .thumbnail img {
     max-width: 70%;
     height: auto;
     vertical-align: middle;

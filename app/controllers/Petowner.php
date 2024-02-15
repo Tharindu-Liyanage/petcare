@@ -45,6 +45,7 @@
             }
 
             $this->dashboardModel = $this->model('Dashboard');
+            $this->userModel = $this->model('User');
            
 
             
@@ -1008,8 +1009,131 @@
 
         public function settings(){
 
-            $data = null;
-            $this->view('dashboards/petowner/setting/settings', $data);
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $data = [
+                    'newemail' => trim($_POST['new-email']),
+                    'newemail_err' => '',
+                    'otp' => '',
+                    'otp_err' =>'',
+                    'otp-code' =>'',
+                    'otp-right' => '', 
+                ];
+
+                if(isset($_SESSION['otp']) && $_SESSION['otp'] == "correct"){
+                    unset($_SESSION['otp']);
+                    //update email  
+
+                    die("update email");
+                }
+
+                if(isset($_POST['email-button'])){
+
+                
+                            //validate Email
+                        if(empty($data['newemail'])){
+
+
+                            $data['newemail_err'] = '*Please enter email';
+
+                        }else{
+        
+                            if(!filter_var($data['newemail'], FILTER_VALIDATE_EMAIL)){ //check email in correct formate
+
+                                $data['newemail_err'] = '*Please enter valid email';
+        
+                            }elseif($this->userModel->findUserByEmail($data['newemail'])){  //check email in the DB
+                                
+                                $data['newemail_err'] = '*Email is already taken';
+        
+                            }
+                        }
+
+                        //Make sure errors are empty
+
+                        if(empty($data['newemail_err'])){
+
+                            //activate otp input
+                            $data['otp'] = 1;
+
+                            //genrate 4 digit numbers
+                            $otp = rand(1000,9999);
+
+                            $otp = 1234; //for testing
+
+                            //store otp in session
+                            $_SESSION['otp'] = $otp;
+
+                            //send otp to email
+                        // $this->sendOtpCode($data['newemail'], $otp);
+
+                        $this->view('dashboards/petowner/setting/settings', $data);
+
+
+                        }else{
+                            //load with erros
+                            $this->view('dashboards/petowner/setting/settings', $data);
+
+                        }
+
+
+                    
+                   
+                }elseif(isset($_POST['otp-button'])){
+
+                     //activate otp input
+                     $data['otp'] = 1;
+
+                     $data['otp-code'] = trim($_POST['otp-code']);
+
+                        //validate OTP
+                        if(empty(trim($_POST['otp-code']))){
+                            $data['otp_err'] = '*Please enter OTP';
+                        }else{
+                            if(trim($_POST['otp-code']) != $_SESSION['otp']){
+                                $data['otp_err'] = '*OTP is incorrect';
+                            }
+                        }
+
+                        //Make sure errors are empty
+
+                        if(empty($data['otp_err'])){
+
+                            $data['otp-right'] = 1;
+                            $_SESSION['otp'] = "correct";
+                            $this->view('dashboards/petowner/setting/settings', $data);
+                        }else{
+                            //load with erros
+                            $this->view('dashboards/petowner/setting/settings', $data);
+                        }
+
+
+
+                }
+
+
+                
+                $this->view('dashboards/petowner/setting/settings', $data);
+
+
+
+            }else{
+
+                $data = [
+                    'newemail' => '',
+                    'newemail_err' => '',
+                    'otp' => '',
+                    'otp_err' =>'',
+                    'otp-code' =>'',
+                ];
+            
+                $this->view('dashboards/petowner/setting/settings', $data);
+
+            }
+
+            
         }
 
 
