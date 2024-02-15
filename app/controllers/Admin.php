@@ -503,6 +503,15 @@
                         'mobile_err' => '',
                         'nic_err' => '',
                         'address_err' => '',
+                        'password_err' =>'',
+                        'new_password_err' => '',
+                        'new_confirm_password_err' => '',
+                        'password' =>'',
+                        'new_password' => '',
+                        'new_confirm_password' => '',
+                        'fb_url' => '',
+                        'insta_url' => '',
+                        'twitter_url' => '',
                         'formType' => '1',
                         'settings' => $settingsData
                        
@@ -591,40 +600,53 @@
                         'password_err' =>'',
                         'new_password_err' => '',
                         'new_confirm_password_err' => '',
+                        'firstname_err' => '',
+                        'lastname_err' => '',
+                        'email_err' => '',
+                        'mobile_err' => '',
+                        'nic_err' => '',
+                        'address_err' => '',
+                        'fb_url' => '',
+                        'insta_url' => '',
+                        'twitter_url' => '',
+                        'first_name' => '',
+                        'last_name' => '',
+                        'mobile' =>'',
+                        'nic' => '',
+                        'address' => '',
+                        'email' => '',
                        
                     ];
             
-                    if(isset($data['password'])){
+                    if (isset($data['password'])) {
                         $hashedPassword = $this->settingsModel->getPasswordById($user_id);
-                        // echo $hashedPassword;
-                        // $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-                        // echo  $data['password'];
-                        if(password_verify($data['password'],$hashedPassword)){
-                            
-                            
-                            if(!empty($data['new_password'])){   
-                                if(strlen($data['new_password']) < 8){
+                    
+                        if (password_verify($data['password'], $hashedPassword)) {
+                            if (!empty($data['new_password'])) {
+                                if (strlen($data['new_password']) < 8) {
                                     $data['new_password_err'] = 'Password must be at least 8 characters';
                                 }
-                            }elseif(empty($data['new_password'])) {
+                            } else {
                                 $data['new_password_err'] = 'Enter the new password';
-                                
                             }
-                            if(!empty($data['new_confirm_password'])){
-                                if($data['new_password'] != $data['new_confirm_password']){
+                    
+                            if (!empty($data['new_confirm_password'])) {
+                                if ($data['new_password'] != $data['new_confirm_password']) {
                                     $data['new_confirm_password_err'] = 'Passwords do not match';
                                 }
-                            }elseif(empty($data['new_confirm_password'])){
-                                $data['new_confirm_password_err'] = 'retype the new password';
+                            } else {
+                                $data['new_confirm_password_err'] = 'Retype the new password';
                             }
-                            
-                        }else{
+                    
+                        } else {
                             $data['password_err'] = 'Enter the correct Password';
                         }
-                        
                     }
 
-                    if((empty($data['password_err'])  && empty($data['new_password_err'])  && empty($data['confirm_new_password_err']))){
+
+                    // die ($data['new_confirm_password_err']);
+
+                    if((empty($data['password_err'])  && empty($data['new_password_err'])  && empty($data['new_confirm_password_err']))){
                         //validated
                         //hash password
                         $data['password'] = password_hash($data['new_password'],PASSWORD_DEFAULT);
@@ -665,25 +687,44 @@
                         'insta_url' => trim($_POST['insta_url']),
                         'twitter_url' => trim($_POST['twitter_url']),
                         'formType' => '3',
+                        'password_err' =>'',
+                        'new_password_err' => '',
+                        'new_confirm_password_err' => '',
+                        'firstname_err' => '',
+                        'lastname_err' => '',
+                        'email_err' => '',
+                        'mobile_err' => '',
+                        'nic_err' => '',
+                        'address_err' => '',
+                        'first_name' => '',
+                        'last_name' => '',
+                        'mobile' =>'',
+                        'nic' => '',
+                        'address' => '',
+                        'email' => '',
+                        'password' =>'',
+                        'new_password' => '',
+                        'new_confirm_password' => '',
+                        
                         'settings' => $settingsData
                     ];
             
                     
 
                    if(!empty($data['fb_url']) || !empty($data['twitter_url']) || !empty($data['insta_url'])){
-                    if($this->dashboardModel->updateSettings3($data)){
-                        redirect('admin/settings');
-                    }else{
+                        if($this->dashboardModel->updateSettings3($data)){
+                            redirect('admin/settings');
+                        }else{
 
-                        die("Something went wrong");
-                        
-                    }
+                            die("Something went wrong");
+                            
+                        }
 
 
                    }else{
                     //load view with errors
                         
-                    $this->view('dashboards/admin/setting/settings',$data);
+                        $this->view('dashboards/admin/setting/settings',$data);
                         
                    }
 
@@ -711,7 +752,9 @@
                     'email' => $settingsData->email,
                     'fb_url' => $settingsData->fb_url,
                     'insta_url' => $settingsData->insta_url,
-                    'twitter_url' => $settingsData->twitter_url,
+                    'twitter_url' => $settingsData->x_url,
+                    'password' => '',
+                    'new_password' => '',
                     'firstname_err' => '',
                     'lastname_err' => '',
                     'email_err' => '',

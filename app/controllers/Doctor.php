@@ -557,18 +557,30 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                  $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
-                 $data = [
-                    'id' => $id,
+                  if (isset($_FILES['blog_img'])) {
+                    $uploadedFileName = $_FILES['blog_img']['name'];
+                    $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                    // Generate a timestamp for uniqueness
+                    $timestamp = time();
+
+                    // Create a unique ID by concatenating values and adding the file extension
+                    $uniqueImgFileName = $_POST['title'] . '_' . $_SESSION['user_id'] . '_' . $timestamp . '.' . $fileExtension;
+
+                }
+
+                $data = [
                     'title' => trim($_POST['title']),
                     'category' => trim($_POST['category']),
-                    'tags' => trim($_POST['tags']),
                     'user_id' => $_SESSION['user_id'],
-                    'img' => trim($_POST['blog_img']),
-                    'content' => trim($_POST['content-input']),
-                    // 'categories' => $categories,
+                    'category_err' => '',
+                    'content' => trim($_POST['content']),
                     'title_err' => '',
                     'content_err' => '',
+                    'img' => ($_FILES['blog_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['blog_img'],
                     'img_err' => '',
+                    'categories' => $categories,
+                    'uniqueImgFileName' =>$uniqueImgFileName
                  ];
 
 
@@ -581,11 +593,30 @@
                  }
 
                  if(empty($data['content'])){
-                    $data['content_err'] = 'please fill the content field';
+                    $data['content_err'] = 'Please fill the content field';
                  }
 
+                 if(empty($data['img'])){
+                    $data['img_err'] = 'Please choose a Thumnail Photo';
+                 }
+
+                 if($data['category'] == "Select Category"){
+                    $data['category_err'] = 'Please select a category';
+                 }
+
+                $allowedTypes = ['image/jpeg', 'image/png'];
+
+                if (!isset($_FILES['blog_img']['type']) || ($_FILES['blog_img']['type'] && !in_array($_FILES['blog_img']['type'], $allowedTypes))) {
+                    // Invalid file type
+                    $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
+                }
+
+                if($_FILES['blog_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                    $data['img_err'] = 'Image size must be less than 5 MB';
+                }
                  
-                 if(empty($data['title_err']) && empty($data['content_err'])){
+                 
+                if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])  &&  empty($data['category_err'])){
                     if($this->postModel->updateBlog($data)){
                        
                         redirect('doctor/blog');
@@ -595,6 +626,7 @@
                          die("Something went wrong");
                      }
                  }else{
+                    
                     //load with errors
                     $this->view('dashboards/doctor/blog/updateBlog',$data);
 
@@ -640,13 +672,18 @@
             // if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 // die ("delete");
                 if($this->postModel->deleteBlog($id)){
-                    redirect('doctor/blog');
+                    
+                    
+                      
+
                 }else{
+
                     die ('something went wrong');
+
                 }
-            // }else{
-                redirect('doctor/blog');
-            // }
+            // // }else{
+            //     redirect('doctor/blog');
+            // // }
         }
 
         public function addBlog(){
@@ -681,7 +718,7 @@
                     'content' => trim($_POST['content']),
                     'title_err' => '',
                     'content_err' => '',
-                    'img' => ($_FILES['blog_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['blog_img'],
+                    'img' => $_FILES['blog_img'],
                     'img_err' => '',
                     'categories' => $categories,
                     'uniqueImgFileName' =>$uniqueImgFileName
@@ -699,6 +736,10 @@
 
                  if(empty($data['content'])){
                     $data['content_err'] = 'Please fill the content field';
+                 }
+
+                 if(empty($data['img'])){
+                    $data['img_err'] = 'Please choose a Thumnail Photo';
                  }
 
                  if($data['category'] == "Select Category"){

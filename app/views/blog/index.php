@@ -69,22 +69,22 @@
 
 
             <ul class="blog-cards list">
-                        <?php foreach($data['posts'] as $posts) : ?>
-                <li class="blog-card" id="post" onclick="window.location.href = '<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>'">
-                    <div class="thumbnail">
-                        <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="">
-                    </div>
-                    <div class="blog-title"><?php echo $posts->title ;?></div>
-                    <div class="blog-date"><?php echo $posts->publishdate ; ?></div>
-                    <div class="blog-author">By <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $posts->authorImage?>"> <?php echo $posts->authorfname.' '.$posts->authorlname ; ?> </div>
-                    <div class="blog-body">
-                        <p><?php echo $posts->content; ?></p>
-                    </div>
-                    <a class="read-more-btn" href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">READ MORE</a>
-                </li>
+                <?php foreach($data['posts'] as $posts) : ?>
+                    <li class="blog-card" id="post" onclick="window.location.href = '<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>'">
+                        <div class="thumbnail">
+                            <img class= "thumbnail-image" src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="">
+                        </div>
+                        <div class="blog-title"><?php echo $posts->title ;?></div>
+                        <div class="blog-date"><?php echo $posts->publishdate ; ?></div>
+                        <div class="blog-author">By <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $posts->authorImage?>"> <?php echo $posts->authorfname.' '.$posts->authorlname ; ?> </div>
+                        <div class="blog-body">
+                            <p><?php echo $posts->content; ?></p>
+                        </div>
+                        <a class="read-more-btn" href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">READ MORE</a>
+                    </li>
                 <?php endforeach; ?>
-             </ul>
-             <ul class="pagination"></ul>
+            </ul>
+            <ul class="pagination"></ul>
         </div>
 
     

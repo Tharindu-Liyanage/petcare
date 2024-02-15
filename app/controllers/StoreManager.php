@@ -65,9 +65,11 @@
         }
 
         public function order(){
-
+            // $orderData = $this->dashboardModel->
             
-            $data =null;
+            $data =[
+                
+            ];
    
             
             $this->view('dashboards/storemanager/order/order', $data);

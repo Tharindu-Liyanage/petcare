@@ -161,7 +161,7 @@
                                                 <label class="password-label" for="password">Password</label>
                                                 <div class="current-password-box">
                                                     <div class="inputForm <?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>">                         
-                                                            <input type="password" name="password" id="password" class="password-box text-box input" placeholder="*********">
+                                                            <input type="password" name="password" id="password" class="password-box text-box input" placeholder="*********" value="<?php echo $data['password'] ; ?>" >
                                                     </div>
                                                     <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
                                                 </div>
@@ -173,7 +173,7 @@
                                                 <div class="new-password-right">
                                                 
                                                     <div class="inputForm <?php echo (!empty($data['new_password_err'])) ? 'is-invalid' : '' ; ?>">                         
-                                                            <input type="password" name="new_password" id="password" class="password-box text-box input" placeholder="*********">
+                                                            <input type="password" name="new_password" id="password" class="password-box text-box input" placeholder="*********" value="<?php echo $data['new_password'] ; ?>">
                                                     </div>
                                                     <div class="new-password-text">
                                                         Your new password must be more than 8 characters.
@@ -212,19 +212,7 @@
                                                     <button class="save-changes-btn">Save Changes</button>
                                                 </div>
                                             </div>
-                                            <div class="billing-email">
-                                                <div class="billing-email-left">
-                                                    <div class="billing-email-text">
-                                                        Email
-                                                    </div>
-                                                    <div class="billing-email-text-small">
-                                                        Invoice will be sent to this email address.
-                                                    </div>
-                                                </div>
-                                                
-                                                <input type="text" class="text-box billing-email-textbox" placeholder="eg: ucsc123@gmail.com" value="<?php echo $data['email']; ?>">
-                                            </div>
-
+                                            
                                             <div class="facebook">
                                                 <div class="social-media-text">
                                                     Facebook

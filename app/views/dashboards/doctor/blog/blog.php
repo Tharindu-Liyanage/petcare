@@ -93,7 +93,7 @@
                                         <td class="action">
                                             
                                             <div class="act-icon">
-                                                <a data-blog-id="<?php echo $blog->blogID?>" class="removeLink" href="<?php echo URLROOT;?>/doctor/deleteBlogs/<?php echo $blog->blogID ; ?>" ><i class='bx bx-trash'></i></a>
+                                                <a data-blog-id="<?php echo $blog->blogID?>" class="removeLink" href="<?php echo URLROOT;?>/doctor/deleteBlog/<?php echo $blog->blogID ; ?>" ><i class='bx bx-trash'></i></a>
                                                 <a href="<?php echo URLROOT;?>/doctor/updateBlog/<?php echo $blog->blogID ; ?>" ><i class='bx bx-edit' ></i></a>     
                                                 
                                             </div>

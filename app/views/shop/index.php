@@ -247,7 +247,7 @@
 
         <?php foreach($data['category'] as $category) : ?>                       
            <a href="<?php echo URLROOT; ?>/shop/category/<?php echo $category-> categoryname ; ?>/<?php echo $category-> id ; ?>" class = "category-box">
-                <?php if($category-> categoryname == 'Food'){ ;?>
+                <!-- <?php if($category-> categoryname == 'Food'){ ;?>
                     <div class="drop-icon icon-large"><i class="fa-solid fa-bowl-food"></i></div>
                 <?php } elseif ($category-> categoryname == 'Toys'){ ; ?>
                     <div class="drop-icon icon-large"><i class="fa-solid fa-bread-slice"></i></div>
@@ -255,7 +255,7 @@
                     <div class="drop-icon icon-large"><i class="fa-solid fa-paw"></i></div>
                 <?php } elseif ($category-> categoryname == 'Accessories'){ ; ?>
                     <div class="drop-icon icon-large"><i class="fa-solid fa-table-cells-large"></i></div>
-                <?php } ; ?>
+                <?php } ; ?> -->
                 
                 <span> <?php echo  $category -> categoryname ; ?> </span>
             </a>  

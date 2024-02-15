@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<?php require_once __DIR__ . '../shopHeader.php'; ?>
+<?php require_once __DIR__ . '/shopHeader.php'; ?>
 
 <div class="container-msg">
     <div class="logo">
