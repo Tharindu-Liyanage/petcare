@@ -21,7 +21,69 @@
          $results = $this->db->resultSet();
          return $results;
  }
+
+ public function findEmail($email){
+
+
+    $this ->db->query('SELECT * FROM petcare_petowner WHERE email = :useremail ');
+
+    $this->db->bind(':useremail' , $email);
+
+    $row = $this->db->single();
+
+    if($row){
+        return true;
+    }else{
+        return false;
+    }
+
+
+
+
+ }
  
+
+        public function findMobile($mobile){
+
+
+            $this ->db->query('SELECT * FROM petcare_petowner WHERE mobile = :usermobile ');
+
+            $this->db->bind(':usermobile' , $mobile);
+
+            $row = $this->db->single();
+
+            if($row){
+                return true;
+            }else{
+                return false;
+            }
+
+
+
+
+        }
+
+        public function addPetowner($data){
+            $this->db->query('INSERT INTO petcare_petowner (first_name,last_name,address,email,mobile,password) VALUES(:firstname,:lastname,:address,:email,:mobile,:password)');
+
+        
+            $this->db->bind(':firstname' , $data['firstname']);
+            $this->db->bind(':lastname', $data['lastname']);
+            $this->db->bind(':address', $data['address']);
+            $this->db->bind(':email', $data['email']);
+            $this->db->bind(':mobile', $data['mobile']);
+            $this->db->bind(':password', $data['password']);
+
+            //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }
+
+
+        }
 
       
 

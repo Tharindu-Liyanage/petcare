@@ -60,9 +60,8 @@
 
 <!-- staff add model here -->
 <div class="add-model">
-
+<i class='bx bxs-dog' ></i>
    <div class="header">
-   <i class='bx bxs-dog' ></i>
         <h3>Add pet</h3>       
     </div>
 
@@ -81,8 +80,10 @@
                         
                         <div class="inputForm <?php echo (!empty($data['pname_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-purchase-tag-alt' ></i>
-                            <input type="text" class="input" name="pname" placeholder="Enter pet Name" value="">
+                            <input type="text" class="input" name="pname" placeholder="Enter pet Name" value="<?php echo $data['pname']?>">
                         </div>
+
+                        <span class="invalid-feedback"><?php echo $data['pname_err']?></span>
                 </div>               
 
                 <div class="flex-column">
@@ -91,10 +92,10 @@
                             
                         <div class="inputForm <?php echo (!empty($data['dob_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-calendar' ></i>
-                            <input type="date" class="input " placeholder="Select Date" value="" name="dob">
+                            <input type="date" class="input " placeholder="Select Date" value="<?php echo $data['dob']?>" name="dob">
                         </div>
                         
-                        <span class="invalid-feedback">bb</span>
+                        <span class="invalid-feedback"><?php echo $data['dob_err']?></span>
 
                 </div>
 
@@ -105,9 +106,9 @@
                        
                     <div class="inputForm <?php echo (!empty($data['species_err'])) ? 'is-invalid' : '' ; ?>">
                         <i class='bx bx-spreadsheet' ></i>
-                        <input type="text" class="input " placeholder="Select Species" value="" name="species">
+                        <input type="text" class="input " placeholder="Select Species" value="<?php echo $data['species']?>" name="species">
                     </div>
-                    <span class="invalid-feedback"></span>
+                    <span class="invalid-feedback"><?php echo $data['species_err']?></span>
                 </div>
                         
                  <div class="flex-column">
@@ -116,7 +117,7 @@
                         
                     <div class="inputForm <?php echo (!empty($data['breed_err'])) ? 'is-invalid' : '' ; ?>">
                         <i class='bx bx-spreadsheet' ></i>
-                        <input type="text" class="input " placeholder="Enter Breed" value="" name="breed">
+                        <input type="text" class="input " placeholder="Enter Breed" value="<?php echo $data['breed']?>" name="breed">
                     </div>
                         
                     <span class="invalid-feedback"></span>

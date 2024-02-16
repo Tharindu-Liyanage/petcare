@@ -43,11 +43,11 @@
 
          <div class="header">
             <div class="left">
-                <h1>Pet</h1>
+                <h1>Pet Owner</h1>
                 <ul class="breadcrumb">
                     <li><a href="<?php echo URLROOT;?>/assistant">Dashboard</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/assistant/petowner">Petownr</a></li>
+                    <li><a href="<?php echo URLROOT;?>/assistant/petowner">Petowner</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
                     <li><a href="<?php echo URLROOT;?>/assistant/addPetowner" class="active">Add petowner</a></li>
                 </ul>
@@ -62,14 +62,14 @@
 <div class="add-model">
 
    <div class="header">
-   <i class='bx bxs-dog' ></i>
-        <h3>Add pet</h3>       
+   <i class='bx bx-user' ></i>
+        <h3>Add petowner</h3>       
     </div>
 
     
 
 
-    <form class="form" method="post" enctype="multipart/form-data" action="">
+    <form class="form" method="post"  action="">
 
       
 
@@ -77,64 +77,73 @@
 
                 <div class="flex-column">
                             
-                    <label>Pet Name</label>
+                    <label>First Name</label>
                         
-                        <div class="inputForm <?php echo (!empty($data['pname_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-purchase-tag-alt' ></i>
-                            <input type="text" class="input" name="pname" placeholder="Enter pet Name" value="">
+                        <div class="inputForm <?php echo (!empty($data['firstname_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-user' ></i>
+                            <input type="text" class="input" name="firstname" placeholder="Enter first Name" value="<?php echo $data['firstname']?>">
                         </div>
+
+                        <span class="invalid-feedback"><?php echo $data['firstname_err']?></span>
                 </div>               
 
                 <div class="flex-column">
 
-                    <label>Date Of Birth</label>
+                    <label>Last Name</label>
                             
-                        <div class="inputForm <?php echo (!empty($data['dob_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-calendar' ></i>
-                            <input type="date" class="input " placeholder="Select Date" value="" name="dob">
+                        <div class="inputForm <?php echo (!empty($data['lastname_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-user' ></i>
+                            <input type="text" class="input " placeholder="Enter last name" value="<?php echo $data['lastname']?>" name="lastname">
                         </div>
-                        
-                        <span class="invalid-feedback">bb</span>
+                        <!-- me span ek error msg ekk pennann -->
+                        <span class="invalid-feedback"><?php echo $data['lastname_err']?></span> 
+
+                </div>
+
+
+
+
+                
+                <div class="flex-column">
+
+                    <label>Address</label>
+                            
+                        <div class="inputForm <?php echo (!empty($data['address_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-user' ></i>
+                            <input type="text" class="input " placeholder="Enter address" value="<?php echo $data['address']?>" name="address">
+                        </div>
+                        <!-- me span ek error msg ekk pennann -->
+                        <span class="invalid-feedback"><?php echo $data['address_err']?></span> 
 
                 </div>
 
 
                 <div class="flex-column">
                     
-                    <label>Species </label>
+                    <label>Email</label>
                        
-                    <div class="inputForm <?php echo (!empty($data['species_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-spreadsheet' ></i>
-                        <input type="text" class="input " placeholder="Select Species" value="" name="species">
+                    <div class="inputForm <?php echo (!empty($data['email_err'])) ? 'is-invalid' : '' ; ?>">
+                    <i class='bx bx-envelope'></i>
+                        <input type="text" class="input " placeholder="Enter Email" value="<?php echo $data['email']?>" name="email">
                     </div>
-                    <span class="invalid-feedback"></span>
+                    <span class="invalid-feedback"><?php echo $data ['email_err']?></span>
                 </div>
                         
                  <div class="flex-column">
                             
-                    <label>Breed </label>
-                        
-                    <div class="inputForm <?php echo (!empty($data['breed_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-spreadsheet' ></i>
-                        <input type="text" class="input " placeholder="Enter Breed" value="" name="breed">
+                    <label>Phone Number</label>
+                   
+                    <div class="inputForm <?php echo (!empty($data['mobile_err'])) ? 'is-invalid' : '' ; ?>">
+                    <i class='bx bxs-phone'></i>
+                        <input type="text" class="input " placeholder="Enter phone number" value="<?php echo $data['mobile']?>" name="mobile">
                     </div>
                         
-                    <span class="invalid-feedback"></span>
+                    <span class="invalid-feedback"><?php echo $data['mobile_err']?></span>
 
                 </div>
 
 
-                <div class="flex-column">
-                            
-                    <label>Upload Image</label>
-                        
-                    <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-image-alt'></i>
-                        <input type="file" class="input" name="pet_img" accept="image/*">
-                    </div>
-                        
-                    <span class="invalid-feedback"></span>
-                </div>
+                
                         
                         
 
@@ -145,7 +154,7 @@
 
                 <div class="button-form">
                             <button type="reset"  class="button-submit">Reset</button> 
-                            <button type="submit" id="button-submit" class="button-submit">Update</button>
+                            <button type="submit" id="button-submit" class="button-submit">Add</button>
                 </div>
                 
 
