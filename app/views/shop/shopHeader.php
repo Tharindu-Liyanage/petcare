@@ -130,19 +130,19 @@
                         <hr>
 
                         <a href="#" class="sub-menu-link">
-                            <i class="ri-shopping-bag-line icon"></i>
+                            <i class="ri-shopping-bag-line icon-submenu"></i>
                             <p>My Orders</p>
                             <span>></span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                        <i class="ri-settings-2-line icon"></i>
+                        <i class="ri-settings-2-line icon-submenu"></i>
                             <p>Settings</p>
                             <span>></span>
                         </a>
 
                         <a href="<?php echo URLROOT;?>/shop/logout" class="sub-menu-link">
-                        <i class="ri-logout-box-r-line icon"></i>
+                        <i class="ri-logout-box-r-line icon-submenu"></i>
                             <p>Logout</p>
                             <span>></span>
                         </a>
@@ -156,13 +156,13 @@
                         <hr>
 
                         <a href="<?php echo URLROOT?>/shop/createAccount" class="sub-menu-link">
-                            <i class="ri-user-add-line"></i>
+                            <i class="ri-user-add-line icon-submenu"></i>
                             <p>Create an Account</p>
                             <span>></span>
                         </a>
 
                         <a href="<?php echo URLROOT?>/shop/login" class="sub-menu-link">
-                            <i class="ri-login-box-line icon"></i>
+                            <i class="ri-login-box-line icon-submenu"></i>
                             <p>Login</p>
                             <span>></span>
                         </a>
