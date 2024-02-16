@@ -284,22 +284,22 @@
 
                     //validate species
                     if(empty($data['species'])){
-                        $data['species_err'] = 'Please enter species';
+                        $data['species_err'] = 'Please select species';
                     }   
 
                     //validate breed
                     if(empty($data['breed'])){
-                    $data['breed_err'] = 'Please enter breed';
+                    $data['breed_err'] = 'Please select breed';
                         }  
 
                          //validate sex
                     if(empty($data['sex'])){
-                        $data['sex_err'] = 'Please enter sex';
+                        $data['sex_err'] = 'Please select sex';
                             }  
 
                               //validate img
                     if(empty($data['img'])){
-                        $data['img_err'] = 'Please enter image';
+                        $data['img_err'] = 'Please upload image';
                             }  
                         
                         
