@@ -83,6 +83,30 @@
             }
 
 
+        } 
+
+
+
+
+
+        public function addPet($data){
+            $this->db->query('INSERT INTO petcare_pet (pet,DOB,species,breed) VALUES(:pname,:dob,:species,:breed)');
+
+        
+            $this->db->bind(':pname' , $data['pname']);
+            $this->db->bind(':dob', $data['dob']);
+            $this->db->bind(':species', $data['species']);
+            $this->db->bind(':breed', $data['breed']);
+            
+            //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }
+
+
         }
 
       

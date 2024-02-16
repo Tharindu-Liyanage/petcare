@@ -120,7 +120,7 @@
                         <input type="text" class="input " placeholder="Enter Breed" value="<?php echo $data['breed']?>" name="breed">
                     </div>
                         
-                    <span class="invalid-feedback"></span>
+                    <span class="invalid-feedback"><?php echo $data['breed_err']?></span>
 
                 </div>
 
@@ -134,7 +134,7 @@
                         <input type="file" class="input" name="pet_img" accept="image/*">
                     </div>
                         
-                    <span class="invalid-feedback"></span>
+                    <span class="invalid-feedback"><?php echo $data['img_err']?></span>
                 </div>
                         
                         

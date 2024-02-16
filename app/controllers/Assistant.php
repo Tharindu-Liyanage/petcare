@@ -218,7 +218,9 @@
             }
 
             
-        }   
+        }  
+        
+        // ADD PET part------------------------------------------------------------------------------------------
 
 
 
@@ -242,22 +244,113 @@
             ];
 
             $this ->view('dashboards/assistant/pet/pet', $data);
+
         }
 
-        public function settings(){
+        public function addPetAppointment(){
+            $data =null;
 
-            $user_id = ($_SESSION['user_id']);
-            $settingsData = $this->settingsModel->getSettingDetails($user_id);
+           $this->view('dashboards/assistant/pet/addPet',$data);
 
-            $data =[
-                'settings' => $settingsData
-            ];
-            
-            $this->view('dashboards/assistant/setting/settings',$data);
+
+           }
+
+           public function addPet(){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                    $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                    $data = [
+                        'pname' => trim($_POST['pname']),
+                        'dob' => trim($_POST['dob']),
+                        'species' => trim($_POST['species']),
+                        'breed' => trim($_POST['breed']),
+                        
+                        'pname_err' => '',
+                        'dob_err' => '',
+                        'species_err' =>'',
+                        'breed_err' => '',
+                        
+                    ];
+
+                    //validate pName
+                    if(empty($data['pname'])){
+                        $data['pname_err'] = 'Please enter pet Name';
+                    }   
+
+                    //validate dob
+                    if(empty($data['dob'])){
+                        $data['dob_err'] = 'Please enter dob';
+                    }   
+
+                    //validate species
+                    if(empty($data['species'])){
+                        $data['species_err'] = 'Please enter species';
+                    }   
+
+                    //validate breed
+                    if(empty($data['breed'])){
+                    $data['breed_err'] = 'Please enter breed';
+                        }  
+                        
+                        
+                        if(empty($data['pname_err']) && empty($data['dob_err']) && empty($data['species_err'])  && empty($data['breed_err']) )  {
+
+                   //Regster User
+
+                   if($this->assistantModel->addpet($data)){
+                                    
+                                      
+                    
+                    redirect('assistant/pet');
+
+                    }else{
+                        die("Something went wrong");
+                    }
+
+
+                }else{
+                    $this->view('dashboards/assistant/pet/addPet',$data);//load with errors  
+                }
+
+            }else{//form eken submit krnne nthuw normal load wena ek
+
+                $data = [
+                    'pname' => '',
+                    'dob' => '',
+                    'species' => '',
+                    'breed' => '',
+                   
+                    'pname_err' => '',
+                    'dob_err' => '',
+                    'species_err' => '',
+                    'breed_err' => '',
+                    
+                    ];
+              
+                    $this->view('dashboards/assistant/pet/addPet',$data);
+
+
+            }
         }
 
+
+
+
+
+
+            public function settings(){
+
+                $user_id = ($_SESSION['user_id']);
+                $settingsData = $this->settingsModel->getSettingDetails($user_id);
     
+                $data =[
+                    'settings' => $settingsData
+                ];
+                
+                $this->view('dashboards/assistant/setting/settings',$data);
+            }
 
 
-
-    }
+        
