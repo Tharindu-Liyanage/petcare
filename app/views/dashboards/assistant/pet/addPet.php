@@ -79,7 +79,7 @@
                     <label>Pet Name</label>
                         
                         <div class="inputForm <?php echo (!empty($data['pname_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-purchase-tag-alt' ></i>
+                            <i class='bx bxs-dog' ></i>
                             <input type="text" class="input" name="pname" placeholder="Enter pet Name" value="<?php echo $data['pname']?>">
                         </div>
 
@@ -112,6 +112,7 @@
                 </div>
                         
                  <div class="flex-column">
+
                             
                     <label>Breed </label>
                         
@@ -123,6 +124,22 @@
                     <span class="invalid-feedback"><?php echo $data['breed_err']?></span>
 
                 </div>
+
+
+
+                <div class="flex-column">
+                            <label>Sex</label>
+                        </div>
+                        <div class="inputForm <?php echo (!empty($data['sex_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-male-sign' ></i>
+                            <select name="sex">
+                                <option value=""  selected>Select Sex</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                               
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['sex_err']; ?></span>
 
 
                 <div class="flex-column">

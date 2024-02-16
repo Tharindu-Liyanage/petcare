@@ -220,17 +220,10 @@
             
         }  
         
-        // ADD PET part------------------------------------------------------------------------------------------
+        // ADD PET part-------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
-        public function addPet(){
-
-            $data =null;
-   
-            
-            $this->view('dashboards/assistant/pet/addPet',$data);
-        }   
 
 
 
@@ -255,22 +248,27 @@
 
            }
 
-           public function addPets(){
+           public function addPet(){
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                     $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
                     $data = [
-                        'pname' => trim($_POST['pname']),
-                        'dob' => trim($_POST['dob']),
-                        'species' => trim($_POST['species']),
-                        'breed' => trim($_POST['breed']),
+                        'pname'  => trim($_POST['pname']),
+                        'dob'    => trim($_POST['dob']),
+                        'species'=> trim($_POST['species']),
+                        'breed'  => trim($_POST['breed']),
+                        'sex'    => trim($_post['sex']),
+                        'img'    => trim($_post['img']),
                         
-                        'pname_err' => '',
-                        'dob_err' => '',
-                        'species_err' =>'',
-                        'breed_err' => '',
+                        'pname_err'    => '',
+                        'dob_err'      => '',
+                        'species_err'  =>'',
+                        'breed_err'    => '',
+                        'sex_err'      => '',
+                        'img_err'      => '',
+                    
                         
                     ];
 
@@ -293,9 +291,19 @@
                     if(empty($data['breed'])){
                     $data['breed_err'] = 'Please enter breed';
                         }  
+
+                         //validate sex
+                    if(empty($data['sex'])){
+                        $data['sex_err'] = 'Please enter sex';
+                            }  
+
+                              //validate img
+                    if(empty($data['img'])){
+                        $data['img_err'] = 'Please enter image';
+                            }  
                         
                         
-                        if(empty($data['pname_err']) && empty($data['dob_err']) && empty($data['species_err'])  && empty($data['breed_err']) )  {
+                        if(empty($data['pname_err']) && empty($data['dob_err']) && empty($data['species_err'])  && empty($data['breed_err']) && empty($data['sex_err']) && empty($data['img_err']) )  {
 
                    //Regster User
 
@@ -317,15 +325,19 @@
             }else{//form eken submit krnne nthuw normal load wena ek
 
                 $data = [
-                    'pname' => '',
-                    'dob' => '',
+                    'pname'   => '',
+                    'dob'     => '',
                     'species' => '',
-                    'breed' => '',
+                    'breed'   => '',
+                    'sex'     => '',
+                    'img'     => '',
                    
-                    'pname_err' => '',
-                    'dob_err' => '',
+                    'pname_err'   => '',
+                    'dob_err'     => '',
                     'species_err' => '',
-                    'breed_err' => '',
+                    'breed_err'   => '',
+                    'sex_err'     => '',
+                    'img_err'     => '',
                     
                     ];
               
