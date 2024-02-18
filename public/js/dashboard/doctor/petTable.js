@@ -47,16 +47,34 @@ deleteLinks.forEach((deleteLink) => {
 
     // Open the confirmation modal
     notification.style.display = "block";
-    // Set the confirmation button's href to the delete URL
-    confirmDeleteButton.setAttribute("href", this.getAttribute("href"));
+
+    // Get the reason input element
+    const reasonInput = document.getElementById("reason");
+
+    // Add click event listener to the confirmDeleteButton
     confirmDeleteButton.addEventListener("click", function () {
-        window.location.href = this.getAttribute("href");
-        
+      // Get the reason input value and trim leading/trailing spaces
+      const reasonValue = reasonInput.value.trim();
+
+      // Check if a reason is provided
+      if (reasonValue !== "") {
+        // Format the reason to replace spaces with dashes
+        const formattedReason = reasonValue.replace(/\s+/g, "-");
+
+        // Get the URL from the delete link and append the formatted reason
+        const deleteUrl = deleteLink.getAttribute("href");
+        const urlWithReason = `${deleteUrl}/${formattedReason}`;
+
+        // Redirect to the URL with the reason
+        window.location.href = urlWithReason;
+      } else {
+        // If no reason provided, simply redirect without appending anything
+        window.location.href = deleteLink.getAttribute("href");
+      }
     });
-    
-    
   });
 });
+
 
 // Add click event listener to the "No" button to hide the notification
 cancelDeleteButton.addEventListener("click", function () {

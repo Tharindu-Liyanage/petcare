@@ -471,7 +471,12 @@
 
         public function animalward(){
 
-            $data =null;
+            //get animal ward details
+           $wardDetails = $this->doctorModel->getAnimalWardDetails();
+
+            $data = [
+                'animalward' => $wardDetails
+            ];
 
             $this->view('dashboards/doctor/animalward/animalward',$data);
         }
@@ -483,11 +488,20 @@
             $this->view('dashboards/doctor/animalward/updateWardTreatment',$data);
         }
 
-        public function admitPatient(){
+        public function addmitPet($petid,$reason){
 
-            $data =null;
+            $reason_text = str_replace('-', ' ', $reason);
 
-            $this->view('dashboards/doctor/animalward/admitPatient',$data);
+            $data =[
+                'petid' => $petid,
+                'reason' => $reason_text
+            ];
+
+           //addmit pet to the ward
+              $this->doctorModel->addmitPetToWard($data);
+              
+
+            $this->view('dashboards/doctor/animalward/animalward',$data);
 
         }
 

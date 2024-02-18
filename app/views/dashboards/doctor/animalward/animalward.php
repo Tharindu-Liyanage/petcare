@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css"> <!-- for tthe table -->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -52,121 +53,91 @@
 
             <div class="bottom-data">
 
+
+
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="appointment">
                     <div class="header">
                     <i class='bx bx-plus-medical' ></i>
-                        <h3>In Ward Patients</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+                        <h3>Inward Pets</h3>
+
+                    <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
+                    </div>
+
+                    <!-- search container over -->
+
+
+                      
+                        
+                        
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Pet</th>
-                                <th>Cage Id</th>
-                                <th>Admit Date</th>
-                                <th>Reson</th>
-                                <th>Species</th>
+                                <th>Treatment Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
+                                <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>Pet Owner<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
+                                <th>Cage No <i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
+                                <th>Reason <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
+                                <th>Admit Date <i class='bx bxs-sort-alt sort' data-sort="time-search"></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
-                           
+                            
 
-                            <tr>
-                                <td>1</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet1.png" ><p>Rex</p>
-                                </td>
-                                <td>3</td>
-                                <td>02-03-2023</td>
-                                <td>Infection</td>
-                                <td>Dog</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateWardTreatment" ><i class='bx bx-edit' ></i></a>  
-                                           <i class='bx bx-show'></i>   
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
+                            <?php
 
+                            if(count($data['animalward']) == 0){
+
+                                echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                            }else
+                            
+                            
+                            foreach($data['animalward'] as $ward) : ?>
 
                             <tr>
-                                <td>2</td>
+                                <td class="id-search">AWT-<?php echo $ward->id?></td>
                                 <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet2.png" ><p>Garfield</p>
+                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $ward->petpic?>" ><p><?php echo $ward->petname?></p>
                                 </td>
-                                <td>5</td>
-                                <td>02-05-2023</td>
-                                <td>Surgeory</td>
-                                <td>Cat</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateTreatment" ><i class='bx bx-edit' ></i></a>  
-                                           <i class='bx bx-show'></i>   
-                                           
+
+                                 <td>
+                                    <div class="profile-three">
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $ward->petownerpic?>" >
+                                    <p><?php echo $ward->petownerfname?> <?php echo $ward->petownerlname?></p>
                                     </div>
-                                    
                                 </td>
+                                
+                                <td class="time-search"><?php echo $ward->cage_no?></td>
+                                <td class="time-search"><?php echo $ward->reason?></td>
+                                <td class="date-search"><?php echo $ward->admit_date?></td>
+                                
+                               
+
+                                <td class="action"> 
+                                   
+                                
+                                </td>
+
+
+                                
                             </tr>
 
-
-                            <tr>
-                                <td>4</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet3.png" ><p>Rex</p>
-                                </td>
-                                <td>5</td>
-                                <td>02-03-2023</td>
-                                <td>Kidney disease</td>
-                                <td>Dog</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateTreatment" ><i class='bx bx-edit' ></i></a>  
-                                           <i class='bx bx-show'></i>   
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>4</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet4.png" ><p>Oreo</p>
-                                </td>
-                                <td>2</td>
-                                <td>02-03-2023</td>
-                                <td>Broken bone</td>
-                                <td>Cat</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           <a data-staff-id="" class="removeLink" href="" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/doctor/updateTreatment" ><i class='bx bx-edit' ></i></a> 
-                                           <i class='bx bx-show'></i>    
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-                        
+                        <?php endforeach;  ?>
                         </tbody>
                     </table>
+
+                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
+
+
                 </div>
  
             </div> <!-- content over -->
@@ -209,30 +180,15 @@
 
     <!-- staff add model over -->
 
+ 
+
 
     
 
-    <?php
-
-        if (($_SESSION['staff_user_added']) === true) {
-           
-            toast_notification("Staff Memeber Added","A new member has been added successfully.","fa-solid fa-xmark close"); 
-        }
-
-        else if (($_SESSION['staff_user_updated']) === true ) {
-            toast_notification("Staff Memeber Updated","A member has been updated successfully.","fa-solid fa-xmark close"); 
-            
-        } else if (($_SESSION['staff_user_removed']) === true ) {
-            toast_notification("Staff Memeber Removed","A member has been removed successfully.","fa-solid fa-xmark close"); 
-            
-        }
-    
-        
-    
-    ?>
+   
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/animalWardTable.js"></script>
     
 </body>
 </html>

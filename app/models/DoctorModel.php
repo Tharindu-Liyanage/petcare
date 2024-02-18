@@ -391,6 +391,90 @@
 
             }
 
+
+            public function getAvailableCages(){
+                
+                $this->db->query(
+                    'SELECT *
+                     FROM petcare_cage_status
+                     WHERE status = "available"
+                     LIMIT 1
+                    '
+                );
+
+                $results = $this->db->resultSet();
+
+                return $results;
+            }
+
+            public function addmitPetToWard($data){
+                //get petowner id by petid
+                $petDetails=$this->getPetDetailsByPetID($data['petid']);
+                $petowner_id = $petDetails->poid;
+
+                //get cage id availble
+                $cageDetails=$this->getAvailableCages();
+
+                
+
+                if($cageDetails == null){
+                    $_SESSION['notification'] = true;
+                    redirect('doctor/pet');
+
+                }
+                
+
+                $this->db->query('INSERT INTO petcare_inward_pet (pet_id, owner_id, cage_no, admit_date, status, reason) VALUES (:pet_id, :owner_id, :cage_id, :admission_date, :status, :reason)');
+
+                $today = date("Y-m-d");
+                // Bind values
+                $this->db->bind(':pet_id', $data['petid']);
+                $this->db->bind(':owner_id',$petowner_id);
+                $this->db->bind(':cage_id', $cageDetails[0]->id);
+                $this->db->bind(':admission_date', $today);
+                $this->db->bind(':status', "Admitted");
+                $this->db->bind(':reason', $data['reason']);
+
+                // Execute
+                if($this->db->execute()){
+
+                    //update cage status to occupied
+                    $this->updateCageStatus($cageDetails[0]->id);
+
+                    return true;
+
+                } else {
+
+                    return false;
+                }
+            }
+
+
+            //update cage status to occupied
+            public function updateCageStatus($cage_id){
+                $this->db->query('UPDATE petcare_cage_status SET status = "occupied" WHERE id = :id');
+                $this->db->bind(':id', $cage_id);
+                $this->db->execute();
+            }
+
+
+            //get animal ward details
+
+            public function getAnimalWardDetails(){
+                $this->db->query(
+                    'SELECT inward.*, pet.pet as petname, pet.profileImage as petpic, pet.pet_id_generate as petid, petowner.first_name as petownerfname, petowner.last_name as petownerlname, petowner.profileImage as petownerpic
+                     FROM petcare_inward_pet inward
+                     JOIN petcare_pet pet ON inward.pet_id = pet.id
+                     JOIN petcare_petowner petowner ON inward.owner_id = petowner.id
+                     WHERE inward.status = "Admitted"
+                    '
+                );
+
+                $results = $this->db->resultSet();
+
+                return $results;
+            }
+
             
 
 
