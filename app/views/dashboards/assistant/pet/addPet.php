@@ -110,22 +110,22 @@
                     </div>
                     <span class="invalid-feedback"><?php echo $data['species_err']?></span>
                 </div>
-                        
-                 <div class="flex-column">
 
-                            
-                    <label>Breed </label>
-                        
+
+
+                <div class="flex-column">
+                    
+                    <label>breed </label>
+                       
                     <div class="inputForm <?php echo (!empty($data['breed_err'])) ? 'is-invalid' : '' ; ?>">
                         <i class='bx bx-spreadsheet' ></i>
-                        <input type="text" class="input " placeholder="Enter Breed" value="<?php echo $data['breed']?>" name="breed">
+                        <input type="text" class="input " placeholder="Select breed" value="<?php echo $data['breed']?>" name="breed">
                     </div>
-                        
                     <span class="invalid-feedback"><?php echo $data['breed_err']?></span>
-
                 </div>
-
-
+                        
+                
+            
 
                 <div class="flex-column">
                             <label>Sex</label>
@@ -141,6 +141,19 @@
                         </div>
                         <span class="invalid-feedback"><?php echo $data['sex_err']; ?></span>
 
+
+
+                 <div class="flex-column">
+                    
+                    <label>petownerID</label>
+                       
+                    <div class="inputForm <?php echo (!empty($data['petownerID_err'])) ? 'is-invalid' : '' ; ?>">
+                    <i class='bx bxs-id-card'></i>
+                        <input type="text" class="input" placeholder="Enter petownerID" value="<?php echo $data['petownerID']?>" name="petownerID">
+                    </div>
+                    <span class="invalid-feedback"><?php echo $data ['petownerID_err']?></span>
+                </div>
+                        
 
                 
                         

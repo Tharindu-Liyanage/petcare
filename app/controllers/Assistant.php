@@ -261,12 +261,14 @@
                         'species'=> trim($_POST['species']),
                         'breed'  => trim($_POST['breed']),
                         'sex'    => trim($_POST['sex']),
+                        'petownerID'=>trim($_POST['petownerID']),
                         
                         'pname_err'    => '',
                         'dob_err'      => '',
                         'species_err'  => '',
                         'breed_err'    => '',
                         'sex_err'      => '',
+                        'petownerID_err' => '',
                        
                         
                     ];
@@ -296,8 +298,41 @@
                         $data['sex_err'] = 'Please select sex';
                             }  
 
+
+                    
+                         //validate petownerID
+                    if(empty($data['petownerID'])){
+
+                        $data['petownerID_err'] = 'Please enter petownerID';
+
+                    }else{
+ 
+                        if(filter_var($data['petownerID'], FILTER_VALIDATE_EMAIL)){ //check petownerID in correct formate
+
+                            $email=$this->assistantModel->findpetownerID($data['petownerID']);//check database 
+
+                            if($email){
+                                $data['petownerID_err'] = 'petownerID already taken';
+                            }
+                           
+                        }else{  //check petownerID in the DB
                         
-                        if(empty($data['pname_err']) && empty($data['dob_err']) && empty($data['species_err'])  && empty($data['breed_err']) && empty($data['sex_err']) )  {
+                             $data['petownerID_err'] = 'petownerID is not valid';
+ 
+                        }
+
+
+                    }
+
+
+
+
+
+
+
+
+                        
+                        if(empty($data['pname_err']) && empty($data['dob_err']) && empty($data['species_err'])  && empty($data['breed_err']) && empty($data['sex_err']) && empty($data['petownerID_err']) )  {
 
                    //Regster User
 
@@ -324,12 +359,14 @@
                     'species' => '',
                     'breed'   => '',
                     'sex'     => '',
+                    'petownerID' => '',
                    
                     'pname_err'   => '',
                     'dob_err'     => '',
                     'species_err' => '',
                     'breed_err'   => '',
                     'sex_err'     => '',
+                    'petownerID_err' => '',
                     
                     ];
               

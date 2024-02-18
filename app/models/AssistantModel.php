@@ -89,8 +89,33 @@
 
 //add pet--------------------------------------------------------------------------------------------------------------------------------------
 
+public function findpetownerID($petownerID){
+
+
+    $this ->db->query('SELECT * FROM petcare_petowner WHERE petowner_id = :petownerID ');
+
+    $this->db->bind(':petownerID' , $petownerID);
+
+    $row = $this->db->single();
+
+    if($row){
+        return true;
+    }else{
+        return false;
+    }
+
+
+
+
+ }
+
+
+
+
+       
+
         public function addPet($data){
-            $this->db->query('INSERT INTO petcare_pet (pet,DOB,species,breed,sex) VALUES(:pname,:dob,:species,:breed,:sex)');
+            $this->db->query('INSERT INTO petcare_pet (pet,DOB,species,breed,sex,petowner_id) VALUES(:pname,:dob,:species,:breed,:sex,:petownerID)');
 
         
             $this->db->bind(':pname' , $data['pname']);
@@ -98,6 +123,8 @@
             $this->db->bind(':species', $data['species']);
             $this->db->bind(':breed', $data['breed']);
             $this->db->bind(':sex', $data['sex']);
+            $this->db->bind(':petownerID', $data['petownerID']);
+            
            
 
             
