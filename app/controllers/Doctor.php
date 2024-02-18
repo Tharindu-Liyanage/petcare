@@ -162,6 +162,7 @@
                 //get treatment details by pet id
                 $treatmentDetails = $this->doctorModel->getTreatmentDetailsByPetID($pet_id);
                 $closedTreatmentDetails = $this->doctorModel->getClosedTreatmentDetailsByPetID($pet_id);
+                $wardDetails = $this->doctorModel->getWardTreatmentDetailsByPetID($pet_id);
 
                 //get latest treatment id by pet id from appointment table
                 $latestTreatmentID = $this->doctorModel->getLatestTreatmentID($pet_id);
@@ -178,6 +179,7 @@
                     'latestTreatmentID' => $latestTreatmentID,
                     'petDetails' => $petDetails,
                     'pet_id' => $pet_id,
+                    'wardDetails' => $wardDetails
                 ];
     
                 $this->view('dashboards/doctor/treatment/checkBeforeTreatment',$data);
@@ -501,7 +503,7 @@
               $this->doctorModel->addmitPetToWard($data);
               
 
-            $this->view('dashboards/doctor/animalward/animalward',$data);
+            redirect('doctor/animalward');
 
         }
 

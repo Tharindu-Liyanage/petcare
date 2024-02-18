@@ -68,8 +68,8 @@ deleteLinks.forEach((deleteLink) => {
         // Redirect to the URL with the reason
         window.location.href = urlWithReason;
       } else {
-        // If no reason provided, simply redirect without appending anything
-        window.location.href = deleteLink.getAttribute("href");
+        // If no reason provided
+        reasonInput.style.borderColor = "red"; // Set border color red to reason input
       }
     });
   });

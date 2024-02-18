@@ -131,6 +131,40 @@
                 }
             }
 
+            //get ward treatment details by pet id from petcare_ward_medical_reports
+            public function getWardTreatmentDetailsByPetID($pet_id){
+                 
+                $this->db->query(
+    
+                    'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname
+                    FROM petcare_ward_medical_reports report
+                    JOIN petcare_pet pet ON report.pet_id = pet.id
+                    JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                    WHERE (report.treatment_id, report.visit_date) IN (
+                        SELECT treatment_id, MAX(visit_date) AS max_visit_date
+                        FROM petcare_ward_medical_reports
+                        GROUP BY treatment_id
+                    ) AND report.pet_id = :id   -- Added condition for owner_id in the main query
+                    ORDER BY report.visit_date DESC
+                    ');
+    
+                    $this->db->bind(':id' , $pet_id);
+                            
+    
+                    $results = $this->db->resultSet();
+    
+                    
+                //check row count
+        
+                if($this->db->rowCount() > 0 ){
+                    return $results;
+                }else{
+                    return null;
+                }
+            }
+
+
+
             public function getTreatmentDetailsByTreatmentID($id){
 
               
@@ -418,13 +452,17 @@
                 
 
                 if($cageDetails == null){
-                    $_SESSION['notification'] = true;
+                    $_SESSION['notification'] = 'error';
                     redirect('doctor/pet');
 
-                }
-                
+                }else if($this->checkAdmitAlready($data['petid'])){
 
-                $this->db->query('INSERT INTO petcare_inward_pet (pet_id, owner_id, cage_no, admit_date, status, reason) VALUES (:pet_id, :owner_id, :cage_id, :admission_date, :status, :reason)');
+                    $_SESSION['notification'] = 'error';
+                        redirect('doctor/pet');
+
+                }else{
+
+                    $this->db->query('INSERT INTO petcare_inward_pet (pet_id, owner_id, cage_no, admit_date, status, reason) VALUES (:pet_id, :owner_id, :cage_id, :admission_date, :status, :reason)');
 
                 $today = date("Y-m-d");
                 // Bind values
@@ -441,12 +479,22 @@
                     //update cage status to occupied
                     $this->updateCageStatus($cageDetails[0]->id);
 
+                    $_SESSION['notification'] = 'ok';
+
+
                     return true;
 
                 } else {
 
                     return false;
                 }
+
+
+
+                }
+                
+
+                
             }
 
 
@@ -473,6 +521,31 @@
                 $results = $this->db->resultSet();
 
                 return $results;
+            }
+
+            //check animal wward admit already
+
+            public function checkAdmitAlready($petid){
+                $this->db->query(
+                    'SELECT *
+                     FROM petcare_inward_pet
+                     WHERE pet_id = :petid AND status = "Admitted"
+                    '
+                );
+
+                $this->db->bind(':petid', $petid);
+
+                $results = $this->db->single();
+
+                 //check row count
+        
+                 if($this->db->rowCount() > 0 ){
+                    return true;
+                }else{
+                    return false;
+                }
+
+
             }
 
             
