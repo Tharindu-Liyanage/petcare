@@ -142,17 +142,7 @@
                         <span class="invalid-feedback"><?php echo $data['sex_err']; ?></span>
 
 
-                <div class="flex-column">
-                            
-                    <label>Upload Image</label>
-                        
-                    <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-image-alt'></i>
-                        <input type="file" class="input" name="pet_img" accept="image/*">
-                    </div>
-                        
-                    <span class="invalid-feedback"><?php echo $data['img_err']?></span>
-                </div>
+                
                         
                         
 

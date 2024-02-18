@@ -219,12 +219,13 @@
 
             
         }  
+
+
+
+
+
         
         // ADD PET part-------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 
 
@@ -259,16 +260,14 @@
                         'dob'    => trim($_POST['dob']),
                         'species'=> trim($_POST['species']),
                         'breed'  => trim($_POST['breed']),
-                        'sex'    => trim($_post['sex']),
-                        'img'    => trim($_post['img']),
+                        'sex'    => trim($_POST['sex']),
                         
                         'pname_err'    => '',
                         'dob_err'      => '',
-                        'species_err'  =>'',
+                        'species_err'  => '',
                         'breed_err'    => '',
                         'sex_err'      => '',
-                        'img_err'      => '',
-                    
+                       
                         
                     ];
 
@@ -297,13 +296,8 @@
                         $data['sex_err'] = 'Please select sex';
                             }  
 
-                              //validate img
-                    if(empty($data['img'])){
-                        $data['img_err'] = 'Please upload image';
-                            }  
                         
-                        
-                        if(empty($data['pname_err']) && empty($data['dob_err']) && empty($data['species_err'])  && empty($data['breed_err']) && empty($data['sex_err']) && empty($data['img_err']) )  {
+                        if(empty($data['pname_err']) && empty($data['dob_err']) && empty($data['species_err'])  && empty($data['breed_err']) && empty($data['sex_err']) )  {
 
                    //Regster User
 
@@ -330,14 +324,12 @@
                     'species' => '',
                     'breed'   => '',
                     'sex'     => '',
-                    'img'     => '',
                    
                     'pname_err'   => '',
                     'dob_err'     => '',
                     'species_err' => '',
                     'breed_err'   => '',
                     'sex_err'     => '',
-                    'img_err'     => '',
                     
                     ];
               

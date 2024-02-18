@@ -90,7 +90,7 @@
 //add pet--------------------------------------------------------------------------------------------------------------------------------------
 
         public function addPet($data){
-            $this->db->query('INSERT INTO petcare_pet (pet,DOB,species,breed,sex,profileImage) VALUES(:pname,:dob,:species,:breed,:sex,:img)');
+            $this->db->query('INSERT INTO petcare_pet (pet,DOB,species,breed,sex) VALUES(:pname,:dob,:species,:breed,:sex)');
 
         
             $this->db->bind(':pname' , $data['pname']);
@@ -98,7 +98,7 @@
             $this->db->bind(':species', $data['species']);
             $this->db->bind(':breed', $data['breed']);
             $this->db->bind(':sex', $data['sex']);
-            $this->db->bind(':img', $data['pet_img']);
+           
 
             
             //execute
