@@ -65,10 +65,11 @@
         }
 
         public function order(){
-            // $orderData = $this->dashboardModel->
+             $orderData = $this->dashboardModel->getOrderDetails();
+
             
-            $data =[
-                
+            $data = [
+                'orders' => $orderData
             ];
    
             

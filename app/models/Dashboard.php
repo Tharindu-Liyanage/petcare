@@ -269,6 +269,7 @@
 
         11. updateProduct ->  id given as parameter to this method and update the product
 
+        12. getOrderDetails()
         ================================================================================
         
         */
@@ -378,8 +379,24 @@
 
         }
 
+        public function getOrderDetails(){
+            $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
+                FROM petcare_shop_invoices
+                INNER JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
+                INNER JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
+                INNER JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                ORDER BY petcare_shop_invoices.invoice_date DESC;
 
-          // ============================  Store Manager over ===========================================
+            ');
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+
+        }
+
+
+        // ============================  Store Manager over ===========================================
 
 
 

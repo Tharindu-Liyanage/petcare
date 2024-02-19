@@ -59,100 +59,45 @@
                                 
                                 <th>Id</th>
                                 <th>Customer</th>
-                                <th>Address</th>
-                                <th>Payment</th>
                                 <th>Order Date</th>
                                 <th>Total</th>
+                                <th>Shipment Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                           
+                           <?php foreach($data['orders'] as $order) : ?>
 
-                            <tr>
-                                <td>1</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user1.jpg">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>456 Elm St.</td>
-                                <td>Card</td>
-                                <td>02-10-2023</td>
-                                <td>LKR 1500</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                    <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo 'INV-'.$order->invoice_id  ; ?></td>
+                                    <td class="profile">
+                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user1.jpg">
+                                        <p><?php echo $order->first_name ; ?></p>
+                                    </td>
+                                    <td><?php echo $order->invoice_date ; ?></td>
+                                    <td><?php echo 'LKR '. $order->total_amount ; ?></td>
+                                    <td>
+                                        <form action="<?php echo URLROOT; ?>/storemanager/order" method="post">
+                                            <select class="shipment-status" id="ship-status" name="shipment-status" onchange="this.form.submit()">
+                                                <option class="on-process-value" value="on-process">On Process</option>
+                                                <option class="shipped-value"  value="shipped">Shipped</option>
+                                                <option class="delivered-value"  value="delivered">Delivered</option>
+                                            </select>
+                                            <input type="hidden" name="order-id" value= "<?php echo $order-> invoice_id ;?>" >
+                                        </form>
+                                    </td>
+                                    <td class="action">
+                                        
+                                        <div class="act-icon">
+                                        <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>     
+                                            
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                            <?php endforeach ; ?>
 
-
-                            <tr>
-                                <td>2</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user2.jpeg">
-                                    <p>Anna Smith</p>
-                                </td>
-                                <td>123 Main St.</td>
-                                <td>Cash</td>
-                                <td>02-10-2023</td>
-                                <td>LKR 1500</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                    <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>    
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>3</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user3.jpeg">
-                                    <p>Will Smith</p>
-                                </td>
-                                <td>123 Main St.</td>
-                                <td>Card</td>
-                                <td>30-10-2023</td>
-                                <td>LKR 9500</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                    <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>4</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user4.jpeg">
-                                    <p>Glenn Maxwell</p>
-                                </td>
-                                <td>756 Main St.</td>
-                                <td>Card</td>
-                                <td>15-10-2023</td>
-                                <td>LKR 350</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           
-                                           <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
 
                         
                         </tbody>

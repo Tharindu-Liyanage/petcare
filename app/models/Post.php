@@ -10,7 +10,7 @@
             $this->db->query('SELECT * , category.category_name as categoryname , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
             FROM petcare_blogs
             JOIN petcare_blogs_category category ON petcare_blogs.category = category.id
-            JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id
+            JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id ORDER BY publishdate DESC
             ');
 
             $results = $this->db->resultSet();
@@ -55,6 +55,8 @@
 
                 // Specify the destination directory using __DIR__
                 $destinationDir = __DIR__ . '/../../public/storage/uploads/blog/';
+                // $destinationDir = '/Applications/xampp/xamppfiles/htdocs/petcare/public/storage/uploads/blog/';
+                
                 // Set the path to move the uploaded file to
                 $uploadPath = $destinationDir . $data['uniqueImgFileName'];
 
