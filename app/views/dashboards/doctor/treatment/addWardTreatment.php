@@ -33,7 +33,7 @@
                         >
                         <li><a href="<?php echo URLROOT;?>/doctor/treatment" >Treatment</a></li>
                         <li> > </li> <!-- Include the ">" character within an <li> element -->
-                        <li><a href="<?php echo URLROOT;?>/doctor/addTreatment/<?php// echo $data['id'];?>" class="active">Add Treatment</a></li>
+                        <li><a href="<?php echo URLROOT;?>/doctor/addTreatment/<?php// echo $data['id'];?>" class="active">Add Ward Treatment</a></li>
                     </ul>
                 </div>
 
@@ -49,14 +49,14 @@
             <div class="add-model">
 
         <div class="header">
-        <i class='bx bx-capsule' ></i>
-                <h3>Add Treatment</h3>       
+            <i class='bx bx-plus-medical'></i>
+                <h3>Add Ward Treatment</h3>       
             </div>
 
             
 
 
-            <form class="form" method="post"  action="<?php echo URLROOT; ?>/doctor/addTreatment/<?php echo $data['pet_id']; ?>/<?php echo $data['trtID']; ?>">
+            <form class="form" method="post"  action="<?php echo URLROOT; ?>/doctor/addWardTreatment/<?php echo $data['pet_id']; ?>/<?php echo $data['trtID']; ?>">
 
                 
                <?php
@@ -137,7 +137,7 @@
 
                             <div class="input-field" >
                                 <label>Treatment ID</label>
-                                <input type="text" name="pet-name" value="TRT-<?php echo $data['trtID']; ?>" readonly >
+                                <input type="text" name="pet-name" value="AWT-<?php echo $data['trtID']; ?>" readonly >
                             </div>
 
                             <div class="input-field">
@@ -184,15 +184,12 @@
 
 
                     <div class="title">
-                        Follow Up Information :
+                        Instructions :
                     </div>
 
                      <div class="fields">
 
-                            <div class="input-field">
-                                <label>Follow Up Reason</label>
-                                <textarea class="<?php if(!empty($data['follow-up-reason_err'])) echo 'is-invalid'; ?>" name="follow-up-reason" rows="5" placeholder="Type here..."><?php echo $data['follow-up-reason']; ?></textarea>
-                            </div>
+                           
                 
 
                             <div class="input-field">
@@ -201,18 +198,15 @@
                             </div>
 
 
-                            <div class="input-field">
-                                <label>Follow Up Date</label>
-                                <input class="<?php if(!empty($data['date_err'])) echo 'is-invalid'; ?>"  id="datepicker" type="date" name="follow-up-date" value="<?php echo $data['date']; ?>">
-                            </div>
+                            
 
 
                             <div class="input-field">
                                 <label>Status</label>
-                                <select name ="status" class="<?php if(!empty($data['main_err'])) echo 'is-invalid'; ?>">
+                                <select name ="status" class="<?php if(!empty($data['status_err'])) echo 'is-invalid'; ?>">
                                     <option value="" default>Select a Status</option>
-                                    <option value="Ongoing" <?php if($data['status'] == "Ongoing") echo 'selected'; ?> >Ongoing</option>
-                                    <option value="Closed" <?php if($data['status'] == "Closed") echo 'selected'; ?>>Closed</option>
+                                    <option value="In Progress" <?php if($data['status'] == "In Progress") echo 'selected'; ?> >In Progress</option>
+                                    <option value="Discharge" <?php if($data['status'] == "Discharge") echo 'selected'; ?>>Discharge</option>
                                 </select>
                             </div>
 

@@ -16,6 +16,20 @@
             display: block !important;
             padding: 30px 200px !important;
         }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
     </style>
 
  
@@ -69,7 +83,7 @@
     
         <div class="form-container">
  
-    <form class="form" method="post"  enctype="multipart/form-data" action="<?php echo URLROOT; ?>/doctor/addBlog">
+    <form class="form" method="post"  enctype="multipart/form-data" action="<?php echo URLROOT; ?>/doctor/updateBlog/<?php echo $data['id'];?>">
 
       
 
@@ -116,9 +130,19 @@
                         </div>
                         <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
                         <i class='bx bx-image-alt'></i>
-                            <input type="file" class="input" name="blog_img" accept="image/*">
+                            <input id="finput" type="file" class="input" name="blog_img" accept="image/*" onchange="upload()">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
+
+                        <div class="img-preivew" id="img-preivew">
+
+                            <div class="flex-column">
+                                <label>Image Preview</label>
+                            </div>
+                           
+                            <img id="canv1" src="<?php echo URLROOT?>/public/storage/uploads/blog/<?php echo $data['img']?>"></img>
+
+                        </div>
 
                         <div class="flex-column">
                             <label>Content</label>
@@ -161,11 +185,23 @@
 
     <!-- staff add model over -->
 
+    <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+    <script>
 
-
-
-
+    function upload(){
     
+
+    //img which id as canv1 change to this -> <canvas id="canv1"></canvas>
+
+ var img_preivew = document.getElementById("img-preivew");
+    img_preivew.innerHTML = '<div class="flex-column"><label>Image Preview</label></div><canvas id="canv1"></canvas>';
+    var imgcanvas = document.getElementById("canv1");
+    var fileinput = document.getElementById("finput");
+    var image = new SimpleImage(fileinput);
+    image.drawTo(imgcanvas);
+    }
+
+    </script>
 
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
