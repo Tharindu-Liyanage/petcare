@@ -47,6 +47,8 @@
 
     <!-- this is treatment info-->
 
+    <?php if($data['wardOrNot'] == "appointment" || $data['wardOrNot'] == "emergency") : ?>
+
             <div class="notifications-container">
         <div class="info-notifi">
             <div class="flex">
@@ -59,6 +61,7 @@
                 <p class="">
                 Looking for a new treatment?
                 <a class="info-prompt-link" href="<?php echo URLROOT; ?>/doctor/addTreatment/<?php echo $data['pet_id']; ?>/new">click here to start a new treatment!</a>
+               
                 </p>
 
                 <ul class="app-info">
@@ -90,6 +93,42 @@
         </div>
         </div>
         </div>
+
+    <?php endif; ?>
+
+
+
+      <?php if($data['wardOrNot'] == "ward") : ?>
+
+            <div class="notifications-container">
+        <div class="info-notifi">
+            <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="info-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+            </svg>
+            </div>
+            <div class="info-prompt-wrap">
+                <p class="">
+                Looking for a new treatment?
+                <a class="info-prompt-link" href="<?php echo URLROOT; ?>/doctor/addWardTreatment/<?php echo $data['pet_id']; ?>/new">click here to start a new treatment!</a>
+                </p>
+
+                <ul class="app-info">
+
+                    <li>You are continuing the treatment of the pet in the ward.</li>
+                    <li>Pet Name : <span class="trt-id" ><?php echo $data['petDetails']->pet; ?></span></li>
+                    <li>Pet age : <span class="trt-id" ><?php echo $data['petDetails']->DOB; ?></span></li>
+                
+    
+                </ul>
+                
+            </div>
+        </div>
+        </div>
+        </div>
+
+    <?php endif; ?>
 
     <!-- over-->
 
@@ -224,6 +263,13 @@
 
     <!--3 -->
 
+    <!-- for animal ward -->
+
+    
+
+
+    <!-- for animal ward over -->
+
     <div class="content-table">
 
         <div class="title">
@@ -259,12 +305,12 @@
                             </div>
                         </td>
 
-                        <td><?php echo $wardtreatment->visit_date?></td>
+                        <td><?php echo $wardtreatment->lastupdate?></td>
                         <td><?php echo $wardtreatment->diagnosis?></td>
 
 
                         <?php
-                                        if ($treatment->status === "In Progress" ) {
+                                        if ($wardtreatment->status === "In Progress" ) {
                                             echo '<td class="status-search status-green">' . $wardtreatment->status . '</td>';
                                         } else{
                                             echo '<td class="status-search status-red">' . $wardtreatment->status . '</td>';
@@ -272,8 +318,8 @@
                         ?>   
 
                         <td class="action-reports">
-                            <a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
-                            <a href="<?php echo URLROOT;?>/doctor/addTreatment/<?php echo $wardtreatment->pet_id;?>/<?php echo $wardtreatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+                            <a href="<?php echo URLROOT;?>/doctor/viewWardMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+                            <a href="<?php echo URLROOT;?>/doctor/addWardTreatment/<?php echo $wardtreatment->pet_id;?>/<?php echo $wardtreatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

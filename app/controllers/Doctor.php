@@ -153,7 +153,7 @@
                 $this->view('dashboards/doctor/treatment/checkBeforeTreatment',$data);
         }
 
-        public function requestPastMedicalReports($pet_id){
+        public function requestPastMedicalReports($pet_id,$wardOrNot){
 
             
             
@@ -179,7 +179,8 @@
                     'latestTreatmentID' => $latestTreatmentID,
                     'petDetails' => $petDetails,
                     'pet_id' => $pet_id,
-                    'wardDetails' => $wardDetails
+                    'wardDetails' => $wardDetails,
+                    'wardOrNot' => $wardOrNot
                 ];
     
                 $this->view('dashboards/doctor/treatment/checkBeforeTreatment',$data);
@@ -212,6 +213,33 @@
     
                 $this->view('dashboards/doctor/treatment/viewMedicalReport',$data);
         }
+
+        public function viewWardMedicalReport($id){
+                
+            $medicalReport = $this->doctorModel->getWardTreatmentDetailsByTreatmentID($id);
+            //hospital info from dashboard model 
+            $hospitalInfo = $this->dashboardModel->getPetCareDetails();  
+            
+            if($medicalReport == null){   //if no data found : its mean user try to access url with wrong treatment id(intentionally)
+                redirect('doctor/animalward');
+            }
+
+            foreach ($medicalReport as $treament) {
+                // Assuming 'DOB' is the property name, replace it with the correct property name if needed
+                $petDOB = isset($treament->DOB) ? $treament->DOB : null;
+                $visitDate = isset($treament->lastupdate) ? $treament->lastupdate : null;
+        
+                $treament->petAge = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+            }
+           
+
+            $data = [
+                'medicalreportview' => $medicalReport,
+                'petcareInfo' => $hospitalInfo
+            ];
+
+            $this->view('dashboards/doctor/treatment/viewWardMedicalReport',$data);
+    }
 
         public function calculateAgeForMedicalReport($birthdate,$visitDate) {
 
@@ -458,6 +486,139 @@
 
 
 
+        public function addWardTreatment($id,$trtID){
+
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                 //get pet details and petowner details by pet id
+                $petDetails = $this->doctorModel->getPetDetailsByPetID($id);
+
+                //age calculation
+                $petDOB = $petDetails->DOB;
+                $visitDate = date("Y-m-d");
+                $petDetails->DOB = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+
+                    $data = [
+                        'pet_id' => $id,
+                        'trtID' => $trtID,
+                        'main_err' => '',
+                        'diagnosis' => $_POST['diagnosis'],
+                        'treatment_plan' => $_POST['treatment-plan'],
+                        'prescription' => $_POST['prescription'],
+                        'examination' => $_POST['examination'],
+                        'instructions' => $_POST['instruction'],
+                        'status' => $_POST['status'],
+                        'petDetails' => $petDetails,
+                        'diagnosis_err' => '',
+                        'treatment_plan_err' => '',
+                        'prescription_err' => '',
+                        'examination_err' => '',
+                        'follow-up-reason_err' => '',
+                        'instructions_err' => '',
+                        'status_err' => '',
+
+                    ];
+
+                    //die(print_r($data));
+                    
+                    $error_count =0;
+
+                    // Validate data
+                    if (empty($data['diagnosis'])) {
+                        $error_count++;
+                        $data['diagnosis_err'] = 'Please enter diagnosis';
+                    }
+
+                    if (empty($data['treatment_plan'])) {
+                        $error_count++;
+                        $data['treatment_plan_err'] = 'Please enter treatment plan';
+                    }
+
+                    if (empty($data['prescription'])) {
+                        $error_count++;
+                        $data['prescription_err'] = 'Please enter prescription';
+                    }
+
+                    if (empty($data['examination'])) {
+                        $error_count++;
+                        $data['examination_err'] = 'Please enter examination';
+                    }
+
+                    
+
+                    if (empty($data['instructions'])) {
+                        $error_count++;
+                        $data['instructions_err'] = 'Please enter instructions';
+
+                    }
+
+                    if (empty($data['status'])) {
+                        $error_count++;
+                        $data['status_err'] = 'Please select status';
+
+                    }
+
+
+
+                    if($error_count == 0){
+                        // Validated
+
+                        if($this->doctorModel->addWardTreatment($data)){
+                            // Redirect to login
+                            redirect('doctor/animalward');
+                        } else {
+                            die('Something went wrong');
+                        }
+                    }else{
+
+                        //main error with error counts
+                        $data['main_err'] = 'Please fill all the fields. You missed '.$error_count.' fields';
+
+                        //load erros
+                        $this->view('dashboards/doctor/treatment/addWardTreatment',$data);
+
+                    }
+
+
+
+
+            
+            }else{
+
+                 //get pet details and petowner details by pet id
+                $petDetails = $this->doctorModel->getPetDetailsByPetID($id);
+
+                //age calculation
+                $petDOB = $petDetails->DOB;
+                $visitDate = date("Y-m-d");
+                $petDetails->DOB = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+ 
+             
+                 $data = [
+                     'pet_id' => $id,
+                     'trtID' => $trtID,
+                     'main_err' => '',
+                     'petDetails' => $petDetails,
+                     'diagnosis' =>'',
+                     'treatment_plan' => '',
+                     'prescription' => '',
+                     'examination' => '',
+                     'instructions' => '',
+                     'status' => '',
+                 ];
+ 
+                $this->view('dashboards/doctor/treatment/addWardTreatment',$data);
+
+            }
+
+            
+
+        }
+
+
+
 
 
 
@@ -596,7 +757,8 @@
                     'img' => ($_FILES['blog_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['blog_img'],
                     'img_err' => '',
                     'categories' => $categories,
-                    'uniqueImgFileName' =>$uniqueImgFileName
+                    'uniqueImgFileName' =>$uniqueImgFileName,
+                    'id' => $id
                  ];
 
 
@@ -625,11 +787,34 @@
                 if (!isset($_FILES['blog_img']['type']) || ($_FILES['blog_img']['type'] && !in_array($_FILES['blog_img']['type'], $allowedTypes))) {
                     // Invalid file type
                     $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
+
+                
                 }
+
+                
+                if(isset($_FILES['blog_img'])){
+                   
+                    $dimensions = getimagesize($_FILES['blog_img']['tmp_name']);
+                    $width = $dimensions[0];
+                    $height = $dimensions[1];
+                    
+                    // Check if the image is portrait-oriented (height > width)
+                    if($height > $width){
+                        
+
+                        $data['img_err'] = 'Sorry, only landscape-oriented images are allowed.';
+
+                    } 
+                }
+
+
 
                 if($_FILES['blog_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
                     $data['img_err'] = 'Image size must be less than 5 MB';
                 }
+
+
+               
                  
                  
                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])  &&  empty($data['category_err'])){
@@ -767,6 +952,21 @@
                 if (!isset($_FILES['blog_img']['type']) || ($_FILES['blog_img']['type'] && !in_array($_FILES['blog_img']['type'], $allowedTypes))) {
                     // Invalid file type
                     $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
+                }
+
+                if(isset($_FILES['blog_img'])){
+                   
+                    $dimensions = getimagesize($_FILES['blog_img']['tmp_name']);
+                    $width = $dimensions[0];
+                    $height = $dimensions[1];
+                    
+                    // Check if the image is portrait-oriented (height > width)
+                    if($height > $width){
+                        
+
+                        $data['img_err'] = 'Sorry, only landscape-oriented images are allowed.';
+
+                    } 
                 }
 
                 if($_FILES['blog_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes

@@ -140,12 +140,12 @@
                     FROM petcare_ward_medical_reports report
                     JOIN petcare_pet pet ON report.pet_id = pet.id
                     JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
-                    WHERE (report.treatment_id, report.visit_date) IN (
-                        SELECT treatment_id, MAX(visit_date) AS max_visit_date
+                    WHERE (report.treatment_id, report.lastupdate) IN (
+                        SELECT treatment_id, MAX(lastupdate) AS max_visit_date
                         FROM petcare_ward_medical_reports
                         GROUP BY treatment_id
                     ) AND report.pet_id = :id   -- Added condition for owner_id in the main query
-                    ORDER BY report.visit_date DESC
+                    ORDER BY report.lastupdate DESC
                     ');
     
                     $this->db->bind(':id' , $pet_id);
@@ -178,6 +178,30 @@
                     JOIN petcare_petowner petowner ON report.owner_id = petowner.id
                     WHERE report.treatment_id = :id 
                     ORDER BY report.visit_date DESC
+                    ');
+    
+                    $this->db->bind(':id' , $id);
+                
+                            
+    
+                    $results = $this->db->resultSet();
+    
+                    return $results;
+            }
+
+            public function getWardTreatmentDetailsByTreatmentID($id){
+
+              
+    
+                $this->db->query(
+    
+                    'SELECT report.* , pet.pet as petname , pet.pet_id_generate as genIdPet, pet.sex as petsex, pet.*, staff.firstname as vetfname , staff.lastname as vetlname , petowner.petowner_id_generate as genIdPetOwner , petowner.address as petowneraddress ,petowner.email as petowneremail , petowner.mobile as petownerphone, petowner.first_name as petownerfname, petowner.last_name as petownerlname
+                    FROM petcare_ward_medical_reports report
+                    JOIN petcare_pet pet ON report.pet_id = pet.id
+                    JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                    JOIN petcare_petowner petowner ON report.owner_id = petowner.id
+                    WHERE report.treatment_id = :id 
+                    ORDER BY report.lastupdate DESC
                     ');
     
                     $this->db->bind(':id' , $id);
@@ -364,6 +388,50 @@
 
             }
 
+
+            public function addWardTreatment($data){
+                    
+                    //get petowner id by petid
+                    $petDetails=$this->getPetDetailsByPetID($data['pet_id']);
+                    $petowner_id = $petDetails->poid;
+
+                    if($data['trtID'] == 'new'){
+
+                        //insert new treatment to with petid to petcare_treatment table and get the treatment id
+                        $this->db->query('INSERT INTO petcare_ward_treatment (pet_id) VALUES (:pet_id)');
+                        $this->db->bind(':pet_id', $data['pet_id']);
+                        $this->db->execute();
+
+                        $this->db->query('SELECT ward_treatment_id FROM petcare_ward_treatment WHERE pet_id = :pet_id ORDER BY ward_treatment_id DESC LIMIT 1');
+                        $this->db->bind(':pet_id', $data['pet_id']);
+                        $row = $this->db->single();
+                        $data['trtID'] = $row->ward_treatment_id;
+
+                    }
+    
+                    $this->db->query('INSERT INTO petcare_ward_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, status, diagnosis, treatment_plan, prescription, physical_examination,instruction) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:instruction)');
+                    
+                    // Bind values
+                        $this->db->bind(':treatment_id', $data['trtID']);
+                        $this->db->bind(':pet_id', $data['pet_id']);
+                        $this->db->bind(':owner_id',$petowner_id);
+                        $this->db->bind(':veterinarian_id', $_SESSION['user_id']);
+                        $this->db->bind(':status', $data['status']);
+                        $this->db->bind(':diagnosis', $data['diagnosis']);
+                        $this->db->bind(':treatment_plan', $data['treatment_plan']);
+                        $this->db->bind(':prescription', $data['prescription']);
+                        $this->db->bind(':physical_examination', $data['examination']);
+                        $this->db->bind(':instruction', $data['instructions']);
+                    
+    
+                    // Execute
+                    if($this->db->execute()){
+                        return true;
+                    } else {
+                        return false;
+                    }
+            }
+
             //get all petdetails not removed pet owner and pet
             public function getAllPetDetails(){
                 $this->db->query(
@@ -510,7 +578,7 @@
 
             public function getAnimalWardDetails(){
                 $this->db->query(
-                    'SELECT inward.*, pet.pet as petname, pet.profileImage as petpic, pet.pet_id_generate as petid, petowner.first_name as petownerfname, petowner.last_name as petownerlname, petowner.profileImage as petownerpic
+                    'SELECT inward.*, pet.id as petID, pet.pet as petname, pet.profileImage as petpic, pet.pet_id_generate as petid, petowner.first_name as petownerfname, petowner.last_name as petownerlname, petowner.profileImage as petownerpic
                      FROM petcare_inward_pet inward
                      JOIN petcare_pet pet ON inward.pet_id = pet.id
                      JOIN petcare_petowner petowner ON inward.owner_id = petowner.id

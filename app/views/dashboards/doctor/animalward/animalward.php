@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css"> <!-- for tthe table -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/doctor/doctor-appointment.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -79,7 +80,7 @@
                         <thead>
                             <tr>
                                 
-                                <th>Treatment Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
+                                <th>Patient Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
                                 <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
                                 <th>Pet Owner<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
                                 <th>Cage No <i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
@@ -104,7 +105,7 @@
                             foreach($data['animalward'] as $ward) : ?>
 
                             <tr>
-                                <td class="id-search">AWT-<?php echo $ward->id?></td>
+                                <td class="id-search">PID-<?php echo $ward->id?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $ward->petpic?>" ><p><?php echo $ward->petname?></p>
                                 </td>
@@ -123,7 +124,7 @@
                                
 
                                 <td class="action"> 
-                                   
+                                <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/doctor/requestPastMedicalReports/<?php echo $ward->petID;?>/ward"><i class='bx bx-chevron-right'></i></i></a>
                                 
                                 </td>
 

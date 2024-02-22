@@ -249,6 +249,113 @@
                         }
                     }
 
+
+                    //users who not booked appointment for new treatment
+
+                    $this->db->query('SELECT 
+                                            report.*,
+                                            petowner.id AS petownerID,
+                                            petowner.email AS petownerEmail,
+                                            petowner.first_name AS petownerfirstname,
+                                            petowner.last_name AS petownerlastname,
+                                            petowner.mobile AS petownerMobile,
+                                            pet.pet AS petname,
+                                            pet.pet_id_generate AS petGenID,
+                                            staff.firstname AS vetfname,
+                                            staff.lastname AS vetlname,
+                                            appointment.status AS appointment_status,
+                                            appointment.treatment_id AS appointment_treatment_id
+                                        FROM 
+                                            petcare_medical_reports report
+                                        JOIN 
+                                            petcare_pet pet ON report.pet_id = pet.id
+                                        JOIN 
+                                            petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                                        JOIN 
+                                            petcare_petowner petowner ON petowner.id = report.owner_id
+                                        LEFT JOIN 
+                                            petcare_appointments appointment ON appointment.treatment_id = report.treatment_id
+                                        WHERE 
+                                            (report.treatment_id, report.visit_date) IN (
+                                                SELECT 
+                                                    treatment_id,
+                                                    MAX(visit_date) AS max_visit_date
+                                                FROM 
+                                                    petcare_medical_reports
+                                                GROUP BY 
+                                                    treatment_id
+                                            ) 
+                                            AND petowner.isRemoved = 0 
+                                            AND pet.isRemoved = 0 
+                                            AND appointment.pet_id IS NULL; -- Check if appointment.pet_id is NULL, indicating no matching treatment ID in appointments
+
+                                    ');
+
+                    $petownersWhoNotBookedAppointmentForNewTreatment = $this->db->resultSet();
+
+                    foreach ($petownersWhoNotBookedAppointmentForNewTreatment as $results) {
+
+                    
+                        //this if check if the appointment is not pending or confirmed and the appointment date is 7 days from now and get treatment id in appotinemnt table with latest appointment date
+                        if( $results->status == 'Ongoing' &&
+                            $results->week_before_reminder_sent == 0 &&
+                            $results->followup_date == date('Y-m-d', strtotime('+7 days'))  //add 7days to current date 
+                            ){
+    
+                                $day ='7 days';
+                                $this->sendEmailForAppointmentBook($results->treatment_id, $results->petownerEmail, $results->petname,$results->followup_date,$results->followup_reason,$results->petownerfirstname,$results->petownerlastname,$day);
+                                $msg = "Hi $results->petownerfirstname $results->petownerlastname, just a friendly reminder that your furry friend $results->petname needs a treatment on $results->followup_date. We recommend booking an appointment now to ensure their timely care. Visit our website to book your slot!";
+                                $this->sendSMSNotificaton($results,$msg);
+                                
+                                //update week_before_reminder_sent to 1
+                                $this->db->query('UPDATE petcare_medical_reports SET week_before_reminder_sent = 1 WHERE treatment_id = :treatment_id AND visit_date = :visit_date');
+                                $this->db->bind(':treatment_id', $results->treatment_id);
+                                $this->db->bind(':visit_date', $results->visit_date);
+                                $this->db->execute();
+    
+                                
+    
+                        }else if(
+                                $results->status == 'Ongoing' &&
+                                $results->day_before_reminder_sent == 0 &&
+                                $results->followup_date == date('Y-m-d', strtotime('+1 days'))
+                                ){
+    
+                                    $day ='Tommorow';
+                                    $this->sendEmailForAppointmentBook($results->treatment_id, $results->petownerEmail, $results->petname,$results->followup_date,$results->followup_reason,$results->petownerfirstname,$results->petownerlastname,$day);
+                                    $msg = "Hi $results->petownerfirstname $results->petownerlastname, a gentle nudge! Your furry friend $results->petname's treatment is tomorrow, $results->followup_date. Don't forget to book an appointment today to avoid any delays.See you soon!";
+                                    $this->sendSMSNotificaton($results,$msg);
+                                    //update day_before_reminder_sent to 1
+                                    $this->db->query('UPDATE petcare_medical_reports SET day_before_reminder_sent = 1 WHERE treatment_id = :treatment_id AND visit_date = :visit_date');
+                                    $this->db->bind(':treatment_id', $results->treatment_id);
+                                    $this->db->bind(':visit_date', $results->visit_date);
+                                    $this->db->execute();
+    
+    
+                        }else if(
+                            $results->status == 'Ongoing' &&
+                            $results->day_after_reminder_sent == 0 &&
+                            $results->followup_date == date('Y-m-d', strtotime('-1 days'))
+                            ){
+    
+                                $day ='Yesterday';
+    
+                                $this->sendEmailForAppointmentBook($results->treatment_id, $results->petownerEmail, $results->petname,$results->followup_date,$results->followup_reason,$results->petownerfirstname,$results->petownerlastname,$day);
+                                $msg = "Hi $results->petownerfirstname $results->petownerlastname, we noticed that $results->petname missed their treatment scheduled for $results->followup_date. We're concerned about their well-being and would love to get them back on track.Please reschedule their treatment as soon as possible.";
+                                $this->sendSMSNotificaton($results,$msg);
+                                
+                                //update day_after_reminder_sent
+                                $this->db->query('UPDATE petcare_medical_reports SET day_after_reminder_sent = 1 WHERE treatment_id = :treatment_id AND visit_date = :visit_date');
+                                $this->db->bind(':treatment_id', $results->treatment_id);
+                                $this->db->bind(':visit_date', $results->visit_date);
+                                $this->db->execute();
+    
+                        }
+    
+                    }
+
+
+
         }
 
         public function sendEmailForAppointmentBook($treatment_id, $petownerEmail, $petname,$followup_date,$followup_reason,$petownerfirstname,$petownerlastname,$day){
