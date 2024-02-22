@@ -52,15 +52,13 @@
 
             $row = $this->db->single();
 
-            if($row){
+            if($this->db->rowCount() > 0 ){
                 return true;
             }else{
                 return false;
             }
 
-
-
-
+           
         }
 
         public function addPetowner($data){
@@ -92,13 +90,13 @@
 public function findpetownerID($petownerID){
 
 
-    $this ->db->query('SELECT * FROM petcare_petowner WHERE petowner_id = :petownerID ');
+    $this ->db->query('SELECT * FROM petcare_petowner WHERE id = :petownerID ');
 
     $this->db->bind(':petownerID' , $petownerID);
 
     $row = $this->db->single();
 
-    if($row){
+    if($this->db->rowCount() > 0 ){
         return true;
     }else{
         return false;

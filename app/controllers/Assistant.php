@@ -24,6 +24,9 @@
 
         }
 
+        //updatePet
+        //updatePetowner
+
         public function notfound(){
             $data =null;
 
@@ -307,13 +310,9 @@
 
                     }else{
  
-                        if(filter_var($data['petownerID'], FILTER_VALIDATE_EMAIL)){ //check petownerID in correct formate
+                        if($this->assistantModel->findpetownerID($data['petownerID'])){ //check petownerID in correct formate
 
-                            $email=$this->assistantModel->findpetownerID($data['petownerID']);//check database 
-
-                            if($email){
-                                $data['petownerID_err'] = 'petownerID already taken';
-                            }
+                            
                            
                         }else{  //check petownerID in the DB
                         
