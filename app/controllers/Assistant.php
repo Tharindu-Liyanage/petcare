@@ -224,6 +224,14 @@
         }  
 
 
+//update petowner----------------------------------------------------------------------
+        public function updatePetowner(){
+            $data =null;
+
+            $this->view('dashboard/assistant/petowner/updatePetowner',$data);
+        }
+
+
 
 
 
@@ -323,15 +331,9 @@
 
                     }
 
-
-
-
-
-
-
-
-                        
+       
                         if(empty($data['pname_err']) && empty($data['dob_err']) && empty($data['species_err'])  && empty($data['breed_err']) && empty($data['sex_err']) && empty($data['petownerID_err']) )  {
+
 
                    //Regster User
 
@@ -376,10 +378,18 @@
         }
 
 
+// update pet----------------------------------------------------------------------------------------
+        public function updatePet(){
+            $data =null;
+
+            $this->view('dashboard/assisatant/pet/updatePet',$data);
+        }
 
 
 
 
+
+//settings-----------------------------------------------------------------------------------------------
             public function settings(){
 
                 $user_id = ($_SESSION['user_id']);
