@@ -351,14 +351,223 @@
 
         /* view Cart*/ 
 
-        public function viewCart(){
+        public function viewCart($id){
 
-            $data =null;
+            $cartData = $this->dashboardModel->getOrderDetailsById($id);
+            $cartDataRow = $this->dashboardModel->getOrderDetailsByIdRow($id);
+
+            $data =[
+                'cartData' => $cartData,
+                'cartDataRow' => $cartDataRow
+            ];
+
+            // die ($data[0]);
+            // print_r($data['cartData']);
    
             
             $this->view('dashboards/storemanager/order/cart', $data);
 
         }
+
+        public function category(){
+            $category = $this->dashboardModel->getCategories();
+
+            $data = [
+                'category' => $category
+            ];
+
+            $this->view('dashboards/storemanager/category/category', $data);
+        }
+
+
+        public function addCategory(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                //process form
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                //init data
+
+                $data = [
+                    'categoryName' => trim($_POST['category_name']),
+                    'categoryName_err' => ''
+                    
+                ];
+
+
+                //validate catgeor_Name
+                if(empty($data['categoryName'])){
+                    $data['categoryName_err'] = 'Please enter category name';
+                }
+
+                
+
+                
+
+                //Make sure errors are empty
+
+                if(empty($data['categoryName_err'])){
+                    //validated
+                    
+                   
+                    
+
+                    //add product
+
+                    if($this->dashboardModel->addCategory($data)){
+                       
+                       // $_SESSION['staff_user_added'] = true;
+      
+                       redirect('storemanager/category');
+
+                    }else{
+                        die("Something went wrong");
+                    }
+
+
+
+                }else{
+
+                    
+                    //load view with errors
+                    $this->view('dashboards/storemanager/category/addCategory', $data);
+                    
+                    
+
+                }
+
+            }else{
+
+                
+                $data = [
+                    'categoryName' => '' ,
+                    'categoryName_err' => ''
+            
+                ];
+
+                
+                //load view
+                $this->view('dashboards/storemanager/category/addCategory', $data);
+
+            }
+
+
+
+
+
+            $this->view('dashboards/storemanager/category/addCategory' , $data);
+        }
+
+        public function updateCategory($id){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                //process form
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                //init data
+
+                $data = [
+                    'id' => $id,
+                    'categoryName' => trim($_POST['category_name']),
+                    'categoryName_err' => ''
+            
+                ];
+
+              
+                
+
+            
+                //validate catgeor_Name
+                if(empty($data['categoryName'])){
+                    $data['categoryName_err'] = 'Please enter category name';
+                }
+
+                
+
+                
+
+                //Make sure errors are empty
+
+                if(empty($data['categoryName_err'])){
+                    //validated
+                    
+                   
+                    
+
+                    //add product
+
+                    if($this->dashboardModel->updateCategory($data)){
+                       
+                       // $_SESSION['staff_user_added'] = true;
+      
+                       redirect('storemanager/category');
+
+                    }else{
+                        die("Something went wrong");
+                    }
+
+
+
+                }else{
+
+                    
+                    //load view with errors
+                    $this->view('dashboards/storemanager/category/updateCategory', $data);
+                    
+                    
+
+                }
+
+
+
+            }else{
+
+                $category =$this->dashboardModel->getCategoriesById($id);
+
+                
+
+                
+
+
+                //init data
+                $data = [
+                    'id' => $id,
+                    'categoryName' => $category->categoryname,
+                    'categoryName_err' => ''
+            
+                ];
+
+                
+                //load view
+                $this->view('dashboards/storemanager/category/updateCategory', $data);
+            }
+        }
+
+
+        public function removeCategory($id){
+
+            
+            
+            if($this->dashboardModel->removeCategory($id)){
+
+                //$_SESSION['staff_user_removed'] = true;
+                redirect('storemanager/category');
+
+            }else{
+                die("error in user delete model");
+            }
+
+
+        }
+
+
+        // public function updateShipmentStatus($shipmentId, $newStatus) {
+        //     return $this->dashboardModel->updateShipmentStatus($shipmentId, $newStatus);
+        // }
+
+
 
         
 

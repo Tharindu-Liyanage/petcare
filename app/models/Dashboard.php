@@ -111,7 +111,7 @@
             return false;
         }  
 
-        }
+    }
 
         public function updateSettings1($data){
 
@@ -382,9 +382,10 @@
         public function getOrderDetails(){
             $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
                 FROM petcare_shop_invoices
-                INNER JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
-                INNER JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
-                INNER JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
+                JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
+                JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                GROUP BY petcare_shop_invoices.invoice_id,petcare_petowner.id
                 ORDER BY petcare_shop_invoices.invoice_date DESC;
 
             ');
@@ -395,6 +396,126 @@
 
         }
 
+        public function getOrderDetailsById($id){
+            $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
+                FROM petcare_shop_invoices
+                JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
+                JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
+                JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                WHERE invoice_id = :invoice_id;
+            ');
+
+            $this->db->bind(':invoice_id' , $id);
+                
+            $results = $this->db->resultSet(); 
+
+            return $results;
+
+        }
+
+        public function getOrderDetailsByIdRow($id){
+            $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
+                FROM petcare_shop_invoices
+                JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
+                JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
+                JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                WHERE invoice_id = :invoice_id;
+            ');
+
+            $this->db->bind(':invoice_id' , $id);
+                
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+
+        }
+
+
+        public function getCategories(){
+            $this->db->query('SELECT * FROM petcare_product_category WHERE isRemoved = 0' );
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+        }
+
+        public function getCategoriesById($id){
+            $this->db->query('SELECT * FROM petcare_product_category WHERE id = :id' );
+
+            $this->db->bind(':id' , $id);
+
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+        }
+
+        public function addCategory($data){
+
+            $this->db->query('INSERT INTO petcare_product_category (categoryname) VALUES(:categoryName)');
+
+             //bind values
+            $this->db->bind(':categoryName',$data['categoryName']);
+        
+        
+
+            //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }  
+
+        }
+
+        public function updateCategory($data){
+            
+            $this->db->query('UPDATE petcare_product_category SET categoryname = :categoryname WHERE id = :id' );
+
+            $this->db->bind(':id' , $data['id']);
+            //bind values
+            $this->db->bind(':categoryname',$data['categoryName']);
+        
+
+            //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }  
+
+        }
+
+        public function removeCategory($id){
+            
+            $this->db->query('UPDATE petcare_product_category SET isRemoved = 1 WHERE id = :id');
+
+            $this->db->bind(':id' , $id);
+            
+            $row = $this->db->single();
+
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }  
+
+        }
+
+
+        // public function updateShipmentStatus($shipmentId, $newStatus) {
+        //     $this->db->query("UPDATE shipments SET ship_status = :status WHERE invoice_id = :id");
+        //     $this->db->bind(':status', $newStatus);
+        //     $this->db->bind(':invoice_id', $shipmentId);
+    
+        //     return $this->db->execute();
+        // }
 
         // ============================  Store Manager over ===========================================
 

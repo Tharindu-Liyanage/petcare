@@ -53,6 +53,7 @@
             <li class="<?php echo ($current_page == 'index') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/storemanager/"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
             <li class="<?php echo ($current_page == 'inventory') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/storemanager/inventory"><i class='bx bx-store-alt'></i> Inventory</a></li>
             <li class="<?php echo ($current_page == 'order') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/storemanager/order"><i class='bx bx-shopping-bag' ></i> Order</a></li>
+            <li class="<?php echo ($current_page == 'category') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/storemanager/category"><i class='bx bx-category' ></i> Category</a></li>
             <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/storemanager/settings"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>
 

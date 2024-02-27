@@ -41,87 +41,83 @@ Dashboard- Store Manger-Orders
                
             </div>
 
-           
+            <div style=" margin:auto;font-size:100%;font-weight:400;line-height:1.4;color:#000;">
+            <table id="invoice-table" style="max-width:670px;margin:50px auto 10px;background-color:#fff;padding:50px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); border-top: solid 10px green;">
+                <thead>
+                <tr>
+                    <th style="text-align:left; font-size:40px;"><img style="max-width: 80px;" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png" alt="PetCare-Logo"> PetCare</th>
+                    <th style="text-align:right;font-weight:400;"><?php echo $data['cartDataRow']->invoice_date;?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="height:35px;"></td>
+                </tr>
+                <tr>
+                    <td  colspan="2" style="border: solid 1px #ddd; padding:10px 20px;">
+                    <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:150px">Order status</span><b style="color:green;font-weight:normal;margin:0">Success</b></p>
+                    <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Invoice ID</span><?php echo $data['cartDataRow'] -> invoice_id ?></p>
+                    <p style="font-size:14px;margin:0 0 0 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Order amount</span>LKR <?php echo $data['cartDataRow'] -> total_amount ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:35px;"></td>
+                </tr>
+                <tr bgcolor="#F5F8FA">
+                    <td style="width:50%;padding:20px;vertical-align:top">
+                    <p style="margin:0 0 10px 0;padding:0;font-size:14px;"><span style="display:block;font-weight:bold;font-size:13px">Name</span> <?php echo $_SESSION['user_fname'] .' '. $_SESSION['user_lname'] ?></p>
+                    <p style="margin:0 0 10px 0;padding:0;font-size:14px;"><span style="display:block;font-weight:bold;font-size:13px;">Email</span><?php echo $_SESSION['user_email'] ?></p>
+
+                    </td>
+                    <td style="width:50%;padding:20px;vertical-align:top">
+                    <p style="margin:0 0 10px 0;padding:0;font-size:14px;"><span style="display:block;font-weight:bold;font-size:13px;">Address</span><?php echo $data['cartDataRow']-> address ?></p>
+                                <p style="margin:0 0 10px 0;padding:0;font-size:14px;"><span style="display:block;font-weight:bold;font-size:13px;">Phone</span><?php echo $data['cartDataRow']-> mobile ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="font-size:20px;padding:30px 15px 0 15px;">Product Items</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding:15px;">
+                    
+                    <?php foreach($data['cartData'] as $item) : ?>
+
+                        <p style="font-size:14px;margin:0;padding:10px;border:solid 1px #ddd;font-weight:bold;">
+                        <span style="display:block;font-size:13px;font-weight:normal;"><?php echo $item->name ?></span> LKR <?php $price = $item->price * $item->quantity; echo $price; ?> <b style="font-size:12px;font-weight:300;">| Quantity - <?php echo $item->quantity ?> | Unit Price - LKR <?php echo $item->price ?></b>
+                    </p>
+
+                    <?php endforeach; ?>
+
+
+                    </td>
+                </tr>
+                </tbody>
+                <tfooter >
+                <tr bgcolor="#EAF0F6">
+                        <td colspan="2" align="center" style="padding: 30px 30px;">
+                            <h2>Thank You for Choosing PetCare &hearts;</h2>
+                            <p> We appreciate your decision to trust PetCare for your pets well-being. Our commitment is to provide exceptional care and service. </p>
+                            <a href="http://localhost/petcare/home">Visit Our Site</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" style="padding: 30px 30px;">
+                            <p style="color:#99ACC2"> &copy; 2023-present PetCare. All rights reserved. </p>
+                            <!--  <a class="subtle-link" href="#"> Unsubscribe </a>      -->
+                        </td>
+                    </tr>
+                </tfooter>
+            </table>
+
+                <!-- donwload button here-->
+                <div id="downloadPdf" class="download-btn">
+                    <a class="btn" > <i class='bx bx-download' ></i> Download Invoice</a>
+                </div>
+            </div>
 
             
 
             <div class="bottom-part">
-                    <div class="title">
-                        <i class='bx bxs-cart' ></i>
-                        <div class="title-text">Shopping Cart</div>
-                    </div>
-                    <div class="middle-part">
-                        <div class="left">
-                            <div class="item item1">
-                                <img src="<?php echo URLROOT;?>/public/storage/uploads/products/food1.png" alt="">
-                                <div class="item-text">
-                                    Beef Bones and Chews Rawhide Dog Treat Multi Pack – 500g
-                                </div>
-                                <div class="quantity-price">
-                                    Rs. 500 x 2
-                                </div>
-                            </div>
-                            <div class="item item2">
-                                <img src="<?php echo URLROOT;?>/public/storage/uploads/products/food1.png" alt="">
-                                <div class="item-text">
-                                    Nylabone Power Dura Chew Kabob Chicken Jerky Flavored Dog Chew Toy
-                                </div>
-                                <div class="quantity-price">
-                                    Rs. 3500 x 2
-                                </div>
-                            </div>
-                            <div class="item item3">
-                                <img src="<?php echo URLROOT;?>/public/storage/uploads/products/food1.png" alt="">
-                                <div class="item-text">
-                                    Beef Bones and Chews Rawhide Dog Treat Multi Pack – 500g
-                                </div>
-                                <div class="quantity-price">
-                                    Rs. 500 x 2
-                                </div>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="box">
-                                <div class="title">
-                                    <i class='bx bx-notepad' ></i>
-                                    <div class="title-text">
-                                        Summary
-                                    </div>
-                                </div>
-                                <div class="line order-total">
-                                    <div class="order-total-text">
-                                        Order Total
-                                    </div>
-                                    <div class=" order-total-amount">
-                                        Rs.9000.00
-                                    </div>
-                                </div>
-                                <div class="line shipping-total">
-                                    <div class="shipping-total-text">
-                                        Shipping 
-                                    </div>
-                                    <div class="shipping-total-amount">
-                                        Rs.500.00
-                                    </div>
-                                </div>
-                                <div class="line sub-total">
-                                    <div class="sub-total-text">
-                                        Sub Total
-                                    </div>
-                                    <div class="sub-total-amount">
-                                        Rs.9500.00
-                                    </div>
-                                    
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer">
-                    <a class="back-button" href="<?php echo URLROOT; ?>/storemanager/order">Back</a>
-
-                    </div>
-                </div>
 
 
              

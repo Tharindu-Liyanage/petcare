@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/storemanager/category.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -24,13 +25,13 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Orders</h1>
+                    <h1>Category</h1>
                     <ul class="breadcrumb">
                         <li><a href="<?php echo URLROOT;?>/storemanager">
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/storemanager/order" class="active">Order</a></li>
+                        <li><a href="<?php echo URLROOT;?>/storemanager/category" class="active">Category</a></li>
                     </ul>
                 </div>
 
@@ -39,9 +40,14 @@
                
             </div>
 
-           
 
-            
+            <div class="add-button">
+             <a href="<?php echo URLROOT;?>/storemanager/addCategory" ><button id="add-form-button">
+                <i class='bx bx-user-plus' ></i>
+                        Add Category
+                </button> </a>
+            </div>
+           
 
             <div class="bottom-data">
 
@@ -49,7 +55,7 @@
                 <div class="users">
                     <div class="header">
                     <i class='bx bx-shopping-bag' ></i>
-                        <h3>Orders</h3>
+                        <h3>Categories</h3>
                         <i class='bx bx-filter' ></i>
                         <i class='bx bx-search' ></i>
                     </div>
@@ -58,39 +64,26 @@
                             <tr>
                                 
                                 <th>Id</th>
-                                <th>Customer</th>
-                                <th>Order Date</th>
-                                <th>Total</th>
-                                <th>Shipment Status</th>
+                                <th>Category</th>
                                 <th>Action</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
 
-                           <?php foreach($data['orders'] as $order) : ?>
+                           <?php foreach($data['category'] as $category) : ?>
 
                                 <tr>
-                                    <td><?php echo 'INV-'.$order->invoice_id  ; ?></td>
-                                    <td class="profile">
-                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user1.jpg">
-                                        <p><?php echo $order->first_name ; ?></p>
-                                    </td>
-                                    <td><?php echo $order->invoice_date ; ?></td>
-                                    <td><?php echo 'LKR '. $order->total_amount ; ?></td>
-                                    <td>
-                                        
-                                            <select class="shipment-status" id="ship-status" name="shipment-status" >
-                                                <option class="on-process-value" value="on-process">On Process</option>
-                                                <option class="shipped-value"  value="shipped">Shipped</option>
-                                                <option class="delivered-value"  value="delivered">Delivered</option>
-                                            </select>
-                                            
-                                        
-                                    </td>
-                                    <td class="action">
+                                    <td><?php echo $category->id  ; ?></td>
+                                    <td><?php echo $category->categoryname  ; ?></td>
+                                    
+                                    
+                                   
+                                    <td class="action action-last">
                                         
                                         <div class="act-icon">
-                                        <a href="<?php echo URLROOT;?>/storemanager/viewCart/<?php echo $order->invoice_id ;?>" ><i class='bx bx-cart' ></i></a>     
+                                            <a href="<?php echo URLROOT;?>/storemanager/updateCategory/<?php echo $category->id  ; ?>" ><i class='bx bx-edit' ></i></a>
+                                            <a href="<?php echo URLROOT;?>/storemanager/removeCategory/<?php echo $category->id  ; ?>" ><i class='bx bx-trash'></i></a></a>     
                                             
                                         </div>
                                         
