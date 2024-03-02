@@ -7,6 +7,7 @@
       <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/addStaff.css">
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
       <title>Dashboard</title>
+
    </head>
    <body>
 
@@ -43,11 +44,11 @@
     
 
 
-    <form class="form" method="post" enctype="multipart/form-data" action="<?php echo URLROOT; ?>/petowner/updatePetowner/<?php echo $data['id'] ;?>">
+    <form class="form" method="post" enctype="multipart/form-data" action="<?php echo URLROOT; ?>/assistant/updatePetowner/<?php echo $data['id'] ;?>">
 
       
 
-    <div class="column">
+        <div class="column">
 
                         <div class="flex-column">
                             
@@ -73,14 +74,16 @@
                        <span class="invalid-feedback"><?php echo $data ['email_err']?></span>
                        </div>
 
-                </div> <!-- column close -->
-
-
-
-                <div class="button-form">
+                       <div class="button-form">
                             <button type="reset"  class="button-submit">Reset</button> 
                             <button type="submit" id="button-submit" class="button-submit">Update</button>
-                         </div>
+                        </div>
+
+        </div> <!-- column close -->
+
+
+
+               
                 
 
             </form>

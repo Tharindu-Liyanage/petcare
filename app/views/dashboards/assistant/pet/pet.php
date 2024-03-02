@@ -92,8 +92,9 @@
             <tr>
                 <td class="id-search"><?php echo $pet->pet_id_generate?></td>
                 <td class="profile">
-                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> profileImage ?>" ><p><?php echo $pet-> pet?></p>
-                </td class="id-search">
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> petImage ?>" ><p><?php echo $pet-> pet?></p>
+                </td>
+                
                 <td class="dob-search"><?php echo $pet->DOB?></td>
                 <td class="breed-search"><?php echo $pet->breed?></td>
                 <td class="sex-search"><?php echo $pet->sex?></td>
@@ -101,6 +102,8 @@
                 <td class="action">
                     
                     <div class="act-icon">
+
+                    <a href="<?php echo URLROOT;?>/assistant/updatePet/<?php echo $pet->id?>" ><i class='bx bx-edit' ></i></a>
                           
                            
                     </div>

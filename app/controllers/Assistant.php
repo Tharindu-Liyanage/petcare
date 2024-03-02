@@ -24,8 +24,7 @@
 
         }
 
-        //updatePet
-        //updatePetowner
+        
 
         public function notfound(){
             $data =null;
@@ -225,10 +224,69 @@
 
 
 //update petowner----------------------------------------------------------------------
-        public function updatePetowner(){
-            $data =null;
+        public function updatePetowner($petownerID){
 
-            $this->view('dashboard/assistant/petowner/updatePetowner',$data);
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                /*
+
+                 $data = [
+                        'mobile' => trim($_POST['firstname']),
+                        'lastname' => trim($_POST['lastname']),
+                        'address' => trim($_POST['address']),
+                        'email' => trim($_POST['email']),
+                        'mobile' => trim($_POST['mobile']),
+                        'firstname_err' => '',
+                        'lastname_err' => '',
+                        'address_err' =>'',
+                        'email_err' => '',
+                        'mobile_err' => '',
+                        'password'=> '',
+                    ];
+
+
+                */
+
+                $data = [
+
+                    'id' => $petownerID,
+                    'email' => $petownerDetails->email,
+                    'mobile' => $petownerDetails->mobile,
+                    
+                    'email_err' => '',
+                    'mobile_err' =>'' ,
+                ];
+
+
+
+
+
+
+
+
+            }else{
+
+
+                $petownerDetails= $this ->assistantModel ->getPetownerMobileEmailByID($petownerID);
+
+                $data = [
+
+                    'id' => $petownerID,
+                    'email' => $petownerDetails->email,
+                    'mobile' => $petownerDetails->mobile,
+                    
+                    'email_err' => '',
+                    'mobile_err' =>'' ,
+                ];
+                $this->view('dashboards/assistant/petowner/updatePetowner',$data);
+
+            }
+           
+
+            
         }
 
 
@@ -379,10 +437,10 @@
 
 
 // update pet----------------------------------------------------------------------------------------
-        public function updatePet(){
+        public function updatePet($petid){
             $data =null;
 
-            $this->view('dashboard/assisatant/pet/updatePet',$data);
+            $this->view('dashboards/assistant/pet/updatePet',$data);
         }
 
 

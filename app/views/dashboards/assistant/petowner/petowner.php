@@ -107,7 +107,8 @@
                 <td class="action">
                     
                     <div class="act-icon">
-                          
+
+                    <a href="<?php echo URLROOT;?>/assistant/updatePetowner/<?php echo $petowner->id?>" ><i class='bx bx-edit' ></i></a>   
                            
                     </div>
                     
