@@ -58,11 +58,15 @@
             </svg>
             </div>
             <div class="info-prompt-wrap">
+
+            <?php if($_SESSION['user_role'] === "Doctor"): ?>
                 <p class="">
                 Looking for a new treatment?
                 <a class="info-prompt-link" href="<?php echo URLROOT; ?>/doctor/addTreatment/<?php echo $data['pet_id']; ?>/new">click here to start a new treatment!</a>
                
                 </p>
+
+            <?php endif; ?>
 
                 <ul class="app-info">
 
@@ -109,10 +113,14 @@
             </svg>
             </div>
             <div class="info-prompt-wrap">
+
+            <?php if($_SESSION['user_role'] === "Doctor"): ?>
                 <p class="">
                 Looking for a new treatment?
                 <a class="info-prompt-link" href="<?php echo URLROOT; ?>/doctor/addWardTreatment/<?php echo $data['pet_id']; ?>/new">click here to start a new treatment!</a>
                 </p>
+
+            <?php endif; ?>
 
                 <ul class="app-info">
 
@@ -178,8 +186,20 @@
                         ?>   
 
                         <td class="action-reports">
+
+                            <?php if($_SESSION['user_role'] == 'Doctor'): ?>
+
                             <a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $treatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
                             <a href="<?php echo URLROOT;?>/doctor/addTreatment/<?php echo $treatment->pet_id;?>/<?php echo $treatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+                            
+                            <?php elseif($_SESSION['user_role'] == 'Nurse'): ?>
+
+                            <a href="<?php echo URLROOT;?>/nurse/viewMedicalReport/<?php echo $treatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+
+                            <?php endif; ?>
+
+                            
+                            
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -245,8 +265,17 @@
                         ?>   
 
                         <td class="action-reports">
+
+                            <?php if($_SESSION['user_role'] == 'Doctor'): ?>
+
                             <a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $closedTreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
-                            <a href="#" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+
+                            <?php elseif($_SESSION['user_role'] == 'Nurse'): ?>
+
+                            <a href="<?php echo URLROOT;?>/nurse/viewMedicalReport/<?php echo $closedTreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+
+                            <?php endif; ?>
+                            
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -318,8 +347,14 @@
                         ?>   
 
                         <td class="action-reports">
-                            <a href="<?php echo URLROOT;?>/doctor/viewWardMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
-                            <a href="<?php echo URLROOT;?>/doctor/addWardTreatment/<?php echo $wardtreatment->pet_id;?>/<?php echo $wardtreatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+                            
+                            <?php if($_SESSION['user_role'] === "Doctor"): ?>
+                                <a href="<?php echo URLROOT;?>/doctor/viewWardMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+                                <a href="<?php echo URLROOT;?>/doctor/addWardTreatment/<?php echo $wardtreatment->pet_id;?>/<?php echo $wardtreatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+                            
+                            <?php elseif($_SESSION['user_role'] === "Nurse"): ?>
+                                <a href="<?php echo URLROOT;?>/nurse/viewWardMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

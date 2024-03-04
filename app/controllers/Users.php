@@ -324,7 +324,7 @@
                         redirect('doctor');
                         break;
                     case "Nurse":
-                        redirect('doctor');
+                        redirect('nurse');
                         break;
                     default:
                      
@@ -880,7 +880,7 @@
                     redirect('doctor');
                     break;
                 case "Nurse":
-                    redirect('doctor');
+                    redirect('nurse');
                     break;
                 default:
                  

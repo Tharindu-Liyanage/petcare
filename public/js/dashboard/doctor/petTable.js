@@ -4,6 +4,8 @@ const notification = document.getElementById("removeModel");
 const confirmDeleteButton = document.getElementById("confirmDelete");
 const cancelDeleteButton = document.getElementById("cancelDelete");
 var showEntriesDropdown = document.querySelector('.show-entries');
+// Get the reason input element
+const reasonInput = document.getElementById("reason");
 
 
 //search table
@@ -39,6 +41,11 @@ var showEntriesDropdown = document.querySelector('.show-entries');
 
 
 
+// Add click event listener to the "No" button to hide the notification
+cancelDeleteButton.addEventListener("click", function () {
+  notification.style.display = "none";
+});
+
 // Add click event listener to each delete link
 deleteLinks.forEach((deleteLink) => {
   deleteLink.addEventListener("click", function (e) {
@@ -48,11 +55,14 @@ deleteLinks.forEach((deleteLink) => {
     // Open the confirmation modal
     notification.style.display = "block";
 
-    // Get the reason input element
-    const reasonInput = document.getElementById("reason");
+    // Set default border color for the reason input
+    reasonInput.style.borderColor = "";
+
+    // Get the URL from the delete link
+    const deleteUrl = deleteLink.getAttribute("href");
 
     // Add click event listener to the confirmDeleteButton
-    confirmDeleteButton.addEventListener("click", function () {
+    confirmDeleteButton.onclick = function () {
       // Get the reason input value and trim leading/trailing spaces
       const reasonValue = reasonInput.value.trim();
 
@@ -61,22 +71,15 @@ deleteLinks.forEach((deleteLink) => {
         // Format the reason to replace spaces with dashes
         const formattedReason = reasonValue.replace(/\s+/g, "-");
 
-        // Get the URL from the delete link and append the formatted reason
-        const deleteUrl = deleteLink.getAttribute("href");
+        // Construct the URL with the formatted reason
         const urlWithReason = `${deleteUrl}/${formattedReason}`;
 
         // Redirect to the URL with the reason
         window.location.href = urlWithReason;
       } else {
-        // If no reason provided
-        reasonInput.style.borderColor = "red"; // Set border color red to reason input
+        // If no reason provided, set border color red to reason input
+        reasonInput.style.borderColor = "red";
       }
-    });
+    };
   });
-});
-
-
-// Add click event listener to the "No" button to hide the notification
-cancelDeleteButton.addEventListener("click", function () {
-  notification.style.display = "none";
 });

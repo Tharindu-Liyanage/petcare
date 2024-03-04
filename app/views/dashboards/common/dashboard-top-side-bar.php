@@ -29,12 +29,11 @@
 
          <?php elseif($_SESSION['user_role'] == "Nurse") : ?>
 
-            <li class="<?php echo ($current_page == 'index') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/doctor/"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
-            <li class="<?php echo ($current_page == 'appointment') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/appointment"><i class='bx bx-calendar' ></i> Appointment</a></li>
-            <li class="<?php echo ($current_page == 'animalward') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/animalward"><i class='bx bx-plus-medical' ></i> Animal Ward</a></li>
-            <li class="<?php echo ($current_page == 'pet') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/pet"><i class='bx bxs-dog' ></i></i> Pet</a></li>
-            <li class="<?php echo ($current_page == 'treatment') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/treatment"><i class='bx bx-first-aid' ></i> Treatment</a></li>
-            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/doctor/settings"><i class='bx bx-cog' ></i> Settings</a></li>
+            <li class="<?php echo ($current_page == 'index') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/nurse/"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+            <li class="<?php echo ($current_page == 'animalward') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/nurse/animalward"><i class='bx bx-plus-medical' ></i> Animal Ward</a></li>
+            <li class="<?php echo ($current_page == 'pet') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/nurse/pet"><i class='bx bxs-dog' ></i></i> Pet</a></li>
+            <li class="<?php echo ($current_page == 'bill') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/nurse/medicalBill"><i class='bx bx-file' ></i> Medical Bill</a></li>
+            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/nurse/settings"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>
 
          <?php elseif($_SESSION['user_role'] == "Doctor") : ?>

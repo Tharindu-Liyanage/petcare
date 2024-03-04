@@ -12,12 +12,29 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Dashboard</title>
+
+    <style>
+        .status .red{
+            color: #EA3D2E;
+            font-weight: 600;
+        }
+
+        .status .yellow{
+            color: #F2AA16;
+            font-weight: 600;
+        }
+
+        .status .green{
+            color: #31A751;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
 
 
-<?php require_once __DIR__ . '/../../common/common_variable/animalward_common.php'; ?>
+<?php require_once __DIR__ . '/../../common/common_variable/bill_common.php'; ?>
 <?php include __DIR__ . '/../../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -26,23 +43,18 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Animal Ward</h1>
+                    <h1>Medical Bill</h1>
                     <ul class="breadcrumb">
-                        <li><a href="<?php echo URLROOT;?>/doctor">
+                        <li><a href="<?php echo URLROOT;?>/nurse">
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/doctor/animalward" class="active">Animal Ward</a></li>
+                        <li><a href="<?php echo URLROOT;?>/nurse/medicalBill" class="active">Medical Bill</a></li>
                     </ul>
                 </div>
 
 
-                <div class="add-button">
-             <a href="<?php echo URLROOT;?>/doctor/admitPatient" ><button id="add-form-button">
-                <i class='bx bx-user-plus' ></i>
-                        Admit Patient 
-                </button> </a>
-            </div>
+              
 
 
                
@@ -59,8 +71,8 @@
                 <!--start od orders-->
                 <div class="users" id="appointment">
                     <div class="header">
-                    <i class='bx bx-plus-medical' ></i>
-                        <h3>Inward Pets</h3>
+                        <i class='bx bx-money' ></i>
+                        <h3>Payment Processing</h3>
 
                     <!-- Search Container -->
 
@@ -80,12 +92,10 @@
                         <thead>
                             <tr>
                                 
-                                <th>Patient Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
+                                <th>Animal Ward Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
                                 <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
                                 <th>Pet Owner<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
-                                <th>Cage No <i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
-                                <th>Reason <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
-                                <th>Admit Date <i class='bx bxs-sort-alt sort' data-sort="time-search"></th>
+                                <th>Payment Status<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -95,42 +105,51 @@
 
                             <?php
 
-                            if(count($data['animalward']) == 0){
+                            if(count($data['bill']) == 0){
 
                                 echo '<td class="isempty" colspan="8">No data available in table</td>';
 
                             }else
                             
                             
-                            foreach($data['animalward'] as $ward) : ?>
+                            foreach($data['bill'] as $med) : ?>
 
                             <tr>
-                                <td class="id-search">PID-<?php echo $ward->id?></td>
+                                <td class="id-search">AID-<?php echo $med->ward_treatment_id?></td>
                                 <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $ward->petpic?>" ><p><?php echo $ward->petname?></p>
+                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $med->petpic?>" ><p><?php echo $med->genPetID?> | <?php echo $med->petname?></p>
                                 </td>
 
                                  <td>
                                     <div class="profile-three">
-                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $ward->petownerpic?>" >
-                                    <p><?php echo $ward->petownerfname?> <?php echo $ward->petownerlname?></p>
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $med->petownerpic?>" >
+                                    <p><?php echo $med->petownerfname?> <?php echo $med->petownerlname?></p>
                                     </div>
                                 </td>
+
+                                <td class="status">
+                                    
+                                    <?php if($med->payment_status == "Processing") : ?>
+                                    <span class="red"><?php echo $med->payment_status?></span> 
+                                    <?php elseif($med->payment_status == "Pending"): ?>
+                                    <span class="yellow"><?php echo $med->payment_status?></span>
+                                    <?php elseif($med->payment_status == "Paid"): ?>
+                                    <span class="green"><?php echo $med->payment_status?></span>
+                                    <?php endif; ?>
+
+                                </td>
                                 
-                                <td class="time-search"><?php echo $ward->cage_no?></td>
-                                <td class="time-search"><?php echo $ward->reason?></td>
-                                <td class="date-search"><?php echo $ward->admit_date?></td>
+                    
                                 
                                
 
                                 <td class="action"> 
 
-                                <?php if($_SESSION['user_role'] == "Doctor") : ?>
-                                <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/doctor/requestPastMedicalReports/<?php echo $ward->petID;?>/ward"><i class='bx bx-chevron-right'></i></i></a>
+                                    <?php if($med->payment_status == "Processing") : ?>
 
-                                <?php elseif($_SESSION['user_role'] == "Nurse") : ?>
-                                    <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/nurse/requestPastMedicalReports/<?php echo $ward->petID;?>/ward"><i class='bx bx-chevron-right'></i></i></a>
-                                <?php endif; ?>
+                                    <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/nurse/medicalBillCalculate/<?php echo $med->ward_treatment_id;?>"><i class='bx bx-chevron-right'></i></i></a>
+                                   
+                                    <?php endif; ?>
                                 
                                 </td>
 

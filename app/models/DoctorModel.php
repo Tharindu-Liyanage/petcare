@@ -408,6 +408,25 @@
                         $data['trtID'] = $row->ward_treatment_id;
 
                     }
+
+                    if($data['status'] =='Discharge'){
+
+                        $today = date("Y-m-d");
+                        //update cage status to available and |remove from inward pet add discharge date
+                        $this->db->query('UPDATE petcare_cage_status SET status = "available" WHERE id = (SELECT cage_no FROM petcare_inward_pet WHERE pet_id = :id AND status = "Admitted" LIMIT 1)');
+                        $this->db->bind(':id', $data['pet_id']);
+                        $this->db->execute();
+
+                        $this->db->query('UPDATE petcare_inward_pet SET status = "Discharged" , discharge_date= :date WHERE pet_id = :pet_id');
+                        $this->db->bind(':pet_id', $data['pet_id']);
+                        $this->db->bind(':date',$today);
+                        $this->db->execute();
+
+                        $this->db->query('UPDATE petcare_ward_treatment SET payment_status = "Processing" WHERE pet_id = :id AND payment_status IS NULL');
+                        $this->db->bind(':id', $data['pet_id']);
+                        $this->db->execute();
+
+                    }
     
                     $this->db->query('INSERT INTO petcare_ward_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, status, diagnosis, treatment_plan, prescription, physical_examination,instruction) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:instruction)');
                     
@@ -504,9 +523,16 @@
                     '
                 );
 
-                $results = $this->db->resultSet();
+                $row = $this->db->single();
 
-                return $results;
+                if($this->db->rowCount() > 0){
+                    return $row;
+                }else
+                {
+                    return null;
+                }
+                
+
             }
 
             public function addmitPetToWard($data){
@@ -536,7 +562,7 @@
                 // Bind values
                 $this->db->bind(':pet_id', $data['petid']);
                 $this->db->bind(':owner_id',$petowner_id);
-                $this->db->bind(':cage_id', $cageDetails[0]->id);
+                $this->db->bind(':cage_id', $cageDetails->id);
                 $this->db->bind(':admission_date', $today);
                 $this->db->bind(':status', "Admitted");
                 $this->db->bind(':reason', $data['reason']);
@@ -544,8 +570,10 @@
                 // Execute
                 if($this->db->execute()){
 
+                    //die("available cageID ->" . $cageDetails->id);
+
                     //update cage status to occupied
-                    $this->updateCageStatus($cageDetails[0]->id);
+                    $this->updateCageStatus($cageDetails->id);
 
                     $_SESSION['notification'] = 'ok';
 
@@ -570,8 +598,17 @@
             public function updateCageStatus($cage_id){
                 $this->db->query('UPDATE petcare_cage_status SET status = "occupied" WHERE id = :id');
                 $this->db->bind(':id', $cage_id);
-                $this->db->execute();
+                try {
+                    $this->db->execute();
+                    // Optionally, you can log success here
+                } catch (PDOException $e) {
+                    // Log or handle the error
+                    error_log('Error updating cage status: ' . $e->getMessage());
+                    // Optionally, you can re-throw the exception
+                    throw $e;
+                }
             }
+            
 
 
             //get animal ward details
@@ -597,7 +634,7 @@
                 $this->db->query(
                     'SELECT *
                      FROM petcare_inward_pet
-                     WHERE pet_id = :petid AND status = "Admitted"
+                     WHERE pet_id = :petid AND status = "Admitted" 
                     '
                 );
 

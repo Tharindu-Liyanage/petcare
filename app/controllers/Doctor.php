@@ -11,7 +11,7 @@
             }else{
 
 
-                if($_SESSION['user_role'] != "Doctor" && $_SESSION['user_role'] != "Nurse"  ){
+                if($_SESSION['user_role'] != "Doctor"){
 
                     // Unauthorized access
                     redirect('users/staff');
@@ -1047,6 +1047,8 @@
             $data = null;
             $this->view('dashboards/doctor/setting/settings',$data);
         }
+
+       
 
         
 
