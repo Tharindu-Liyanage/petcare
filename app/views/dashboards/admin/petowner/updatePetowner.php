@@ -56,29 +56,29 @@
                         <div class="flex-column">
                             <label>First Name</label>
                         </div>
-                        <div class="inputForm ">
+                        <div class="inputForm <?php echo (!empty($data['fname_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-user' ></i>
-                            <input type="text" class="input" name="fname" placeholder="Enter first Name" value="">
+                            <input type="text" class="input" name="fname" placeholder="Enter first Name" value="<?php echo $data['first_name']?>">
                         </div>
-                        <span class="invalid-feedback"></span>
+                        <span class="invalid-feedback"><?php echo $data['fname_err']; ?></span>
 
                         <div class="flex-column">
                             <label>Last Name</label>
                         </div>
-                        <div class="inputForm ">
+                        <div class="inputForm <?php echo (!empty($data['lname_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-user' ></i>
-                            <input type="text" class="input " placeholder="Enter last Name" value="" name="lname">
+                            <input type="text" class="input " placeholder="Enter last Name" value="<?php echo $data['last_name']?>" name="lname">
                         </div>
-                        <span class="invalid-feedback"></span>
+                        <span class="invalid-feedback"><?php echo $data['lname_err']; ?></span>
 
                         <div class="flex-column">
                             <label>Email </label>
                         </div>
-                        <div class="inputForm ">
+                        <div class="inputForm <?php echo (!empty($data['email_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-envelope' ></i>
-                            <input type="text" class="input " placeholder="Enter email Address" value="" name="email">
+                            <input type="text" class="input " placeholder="Enter email Address" value="<?php echo $data['email']?>" name="email">
                         </div>
-                        <span class="invalid-feedback"></span>
+                        <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
 
 
                 </div> <!-- column tag close -->
@@ -88,21 +88,21 @@
                         <div class="flex-column">
                             <label>Address</label>
                         </div>
-                        <div class="inputForm ">
+                        <div class="inputForm <?php echo (!empty($data['address_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-buildings' ></i>
-                            <input type="text" class="input" placeholder="Enter Address" name="address" value="">
+                            <input type="text" class="input" placeholder="Enter Address" name="address" value="<?php echo $data['address']?>">
                         </div>
-                        <span class="invalid-feedback"></span>
+                        <span class="invalid-feedback"><?php echo $data['address_err']; ?></span>
 
 
                         <div class="flex-column">
                             <label>Mobile</label>
                         </div>
-                        <div class="inputForm ">
+                        <div class="inputForm <?php echo (!empty($data['role_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-phone-call' ></i>
-                            <input type="text" class="input" placeholder="Enter mobile Number" name="mobile" value="" >
+                            <input type="text" class="input" placeholder="Enter mobile Number" name="mobile" value="<?php echo $data['mobile']?>" >
                         </div>
-                        <span class="invalid-feedback"></span>
+                        <span class="invalid-feedback"><?php echo $data['mobile_err']; ?></span>
 
 
 

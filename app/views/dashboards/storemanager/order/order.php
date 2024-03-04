@@ -46,52 +46,58 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="orders">
                     <div class="header">
                     <i class='bx bx-shopping-bag' ></i>
                         <h3>Orders</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+
+                    <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
                     </div>
+
+                    <!-- search container over -->
+
+                    
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Customer</th>
-                                <th>Order Date</th>
-                                <th>Total</th>
-                                <th>Shipment Status</th>
-                                <th>Action</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="invoice-id"></i></th>
+                                <th>Customer <i class='bx bxs-sort-alt sort' data-sort="profile"></i></th>
+                                <th>Order Date <i class='bx bxs-sort-alt sort' data-sort="order-date"></i></th>
+                                <th>Totla <i class='bx bxs-sort-alt sort' data-sort="total"></i></th>
+                                <th>Shipment Status <i class='bx bxs-sort-alt sort' data-sort="shipment-status"></i></th>
+                                <th>Action </th>
+
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
-                           <?php foreach($data['orders'] as $order) : ?>
+                           <?php foreach($data['order'] as $order) : ?>
 
                                 <tr>
-                                    <td><?php echo 'INV-'.$order->invoice_id  ; ?></td>
-                                    <td class="profile">
+                                    <td class="invoice-id"><?php echo 'INV-'.$order->invoice_id  ; ?></td>
+                                    <td class="profile"class="profile">
                                         <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user1.jpg">
                                         <p><?php echo $order->first_name ; ?></p>
                                     </td>
-                                    <td><?php echo $order->invoice_date ; ?></td>
-                                    <td><?php echo 'LKR '. $order->total_amount ; ?></td>
-                                    <td>
-                                        
+                                    <td class="order-date"><?php echo $order->invoice_date ; ?></td>
+                                    <td class="total"><?php echo 'LKR '. $order->total_amount ; ?></td>
+                                    <td class="shipment-status">
                                             <select class="shipment-status" id="ship-status" name="shipment-status" >
                                                 <option class="on-process-value" value="on-process">On Process</option>
                                                 <option class="shipped-value"  value="shipped">Shipped</option>
                                                 <option class="delivered-value"  value="delivered">Delivered</option>
                                             </select>
                                             
-                                        
                                     </td>
                                     <td class="action">
                                         
                                         <div class="act-icon">
-                                        <a href="<?php echo URLROOT;?>/storemanager/viewCart/<?php echo $order->invoice_id ;?>" ><i class='bx bx-cart' ></i></a>     
-                                            
+                                            <a href="<?php echo URLROOT;?>/storemanager/viewCart/<?php echo $order->invoice_id ;?>" ><i class='bx bx-cart' ></i></a>       
                                         </div>
                                         
                                     </td>
@@ -101,7 +107,9 @@
 
                         
                         </tbody>
+                        <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
                     </table>
+                    
                 </div>
  
             </div> <!-- content over -->
@@ -146,10 +154,11 @@
 
 
     
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/storemanager/manageOrders.js"></script>
+   
     
 </body>
 </html>

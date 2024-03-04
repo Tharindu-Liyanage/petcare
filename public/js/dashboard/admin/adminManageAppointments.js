@@ -1,3 +1,4 @@
+
 // Get references to the elements
 const deleteLinks = document.querySelectorAll(".removeLink"); // Select all delete links
 const notification = document.getElementById("removeModel");
@@ -11,22 +12,22 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
-      valueNames: ['id-search', 'profile', 'email-search', 'address-search', 'phone-search', 'role-search'],
+      valueNames: ['id-search', 'petowner-search', 'pet-search', 'time-search', 'type-search' , 'status-search'],
       page: 5,
       pagination: true,
   };
 
-  var userList = new List('staff', options);
+  var userList = new List('appointment', options);
   
 
 
-  // if (showEntriesDropdown) {
-  //   showEntriesDropdown.addEventListener('change', function () {
-  //       var selectedValue = parseInt(this.value);
-  //       userList.page = selectedValue;
-  //       userList.update();
-  //   });
-  // }
+  if (showEntriesDropdown) {
+    showEntriesDropdown.addEventListener('change', function () {
+        var selectedValue = parseInt(this.value);
+        userList.page = selectedValue;
+        userList.update();
+    });
+  }
   
 
 

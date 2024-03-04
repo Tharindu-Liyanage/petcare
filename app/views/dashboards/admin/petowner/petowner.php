@@ -80,7 +80,7 @@
                                 <td class="action">
                                     
                                     <div class="act-icon">
-                                           <a data-staff-id="<?php echo $petowner->id?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removePetowner/<?php echo $petowner->id ?>" ><i class='bx bx-trash'></i></a>
+                                           <a petowner-id="<?php echo $petowner->id?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removePetowner/<?php echo $petowner->id ?>" ><i class='bx bx-trash'></i></a>
                                            <a href="<?php echo URLROOT;?>/admin/updatePetowner/<?php echo $petowner->id ?>" ><i class='bx bx-edit' ></i></a>     
                                            <a href="<?php echo URLROOT;?>/admin/viewProfile/<?php echo $petowner->id ?>" ><i class='bx bx-show'></i></a>  
                                     </div>

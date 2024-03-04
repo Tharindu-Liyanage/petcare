@@ -240,7 +240,7 @@
         //6
 
          public function getPetwonerDetails(){
-            $this->db->query('SELECT * FROM petcare_petowner');
+            $this->db->query('SELECT * FROM petcare_petowner WHERE isRemoved = 0');
         
 
             $results = $this->db->resultSet(); 
@@ -249,6 +249,134 @@
     
 
         }
+
+        public function getPetownerDetailsById($id){
+            $this->db->query('SELECT * FROM petcare_petowner WHERE id = :id');
+            $this->db->bind(':id' , $id);
+        
+
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+    
+        }
+
+        public function updatePetowner($data){
+            $this->db->query('UPDATE petcare_petowner SET first_name = :first_name , last_name = :last_name , email= :email , address = :address , mobile = :mobile   WHERE id = :id');
+
+        //bind values
+        $this->db->bind(':id',$data['id']);
+        $this->db->bind(':first_name',$data['first_name']);
+        $this->db->bind(':last_name',$data['last_name']);
+        $this->db->bind(':mobile',$data['mobile']);
+        $this->db->bind(':email',$data['email']);
+        $this->db->bind(':address',$data['address']);
+        // $this->db->bind(':fb_url',$data['fb_url']);
+        // $this->db->bind(':insta_url',$data['insta_url']);
+        // $this->db->bind(':twitter_url',$data['twitter_url']);
+        // $this->db->bind(':password',$data['password']);
+
+        
+        
+
+        //execute
+        if($this->db->execute()){
+            return true;
+
+        }else{
+            return false;
+        }  
+        }
+
+        public function removePetowner($id){
+            $this->db->query('UPDATE petcare_petowner SET isRemoved = 1 WHERE id = :id');
+
+            $this->db->bind(':id' , $id);
+            
+            $row = $this->db->single();
+
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }  
+        }
+
+
+        //admin petowner start
+
+        public function getPetDetails(){
+            $this->db->query('SELECT * FROM petcare_pet WHERE isRemoved = 0');
+        
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+        }
+
+
+        public function updatePet($data){
+            $this->db->query('UPDATE petcare_petowner SET pet = :petname , DOB = :dob , species= :species , breed = :breed , sex = :sex   WHERE id = :id');
+
+            //bind values
+            $this->db->bind(':id',$data['id']);
+            $this->db->bind(':petname',$data['petname']);
+            $this->db->bind(':species',$data['species']);
+            $this->db->bind(':breed',$data['breed']);
+            $this->db->bind(':sex',$data['sex']);
+            $this->db->bind(':dob',$data['DOB']);
+
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }  
+        
+
+        }
+
+
+        public function adminGetPetDetailsByID($id){
+
+            $this->db->query('SELECT * FROM petcare_pet WHERE id = :id ');
+        
+
+            $this->db->bind(':id' , $id);
+            
+    
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+        }
+
+        // appointmnet admin
+
+        public function getAppointments(){
+            
+
+             
+            $this->db->query('SELECT petcare_appointments.*, petcare_pet.pet , petcare_pet.profileImage as petProfile, petcare_petowner.first_name , petcare_petowner.last_name ,
+                    petcare_petowner.profileImage as petownerProfile
+                    FROM petcare_appointments
+                    JOIN petcare_petowner ON  petcare_appointments.petowner_id = petcare_petowner.id
+                    JOIN petcare_pet ON petcare_appointments.pet_id = petcare_pet.id
+                    
+    
+                ');
+    
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+        }
+
+
 
         // ============================  Admin over ===========================================
 

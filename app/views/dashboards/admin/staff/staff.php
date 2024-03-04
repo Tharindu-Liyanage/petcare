@@ -118,7 +118,7 @@
                                 </td>
                             </tr>
 
-                        <?php endforeach;  ?>
+                            <?php endforeach;  ?>
                         </tbody>
                     </table>
 
@@ -136,8 +136,8 @@
             <!-- warninig model here -->
 
             <div id="removeModel" class="card-all-background">
-             <div class="card">
-                <div class="err-header">
+                <div class="card">
+                    <div class="err-header">
 
                         <div class="image">
                             <span class="material-symbols-outlined">warning</span>                   

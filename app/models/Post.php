@@ -54,8 +54,8 @@
                 $sourceDir = $data['img']['tmp_name'];
 
                 // Specify the destination directory using __DIR__
-                $destinationDir = __DIR__ . '/../../public/storage/uploads/blog/';
-                // $destinationDir = '/Applications/xampp/xamppfiles/htdocs/petcare/public/storage/uploads/blog/';
+                // $destinationDir = __DIR__ . '/../../public/storage/uploads/blog/';
+                $destinationDir = '/Applications/xampp/xamppfiles/htdocs/petcare/public/storage/uploads/blog/';
                 
                 // Set the path to move the uploaded file to
                 $uploadPath = $destinationDir . $data['uniqueImgFileName'];

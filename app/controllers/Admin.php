@@ -412,8 +412,11 @@
 
 
     public function appointment(){
+        $appointment = $this->dashboardModel->getAppointments();
 
-        $data =null;
+        $data =[
+            'appointment' => $appointment
+        ];
 
         $this->view('dashboards/admin/appointment/appointment',$data);
     }
@@ -438,14 +441,166 @@
             $this->view('dashboards/admin/petowner/petowner',$data);
         }
 
-        public function UpdatePetowner(){
+        public function UpdatePetowner($id){
 
-            
-            $data = null;
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                //process form
 
-            $this->view('dashboards/admin/petowner/updatePetowner',$data);
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                //init data
+
+                $data = [
+                    'id' => $id,
+                    'first_name' => trim($_POST['fname']),
+                    'last_name' => trim($_POST['lname']),
+                    'email' => trim($_POST['email']),
+                    'address' => trim($_POST['address']),
+                    'mobile' => trim($_POST['mobile']),
+                    'fname_err' => '',
+                    'lname_err' => '',
+                    'email_err' => '',
+                    'address_err'  =>'',
+                    'mobile_err' => ''
+                ];
+
+              
+                
+
+                //validate Email
+                if(empty($data['email'])){
+                    $data['email_err'] = 'Please enter email';
+                }else{
+ 
+                    if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){ //check email in correct formate
+
+                        $data['email_err'] = 'Please enter valid email';
+                    }
+                    
+                }
+
+
+                //validate fName
+                if(empty($data['first_name'])){
+                    $data['fname_err'] = 'Please enter first name';
+                }
+
+                //validate lName
+                if(empty($data['last_name'])){
+                    $data['lname_err'] = 'Please enter last name';
+                }
+
+                //validate address
+                if(empty($data['address'])){
+                    $data['address_err'] = 'Please enter address';
+                }
+
+
+                if (empty($data['role'])) {
+                    $data['role_err'] = 'Please select a role';
+                }
+                
+
+                
+
+                //validate mobile
+                if(empty($data['mobile'])){
+                    $data['mobile_err'] = 'Please enter mobile number';
+                }else{
+
+                    if(!preg_match("/^(?:\+?94)?(?:7\d{8})$/", $data['mobile'])){ //check mobile in correct formate, SriLanka
+
+                        $data['mobile_err'] = 'Please enter valid mobile number';
+ 
+                    }
+
+                    
+                }
+
+                //Make sure errors are empty
+
+                if(empty($data['email_err']) && empty($data['fname_err']) && empty($data['lname_err']) && empty($data['address_err']) && empty($data['mobile_err'])){
+                    //validated
+                    
+
+                    //update User
+
+                    if($this->dashboardModel->updatePetowner($data)){
+                       
+                        $_SESSION['petowner_updated'] = true;
+      
+                       redirect('admin/petowner');
+
+                    }else{
+                        die("Something went wrong");
+                    }
+
+
+
+                }else{
+
+                    
+                    //load view with errors
+                    $this->view('dashboards/admin/petowner/updatePetowner', $data);
+                    
+                    
+
+                }
+
+
+            }else{
+
+                $petowner =$this->dashboardModel-> getPetownerDetailsById($id);
+
+                
+
+        
+                if($petowner -> id == $_SESSION['user_id']){
+                    redirect('admin/setting');
+                }
+
+
+                //init data
+                $data = [
+                    'id' => $id,
+                    'first_name' => $petowner->first_name,
+                    'last_name' => $petowner->last_name,
+                    'email' => $petowner->email,
+                    'address' => $petowner->address,
+                    'mobile' => $petowner->mobile,
+                    'fname_err' => '',
+                    'lname_err' => '',
+                    'email_err' => '',
+                    'address_err'  =>'',
+                    'mobile_err' => ''
+                ];
+
+                
+                //load view
+                $this->view('dashboards/admin/petowner/updatePetowner', $data);
+            }
         }
 
+        public function removePetowner($id){
+
+            if( $id == $_SESSION['user_id']){
+                redirect('admin/petowner');
+            }
+            
+            if($this->dashboardModel->removePetowner($id)){
+                // die('success');
+                $_SESSION['petowner_removed'] = true;
+                redirect('admin/petowner');
+
+            }else{
+                die("error in user delete model");
+            }
+
+
+        }
+
+        
 
         /*==================  pet owner  ============= 
         
@@ -455,14 +610,157 @@
         */
 
         public function pet(){
-            $data = null;
+            $pet = $this->dashboardModel->getPetDetails();
+
+            $data = [
+                'pet' => $pet
+            ];
             $this->view('dashboards/admin/pet/pet',$data);
         }
+    
 
 
-        public function Updatepet(){
-            $data = null;
-            $this->view('dashboards/admin/pet/updatePet',$data);
+        public function updatePet($id){
+
+            
+            
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                // die('succs');
+                
+                //process form
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                //init data
+
+                $data = [
+                    'id' => $id,
+                    'petname' => trim($_POST['petname']),
+                    'DOB' => trim($_POST['DOB']),
+                    'species' => trim($_POST['species']),
+                    'breed' => trim($_POST['breed']),
+                    'sex' => trim($_POST['sex']),
+                    'sex_err' => '',
+                    'breed_err' => '',
+                    'species_err' => '',
+                    'DOB_err'  =>'',
+                    'petname_err' => ''
+                ];
+
+              
+                
+
+                //validate petname
+                if(empty($data['petname'])){
+                    $data['petname_err'] = 'Please enter pet name';
+                }
+
+                //validate dob
+                if(empty($data['DOB'])){
+                    $data['DOB_err'] = 'Please enter date of birth';
+                }
+
+                //validate species
+                if(empty($data['species'])){
+                    $data['species_err'] = 'Please enter species';
+                }
+
+                //validate breed
+                if(empty($data['breed'])){
+                    $data['breed_err'] = 'Please enter breed';
+                }
+
+
+                if (empty($data['sex'])) {
+                    $data['sex_err'] = 'Please select sex';
+                }
+                
+
+                
+
+                
+                
+
+                //Make sure errors are empty
+
+                if(empty($data['sex_err']) && empty($data['breed_err']) && empty($data['species_err']) && empty($data['DOB_err']) && empty($data['petname_err'])){
+                    //validated
+                    
+
+                    //update User
+
+                    if($this->dashboardModel->updatePet($data)){
+                       
+                        $_SESSION['pet_updated'] = true;
+      
+                       redirect('admin/pet');
+
+                    }else{
+                        die("Something went wrong");
+                    }
+
+
+
+                }else{
+
+                    
+                    //load view with errors
+                    $this->view('dashboards/admin/pet/updatePet', $data);
+                    
+                    
+
+                }
+
+
+            }else{
+
+              
+
+                $pet =$this->dashboardModel->adminGetPetDetailsByID($id);
+
+                
+
+        
+                
+
+
+                //init data
+                $data = [
+                    'id' => $id,
+                    'petname' =>$pet->pet,
+                    'DOB' =>$pet->DOB,
+                    'species' => $pet->species,
+                    'breed' => $pet->breed,
+                    'sex' => $pet->sex,
+                    'sex_err' => '',
+                    'breed_err' => '',
+                    'species_err' => '',
+                    'DOB_err'  =>'',
+                    'petname_err' => ''
+                ];
+
+                
+                //load view
+                $this->view('dashboards/admin/pet/updatePet', $data);
+            }
+        }
+
+     
+
+        
+
+        public function removePet($id){
+
+            if($this->dashboardModel->removePetDetails($id)){
+                // die('success');
+                $_SESSION['pet_removed'] = true;
+                redirect('admin/pet');
+
+            }else{
+                die("error in user delete model");
+            }
+
         }
 
 
