@@ -55,7 +55,12 @@
 
                 // Specify the destination directory using __DIR__
                 // $destinationDir = __DIR__ . '/../../public/storage/uploads/blog/';
-                $destinationDir = '/Applications/xampp/xamppfiles/htdocs/petcare/public/storage/uploads/blog/';
+               // $destinationDir = '/Applications/xampp/xamppfiles/htdocs/petcare/public/storage/uploads/blog/';
+
+
+               //new path link
+                $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'blog' . DIRECTORY_SEPARATOR;
+
                 
                 // Set the path to move the uploaded file to
                 $uploadPath = $destinationDir . $data['uniqueImgFileName'];

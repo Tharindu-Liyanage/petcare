@@ -75,7 +75,7 @@
                                
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
                             <?php foreach($data['appointment'] as $app) : ?>
 
@@ -139,7 +139,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/adminManageAppointments.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/admin/adminManageAppointments.js"></script>
     
 </body>
 </html>
