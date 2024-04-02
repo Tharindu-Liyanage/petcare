@@ -60,7 +60,7 @@
                 <div class="users" id="appointment">
                     <div class="header">
                     <i class='bx bx-plus-medical' ></i>
-                        <h3>Inward Pets</h3>
+                        <h3>Inward Pets (<?php echo count($data['animalward']) ;?>/<?php echo count($data['cageCount']);?>)</h3>
 
                     <!-- Search Container -->
 
@@ -146,8 +146,121 @@
 
 
                 </div>
+
+
+                
  
             </div> <!-- content over -->
+
+
+
+            <!-- ========= this is of discharge pet =================-->
+
+            <div class="bottom-data">
+
+
+
+                <!--start od orders-->
+                <div class="users" id="appointment">
+                    <div class="header">
+                    <i class='bx bx-plus-medical' ></i>
+                        <h3>Dischaged Pets</h3>
+
+                    <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
+                    </div>
+
+                    <!-- search container over -->
+
+
+                      
+                        
+                        
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                
+                                <th>Patient Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
+                                <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>Pet Owner<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
+                                <th>Cage No <i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
+                                <th>Reason <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
+                                <th>Admit Date <i class='bx bxs-sort-alt sort' data-sort="time-search"></th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+
+                            
+
+                            <?php
+
+                            if(count($data['animalward']) == 0){
+
+                                echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                            }else
+                            
+                            
+                            foreach($data['animalward'] as $ward) : ?>
+
+                            <tr>
+                                <td class="id-search">PID-<?php echo $ward->id?></td>
+                                <td class="profile">
+                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $ward->petpic?>" ><p><?php echo $ward->petname?></p>
+                                </td>
+
+                                 <td>
+                                    <div class="profile-three">
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $ward->petownerpic?>" >
+                                    <p><?php echo $ward->petownerfname?> <?php echo $ward->petownerlname?></p>
+                                    </div>
+                                </td>
+                                
+                                <td class="time-search"><?php echo $ward->cage_no?></td>
+                                <td class="time-search"><?php echo $ward->reason?></td>
+                                <td class="date-search"><?php echo $ward->admit_date?></td>
+                                
+                               
+
+                                <td class="action"> 
+
+                                <?php if($_SESSION['user_role'] == "Doctor") : ?>
+                                <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/doctor/requestPastMedicalReports/<?php echo $ward->petID;?>/ward"><i class='bx bx-chevron-right'></i></i></a>
+
+                                <?php elseif($_SESSION['user_role'] == "Nurse") : ?>
+                                    <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/nurse/requestPastMedicalReports/<?php echo $ward->petID;?>/ward"><i class='bx bx-chevron-right'></i></i></a>
+                                <?php endif; ?>
+                                
+                                </td>
+
+
+                                
+                            </tr>
+
+                        <?php endforeach;  ?>
+                        </tbody>
+                    </table>
+
+                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
+
+
+                </div>
+
+
+                
+ 
+            </div> <!-- content over -->
+
+
+            <!-- ========= this is of discharge pet  OVer =================-->
+
+
+            
 
              
                                 

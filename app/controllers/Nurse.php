@@ -200,9 +200,11 @@
 
             //get animal ward details
            $wardDetails = $this->doctorModel->getAnimalWardDetails();
+           $counOfCage = $this->doctorModel->getCageCountAll();
 
             $data = [
-                'animalward' => $wardDetails
+                'animalward' => $wardDetails,
+                'cageCount' => $counOfCage
             ];
 
             $this->view('dashboards/doctor/animalward/animalward',$data);

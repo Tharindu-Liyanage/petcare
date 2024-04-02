@@ -77,8 +77,8 @@
 
               <li>   <a href="<?php echo URLROOT;?>/shop/">Shop</a></li>
               <li>  <a href="<?php echo URLROOT;?>/home">PetCare</a></li>
-              <li>   <a href="#about">About</a></li>
-              <li>   <a href="#">Contact</a>  </li>
+              <li>   <a href="<?php echo URLROOT;?>/home/#about">About</a></li>
+              <li>   <a href="<?php echo URLROOT;?>/home/#contact">Contact</a>  </li>
 
                 </ul>
         </nav>

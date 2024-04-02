@@ -5,11 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost/petcare/public/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost/petcare/public/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost/petcare/public/img/favicons/favicon-16x16.png">
-    <link rel="icon" href="http://localhost/petcare/public/img/favicons/favicon.ico" type="image/x-icon">
-
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/home.css">
 
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <!--Animate On Scroll Library -->
@@ -18,8 +13,11 @@
 
     <!-- link swiper's css -->
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> <!--splide css-->
-   
-   
+
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo URLROOT;?>/public/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo URLROOT;?>/public/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo URLROOT;?>/public/img/favicons/favicon-16x16.png">
+    <link rel="icon" href="<?php echo URLROOT;?>/public/img/favicons/favicon.ico" type="image/x-icon">
 
 
     <title> Home</title>
@@ -37,11 +35,11 @@
             </div>
 
         <nav class="navbar">
-                <a href="<?php echo URLROOT;?>/">Home</a>
+                <a href="<?php echo URLROOT;?>/home">Home</a>
                 <a href="<?php echo URLROOT;?>/shop/">Shop</a>
                 <a href="<?php echo URLROOT;?>/blog/">Blog</a>
                 <a href="#about">About</a>
-                <a href="#">Contact</a>  
+                <a href="#contact">Contact</a>  
         </nav>
 
         <a href="<?php echo URLROOT;?>/users/login" class="btn login">Login</a>
@@ -355,7 +353,7 @@
 
      
 <!-- Footer -->
-<footer class="section-p1 ">
+<footer class="section-p1" id="contact">
     <div class="col">
         <div class="logo-flex">
         <img class="logo" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png" alt="logo"><span>PetCare</span>

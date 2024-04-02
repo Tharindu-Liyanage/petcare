@@ -155,9 +155,20 @@
 
         public function requestPastMedicalReports($pet_id,$wardOrNot){
 
-            
-            
 
+                //get pet age
+                $petDetails  =$this->doctorModel-> getPetDetailsByPetID($pet_id);
+                
+
+                //error handling if user try to access url with wrong pet id
+                if($wardOrNot != "ward" && $wardOrNot != "appointment" && $wardOrNot != "emergency"){
+                    redirect('doctor/notfound');
+                }
+
+                //error handling if user try to access url with wrong pet id
+                if(!isset($petDetails)){
+                    redirect('doctor/notfound');
+                }
                     
                 //get treatment details by pet id
                 $treatmentDetails = $this->doctorModel->getTreatmentDetailsByPetID($pet_id);
@@ -167,11 +178,12 @@
                 //get latest treatment id by pet id from appointment table
                 $latestTreatmentID = $this->doctorModel->getLatestTreatmentID($pet_id);
 
-                //get pet age
-                $petDetails  =$this->doctorModel-> getPetDetailsByPetID($pet_id);
+                //set pet age
                 $petDOB = $petDetails->DOB;
                 $visitDate = date("Y-m-d");
                 $petDetails->DOB = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+
+               
 
                 $data = [
                     'treatmentDetails' => $treatmentDetails,
@@ -636,9 +648,11 @@
 
             //get animal ward details
            $wardDetails = $this->doctorModel->getAnimalWardDetails();
+           $counOfCage = $this->doctorModel->getCageCountAll();
 
             $data = [
-                'animalward' => $wardDetails
+                'animalward' => $wardDetails,
+                'cageCount' => $counOfCage
             ];
 
             $this->view('dashboards/doctor/animalward/animalward',$data);
@@ -774,9 +788,7 @@
                     $data['content_err'] = 'Please fill the content field';
                  }
 
-                 if(empty($data['img'])){
-                    $data['img_err'] = 'Please choose a Thumnail Photo';
-                 }
+                
 
                  if($data['category'] == "Select Category"){
                     $data['category_err'] = 'Please select a category';
@@ -784,15 +796,12 @@
 
                 $allowedTypes = ['image/jpeg', 'image/png'];
 
-                if (!isset($_FILES['blog_img']['type']) || ($_FILES['blog_img']['type'] && !in_array($_FILES['blog_img']['type'], $allowedTypes))) {
+                 if(empty($data['img'])){
+                    $data['img_err'] = 'Please choose a Thumnail Photo';
+                 }elseif(!isset($_FILES['blog_img']['type']) || ($_FILES['blog_img']['type'] && !in_array($_FILES['blog_img']['type'], $allowedTypes))) {
                     // Invalid file type
                     $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
-
-                
-                }
-
-                
-                if(isset($_FILES['blog_img'])){
+                 }elseif(isset($_FILES['blog_img'])){
                    
                     $dimensions = getimagesize($_FILES['blog_img']['tmp_name']);
                     $width = $dimensions[0];
@@ -805,11 +814,7 @@
                         $data['img_err'] = 'Sorry, only landscape-oriented images are allowed.';
 
                     } 
-                }
-
-
-
-                if($_FILES['blog_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                }elseif($_FILES['blog_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
                     $data['img_err'] = 'Image size must be less than 5 MB';
                 }
 
@@ -939,7 +944,7 @@
                     $data['content_err'] = 'Please fill the content field';
                  }
 
-                 $allowedTypes = ['image/jpeg', 'image/png'];
+          /*       $allowedTypes = ['image/jpeg', 'image/png'];
 
                  if(empty($data['img'])){
                     $data['img_err'] = 'Please choose a Thumnail Photo';
@@ -964,7 +969,7 @@
                 }
 
 
-
+                */
 
                 
 
@@ -997,9 +1002,7 @@
                     $data['img_err'] = 'Image size must be less than 5 MB';
                 }
 
-                 if($data['category'] == "Select Category"){
-                    $data['category_err'] = 'Please select a category';
-                 }
+               
 
              
                  //handle error in img here

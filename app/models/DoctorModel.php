@@ -535,6 +535,23 @@
 
             }
 
+            public function getCageCountAll(){
+                $this->db->query(
+                    'SELECT *
+                     FROM petcare_cage_status
+                    '
+                );
+
+                $row = $this->db->resultSet();
+
+                if($this->db->rowCount() > 0){
+                    return $row;
+                }else
+                {
+                    return 0;
+                }
+            }
+
             public function addmitPetToWard($data){
                 //get petowner id by petid
                 $petDetails=$this->getPetDetailsByPetID($data['petid']);

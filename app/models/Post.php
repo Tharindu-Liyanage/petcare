@@ -145,7 +145,12 @@
                     $sourceDir = $data['img']['tmp_name'];
 
                     // Specify the destination directory using __DIR__
-                    $destinationDir = __DIR__ . '/../../public/storage/uploads/blog/';
+
+                    //$destinationDir = __DIR__ . '/../../public/storage/uploads/blog/';
+
+                    //new path link support for windows and linux
+                    $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'blog' . DIRECTORY_SEPARATOR;
+                   
                     // Set the path to move the uploaded file to
                     $uploadPath = $destinationDir . $data['uniqueImgFileName'];
 

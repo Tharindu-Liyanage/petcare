@@ -770,7 +770,11 @@
                 $sourceDir = $data['img']['tmp_name'];
 
                 // Specify the destination directory using __DIR__
-                $destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+                //$destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+
+                //new path link support for windows and linux
+                $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'animals' . DIRECTORY_SEPARATOR;
+                
                 // Set the path to move the uploaded file to
                 $uploadPath = $destinationDir . $data['uniqueImgFileName'];
 
@@ -896,7 +900,11 @@
                     $sourceDir = $data['img']['tmp_name'];
 
                     // Specify the destination directory using __DIR__
-                    $destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+                    //$destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+
+                    //new path link support for windows and linux
+                    $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'animals' . DIRECTORY_SEPARATOR;
+
                     // Set the path to move the uploaded file to
                     $uploadPath = $destinationDir . $data['uniqueImgFileName'];
 
