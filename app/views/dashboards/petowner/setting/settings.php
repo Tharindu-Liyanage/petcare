@@ -5,51 +5,10 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
       <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/settings.css">
+      <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
       <title>Dashboard</title>
-
-      <style>
-        .billing-email input{
-            width: 50%;
-            height: 40px;
-            border: 1px solid #D3D3D3;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 5px;
-
-        }
-
-        .otp-code{
-            width: 30% !important;
-        }
-
-        .verify-btn{
-            width: 10%;
-            height: 40px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-top: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .invalid-feedback{
-            font-size: 12px;
-        }
-
-        .is-right{
-            color:green;
-            font-size: 14px;
-        }
-
-      
-
-      
-
-
-      </style>
    </head>
    <body>
 
@@ -62,7 +21,7 @@
                             <div class="left">
                                 <h1>Settings</h1>
                                 <ul class="breadcrumb">
-                                    <li><a href="#">
+                                    <li><a href="<?php echo URLROOT?>/petowner/">
                                         Dashboard
                                     </a></li>  
                                     >
@@ -74,296 +33,93 @@
 
 
 
-        <form class="container" method="POST" action="<?php echo URLROOT?>/petowner/settings" id="myForm">     <!--start of form-->
-                                    <div class="tab-box">                        
-                                        <div class="tab-btn active">My Profile</div>
-                                        <div class="tab-btn">Password</div>
-                                        <div class="tab-btn">Billing</div>
-                                        <div class="tab-btn">Social Profiles</div>
-                                        <div class="tab-btn">Change Email</div>
-                                        <div class="line"></div>
-                                    </div>
-                                    <div class="content-box">
-                                        <div class="inner-content active">                 <!-- start of inner content1 (Myprofile)-->
-                                            <div class="personal-info">                 <!-- personal info-->
-                                                <div class="large">
-                                                    Personal Info
-                                                </div>
-                                                <div class="line2">
-                                                    <div class="small">Update your profile photo and details here.</div>
-                                                    <button class="cancel-btn">Cancel</button>
-                                                    <button class="save-changes-btn">Save Changes</button>
-                                                </div>
-                                            </div>
+        <form class="container" id="myForm">     <!--start of form-->
 
-                                            <div class="name">                  <!--name -->
-                                                    <div class="name-text">Name</div>
-                                                    <input type="text" class="text-box firstname-textbox" placeholder="Anna" value="<?php echo $data['settings']->first_name; ?>">
-                                                    <input type="text" class="text-box lastname-textbox" placeholder="Marie" value="<?php echo $data['settings']->last_name; ?>">
-                                            </div>
+           <div class="setting-title">
+           <i class='bx bx-cog'></i> Account
+           </div> 
 
-                                            <div class="email">                     <!-- Email-->
-                                                <div class="email-text">Email</div>
-                                                <input type="text" class="text-box email-textbox" placeholder="Annamarie@petcare.com" value="<?php echo $data['settings']->email; ?>">
-                                            </div>
+           <div class="border-bottom-title"></div>    
 
-                                            <div class="address">                       <!-- address -->
-                                                <div class="address-text">Address</div>
-                                                <input type="text" class="text-box address-textbox" placeholder="290 Chatham Way Reston, Maryland(MD), 20191" value="<?php echo $data['settings']->address; ?>">
-                                            </div>
-                                            
-                                            <div class="nic">                       <!-- nic-->
-                                                <div class="nic-text">NIC</div>
-                                                <input type="text" class="text-box nic-textbox" placeholder="1920664892V" value="<?php echo $data['settings']->address; ?>">
-                                                <!-- need to add nic -->
-                                            </div>
+           <!-- ancor tag for each account setting -->
+            <div class="setting-list">
 
-                                            <div class="mobile">                            <!-- mobile-->
-                                                <div class="mobile-text">Mobile</div>
-                                                <input type="text" class="text-box mobile-textbox" placeholder="+94 773456789" value="<?php echo $data['settings']->mobile; ?>">
-                                            </div>
+                <a href="<?php echo URLROOT; ?>/petowner/settings/profile"> 
 
-                                            <div class="footer">                            <!-- footer -->
-                                                <div class="footer-text1">
-                                                    Your Photo
-                                                </div>
-                                                <div class="footer-line2">
-                                                        <div class="footer-text2">This photo will be displayed on your profile</div>
-                                                        <img  class="footer-image" src="../img/logo-croped.png" alt="">
-                                                        <div class="footer-image-update">
-                                                            <i class='bx bx-cloud-download'></i>
-                                                            <div class="footer-text-3"><span>Click to upload </span> or drag and drop
-                                                                SVG, PNG or JPG (max. 800x400px)
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>          <!-- end o ffooter-->
-                                        </div>                 <!-- end of inner content 1 (My profile)-->
+                    <div>
 
-                                        <div class="inner-content">                 <!-- start of inner content2 (Passsword)-->
-                                            <div class="personal-info">                 <!-- personal info-->
-                                                <div class="large">
-                                                    Password
-                                                </div>
-                                                <div class="line2">
-                                                    <div class="small">Please enter your current password to change your password</div>
-                                                    <button class="cancel-btn">Cancel</button>
-                                                    <button class="save-changes-btn">Save Changes</button>
-                                                </div>
-                                            </div>
+                        <i class="far fa-user"></i>
+                        <label >Profile</label>
+                        <!--  icon chevron right-->
+                        <i class='bx bx-chevron-right' ></i>
 
-                                            <div class="current-password">
-                                                
-                                                <label class="password-label" for="password">Password</label>
-                                                <input class="password-box" type="password" id="password" name="password" placeholder="*********">
-                                            </div>
+                    </div>
+                </a>
 
-                                            <div class="new-password">
-                                                
-                                                <label class="password-label" for="password">New password</label>
-                                                <div class="new-password-right">
-                                                    <input class="password-box" type="password" id="password" name="password" placeholder="*********">
-                                                    <div class="new-password-text">
-                                                        Your new password must be more than 8 characters.
-                                                    </div>
-                                                </div>
-                                            </div>
+                <a href="<?php echo URLROOT; ?>/petowner/settings/password"> 
 
-                                            <div class="new-confirm-password">
-                                                
-                                                <label class="password-label" for="password">Confirm New Password</label>
-                                                <input class="password-box" type="password" id="password" name="password" placeholder="*********">
-                                            </div>
+                    <div>
 
-                                        </div>
+                        <i class="fas fa-lock"></i>
+                        <label >Password</label>
+                        <!--  icon chevron right-->
+                        <i class='bx bx-chevron-right' ></i>
+
+                    </div>
+                </a>
+
+                <a href="<?php echo URLROOT; ?>/petowner/settings/email"> 
+
+                    <div>
+
+                        <i class="fas fa-envelope"></i>
+                        <label >Email</label>
+                        <!--  icon chevron right-->
+                        <i class='bx bx-chevron-right' ></i>
+
+                    </div>
+                </a>
+
+                <a href="<?php echo URLROOT; ?>/petowner/settings/mobile"> 
+
+                    <div>
+
+                        <i class="fas fa-phone"></i>
+                        <label >Mobile</label>
+                        <!--  icon chevron right-->
+                        <i class='bx bx-chevron-right' ></i>
+
+                    </div>
+                </a>
+
+                
+              </div>
 
 
-                                        <div class="inner-content">                 <!-- start of inner content 3 (Billing)-->
-                                            <div class="personal-info">                 <!-- personal info-->
-                                                <div class="large">
-                                                    Billing Details
-                                                </div>
-                                                <div class="line2">
-                                                    <div class="small">Update your billing details and address.</div>
-                                                    <button class="cancel-btn">Cancel</button>
-                                                    <button class="save-changes-btn">Save Changes</button>
-                                                </div>
-                                            </div>
-                                            <div class="billing-email">
-                                                <div class="billing-email-left">
-                                                    <div class="billing-email-text">
-                                                        Email
-                                                    </div>
-                                                    <div class="billing-email-text-small">
-                                                        Invoice will be sent to this email address.
-                                                    </div>
-                                                </div>
-                                                
-                                                <input type="text" class="text-box1 billing-email-textbox" placeholder="eg: ucsc123@gmail.com">
-                                            </div>
-
-                                            <div class="street-address">
-                                                <div class="street-address-text">
-                                                    Street Address
-                                                </div>
-                                                <input type="text" class="text-box1 billing-email-textbox" placeholder="eg: 23,reid avenue">
-                                            </div>
-
-                                            <div class="city">
-                                                <div class="city-text">
-                                                    City
-                                                </div>
-                                                <input type="text" class="text-box1 city-email-textbox" placeholder="eg: Colombo">
-                                            </div>
-
-                                            <div class="province">
-                                                <div class="province-text">
-                                                    Province 
-                                                </div>
-                                                <input type="text" class="text-box1 province-email-textbox" placeholder="eg: western ">
-                                            </div>
-
-
-
-                                            
-
-                                        </div>               <!-- end of inner content 3 (billing)-->
-                                        
-                                        <div class="inner-content">                 <!-- start of content 4 (Social profile)-->
-                                            <div class="personal-info">                 <!-- personal info-->
-                                                <div class="large">
-                                                    Social Links
-                                                </div>
-                                                <div class="line2">
-                                                    <div class="small">Update your social links.</div>
-                                                    <button class="cancel-btn">Cancel</button>
-                                                    <button class="save-changes-btn">Save Changes</button>
-                                                </div>
-                                            </div>
-                                            <div class="billing-email">
-                                                <div class="billing-email-left">
-                                                    <div class="billing-email-text">
-                                                        Email
-                                                    </div>
-                                                    <div class="billing-email-text-small">
-                                                        Invoice will be sent to this email address.
-                                                    </div>
-                                                </div>
-                                                
-                                                <input type="text" class="text-box1 billing-email-textbox" placeholder="eg: ucsc123@gmail.com">
-                                            </div>
-
-                                            <div class="facebook">
-                                                <div class="social-media-text">
-                                                    Facebook
-                                                </div>
-                                                <div class="input-container">
-                                                    <i class='bx bxl-facebook-square'></i>
-                                                    <input type="text" class="text-box1 billing-email-textbox" placeholder="https://www.facebook.com/facebook_username">
-                                                </div>
-                                            </div>
-
-                                            <div class="instagram">
-                                                <div class="social-media-text">
-                                                    Instagram
-                                                </div>
-                                                <div class="input-container">
-                                                    <i class='bx bxl-instagram-alt' ></i>
-                                                    <input type="text" class="text-box1 city-email-textbox" placeholder="https://www.instagram.com/instagram_username">
-                                                </div>
-                                            </div>
-
-                                            <div class="twitter">
-
-                                                <div class="social-media-text">
-                                                    Twitter 
-                                                </div>
-                                                <div class="input-container">
-                                                    <i class='bx bxl-twitter' ></i>
-                                                    <input type="text" class="text-box1 province-email-textbox" placeholder="https://twitter.com/twitter_username ">
-                                                </div>
-                                            </div>
-
-
-
-                                            
-
-                                        </div>          <!-- end of inner content 4 (Social profile)-->
-
-
-                                        <div class="inner-content">                 <!-- start of content 5 (Change Email  profile)-->
-                                            <div class="personal-info">                 <!-- personal info-->
-                                                <div class="large">
-                                                    Change Email
-                                                </div>
-                                                <div class="line2">
-                                                    <div class="small">Update your email.</div>
-                                                    <button class="cancel-btn">Cancel</button>
-                                                    <button class="save-changes-btn" type="submit" name="email-button" onclick="submitForm()">Save Changes</button>
-                                                </div>
-                                            </div>
-                                            <div class="billing-email">
-                                                <div class="billing-email-left">
-                                                    <div class="billing-email-text">
-                                                      Current Email
-                                                    </div>
-                                                    <div class="billing-email-text-small">
-                                                        
-                                                    </div>
-                                                </div>
-                                                
-                                                <input type="text" class="text-box1 billing-email-textbox" placeholder="eg: ucsc123@gmail.com" value="<?php echo $_SESSION['user_email']?>" readonly disable>
-                                            </div>
-
-                                            <div class="billing-email">
-                                                <div class="billing-email-left">
-                                                    <div class="billing-email-text">
-                                                    New Email
-                                                    </div>
-                                                    <div class="billing-email-text-small">
-                                                        OTP will be sent to this email address.
-                                                        <span class="invalid-feedback"><?php echo '<br>'.$data['newemail_err']; ?></span>
-                                                    </div>
-                                                </div>
-                                                
-                                                <input type="text" class="form-control <?php echo !empty($data['newemail_err']) ? 'is-invalid' : ''; ?>" placeholder="Enter your new email" name="new-email" value="<?php echo isset($data['newemail']) ? $data['newemail'] : ''; ?>">
-
-        
-                                            </div>
-                                            
-                                            <?php if($data['otp'] == 1) : ?>
-                                            <div class="billing-email">
-                                                <div class="billing-email-left">
-                                                    <div class="billing-email-text">
-                                                    Enter OTP Here
-                                                    </div>
-                                                    <div class="billing-email-text-small">
-                                                        Check your email for the OTP code.
-                                                        <span class="invalid-feedback"><?php echo '<br>'.$data['otp_err']; ?></span>
-                                                        <span class="is-right"><?php if($data['otp-right']==1) echo '<br>*OTP verified. Click save button' ?></span>
-                                                    </div>
-                                                </div>
-                                                
-                                                <input type="text" class="text-box1 billing-email-textbox otp-code <?php echo !empty($data['otp_err']) ? 'is-invalid' : ''; ?>" placeholder="Enter otp code" name="otp-code" value="<?php echo $data['otp-code'] ?>">
-                                                <!-- verify button -->
-                                                <button class="verify-btn" name="otp-button" type="submit">Verify</button>
-
-                                            </div>
-
-                                            <?php endif; ?>
-
-                                            
-
-                                        </div> 
-
-                                                            
-                                    
-
-
-                                    </div>                              
+                                                              
                         
-                                </form>       <!-- end of form -->
+        </form>       <!-- end of form -->
+
+
+    
+        </main>
+
+        <?php
+     
+        if ($_SESSION['notification'] == "error") {
+            
+            toast_notifications("Update Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+            
+        }else if($_SESSION['notification'] == "ok"){
+
+            toast_notifications("Update Succsessfull",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+            
+        }
+
+    ?>
+
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/setting.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
    </body>
 </html>

@@ -45,6 +45,7 @@
             }
 
             $this->dashboardModel = $this->model('Dashboard');
+            $this->settingsModel = $this->model('Settings');
             $this->userModel = $this->model('User');
            
 
@@ -1007,134 +1008,6 @@
             $this->view('dashboards/petowner/animalward/animalward', $data);
         }
 
-        public function settings(){
-
-            if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
-                $data = [
-                    'newemail' => trim($_POST['new-email']),
-                    'newemail_err' => '',
-                    'otp' => '',
-                    'otp_err' =>'',
-                    'otp-code' =>'',
-                    'otp-right' => '', 
-                ];
-
-                if(isset($_SESSION['otp']) && $_SESSION['otp'] == "correct"){
-                    unset($_SESSION['otp']);
-                    //update email  
-
-                    die("update email");
-                }
-
-                if(isset($_POST['email-button'])){
-
-                
-                            //validate Email
-                        if(empty($data['newemail'])){
-
-
-                            $data['newemail_err'] = '*Please enter email';
-
-                        }else{
-        
-                            if(!filter_var($data['newemail'], FILTER_VALIDATE_EMAIL)){ //check email in correct formate
-
-                                $data['newemail_err'] = '*Please enter valid email';
-        
-                            }elseif($this->userModel->findUserByEmail($data['newemail'])){  //check email in the DB
-                                
-                                $data['newemail_err'] = '*Email is already taken';
-        
-                            }
-                        }
-
-                        //Make sure errors are empty
-
-                        if(empty($data['newemail_err'])){
-
-                            //activate otp input
-                            $data['otp'] = 1;
-
-                            //genrate 4 digit numbers
-                            $otp = rand(1000,9999);
-
-                            $otp = 1234; //for testing
-
-                            //store otp in session
-                            $_SESSION['otp'] = $otp;
-
-                            //send otp to email
-                        // $this->sendOtpCode($data['newemail'], $otp);
-
-                        $this->view('dashboards/petowner/setting/settings', $data);
-
-
-                        }else{
-                            //load with erros
-                            $this->view('dashboards/petowner/setting/settings', $data);
-
-                        }
-
-
-                    
-                   
-                }elseif(isset($_POST['otp-button'])){
-
-                     //activate otp input
-                     $data['otp'] = 1;
-
-                     $data['otp-code'] = trim($_POST['otp-code']);
-
-                        //validate OTP
-                        if(empty(trim($_POST['otp-code']))){
-                            $data['otp_err'] = '*Please enter OTP';
-                        }else{
-                            if(trim($_POST['otp-code']) != $_SESSION['otp']){
-                                $data['otp_err'] = '*OTP is incorrect';
-                            }
-                        }
-
-                        //Make sure errors are empty
-
-                        if(empty($data['otp_err'])){
-
-                            $data['otp-right'] = 1;
-                            $_SESSION['otp'] = "correct";
-                            $this->view('dashboards/petowner/setting/settings', $data);
-                        }else{
-                            //load with erros
-                            $this->view('dashboards/petowner/setting/settings', $data);
-                        }
-
-
-
-                }
-
-
-                
-                $this->view('dashboards/petowner/setting/settings', $data);
-
-
-
-            }else{
-
-                $data = [
-                    'newemail' => '',
-                    'newemail_err' => '',
-                    'otp' => '',
-                    'otp_err' =>'',
-                    'otp-code' =>'',
-                ];
-            
-                $this->view('dashboards/petowner/setting/settings', $data);
-
-            }
-
-            
-        }
 
 
         public function myOrders(){
@@ -1165,6 +1038,716 @@
           ];
 
             $this->view('dashboards/petowner/myorder/viewMyOrder', $data);
+    }
+
+    
+    public function settings($setting_name){
+
+        $setting_name_array = [
+            
+            'all',
+            'profile',
+            'email',
+            'password',
+            'mobile',
+        
+        ];
+
+        //check user intensionally going to wrong url
+        if(!in_array($setting_name, $setting_name_array)){
+            redirect('petowner/notfound');
+        }
+
+
+        //================ all use to show all settings =========================//    
+        if($setting_name == "all"){
+
+
+            $data = null;
+            $this->view('dashboards/petowner/setting/settings', $data);
+
+        //================ profile use to show profile settings =========================//  
+        }elseif($setting_name == "profile"){
+
+
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                    $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                    if (isset($_FILES['pro_img'])) {
+                        $uploadedFileName = $_FILES['pro_img']['name'];
+                        $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                        // Generate a timestamp for uniqueness
+                        $timestamp = time();
+
+                        // Create a unique ID by concatenating values and adding the file extension
+                        $uniqueImgFileName = $_POST['fname'] . '_' . $_POST['lname'] . '_' . $timestamp . '.' . $fileExtension;
+
+                    }
+
+                    $user = $this->dashboardModel->getPetownerDetailsById($_SESSION['user_id']);
+
+                   
+                         
+
+
+
+                    $data = [
+                        'fname' => trim($_POST['fname']),
+                        'lname' => trim($_POST['lname']),
+                        'address' => trim($_POST['address']),
+                        'profile_pic' => $_SESSION['user_profileimage'],
+                        'profile_pic_img' => ($_FILES['pro_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['pro_img'],
+                        
+                        'fname_err' => '',
+                        'lname_err' => '',
+                        'name_err'  => '',
+                        'address_err' => '',
+                        'img_err' => '',
+                        'main_err' => '',
+                        'uniqueImgFileName' => $uniqueImgFileName,
+
+                    ];
+
+
+                    //validating name
+                    if(empty($data['fname']) && empty($data['lname'])){
+                        $data['name_err'] = '*Please enter First Name and Last Name';
+                        $data['fname_err'] = 'Please enter First Name';
+                        $data['lname_err'] = 'Please enter Last Name';
+
+                    }elseif(empty($data['fname'])){
+                        $data['name_err'] = '*Please enter First Name';
+                        $data['fname_err'] = 'Please enter First Name';
+
+                    }elseif(empty($data['lname'])){
+                        $data['name_err'] = '*Please enter Last Name';
+                        $data['lname_err'] = 'Please enter Last Name';
+                    }
+
+                
+                    //validate address
+                    if(empty($data['address'])){
+                        $data['address_err'] = '*Please enter Address';
+                    }
+
+                    $allowedTypes = ['image/jpeg', 'image/png'];
+
+                    if($data['profile_pic'] != null){
+                        if (!isset($_FILES['pro_img']['type']) || ($_FILES['pro_img']['type'] && !in_array($_FILES['pro_img']['type'], $allowedTypes))) {
+                            // Invalid file type
+                            $data['img_err'] = '*Invalid file type. Please upload an image (JPEG or PNG).';
+                        }
+        
+                        if($_FILES['pro_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                            $data['img_err'] = '*Image size must be less than 5 MB';
+                        }
+                    }
+
+                     //going to check is there to any update or not 
+                     //eg:- user didnt change anything but click update
+                     if($user->first_name == trim($_POST['fname']) && $user->last_name == trim($_POST['lname']) && $user->address == trim($_POST['address']) && $data['profile_pic_img'] == null){
+                        
+                        $data['main_err'] = "*No changes were detected. The data remains as is.";
+                     }
+
+
+                    //Make sure errors are empty
+                    if(empty($data['name_err']) && empty($data['address_err']) && empty($data['img_err']) && empty($data['main_err'])){
+                        
+                        //update profile
+                        if($this->settingsModel->updatePetownerProfile($data)){
+
+
+                            //for notification
+                            $_SESSION['notification'] = "ok";
+                            $_SESSION['notification_msg'] = "Profile update successfully";
+                           redirect('petowner/settings/all');
+        
+                        }else{
+
+                            //update error : can be database error
+                            $_SESSION['notification'] = "error";
+                            $_SESSION['notification_msg'] = "Profile update failed. Please try again later.";
+                            redirect('petowner/settings/all');
+                        }
+
+
+                    }else{
+
+                        //load view with errors
+                        $this->view('dashboards/petowner/setting/profile_settings', $data);
+                    }
+
+            }else{
+
+                //normal get requset for profile
+
+                    $user = $this->dashboardModel->getPetownerDetailsById($_SESSION['user_id']);
+
+                    $data = [
+                        'fname' => $user->first_name,
+                        'lname' => $user->last_name,
+                        'address' => $user->address,
+                        'profile_pic' => $user->profileImage ,
+                        
+                        'fname_err' => '',
+                        'lname_err' => '',
+                        'name_err'  => '',
+                        'address_err' => '',
+                        'img_err' => '',
+                        'main_err' => '',
+                        
+                    ];
+
+                    $this->view('dashboards/petowner/setting/profile_settings', $data);
+
+            }
+
+            
+
+       //================ password use to show password settings =========================//  
+        }elseif($setting_name == "password"){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $data = [
+                    'cur_password' => trim($_POST['current_password']),
+                    'new_password' => trim($_POST['new_password']),
+                    'confirm_password' => trim($_POST['confirm_password']),
+
+
+                    'cur_password_err' => '',
+                    'new_password_err' => '',
+                    'confirm_err' => '',
+                ];
+
+                //validate current password
+                if(empty($data['cur_password'])){
+                    $data['cur_password_err'] = '*Please enter current password';
+                }elseif(!$this->settingsModel->verifyPasswordPetowner($data['cur_password'])){
+                    $data['cur_password_err'] = '*Incorrect password';
+                }
+
+                //validate new password
+                if(empty($data['new_password'])){
+                    $data['new_password_err'] = '*Please enter new password';
+                }elseif(strlen($data['new_password']) < 8){
+                    $data['new_password_err'] = '*Password must be at least 8 characters';
+                }
+
+                //validate confirm password
+                if(empty($data['confirm_password'])){
+                    $data['confirm_err'] = '*Please confirm password';
+                }else{
+                    if($data['new_password'] != $data['confirm_password']){
+                        $data['confirm_err'] = '*Passwords do not match';
+                        $data['confirm_password'] = '';
+                    }
+                }
+
+                //Make sure errors are empty
+                if(empty($data['cur_password_err']) && empty($data['new_password_err']) && empty($data['confirm_err'])){
+                    //validated
+
+                    //hash password
+                    $data['new_password'] = password_hash($data['new_password'], PASSWORD_DEFAULT);
+
+                    //update password
+                    if($this->settingsModel->updatePetownerPassword($data['new_password'])){
+
+                        //for notification
+                        $_SESSION['notification'] = "ok";
+                        $_SESSION['notification_msg'] = "Password update successfully";
+                        redirect('petowner/settings/all');
+                    }else{
+                        //update error : can be database error
+                        $_SESSION['notification'] = "error";
+                        $_SESSION['notification_msg'] = "Password update failed";
+                        redirect('petowner/settings/all');
+                    }
+
+                }else{
+                    //load view with errors
+                    $this->view('dashboards/petowner/setting/password_settings', $data);
+                }
+
+
+
+
+            }else{
+
+                $data = [
+                    'cur_password' => '',
+                    'new_password' => '',
+                    'confirm_password' => '',
+
+                    'cur_password_err' => '',
+                    'new_password_err' => '',
+                    'confirm_err' => '',
+                    
+                ];
+                $this->view('dashboards/petowner/setting/password_settings', $data);
+            }
+
+            
+        //================ email use to show email settings =========================//  
+        }elseif($setting_name == "email"){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $user = $this->dashboardModel->getPetownerDetailsById($_SESSION['user_id']);
+
+
+                $data = [
+                    'new_email' => trim($_POST['new_email']),
+                    'email' => $_SESSION['user_email'],
+                    'otp_code' =>'',
+                    'fname' => $user->first_name,
+                    'lname' => $user->last_name,
+
+                    'new_email_err' => '',
+                    'otp_section' => 0,
+                    'otp_err' => '',
+                    'verify_msg' => 'We send OTP code to your Email.',
+                    //
+                ];
+
+                
+
+                if(isset($_SESSION['otp']) && isset($_SESSION['otp_status']) && isset($_POST['main-submit'])){
+
+                    if($_SESSION['otp'] == $_POST['otp_code']){
+
+                        //update email
+                        if($this->settingsModel->updatePetownerEmail($data['new_email'])){
+
+                            //for notification
+                            $_SESSION['notification'] = "ok";
+                            $_SESSION['notification_msg'] = "Email update successfully";
+
+                            unset($_SESSION['otp']);
+                            unset($_SESSION['otp_status']);
+
+
+                            redirect('petowner/settings/all');
+                        }else{
+
+
+                            //update error : can be database error
+                            $_SESSION['notification'] = "error";
+                            $_SESSION['notification_msg'] = "Email update failed";
+
+                            unset($_SESSION['otp']);
+                            unset($_SESSION['otp_status']);
+
+                            redirect('petowner/settings/all');
+                        }
+
+                    }else{
+
+                        $data['otp_code'] = trim($_POST['otp_code']);
+                        $data['otp_err'] = '*OTP is incorrect';
+                        $data['otp_section'] = 1;
+                        $this->view('dashboards/petowner/setting/email_settings', $data);
+                    }
+
+                }
+
+
+
+
+                if(isset($_POST['main-submit'])){
+
+                    
+
+                    
+
+                    //validate Email
+                    if(empty($data['new_email'])){
+                        $data['new_email_err'] = '*Please enter email';
+                    }else{
+                            
+                            if(!filter_var($data['new_email'], FILTER_VALIDATE_EMAIL)){ //check email in correct formate
+                                $data['new_email_err'] = '*Please enter valid email';
+                            }elseif($this->userModel->findUserByEmail($data['new_email'])){  //check email in the DB
+                                $data['new_email_err'] = '*Email is already taken';
+                            }
+                    }
+
+                    //Make sure errors are empty
+
+                    if(empty($data['new_email_err'])){
+
+                        if(isset($_SESSION['otp'])){
+
+                            $data['otp_err'] = '*Please enter OTP';
+
+                            //activate otp input
+                            $data['otp_section'] = 1;
+                            
+                            
+                        }else{
+                            
+                            //activate otp input
+                            $data['otp_section'] = 1;
+
+                            //genrate 4 digit numbers
+                            $otp = rand(1000,9999);
+
+                           
+                            $data['otp_code'] = $otp;
+                            //store otp in session
+                            $_SESSION['otp'] = $otp;
+
+                            //send otp to email
+                            $this->sendOtpCodeEmail($data);
+
+                            $data['otp_code'] = '';
+
+                        }
+
+                        
+
+                        $this->view('dashboards/petowner/setting/email_settings', $data);
+
+                    }else{
+
+                        //load with erros
+                        $this->view('dashboards/petowner/setting/email_settings', $data);
+                    }
+
+                    
+                
+                }elseif(isset($_POST['otp-button'])){
+
+                    //activate otp input
+                    $data['otp_section'] = 1;
+
+                    $data['otp_code'] = trim($_POST['otp_code']);
+
+                    //validate OTP
+                    if(empty(trim($_POST['otp_code']))){
+                        $data['otp_err'] = '*Please enter OTP';
+                    }else{
+                        if(trim($_POST['otp_code']) != $_SESSION['otp']){
+                            $data['otp_err'] = '*OTP is incorrect';
+                        }
+                    }
+
+                    //Make sure errors are empty
+
+                    if(empty($data['otp_err'])){
+
+                        $_SESSION['otp_status'] = "correct";
+                        $data['verify_msg'] = '*Email verified successfully. Click Update.';
+                        $this->view('dashboards/petowner/setting/email_settings', $data);
+                    }else{
+                        //load with erros
+                        $this->view('dashboards/petowner/setting/email_settings', $data);
+                    }
+
+                    
+                }
+
+            }else{
+
+                if(isset($_SESSION['otp']) || isset($_SESSION['otp_status'])){
+                    unset($_SESSION['otp']);
+                    unset($_SESSION['otp_status']);
+                }
+
+                $user = $this->dashboardModel->getPetownerDetailsById($_SESSION['user_id']);
+
+
+
+                $data = [
+                    'email' => $user->email,
+                    'new_email' => '',
+
+                    'new_email_err' => '',
+                    'otp_section' => 0,
+                    //We send OTP code to your Email.
+                ];
+
+                $this->view('dashboards/petowner/setting/email_settings', $data);
+            }
+
+        }elseif($setting_name == "mobile"){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $user = $this->dashboardModel->getPetownerDetailsById($_SESSION['user_id']);
+
+                $data = [
+                    'mobile' => $user->mobile,
+                    'new_mobile' => trim($_POST['new_mobile']),
+                    'otp_code' =>'',
+                    'fname' => $user->first_name,
+                    'lname' => $user->last_name,
+
+                    'new_mobile_err' => '',
+                    'otp_section' => 0,
+                    'otp_err' => '',
+                    'verify_msg' => 'We send OTP code to your Mobile.',
+                    //
+                ];
+
+
+
+                if(isset($_SESSION['otp_sms']) && isset($_SESSION['otp_status_sms']) && isset($_POST['main-submit'])){
+
+                    if($_SESSION['otp_sms'] == $_POST['otp_code']){
+
+                        //update email
+                        if($this->settingsModel->updatePetownerMobile($data['new_mobile'])){
+
+                            //for notification
+                            $_SESSION['notification'] = "ok";
+                            $_SESSION['notification_msg'] = "Mobile Number Update Successfully";
+
+                            unset($_SESSION['otp_sms']);
+                            unset($_SESSION['otp_status_sms']);
+
+
+                            redirect('petowner/settings/all');
+                        }else{
+
+
+                            //update error : can be database error
+                            $_SESSION['notification'] = "error";
+                            $_SESSION['notification_msg'] = "Mobile Number Update Failed";
+
+                            unset($_SESSION['otp_sms']);
+                            unset($_SESSION['otp_status_sms']);
+
+                            redirect('petowner/settings/all');
+                        }
+
+                    }else{
+
+                        $data['otp_code'] = trim($_POST['otp_code']);
+                        $data['otp_err'] = '*OTP is incorrect';
+                        $data['otp_section'] = 1;
+                        $this->view('dashboards/petowner/setting/mobile_settings', $data);
+                    }
+
+                }
+
+
+
+
+                if(isset($_POST['main-submit'])){
+
+                    
+
+                    
+
+                    
+                        //validate mobile
+                    if(empty($data['new_mobile'])){
+                        $data['new_mobile_err'] = 'Please enter mobile number';
+                    }else{
+
+                        if (!preg_match("/^94(?:7\d{8})$/", $data['new_mobile'])) {
+                            $data['new_mobile_err'] = 'Please enter a valid mobile number starting with 94';
+                        } elseif ($this->userModel->findUserByMobile($data['new_mobile'])) {
+                            $data['new_mobile_err'] = '*Mobile number is already taken';
+                        }
+                          
+                    }
+
+                    //Make sure errors are empty
+
+                    if(empty($data['new_mobile_err'])){
+
+                        if(isset($_SESSION['otp_sms'])){
+
+                            $data['otp_err'] = '*Please enter OTP';
+
+                            //activate otp input
+                            $data['otp_section'] = 1;
+                            
+                            
+                        }else{
+                            
+                            //activate otp input
+                            $data['otp_section'] = 1;
+
+                            //genrate 6 digit numbers
+                            $otp = rand(100000,999999);
+
+                           
+                            $data['otp_code'] = $otp;
+                            //store otp in session
+                            $_SESSION['otp_sms'] = $otp;
+
+                            //send otp to email
+                            $this->sendOtpCodeSMS($data);
+
+                            $data['otp_code'] = '';
+
+                        }
+
+                        
+
+                        $this->view('dashboards/petowner/setting/mobile_settings', $data);
+
+                    }else{
+
+                        //load with erros
+                        $this->view('dashboards/petowner/setting/mobile_settings', $data);
+                    }
+
+                    
+                
+                }elseif(isset($_POST['otp-button'])){
+
+                    //activate otp input
+                    $data['otp_section'] = 1;
+
+                    $data['otp_code'] = trim($_POST['otp_code']);
+
+                    //validate OTP
+                    if(empty(trim($_POST['otp_code']))){
+                        $data['otp_err'] = '*Please enter OTP';
+                    }else{
+                        if(trim($_POST['otp_code']) != $_SESSION['otp_sms']){
+                            $data['otp_err'] = '*OTP is incorrect';
+                        }
+                    }
+
+                    //Make sure errors are empty
+
+                    if(empty($data['otp_err'])){
+
+                        $_SESSION['otp_status_sms'] = "correct";
+                        $data['verify_msg'] = '*Mobile Number verified successfully. Click Update.';
+                        $this->view('dashboards/petowner/setting/mobile_settings', $data);
+                    }else{
+                        //load with erros
+                        $this->view('dashboards/petowner/setting/mobile_settings', $data);
+                    }
+
+                    
+                }
+
+                
+
+            }else{
+
+                if(isset($_SESSION['otp_sms']) || isset($_SESSION['otp_status_sms'])){
+                    unset($_SESSION['otp_sms']);
+                    unset($_SESSION['otp_status_sms']);
+                }
+
+
+
+                $user = $this->dashboardModel->getPetownerDetailsById($_SESSION['user_id']);
+
+                $data = [
+                    'mobile' => $user->mobile,
+                    'new_mobile' => '',
+
+                    'new_mobile_err' => '',
+                    'otp_section' => 0,
+                    
+                ];
+
+                $this->view('dashboards/petowner/setting/mobile_settings', $data);
+            }
+
+
+        }
+       
+    }
+
+    //send email with otp code
+
+    public function sendOtpCodeEmail($data){
+
+        require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+
+        //data['otp_code] split into 4 variables
+        $otp_code = $data['otp_code'];
+        $first_digit = substr($otp_code, 0, 1);
+        $second_digit = substr($otp_code, 1, 1);
+        $third_digit = substr($otp_code, 2, 1);
+        $fourth_digit = substr($otp_code, 3, 1);
+
+        
+        try {
+            // Create a new PHPMailer instance
+            $mail = new PHPMailer(true);
+    
+            // Set mail configuration (replace with your actual details)
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = $_ENV['MAIL_USERNAME'];
+            $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+    
+            // Set email sender details
+            $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+    
+            // Add recipient address
+            $mail->addAddress($data['new_email'], 'User: ' . $data['new_email']);
+    
+            // Set subject and body
+            $mail->Subject = 'Update Email OTP - PetCare';
+            $mail->isHTML(true);
+
+            $filePath = __DIR__ . '/../views/email/otpCodeForUpdateEmail.php';
+            $emailContent = file_get_contents($filePath);
+
+            $emailContent = str_replace('{pet_owner_fname}', $data['fname'], $emailContent);
+            $emailContent = str_replace('{pet_owner_lname}', $data['lname'], $emailContent);
+            $emailContent = str_replace('{first-digit}',$first_digit, $emailContent);
+            $emailContent = str_replace('{second-digit}',$second_digit, $emailContent);
+            $emailContent = str_replace('{third-digit}',$third_digit, $emailContent);
+            $emailContent = str_replace('{fourth-digit}',$fourth_digit, $emailContent);
+
+
+            $mail->Body = $emailContent;
+
+            // Send the email
+            $mail->send();
+
+            
+           
+            
+
+        } catch (Exception $e) {
+            // Handle exceptions
+            echo 'Error: ' . $mail->ErrorInfo;
+        }
+    
+
+        
+    }
+
+
+    public function sendOtpCodeSMS($data){
+
+        // Send SMS
+        $userID = $_ENV['NOTIFY_USERID'];
+        $apiKey = $_ENV['NOTIFY_APIKEY'];
+
+        $customMessage ="Hello " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . ", This the OTP code for verify mobile number " .$data['otp_code']. " Thank you for choosing PetCare. We're excited to serve you!"; // Replace this with your custom message
+        $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
+        $sendEndpoint = str_replace('[TO]', $data['new_mobile'], $sendEndpoint);
+        //$sendResponse = file_get_contents($sendEndpoint);
     }
 
         

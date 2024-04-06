@@ -23,6 +23,11 @@
     }
 
     
+    if (!isset($_SESSION['notification_msg'])) {
+        $_SESSION['notification_msg'] = null;
+    }
+
+    
     
 
     //flash message helper
@@ -84,6 +89,7 @@
         
        //set null
         $_SESSION['notification'] = null;
+        $_SESSION['notification_msg'] = null;
 
         }else if($_SESSION['notification'] === 'error'){
             echo '
@@ -102,6 +108,7 @@
 
             //set null  
             $_SESSION['notification'] = null;
+            $_SESSION['notification_msg'] = null;
             
         }
     }
