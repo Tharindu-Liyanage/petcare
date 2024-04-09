@@ -115,7 +115,7 @@
                     <b>{pet_owner_lname}</b>
                 </p>
                 <p align="left"> You've requested to change your email. To complete this process, please use the following One-Time Password (OTP) code </p>
-                <p align="left"> If you didn't request a password reset, please ignore this email. </p>
+                <p align="left"> If you didn't request a email change, please ignore this email. </p>
                 <p align="left"> Best regards, <br> PetCare Team </p>
             </td>
         </tr>

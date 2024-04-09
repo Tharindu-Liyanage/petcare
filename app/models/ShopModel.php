@@ -279,6 +279,27 @@
             }
          }
 
+
+         public function getPopularProducts(){
+            
+                $this->db->query('  SELECT
+                                        i.*,
+                                        SUM(ci.quantity) AS total_quantity_ordered
+                                    FROM
+                                        petcare_inventory i
+                                    JOIN
+                                        petcare_cart_items ci ON i.id = ci.product_id
+                                    GROUP BY
+                                        i.id
+                                    ORDER BY
+                                        total_quantity_ordered DESC;
+                            
+                                ');
+
+            $results = $this->db->resultSet();
+            return $results;
+         }
+
        
 
         

@@ -74,7 +74,7 @@
                                 <tr>
                                     <td><?php echo $pet->id ; ?></td>
                                     <td class="profile">
-                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/blog/<?php echo $pet->petcare_pet ; ?>" ><p><?php echo $pet->pet ; ?></p>
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet->profileImage ; ?>" ><p><?php echo $pet->pet ; ?></p>
                                     </td>
                                     <td><?php echo $pet->DOB ; ?></td>
                                     <td><?php echo $pet->breed ; ?></td>

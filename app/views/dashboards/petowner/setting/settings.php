@@ -108,11 +108,11 @@
      
         if ($_SESSION['notification'] == "error") {
             
-            toast_notifications("Update Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+            toast_notifications("Settings Update Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
             
         }else if($_SESSION['notification'] == "ok"){
 
-            toast_notifications("Update Succsessfull",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+            toast_notifications("Settings Update Succsessfull",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
             
         }
 

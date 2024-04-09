@@ -129,13 +129,13 @@
                         </div>
                         <hr>
 
-                        <a href="#" class="sub-menu-link">
+                        <a href="<?php echo URLROOT;?>/petowner/myorders" class="sub-menu-link">
                             <i class="ri-shopping-bag-line icon-submenu"></i>
                             <p>My Orders</p>
                             <span>></span>
                         </a>
 
-                        <a href="#" class="sub-menu-link">
+                        <a href="<?php echo URLROOT;?>/petowner/settings/all" class="sub-menu-link">
                         <i class="ri-settings-2-line icon-submenu"></i>
                             <p>Settings</p>
                             <span>></span>

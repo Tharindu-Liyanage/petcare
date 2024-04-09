@@ -27,9 +27,12 @@ use PHPMailer\PHPMailer\Exception;
 
             $categories = $this->shopModel->getCategories();
 
+            $popularProducts = $this->shopModel->getPopularProducts();
+
 
             $data =[
-                'category' => $categories
+                'category' => $categories,
+                'products' => $popularProducts
             ];
    
             

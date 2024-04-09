@@ -18,6 +18,35 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    
+    <style>
+        ul.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    list-style:none;
+    margin-top:20px;
+    padding:0px;
+    font-size:13px;
+
+
+}
+
+ul.pagination li{
+    margin:0px 5px;
+    padding:5px 12px;
+    border:1px solid #d3d3d3;
+    border-radius:5px;
+    cursor:pointer;
+    transition:all ease 0.3s;
+}
+
+ul.pagination li.active{
+    background-color:#667EEA;
+    color:#ffffff;
+    border:1px solid #667EEA;
+    transition:all ease 0.3s;
+}
+    </style>
 
 
     <title>Shop</title>
@@ -82,118 +111,78 @@
     </section>
 
 
-    <!-- popular product -->
-    <section id = "popular-product">
+    <section id = "search-product">
        <div class= "product-heading">
         <h3>Popular product</h3>
         <span>All</span>
 
-       </div>
+       </div> 
 
-       <div class="product-container">
-        <div class="product-box">
+    <div id="before-list">
+
+    <?php if($data['products'] == null) : ?>
+        <div class="not-found-img">
+            <img src="<?php echo URLROOT?>/public/img/shop/notfound.png" alt="not-found">
+            <p>Apologies, we couldn't find any results for your search.</p>
+        </div>
+
+    <?php else : ?>
+       
+    
+    <ul class="product-container list">
+
+    
+
+    <?php foreach ($data['products'] as $product) : ?>
+
+        <li class="product-box">
             <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong>Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
+            <strong class="name"><?php echo $product->name ; ?></strong>
+
+
+            <?php if($product->stock > 0) : ?>
+            <span class="quantity"> Quntity <?php echo $product->stock ; ?> </span>
+            <?php else : ?>
+            <span class="quantity" style="color:#E5605E">OUT OF STOCK</span>
+            <?php endif; ?>
+
+
+
+            <span class ="price">Rs.<?php echo $product->price; ?></span>
             <!-- cart btn -->
-            <a href="#" class="cart-btn">
+
+
+             <?php if($product->stock > 0) : ?>
+
+            <a href="#" class="cart-btn" data-product-id ="<?php echo $product->id ?>"  data-product-price="<?php echo $product->price; ?>">
                 <i class="fas fa-shopping-bag"></i> Add To Cart
             </a>
 
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
+            <?php else : ?>
+
+            <a href="#" class="cart-btn" style="background-color:#FF7276; color:#ffffff; pointer-events: none;" data-product-id ="<?php echo $product->id ?>"  data-product-price="<?php echo $product->price; ?>">
+                <i class="fas fa-shopping-bag"></i> Out of Stock
             </a>
 
-        </div>
-
-        <div class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong>Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
+            <?php endif; ?>
 
             <!-- heart-btn -->
-            <a href="#" class="like-btn">
+          <!--  <a href="#" class="like-btn"> 
                 <i class="far fa-heart"></i>
-            </a>
+            </a> -->
 
-        </div>
+        </li>
 
-        <div class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong>Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </div>
-
-        <div class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong>Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </div>
-
-        <div class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong>Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </div>
-
-        <div class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
-            <strong>Happy Dog</strong>
-            <span class="quantity"> 1 KG </span>
-            <span class ="price">$2</span>
-            <!-- cart btn -->
-            <a href="#" class="cart-btn">
-                <i class="fas fa-shopping-bag"></i> Add To Cart
-            </a>
-
-            <!-- heart-btn -->
-            <a href="#" class="like-btn">
-                <i class="far fa-heart"></i>
-            </a>
-
-        </div>
+        <?php endforeach; ?>
         
+       </ul>
+
+       <ul class="pagination"></ul>
        </div>
+    <?php endif; ?>
+       
+
+  
 
     </section>
 
@@ -224,6 +213,26 @@ function toggleMenu() {
 }
 
 </script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+    <script>
+        // Initialize List.js with pagination
+        var monkeyList = new List('before-list', {
+            valueNames: ['product-box', 'name'],
+            page: 6,
+            pagination: true,
+            
+        });
+
+        monkeyList.on('updated', function() {
+            attachAddToCartListeners();
+            console.log('Pagination updated');
+        });
+
+
+    </script>
 
 
     <script src="<?php echo URLROOT; ?>/public/js/store.js"></script>
