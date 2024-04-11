@@ -131,7 +131,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/admin/settings/dateAndTime"> 
+                    <a href="<?php echo URLROOT; ?>/admin/settings/time"> 
 
                         <div>
 

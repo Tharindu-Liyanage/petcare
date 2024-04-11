@@ -678,6 +678,8 @@
         public function checkoutAppointment(){
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $price = $this->settingsModel->getPrice();
         
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         
@@ -696,13 +698,16 @@
         
                 $expiresAt = time() + (30 * 60); // in 30 min this will expire
                 $expirationDescription = date('Y-m-d H:i:s', $expiresAt);
+
+                $price_id = $price->price_id;
         
                 // Create a payment session
                 $paymentSession = \Stripe\Checkout\Session::create([
                     'payment_method_types' => ['card'],
                     'mode' => 'payment', // Set mode to 'payment' for one-time payments
                     'line_items' => [[
-                        'price' => 'price_1OIZwlEMWpdWcJS8zC9MFJoR', // Use the price ID, not the product ID
+                        //'price' => 'price_1OIZwlEMWpdWcJS8zC9MFJoR', // Use the price ID, not the product ID
+                        'price' => $price_id,
                         'quantity' => 1,
                     ]],
                     'success_url' => 'http://localhost/petcare/petowner/appointmentSuccess', // Add a query parameter for success

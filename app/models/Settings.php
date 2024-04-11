@@ -352,6 +352,159 @@
                     }
         }
 
+        public function getPrice(){
+            //from petcare_appointment_price
+
+            $this->db->query('SELECT * FROM petcare_appointment_price WHERE id = 1');
+            $result = $this->db->single();
+            return $result;
+        }
+
+        public function updatePrice($data){
+            $this->db->query('UPDATE petcare_appointment_price SET price = :price, price_id = :priceID WHERE id = 1');
+            $this->db->bind(':price' , $data['appointment_price']);
+            $this->db->bind(':priceID' , $data['price_id']);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
+        public function updateTimeSlots($data){
+
+            //monday morninig
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 1');
+            
+            $this->db->bind(':m_start' , $data['monday_m_start']);
+            $this->db->bind(':m_end' , $data['monday_m_end']);
+            $this->db->bind(':m_gap' , $data['monday_m_gap']);
+
+            $this->db->execute();
+
+            //monday afternoon
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end, intervel =:m_gap WHERE id = 2');
+
+            $this->db->bind(':m_start' , $data['monday_a_start']);
+            $this->db->bind(':m_end' , $data['monday_a_end']);
+            $this->db->bind(':m_gap' , $data['monday_a_gap']);
+
+            $this->db->execute();
+
+            //tuesday morning
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 3');
+
+            $this->db->bind(':m_start' , $data['tuesday_m_start']);
+            $this->db->bind(':m_end' , $data['tuesday_m_end']);
+            $this->db->bind(':m_gap' , $data['tuesday_m_gap']);
+
+            $this->db->execute();
+
+            //tuesday afternoon
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 4');
+
+            $this->db->bind(':m_start' , $data['tuesday_a_start']);
+            $this->db->bind(':m_end' , $data['tuesday_a_end']);
+            $this->db->bind(':m_gap' , $data['tuesday_a_gap']);
+
+            $this->db->execute();
+
+            //wednesday morning
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 5');
+
+            $this->db->bind(':m_start' , $data['wednesday_m_start']);
+            $this->db->bind(':m_end' , $data['wednesday_m_end']);
+            $this->db->bind(':m_gap' , $data['wednesday_m_gap']);
+
+            $this->db->execute();
+
+            //wednesday afternoon
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 6');
+
+            $this->db->bind(':m_start' , $data['wednesday_a_start']);
+            $this->db->bind(':m_end' , $data['wednesday_a_end']);
+            $this->db->bind(':m_gap' , $data['wednesday_a_gap']);
+
+            $this->db->execute();
+
+            //thursday morning
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 7');
+
+            $this->db->bind(':m_start' , $data['thursday_m_start']);
+            $this->db->bind(':m_end' , $data['thursday_m_end']);
+            $this->db->bind(':m_gap' , $data['thursday_m_gap']);
+
+            $this->db->execute();
+
+            //thursday afternoon
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 8');
+
+            $this->db->bind(':m_start' , $data['thursday_a_start']);
+            $this->db->bind(':m_end' , $data['thursday_a_end']);
+            $this->db->bind(':m_gap' , $data['thursday_a_gap']);
+
+            $this->db->execute();
+
+            //friday morning
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 9');
+
+            $this->db->bind(':m_start' , $data['friday_m_start']);
+            $this->db->bind(':m_end' , $data['friday_m_end']);
+            $this->db->bind(':m_gap' , $data['friday_m_gap']);
+
+            $this->db->execute();
+
+            //friday afternoon
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 10');
+
+            $this->db->bind(':m_start' , $data['friday_a_start']);
+            $this->db->bind(':m_end' , $data['friday_a_end']);
+            $this->db->bind(':m_gap' , $data['friday_a_gap']);
+
+            $this->db->execute();
+
+            //saturday morning
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end, intervel =:m_gap WHERE id = 11');
+
+            $this->db->bind(':m_start' , $data['saturday_m_start']);
+            $this->db->bind(':m_end' , $data['saturday_m_end']);
+            $this->db->bind(':m_gap' , $data['saturday_m_gap']);
+
+            $this->db->execute();
+
+            //saturday afternoon
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 12');
+
+            $this->db->bind(':m_start' , $data['saturday_a_start']);
+            $this->db->bind(':m_end' , $data['saturday_a_end']);
+            $this->db->bind(':m_gap' , $data['saturday_a_gap']);
+
+            $this->db->execute();
+
+            //sunday morning
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 13');
+
+            $this->db->bind(':m_start' , $data['sunday_m_start']);
+            $this->db->bind(':m_end' , $data['sunday_m_end']);
+            $this->db->bind(':m_gap' , $data['sunday_m_gap']);
+
+            $this->db->execute();
+
+            //sunday afternoon
+
+            $this->db->query('UPDATE petcare_timeslots SET start_time = :m_start , end_time =:m_end ,intervel =:m_gap WHERE id = 14');
+
+            $this->db->bind(':m_start' , $data['sunday_a_start']);
+            $this->db->bind(':m_end' , $data['sunday_a_end']);
+            $this->db->bind(':m_gap' , $data['sunday_a_gap']);
+
+            $this->db->execute();
+
+            return true;
+        }
+
         
         
 

@@ -793,7 +793,7 @@
                 'mobile',
                 
                 'appointmentPrice',
-                'dateAndTime',
+                'time',
 
                 'cage'
             
@@ -1415,6 +1415,541 @@
             }
 
 
+        }elseif($setting_name == "time"){
+
+            $time_slots = $this->dashboardModel->getTimeSlots();
+
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $data = [
+
+                    'main_err' =>'',
+
+                    'monday_m_start' => trim($_POST['monday_m_start']),
+                    'monday_m_end' => trim($_POST['monday_m_end']),
+                    'monday_a_start' => trim($_POST['monday_a_start']),
+                    'monday_a_end' => trim($_POST['monday_a_end']),
+                    'monday_m_gap' => trim($_POST['monday_m_gap']),
+                    'monday_a_gap' => trim($_POST['monday_a_gap']),
+                    'monday_err'   => '',
+                    'monday_m_err' => '',
+                    'monday_a_err' => '',
+
+                    'tuesday_m_start' => trim($_POST['tuesday_m_start']),
+                    'tuesday_m_end' => trim($_POST['tuesday_m_end']),
+                    'tuesday_a_start' => trim($_POST['tuesday_a_start']),
+                    'tuesday_a_end' => trim($_POST['tuesday_a_end']),
+                    'tuesday_err'   => '',
+                    'tuesday_m_gap' => trim($_POST['tuesday_m_gap']),
+                    'tuesday_a_gap' => trim($_POST['tuesday_a_gap']),
+                    'tuesday_m_err' =>'',
+                    'tuesday_a_err' => '',
+
+                    'wednesday_m_start' => trim($_POST['wednesday_m_start']),
+                    'wednesday_m_end' => trim($_POST['wednesday_m_end']),
+                    'wednesday_a_start' => trim($_POST['wednesday_a_start']),
+                    'wednesday_a_end' => trim($_POST['wednesday_a_end']),
+                    'wednesday_err'   => '',
+                    'wednesday_m_gap' => trim($_POST['wednesday_m_gap']),
+                    'wednesday_a_gap' => trim($_POST['wednesday_a_gap']),
+                    'wednesday_m_err' => '',
+                    'wednesday_a_err' => '',
+
+                    'thursday_m_start' => trim($_POST['thursday_m_start']),
+                    'thursday_m_end' => trim($_POST['thursday_m_end']),
+                    'thursday_a_start' => trim($_POST['thursday_a_start']),
+                    'thursday_a_end' => trim($_POST['thursday_a_end']),
+                    'thursday_err'   => '',
+                    'thursday_m_gap' => trim($_POST['thursday_m_gap']),
+                    'thursday_a_gap' => trim($_POST['thursday_a_gap']),
+                    'thursday_m_err' => '',
+                    'thursday_a_err' => '',
+
+                    'friday_m_start' => trim($_POST['friday_m_start']),
+                    'friday_m_end' => trim($_POST['friday_m_end']),
+                    'friday_a_start' => trim($_POST['friday_a_start']),
+                    'friday_a_end' => trim($_POST['friday_a_end']),
+                    'friday_err'   => '',
+                    'friday_m_gap' => trim($_POST['friday_m_gap']),
+                    'friday_a_gap' => trim($_POST['friday_a_gap']),
+                    'friday_m_err' => '',
+                    'friday_a_err' => '',
+
+                    'saturday_m_start' => trim($_POST['saturday_m_start']),
+                    'saturday_m_end' => trim($_POST['saturday_m_end']),
+                    'saturday_a_start' => trim($_POST['saturday_a_start']),
+                    'saturday_a_end' => trim($_POST['saturday_a_end']),
+                    'saturday_err'   => '',
+                    'saturday_m_gap' => trim($_POST['saturday_m_gap']),
+                    'saturday_a_gap' => trim($_POST['saturday_a_gap']),
+                    'saturday_m_err' => '',
+                    'saturday_a_err' => '',
+
+                    'sunday_m_start' => trim($_POST['sunday_m_start']),
+                    'sunday_m_end' => trim($_POST['sunday_m_end']),
+                    'sunday_a_start' => trim($_POST['sunday_a_start']),
+                    'sunday_a_end' => trim($_POST['sunday_a_end']),
+                    'sunday_err'   => '',
+                    'sunday_m_gap' => trim($_POST['sunday_m_gap']),
+                    'sunday_a_gap' => trim($_POST['sunday_a_gap']),
+                    'sunday_m_err' => '',
+                    'sunday_a_err' => '',
+
+                ];
+                //check all days gaps
+                if(empty($data['monday_m_gap']) || empty($data['monday_a_gap']) || empty($data['tuesday_m_gap']) || empty($data['tuesday_a_gap']) || empty($data['wednesday_m_gap']) || empty($data['wednesday_a_gap']) || empty($data['thursday_m_gap']) || empty($data['thursday_a_gap']) || empty($data['friday_m_gap']) || empty($data['friday_a_gap']) || empty($data['saturday_m_gap']) && empty($data['saturday_a_gap']) || empty($data['sunday_m_gap']) || empty($data['sunday_a_gap']) ){
+                    $data['main_err'] = '*Please Fill All the Input Fields';
+                }
+
+                
+                //validation to gap
+
+                if(empty($data['monday_m_gap']) ){
+
+                    $data['monday_m_err'] = '*err';
+                    $data['monday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['monday_m_gap'] < 15 || $data['monday_m_gap'] > 60){
+                        $data['monday_m_err'] = 'err';
+                        $data['monday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+                if(empty($data['monday_a_gap']) ){
+
+                    $data['monday_a_err'] = 'err';
+                    $data['monday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['monday_a_gap'] < 15 || $data['monday_a_gap'] > 60){
+                        $data['monday_a_err'] = 'err';
+                        $data['monday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+                if(empty($data['tuesday_m_gap']) ){
+
+                    $data['tuesday_m_err'] = 'err';
+                    $data['tuesday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['tuesday_m_gap'] < 15 || $data['tuesday_m_gap'] > 60){
+                        $data['tuesday_m_err'] = 'err';
+                        $data['tuesday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['tuesday_a_gap']) ){
+
+                    $data['tuesday_a_err'] = 'err';
+                    $data['tuesday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['tuesday_a_gap'] < 15 || $data['tuesday_a_gap'] > 60){
+                        $data['tuesday_a_err'] = 'err';
+                        $data['tuesday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+                
+                if(empty($data['wednesday_m_gap']) ){
+
+                    $data['wednesday_m_err'] = 'err';
+                    $data['wednesday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['wednesday_m_gap'] < 15 || $data['wednesday_m_gap'] > 60){
+                        $data['wednesday_m_err'] = 'err';
+                        $data['wednesday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['wednesday_a_gap']) ){
+
+                    $data['wednesday_a_err'] = 'err';
+                    $data['wednesday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['wednesday_a_gap'] < 15 || $data['wednesday_a_gap'] > 60){
+                        $data['wednesday_a_err'] = 'err';
+                        $data['wednesday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['thursday_m_gap']) ){
+
+                    $data['thursday_m_err'] = 'err';
+                    $data['thursday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['thursday_m_gap'] < 15 || $data['thursday_m_gap'] > 60){
+                        $data['thursday_m_err'] = 'err';
+                        $data['thursday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['thursday_a_gap']) ){
+
+                    $data['thursday_a_err'] = 'err';
+                    $data['thursday_err']  = "*Please enter gap";
+                
+                }else{
+
+                    if($data['thursday_a_gap'] < 15 || $data['thursday_a_gap'] > 60){
+                        $data['thursday_a_err'] = 'err';
+                        $data['thursday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['friday_m_gap']) ){
+
+                    $data['friday_m_err'] = 'err';
+                    $data['friday_err']  = "*Please enter gap";
+
+                }else{
+                    
+                    if($data['friday_m_gap'] < 15 || $data['friday_m_gap'] > 60){
+                        $data['friday_m_err'] = 'err';
+                        $data['friday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['friday_a_gap']) ){
+
+                    $data['friday_a_err'] = 'err';
+                    $data['friday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['friday_a_gap'] < 15 || $data['friday_a_gap'] > 60){
+                        $data['friday_a_err'] = 'err';
+                        $data['friday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['saturday_m_gap']) ){
+
+                    $data['saturday_m_err'] = 'err';
+                    $data['saturday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['saturday_m_gap'] < 15 || $data['saturday_m_gap'] > 60){
+                        $data['saturday_m_err'] = 'err';
+                        $data['saturday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['saturday_a_gap']) ){
+
+                    $data['saturday_a_err'] = 'err';
+                    $data['saturday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['saturday_a_gap'] < 15 || $data['saturday_a_gap'] > 60){
+                        $data['saturday_a_err'] = 'err';
+                        $data['saturday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['sunday_m_gap']) ){
+
+                    $data['sunday_m_err'] = 'err';
+                    $data['sunday_err']  = "*Please enter gap";
+
+                }else{
+
+                    if($data['sunday_m_gap'] < 15 || $data['sunday_m_gap'] > 60){
+                        $data['sunday_m_err'] = 'err';
+                        $data['sunday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+
+                if(empty($data['sunday_a_gap']) ){
+
+                    $data['sunday_a_err'] = 'err';
+                    $data['sunday_err']  = "*Please enter gap";
+                
+                }else{
+
+                    if($data['sunday_a_gap'] < 15 || $data['sunday_a_gap'] > 60){
+                        $data['sunday_a_err'] = 'err';
+                        $data['sunday_err']  = "*Please enter gap between 15 to 60 minutes";
+                    }
+                }
+
+                //check errors free
+
+                if (
+                    empty($data['monday_m_err']) &&
+                    empty($data['monday_a_err']) &&
+                    empty($data['tuesday_m_err']) &&
+                    empty($data['tuesday_a_err']) &&
+                    empty($data['wednesday_m_err']) &&
+                    empty($data['wednesday_a_err']) &&
+                    empty($data['thursday_m_err']) &&
+                    empty($data['thursday_a_err']) &&
+                    empty($data['friday_m_err']) &&
+                    empty($data['friday_a_err']) &&
+                    empty($data['saturday_m_err']) &&
+                    empty($data['saturday_a_err']) &&
+                    empty($data['sunday_m_err']) &&
+                    empty($data['sunday_a_err']) &&
+                    empty($data['main_err'])
+                ) {
+
+                    //update time slots
+                    if($this->settingsModel->updateTimeSlots($data)){
+
+                        //for notification
+                        $_SESSION['notification'] = "ok";
+                        $_SESSION['notification_msg'] = "Time slots have been updated successfully.";
+                        redirect('admin/settings/all');
+                    }else{
+                        //update error : can be database error
+                        $_SESSION['notification'] = "error";
+                        $_SESSION['notification_msg'] = "Time slots update failed";
+                        redirect('admin/settings/all');
+                    }
+                   
+                }else{
+
+                    //load witth error
+                    $this->view('dashboards/admin/setting/time_settings', $data);
+
+                }
+                
+
+
+
+
+                
+
+
+
+
+
+            }else{
+
+                
+            $data =[
+                'monday_m_start' => $time_slots[0]->start_time,
+                'monday_m_end' => $time_slots[0]->end_time,
+                'monday_a_start' => $time_slots[1]->start_time,
+                'monday_a_end' => $time_slots[1]->end_time,
+                'monday_m_gap' => $time_slots[0]->intervel,
+                'monday_a_gap' => $time_slots[1]->intervel,
+                'monday_err'   => '',
+                'monday_m_err' => '',
+                'monday_a_err' => '',
+
+                'tuesday_m_start' => $time_slots[2]->start_time,
+                'tuesday_m_end' => $time_slots[2]->end_time,
+                'tuesday_a_start' => $time_slots[3]->start_time,
+                'tuesday_a_end' => $time_slots[3]->end_time,
+                'tuesday_err'   => '',
+                'tuesday_m_gap' => $time_slots[2]->intervel,
+                'tuesday_a_gap' => $time_slots[3]->intervel,
+                'tuesday_m_err' =>'',
+                'tuesday_a_err' => '',
+
+
+                'wednesday_m_start' => $time_slots[4]->start_time,
+                'wednesday_m_end' => $time_slots[4]->end_time,
+                'wednesday_a_start' => $time_slots[5]->start_time,
+                'wednesday_a_end' => $time_slots[5]->end_time,
+                'wednesday_err'   => '',
+                'wednesday_m_gap' => $time_slots[4]->intervel,
+                'wednesday_a_gap' => $time_slots[5]->intervel,
+                'wednesday_m_err' => '',
+                'wednesday_a_err' => '',
+
+                'thursday_m_start' => $time_slots[6]->start_time,
+                'thursday_m_end' => $time_slots[6]->end_time,
+                'thursday_a_start' => $time_slots[7]->start_time,
+                'thursday_a_end' => $time_slots[7]->end_time,
+                'thursday_err'   => '',
+                'thursday_m_gap' => $time_slots[6]->intervel,
+                'thursday_a_gap' => $time_slots[7]->intervel,
+                'thursday_m_err' => '',
+                'thursday_a_err' => '',
+
+
+                'friday_m_start' => $time_slots[8]->start_time,
+                'friday_m_end' => $time_slots[8]->end_time,
+                'friday_a_start' => $time_slots[9]->start_time,
+                'friday_a_end' => $time_slots[9]->end_time,
+                'friday_err'   => '',
+                'friday_m_gap' => $time_slots[8]->intervel,
+                'friday_a_gap' => $time_slots[9]->intervel,
+                'friday_m_err' => '',
+                'friday_a_err' => '',
+
+                'saturday_m_start' => $time_slots[10]->start_time,
+                'saturday_m_end' => $time_slots[10]->end_time,
+                'saturday_a_start' => $time_slots[11]->start_time,
+                'saturday_a_end' => $time_slots[11]->end_time,
+                'saturday_err'   => '',
+                'saturday_m_gap' => $time_slots[10]->intervel,
+                'saturday_a_gap' => $time_slots[11]->intervel,
+                'saturday_m_err' => '',
+                'saturday_a_err' => '',
+
+                'sunday_m_start' => $time_slots[12]->start_time,
+                'sunday_m_end' => $time_slots[12]->end_time,
+                'sunday_a_start' => $time_slots[13]->start_time,
+                'sunday_a_end' => $time_slots[13]->end_time,
+                'sunday_err'   => '',
+                'sunday_m_gap' => $time_slots[12]->intervel,
+                'sunday_a_gap' => $time_slots[13]->intervel,
+                'sunday_m_err' => '',
+                'sunday_a_err' => '',
+
+                'main_err' => ''
+
+            
+            ];
+
+            $this->view('dashboards/admin/setting/time_settings', $data);
+
+
+
+            }
+
+
+
+
+            
+            
+
+
+
+        }elseif($setting_name == "appointmentPrice"){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $priceDetails = $this->settingsModel->getPrice();
+
+                $data = [
+
+                    'main_err' =>'',
+
+                    'appointment_price' => trim($_POST['appointment_price']),
+                    'price_id' => '',
+                    'price_err' => '',
+                ];
+
+                if(empty($data['appointment_price'])){
+                    $data['price_err'] = '*Please enter price';
+                }else{
+                    if($data['appointment_price'] < 0){
+                        $data['price_err'] = '*Please enter valid price';
+                    }
+                }
+
+                //convert to cents LKR
+
+
+                if(empty($data['price_err'])){
+
+    
+                  
+
+                    // Assuming $data['appointment_price'] is the new price in dollars
+                    $newPriceAmount = $data['appointment_price'] * 100; // Convert to cents
+                    
+                    $product_id = 'prod_P6nXOUvTK1HWrE'; // Replace with the actual product ID
+                    $currency = 'lkr'; 
+                    
+                    require __DIR__ . '/../libraries/stripe/vendor/autoload.php';
+                    
+                    \Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
+                    
+                    try {
+
+                       
+
+
+                        // Create a new price
+                        $newPrice = \Stripe\Price::create([
+                            'product' => $product_id,
+                            'unit_amount' => $newPriceAmount,
+                            'currency' => $currency,
+                            // You can add more optional parameters here, such as metadata, nickname, etc.
+                        ]);
+                    
+                        // Retrieve the ID of the newly created price
+                        $newPriceId = $newPrice->id;
+                        $data['price_id'] = $newPriceId;
+
+                         // Retrieve the price
+                         $preprice = \Stripe\Price::retrieve($priceDetails->price_id);
+
+                         // Archive the price
+                         $preprice->active = false; // Set 'active' to false to archive the price
+                         $preprice->save();
+
+                        //update new price id to database
+                        $this->settingsModel->updatePrice($data);
+                    
+                        // Handle successful price creation
+                        $_SESSION['notification'] = "ok";
+                        $_SESSION['notification_msg'] = "Price has been updated successfully.";
+                        redirect('admin/settings/all');
+                    } catch (\Stripe\Exception\ApiErrorException $e) {
+                        // Handle API error
+                        $_SESSION['notification'] = "error";
+                        $_SESSION['notification_msg'] = "Error creating new price: ";
+                        redirect('admin/settings/all');
+                    }
+                    
+      
+
+                   
+                   
+                }else{
+
+                    //load witth error
+                    $this->view('dashboards/admin/setting/price_settings', $data);
+
+                }
+                
+            }else{
+                
+                $price = $this->settingsModel->getPrice();
+
+                $data = [
+                    'appointment_price' => $price->price,
+                    'price_err' => '',
+                    'main_err' => ''
+                ];
+
+                $this->view('dashboards/admin/setting/price_settings', $data);
+            }
         }
 
 
