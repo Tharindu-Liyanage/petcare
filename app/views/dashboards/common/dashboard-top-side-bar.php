@@ -63,6 +63,7 @@
             <li class="<?php echo ($current_page == 'medicalreport') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/petowner/medicalreport"><i class='bx bx-file'></i> Medical Report</a></li>
             <li class="<?php echo ($current_page == 'animalward') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/petowner/animalward"><i class='bx bx-plus-medical' ></i> Animal Ward</a></li>
             <li class="<?php echo ($current_page == 'pet') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/petowner/pet"><i class='bx bxs-dog' ></i> Pet</a></li>
+            <li class="<?php echo ($current_page == 'bill') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/petowner/medicalBill"><i class='bx bx-wallet'></i></i> Medical Bill</a></li>
             <li class="<?php echo ($current_page == 'myorder') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/petowner/myOrders"><i class='bx bx-shopping-bag'></i> My Orders</a></li>
             <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/petowner/settings/all"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>

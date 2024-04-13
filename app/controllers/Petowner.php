@@ -47,6 +47,8 @@
             $this->dashboardModel = $this->model('Dashboard');
             $this->settingsModel = $this->model('Settings');
             $this->userModel = $this->model('User');
+            $this->doctorModel = $this->model('DoctorModel');
+            $this->nurseModel = $this->model('NurseModel');
            
 
             
@@ -1009,9 +1011,47 @@
 
         public function animalWard(){
 
-            $data = null;
+            $medicalreports = $this->dashboardModel->getWardTreatmentDetailsByUserID($_SESSION['user_id']);
+
+            $data = [
+                'animalward' => $medicalreports
+            ];
+
             $this->view('dashboards/petowner/animalward/animalward', $data);
         }
+
+
+        public function showWardMedicalReport($id){
+
+            $medicalReport = $this->doctorModel->getWardTreatmentDetailsByTreatmentID($id);
+            //hospital info from dashboard model 
+            $hospitalInfo = $this->dashboardModel->getPetCareDetails();  
+            
+            if($medicalReport == null){   //if no data found : its mean user try to access url with wrong treatment id(intentionally)
+
+                
+                    redirect('petowner/notfound');
+               
+            }
+
+            foreach ($medicalReport as $treament) {
+                // Assuming 'DOB' is the property name, replace it with the correct property name if needed
+                $petDOB = isset($treament->DOB) ? $treament->DOB : null;
+                $visitDate = isset($treament->lastupdate) ? $treament->lastupdate : null;
+        
+                $treament->petAge = $this->calculateAgeForMedicalReport($petDOB,$visitDate);
+            }
+           
+
+            $data = [
+                'medicalreportview' => $medicalReport,
+                'petcareInfo' => $hospitalInfo
+            ];
+
+            $this->view('dashboards/doctor/treatment/viewWardMedicalReport',$data);
+        }
+
+        
 
 
 
@@ -1753,6 +1793,41 @@
         $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
         $sendEndpoint = str_replace('[TO]', $data['new_mobile'], $sendEndpoint);
         //$sendResponse = file_get_contents($sendEndpoint);
+    }
+
+    public function medicalBill(){
+        $medicalBillDetails = $this->nurseModel->getDischargeDetails();
+
+        $data = [
+            'bill' => $medicalBillDetails
+        ];
+
+
+        $this->view('dashboards/petowner/medicalBill/medicalbillTable',$data);
+    }
+
+    public function viewWardBill($id){
+
+
+        $billDetails = $this->dashboardModel->getBillByTreatmentID($id);
+        $payementDetails = $this->dashboardModel->getWardPaymentStatusByTreatmentID($id);
+
+        //die(var_dump($billDetails));
+
+        $totalPrice = 0;
+
+        foreach ($billDetails as $bill) {
+            $totalPrice += $bill->price;
+        }
+
+                $data = [
+                    'id' => $id,
+                    'services' =>$billDetails,
+                    'totalPrice' => $totalPrice,
+                    'paymentDetails' => $payementDetails
+                ];
+
+                $this->view('dashboards/petowner/medicalbill/viewMedicalBill', $data);
     }
 
         

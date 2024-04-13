@@ -1526,6 +1526,63 @@
         }
 
 
+        public function animalWardDetails(){
+            $this->db->query('SELECT * FROM petcare_ward');
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function getWardTreatmentDetailsByUserID($id) {
+            $this->db->query('SELECT report.*,
+                       pet.profileImage AS petpic,
+                       pet.pet AS petname,
+                       staff.profileImage AS vetpic,
+                       staff.firstname AS vetfname,
+                       staff.lastname AS vetlname
+                FROM petcare_ward_medical_reports report
+                JOIN petcare_pet pet ON report.pet_id = pet.id
+                JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                WHERE (report.treatment_id, report.lastupdate) IN (
+                    SELECT treatment_id, MAX(lastupdate) AS max_lastupdate
+                    FROM petcare_ward_medical_reports
+                    GROUP BY treatment_id
+                ) AND report.owner_id = :id
+                ORDER BY report.lastupdate DESC
+            ');
+        
+            $this->db->bind(':id', $id);
+            
+            $results = $this->db->resultSet();
+            
+            return $results;
+        }
+
+
+        public function getBillByTreatmentID($id) {
+            $this->db->query('SELECT bill.* , treat.payment_status AS payment_status
+             FROM petcare_ward_medical_bill bill
+             JOIN petcare_ward_treatment treat ON bill.ward_treatment_id = treat.ward_treatment_id
+              WHERE bill.ward_treatment_id = :id');
+            $this->db->bind(':id', $id);
+
+            $results = $this->db->resultSet();
+            
+            return $results;
+        }
+
+
+        public function getWardPaymentStatusByTreatmentID($id){
+            $this->db->query('SELECT * FROM petcare_ward_treatment WHERE ward_treatment_id = :id');
+            $this->db->bind(':id', $id);
+            $row = $this->db->single();
+            return $row;
+        }
+
+
+        
+        
+
+
 
         // ============================  Pet Owner over =========================================================================================
 

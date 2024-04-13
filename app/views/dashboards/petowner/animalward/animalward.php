@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard-petowner-animal Ward.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/petowner/Dashboard-petowner-appointment.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/dashboard/petowner/medicalReport.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Dashboard</title>
+
+    <style>
+   
+        td{
+            user-select: none;
+        }
+  </style>
+
+
 </head>
 <body>
 
@@ -25,7 +35,7 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Appointment</h1>
+                    <h1>Ward Medical Reports</h1>
                     <ul class="breadcrumb">
                         <li><a href="<?php echo URLROOT;?>/petowner">
                            Dashboard
@@ -40,185 +50,124 @@
                
             </div>
 
-            <!-- appointmetn add here -->
-
-            <div class="box">
-                    <div class="bottom-data">
-                        <!-- Start of orders -->
-                        <div class="orders">
-                            <div class="header">
-                                <div class="header-left">
-                                    <h3>Animal Ward</h3>
-                                </div>
-                                <div class="header-right">
-                                    <i class='bx bx-search'></i>
-                                    <i class='bx bx-filter'></i>
-                                </div>
-                            </div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Pet Owmer</th>
-                                        <th>Pet</th>
-                                        <th>Admit Date</th>
-                                        <th>Discharge Date</th>
-                                        <th>Treatment</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td class="profile">
-                                            <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user2.jpeg"><p>  Johnson</p>
-                                        </td>
-                                        <td>
-                                            <p> Zoro</p>
-                                        </td>
-                                        <td>01-09-2023</td>
-                                        <td>05-09-2023</td>
-                                        <td>Finished</td>
-                                        <td class="status-text red" >
-                                            Completed
-                                        </td>
-                                        <td><i class='bx bx-show' ></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td class="profile">
-                                            <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user1.jpg"><p> kiat </p>
-                                        </td>
-                                        <td>
-                                            <p> garfied</p>
-                                        </td>
-                                        <td>31-08-2023</td>
-                                        <td>10-10-2023</td>
-                                        <td>Finished</td>
-                                        <td class="status-text red" >
-                                            Confirmed
-                                        </td>
-                                        <td><i class='bx bx-show' ></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td class="profile">
-                                            <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user2.jpeg"><p> mike </p>
-                                        </td>
-                                        <td>
-                                            <p> Rex</p>
-                                        </td>
-                                        <td>31-08-2023</td>
-                                        <td>01-09-2023</td>
-                                        <td>Finished</td>
-                                        <td class="status-text red" >
-                                            Completed
-                                        </td>
-                                        <td><i class='bx bx-show' ></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td class="profile">
-                                            <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user3.jpeg"><p>  John</p>
-                                        </td>
-                                        <td>
-                                            <p> Oreo</p>
-                                        </td>
-                                        <td>15-08-2023</td>
-                                        <td>17-08-2023</td>
-                                        <td>Finished</td>
-                                        <td class="status-text red" >
-                                            Cancelled
-                                        </td>
-                                        <td><i class='bx bx-show' ></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td class="profile">
-                                            <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user3.jpeg"><p> Doe John</p>
-                                        </td>
-                                        <td>
-                                            <p> Rocky</p>
-                                        </td>
-                                        <td>01-08-2023</td>
-                                        <td>-----------</td>
-                                        <td>Finished</td>
-                                        <td class="status-text green" >
-                                            In Progress
-                                        </td>
-                                        <td><i class='bx bx-show' ></i></td>
-                                    </tr>
-                                    <!-- Add more rows as needed -->
-                                </tbody>
-                            </table>
-                            <div class="footer-block">
-                                <div class="footer-left">
-                                    Showing <span class="current">5</span> out of <span class="total">25</span> entries
-                                </div>
-                                <div class="footer-right">
-                                    <div class="previous">previous</div>
-                                    <div class="page page1">1</div>
-                                    <div class="page page2">2</div>
-                                    <div class="page page3">3</div>
-                                    <div class="page page4">4</div>
-                                    <div class="page page5">5</div>
-                                    <div class="next">next</div>                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+            <!-- Medical report here -->
 
            
 
+                
+                    <div class="bottom-data">
+                       
 
 
-             
-                                
-        </main>
+                    <div class="users" id="medicalreport">
+                    <div class="header">
+                    <i class='bx bx-first-aid' ></i>
+                        <h3>Ward Medical Reoprt</h3>
 
-            <!-- warninig model here -->
+                    <!-- Search Container -->
 
-            <div id="removeModel" class="card-all-background">
-             <div class="card">
-                <div class="err-header">
-
-                        <div class="image">
-                            <span class="material-symbols-outlined">warning</span>                   
-                        </div>
-
-                        <div class="err-content">
-                            <span class="title">Remove Account</span>
-                            <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
-                        </div>
-
-                        <div class="err-actions">
-                            <button id="confirmDelete" class="desactivate" type="button">Remove</button>
-                            <button id="cancelDelete" class="cancel" type="button">Cancel</button>
-                        </div>
-
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
                     </div>
+
+                    <!-- search container over -->
+
+
+                      
+                        
+                        
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
+                                <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>Veterinarian<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
+                                <th>Diagnosis <i class='bx bxs-sort-alt sort' data-sort="diagnosis-search"></th>
+                                <th>Last update <i class='bx bxs-sort-alt sort' data-sort="lastupdate-search"></th>
+                                <th>Status <i class='bx bxs-sort-alt sort' data-sort="status-search"></th>
+                                
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+
+
+                        <?php
+
+                                if(count($data['animalward']) == 0){
+
+                                    echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                                }else
+
+
+                                foreach($data['animalward'] as $medicalreport) : ?>
+
+<tr>
+                                <td class="id-search">AWT-<?php echo $medicalreport->treatment_id?></td>
+                                <td class="profile">
+                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $medicalreport->petpic?>" ><p><?php echo $medicalreport->petname?></p>
+                                </td>
+
+                                 <td>
+                                    <div class="profile-three">
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $medicalreport->vetpic?>" >
+                                    <p><?php echo $medicalreport->vetfname?> <?php echo $medicalreport->vetlname?></p>
+                                    </div>
+                                </td>
+
+                                <td class="diagnosis-search"><?php echo $medicalreport->diagnosis?></td>
+                                <td class="lastupdate-search"><?php echo $medicalreport->lastupdate?></td>
+                                
+                                <?php
+                                        if ($medicalreport->status === "In Progress" ) {
+                                            echo '<td class="status-search status-green">' . $medicalreport->status . '</td>';
+                                        } else{
+                                            echo '<td class="status-search status-red">' . $medicalreport->status . '</td>';
+                                        }
+                                ?>       
+
+
+                                
+                                <td class="action">
+                                    <div class="act-icon">
+                                        <a href="<?php echo URLROOT;?>/petowner/showWardMedicalReport/<?php echo $medicalreport->treatment_id; ?>"><i class='bx bx-show' ></i></a>
+                                    </div>
+                                </td>
+                                    
+
+                                <?php endforeach;  ?>
+
+                            
+
+                                    
+
+                               
+                           
+
+                            
+
+                        </tbody>
+                    </table>
+
+                    <?php  include __DIR__ . '/../../common/pagination_footer.php'; ?>
+
+
                 </div>
-            </div>
+ 
+            </div> <!-- content over -->
 
-
-
-
+        </main>
     </div>
 
-   
-
-
-    <!-- staff add model over -->
-
-
     
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/petowner/WardmedicalReportTable.js"></script>
     
 </body>
 </html>
