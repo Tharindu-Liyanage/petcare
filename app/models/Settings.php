@@ -373,6 +373,57 @@
         }
 
 
+        public function addCage(){
+            $this->db->query('SELECT * FROM petcare_cage_status WHERE isRemoved = 1 LIMIT 1');
+
+            $result = $this->db->single();
+
+            if($result){
+                $this->db->query('UPDATE petcare_cage_status SET isRemoved = 0 WHERE id = :id');
+                $this->db->bind(':id' , $result->id);
+
+                if($this->db->execute()){
+                    return true;
+                }else{
+                    return false;
+                }
+
+            }else{
+
+                $this->db->query('INSERT INTO petcare_cage_status (isRemoved) VALUES (0)');
+
+                if($this->db->execute()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+           
+           
+        }
+
+        public function deleteCage(){
+
+            $this->db->query('SELECT * FROM petcare_cage_status WHERE status ="available" AND isRemoved = 0 ORDER BY id DESC LIMIT 1');
+
+            $result = $this->db->single();
+
+            if($result){
+                $this->db->query('UPDATE petcare_cage_status SET isRemoved = 1 WHERE id = :id');
+                $this->db->bind(':id' , $result->id);
+
+                if($this->db->execute()){
+                    return true;
+                }else{
+                    return false;
+                }
+
+            }else{
+                return false;
+            }
+        } 
+
+
         public function updateTimeSlots($data){
 
             //monday morninig

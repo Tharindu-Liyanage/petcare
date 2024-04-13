@@ -28,6 +28,7 @@
             $this->userModel = $this->model('User');
             $this->settingsModel= $this->model('Settings') ;
             $this->reportModel= $this->model('ReportModel') ;
+            $this->doctorModel= $this->model('DoctorModel') ;
 
             
         
@@ -1949,6 +1950,80 @@
                 ];
 
                 $this->view('dashboards/admin/setting/price_settings', $data);
+         
+            }
+
+
+        }elseif($setting_name = "cage"){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                $data = [
+
+
+                    'cageCount' => trim($_POST['cage']),
+                    'cage_err' => '',
+                ];
+
+                $cageCount = $this->doctorModel->getCageCountAll();
+
+                if(empty($data['cageCount'])){
+                    $data['cage_err'] = '*Please enter cage count';
+                }elseif($data['cageCount'] < 0){
+                    $data['cage_err'] = '*Please enter valid cage count';
+                }else{
+
+                    $newCageCount = $data['cageCount'];
+
+                    if($newCageCount > count($cageCount)){
+
+                        $newCageCount = $newCageCount - count($cageCount);
+
+                        for($i = 0; $i < $newCageCount; $i++){
+                            $this->settingsModel->addCage();
+                        }
+
+                       
+                        $_SESSION['notification'] = "ok";
+                        $_SESSION['notification_msg'] = "Cage has been updated successfully.";
+                        redirect('admin/settings/all');
+
+
+                       
+
+                        
+
+                    }else{
+
+                        $newCageCount = count($cageCount) - $newCageCount;
+
+                        for($i = 0; $i < $newCageCount; $i++){
+                            $this->settingsModel->deleteCage();
+                        }
+
+                    
+                        $_SESSION['notification'] = "ok";
+                        $_SESSION['notification_msg'] = "Cage has been updated successfully.";
+                        redirect('admin/settings/all');
+                    }
+                }
+
+
+                
+
+
+
+            }else{
+                $cageCount = $this->doctorModel->getCageCountAll();
+
+                $data = [
+                    'cageCount' => count($cageCount),
+                    'cage_err' => ''
+                ];
+
+                $this->view('dashboards/admin/setting/cage_settings', $data);
             }
         }
 

@@ -82,7 +82,7 @@
                                     >
                                     <li><a href="<?php echo URLROOT?>/admin/settings/all" class=""> Settings</a></li>
                                     >
-                                    <li><a href="<?php echo URLROOT?>/admin/settings/password" class="active"> Change Password</a></li>
+                                    <li><a href="<?php echo URLROOT?>/admin/settings/time" class="active"> Change Appointment Time</a></li>
                                 </ul>
                             </div>
                             

@@ -518,7 +518,7 @@
                 $this->db->query(
                     'SELECT *
                      FROM petcare_cage_status
-                     WHERE status = "available"
+                     WHERE status = "available" AND isRemoved = 0
                      LIMIT 1
                     '
                 );
@@ -539,6 +539,7 @@
                 $this->db->query(
                     'SELECT *
                      FROM petcare_cage_status
+                     WHERE isRemoved = 0
                     '
                 );
 
