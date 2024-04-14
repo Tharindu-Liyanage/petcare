@@ -18,6 +18,8 @@
                         <div class="header">
                             <div class="left">
                                 <h1>Settings</h1>
+
+                                <?php if($_SESSION['user_role'] == "Admin") : ?>
                                 <ul class="breadcrumb">
                                     <li><a href="<?php echo URLROOT?>/admin/">
                                         Dashboard
@@ -27,13 +29,89 @@
                                     >
                                     <li><a href="<?php echo URLROOT?>/admin/settings/profile" class="active"> Update Profile</a></li>
                                 </ul>
+
+                                <?php elseif($_SESSION['user_role'] == "Doctor") : ?>
+
+                                    <ul class="breadcrumb">
+                                    <li><a href="<?php echo URLROOT?>/doctor/">
+                                        Dashboard
+                                    </a></li>  
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/doctor/settings/all" class=""> Settings</a></li>
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/doctor/settings/profile" class="active"> Update Profile</a></li>
+                                </ul>
+
+                                <?php elseif($_SESSION['user_role'] == "Nurse") :?>
+
+                                    <ul class="breadcrumb">
+                                    <li><a href="<?php echo URLROOT?>/nurse/">
+                                        Dashboard
+                                    </a></li>  
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/nurse/settings/all" class=""> Settings</a></li>
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/nurse/settings/profile" class="active"> Update Profile</a></li>
+                                </ul>
+
+                                <?php elseif($_SESSION['user_role'] == "Store Manager") :?>
+
+                                    <ul class="breadcrumb">
+                                    <li><a href="<?php echo URLROOT?>/storemanager/">
+                                        Dashboard
+                                    </a></li>  
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/storemanager/settings/all" class=""> Settings</a></li>
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/storemanager/settings/profile" class="active"> Update Profile</a></li>
+                                </ul>
+
+                                <?php elseif($_SESSION['user_role'] == "Assistant") :?>
+
+                                    <ul class="breadcrumb">
+                                    <li><a href="<?php echo URLROOT?>/assistant/">
+                                        Dashboard
+                                    </a></li>  
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/assistant/settings/all" class=""> Settings</a></li>
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/assistant/settings/profile" class="active"> Update Profile</a></li>
+                                </ul>
+
+                                <?php endif; ?>
+
+
                             </div>
                             
                         </div>
 
 
 
-        <form class="container" enctype="multipart/form-data"  method="POST" action="<?php echo URLROOT?>/admin/settings/profile" id="myForm">     <!--start of form-->
+        <form class="container" enctype="multipart/form-data"  method="POST" 
+        
+        <?php if($_SESSION['user_role'] == "Admin") : ?>
+
+        action="<?php echo URLROOT?>/admin/settings/profile" 
+
+        <?php elseif($_SESSION['user_role'] == "Doctor") : ?>
+
+        action="<?php echo URLROOT?>/doctor/settings/profile"
+
+        <?php elseif($_SESSION['user_role'] == "Nurse") :?>
+
+        action="<?php echo URLROOT?>/nurse/settings/profile"
+
+        <?php elseif($_SESSION['user_role'] == "Store Manager") :?>
+
+        action="<?php echo URLROOT?>/storemanager/settings/profile"
+
+        <?php elseif($_SESSION['user_role'] == "Assistant") :?>
+
+        action="<?php echo URLROOT?>/assistant/settings/profile"
+
+        <?php endif; ?>
+        
+        id="myForm">     <!--start of form-->
                                     
                                     <div class="content-box">
                                         <div class="inner-content active">                 <!-- start of inner content1 (Myprofile)-->
@@ -46,7 +124,31 @@
                                                         Update your profile photo and details here.
                                                         <div><span class="invalid-feedback"><?php echo $data['main_err'];?></span></div>
                                                     </div>
-                                                    <button type="reset" class="cancel-btn" onclick="window.location.href = '<?php echo URLROOT; ?>/admin/settings/profile';">Cancel</button>
+                                                    <button type="reset" class="cancel-btn" 
+                                                    
+                                                    <?php if($_SESSION['user_role'] == "Admin") : ?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/admin/settings/profile';"
+
+                                                    <?php elseif($_SESSION['user_role'] == "Doctor") : ?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/doctor/settings/profile';"
+
+                                                    <?php elseif($_SESSION['user_role'] == "Nurse") :?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/nurse/settings/profile';"
+
+                                                    <?php elseif($_SESSION['user_role'] == "Store Manager") :?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/storemanager/settings/profile';"
+
+                                                    <?php elseif($_SESSION['user_role'] == "Assistant") :?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/assistant/settings/profile';"
+
+                                                    <?php endif; ?>
+                                                    
+                                                    >Cancel</button>
                                                     <button class="save-changes-btn">Update</button>
                                                 </div>
                                             </div>

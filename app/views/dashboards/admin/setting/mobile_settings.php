@@ -18,6 +18,9 @@
                         <div class="header">
                             <div class="left">
                                 <h1>Settings</h1>
+
+                                <?php if($_SESSION['user_role'] == "Admin") : ?>
+
                                 <ul class="breadcrumb">
                                     <li><a href="<?php echo URLROOT?>/admin/">
                                         Dashboard
@@ -26,14 +29,97 @@
                                     <li><a href="<?php echo URLROOT?>/admin/settings/all" class=""> Settings</a></li>
                                     >
                                     <li><a href="<?php echo URLROOT?>/admin/settings/mobile" class="active"> Change Mobile Number</a></li>
+
                                 </ul>
+
+                                <?php elseif($_SESSION['user_role'] == "Doctor") : ?>
+                                
+                                    <ul class="breadcrumb">
+                                    <li><a href="<?php echo URLROOT?>/doctor/">
+                                        Dashboard
+                                    </a></li>  
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/doctor/settings/all" class=""> Settings</a></li>
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/doctor/settings/mobile" class="active"> Change Mobile Number</a></li>
+
+                                </ul>
+
+                                <?php elseif($_SESSION['user_role'] == "Nurse") :?>
+
+                                    <ul class="breadcrumb">
+                                    <li><a href="<?php echo URLROOT?>/nurse/">
+                                        Dashboard
+                                    </a></li>  
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/nurse/settings/all" class=""> Settings</a></li>
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/nurse/settings/mobile" class="active"> Change Mobile Number</a></li>
+
+                                </ul>
+
+                                <?php elseif($_SESSION['user_role'] == "Store Manager") :?>
+                                   
+                                    <ul class="breadcrumb">
+                                    <li><a href="<?php echo URLROOT?>/storemanager/">
+                                        Dashboard
+                                    </a></li>  
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/storemanager/settings/all" class=""> Settings</a></li>
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/storemanager/settings/mobile" class="active"> Change Mobile Number</a></li>
+
+                                </ul>
+
+                                <?php elseif($_SESSION['user_role'] == "Assistant") :?>
+
+                                    <ul class="breadcrumb">
+                                    <li><a href="<?php echo URLROOT?>/assistant/">
+                                        Dashboard
+                                    </a></li>  
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/assistant/settings/all" class=""> Settings</a></li>
+                                    >
+                                    <li><a href="<?php echo URLROOT?>/assistant/settings/mobile" class="active"> Change Mobile Number</a></li>
+
+                                </ul>
+
+                                <?php endif; ?>
+
+
+
                             </div>
                             
                         </div>
 
 
 
-        <form class="container"   method="POST" action="<?php echo URLROOT?>/admin/settings/mobile" id="myForm">     <!--start of form-->
+        <form class="container"   method="POST" 
+        
+        <?php if($_SESSION['user_role'] == "Admin") : ?>
+
+        action="<?php echo URLROOT?>/admin/settings/mobile" 
+
+        <?php elseif($_SESSION['user_role'] == "Doctor") : ?>
+
+        action="<?php echo URLROOT?>/doctor/settings/mobile"
+
+        <?php elseif($_SESSION['user_role'] == "Nurse") :?>
+
+        action="<?php echo URLROOT?>/nurse/settings/mobile"
+
+        <?php elseif($_SESSION['user_role'] == "Store Manager") :?>
+
+        action="<?php echo URLROOT?>/storemanager/settings/mobile"
+
+        <?php elseif($_SESSION['user_role'] == "Assistant") :?>
+
+        action="<?php echo URLROOT?>/assistant/settings/mobile"
+
+        <?php endif; ?>
+        
+        
+        id="myForm">     <!--start of form-->
                                     
                                     <div class="content-box">
                                         <div class="inner-content active">                 <!-- start of inner content1 (Myprofile)-->
@@ -46,7 +132,31 @@
                                                         Update your mobile number. 
                                                    
                                                     </div>
-                                                    <button type="reset" class="cancel-btn" onclick="window.location.href = '<?php echo URLROOT; ?>/admin/settings/mobile';">Cancel</button>
+                                                    <button type="reset" class="cancel-btn"
+
+                                                    <?php if($_SESSION['user_role'] == "Admin") : ?>
+                                                    
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/admin/settings/mobile';"
+
+                                                    <?php elseif($_SESSION['user_role'] == "Doctor") : ?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/doctor/settings/mobile';"
+
+                                                    <?php elseif($_SESSION['user_role'] == "Nurse") :?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/nurse/settings/mobile';"
+
+                                                    <?php elseif($_SESSION['user_role'] == "Store Manager") :?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/storemanager/settings/mobile';"
+
+                                                    <?php elseif($_SESSION['user_role'] == "Assistant") :?>
+
+                                                    onclick="window.location.href = '<?php echo URLROOT; ?>/assistant/settings/mobile';"
+
+                                                    <?php endif; ?>
+                                                    
+                                                    >Cancel</button>
                                                     <button class="save-changes-btn" name="main-submit">Update</button>
                                                 </div>
                                             </div>

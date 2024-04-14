@@ -21,11 +21,25 @@
             <div class="left">
                 <h1>Medical Report</h1>
                 <ul class="breadcrumb">
-                    <li><a href="<?php echo URLROOT;?>/petowner">Dashboard</a></li>
+                <?php if($_SESSION['user_role'] == "Doctor") : ?>
+                    <li><a href="<?php echo URLROOT;?>/doctor">Dashboard</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
                     <li><a href="<?php echo URLROOT;?>/doctor/treatment">Treatment</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/doctor/viewMedicalReport" class="active">Show Medical Report</a></li>
+                    <li><a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $data['treatment_id'];?>" class="active">Show Medical Report</a></li>
+
+                <?php elseif($_SESSION['user_role'] == "Pet Owner") : ?>
+                    
+                    <li><a href="<?php echo URLROOT;?>/petowner">Dashboard</a></li>
+                    <li> > </li> <!-- Include the ">" character within an <li> element -->
+                    <li><a href="<?php echo URLROOT;?>/petowner/animalward">Animal Ward</a></li>
+                    <li> > </li> <!-- Include the ">" character within an <li> element -->
+                    <li><a href="<?php echo URLROOT;?>/petowner/showWardMedicalReport/<?php echo $data['treatment_id'];?>" class="active">Show Medical Report</a></li>
+
+                <?php endif; ?>
+
+
+
                 </ul>
             </div>
         </div>

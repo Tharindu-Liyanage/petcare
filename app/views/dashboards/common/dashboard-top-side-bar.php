@@ -44,7 +44,7 @@
             <li class="<?php echo ($current_page == 'blog') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/blog"><i class='bx bxl-blogger' ></i></i> Blog</a></li>
             <li class="<?php echo ($current_page == 'pet') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/pet"><i class='bx bxs-dog' ></i></i> Pet</a></li>
             <li class="<?php echo ($current_page == 'treatment') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/doctor/treatment"><i class='bx bx-first-aid' ></i> Treatment</a></li>
-            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/doctor/settings"><i class='bx bx-cog' ></i> Settings</a></li>
+            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/doctor/settings/all"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>
 
          <?php elseif($_SESSION['user_role'] == "Store Manager") : ?>

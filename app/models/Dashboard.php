@@ -1578,6 +1578,23 @@
             return $row;
         }
 
+        public function getDischargeDetails(){
+            //from inward_pet table
+            $this->db->query('SELECT ward.* , pet.pet_id_generate as genPetID, petowner.petowner_id_generate as genPetOwnerID ,  pet.pet as petname, pet.profileImage as petpic, petowner.profileImage as petownerpic, petowner.first_name as petownerfname, petowner.last_name as petownerlname
+                              FROM petcare_ward_treatment ward
+                              JOIN petcare_pet pet ON ward.pet_id = pet.id
+                              JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
+                             -- WHERE ward.payment_status = "Processing"
+                             WHERE petowner.id = :id
+                               
+                           ');
+
+            $this->db->bind(':id', $_SESSION['user_id']);
+            $results = $this->db->resultSet();
+            return $results;
+            
+        }
+
 
         
         

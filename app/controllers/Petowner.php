@@ -240,6 +240,9 @@
                     if($this->dashboardModel->addPetDetails($data)){
                        
                        // $_SESSION['staff_user_added'] = true;
+
+                       $_SESSION['notification'] = "ok";
+                       $_SESSION['notification_msg'] = "Pet Added Successfully";
       
                        redirect('petowner/pet');
 
@@ -392,6 +395,9 @@
                     if($this->dashboardModel->updatePetDetails($data)){
                        
                        // $_SESSION['staff_user_added'] = true;
+
+                       $_SESSION['notification'] = "ok";
+                       $_SESSION['notification_msg'] = "Pet Updated Successfully";
                      
                        redirect('petowner/pet');
                        
@@ -456,6 +462,8 @@
             if($this->dashboardModel->removePetDetails($id)){
 
                 //$_SESSION['staff_user_removed'] = true;
+                $_SESSION['notification'] = "ok";
+                $_SESSION['notification_msg'] = "Pet Deleted Successfully";
                 redirect('petowner/pet');
 
             }else{
@@ -966,7 +974,8 @@
 
             $data = [
                 'medicalreportview' =>$treament_data,
-                'petcareInfo' => $petcareInfo
+                'petcareInfo' => $petcareInfo,
+                'treatment_id' => $treament_id
             ];
 
             $this->view('dashboards/petowner/medicalreport/viewMedicalReport', $data);
@@ -1045,7 +1054,9 @@
 
             $data = [
                 'medicalreportview' => $medicalReport,
-                'petcareInfo' => $hospitalInfo
+                'petcareInfo' => $hospitalInfo,
+                'treatment_id' => $id
+
             ];
 
             $this->view('dashboards/doctor/treatment/viewWardMedicalReport',$data);
@@ -1796,7 +1807,7 @@
     }
 
     public function medicalBill(){
-        $medicalBillDetails = $this->nurseModel->getDischargeDetails();
+        $medicalBillDetails = $this->dashboardModel->getDischargeDetails();
 
         $data = [
             'bill' => $medicalBillDetails
@@ -1828,9 +1839,7 @@
                 ];
 
                 $this->view('dashboards/petowner/medicalbill/viewMedicalBill', $data);
-    }
-
-        
+    }      
 }
             
         

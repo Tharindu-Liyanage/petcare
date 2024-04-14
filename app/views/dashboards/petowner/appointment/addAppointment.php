@@ -457,6 +457,7 @@
             <?php elseif ($time_slot->day == 'monday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const mondayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const mondayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const mondayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
             
             <?php elseif ($time_slot->day == 'tuesday' && $time_slot->part_of_day == 'morning') : ?>
                 const tuesdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -466,6 +467,7 @@
             <?php elseif ($time_slot->day == 'tuesday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const tuesdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const tuesdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const tuesdayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
 
             <?php elseif ($time_slot->day == 'wednesday' && $time_slot->part_of_day == 'morning') : ?>
                 const wednesdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -475,6 +477,7 @@
             <?php elseif ($time_slot->day == 'wednesday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const wednesdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const wednesdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const wednesdayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
 
              <?php elseif ($time_slot->day == 'thursday' && $time_slot->part_of_day == 'morning') : ?>
                 const thursdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -484,6 +487,7 @@
              <?php elseif ($time_slot->day == 'thursday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const thursdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const thursdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const thursdayAfternoonInterval =  '<?php echo $time_slot->intervel; ?>';
             
              <?php elseif ($time_slot->day == 'friday' && $time_slot->part_of_day == 'morning') : ?>
                 const fridayMorningStartTime = '<?php echo $time_slot->start_time; ?>';

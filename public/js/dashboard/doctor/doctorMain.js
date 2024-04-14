@@ -28,14 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Assume this function is inside a larger context
-    async function updateAppointmentDetailsAndHTML() {
-        try {
-            // Call the function to get appointment details
-            const data = await updateAppointmentDetails();
+   // Function to update appointment details and HTML
+async function updateAppointmentDetailsAndHTML() {
+    try {
+        // Call the function to get appointment details
+        const data = await updateAppointmentDetails();
 
-            if (data == null) {
-                appointment_details_container.innerHTML = `
+        if (data == null) {
+            appointment_details_container.innerHTML = `
                 <div class="home-left2">
                     <div class="home-text-large">
                         Currently, <span id="petName">No Appointments!</span>
@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="home-right">
                     <img id="petImage" src="http://localhost/petcare/public/img/dashboard/noappointment.svg" alt="">
                 </div>`;
-            } else {
-                // Appointments are available, update HTML with details
-                appointment_details_container.innerHTML = `
+        } else {
+            // Appointments are available, update HTML with details
+            appointment_details_container.innerHTML = `
                 <div class="home-left2">
                     <div class="home-text-large">
                         Time for Treatment, <span id="petName">${data.pet}!</span>
@@ -58,20 +58,28 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div>
                     <div class="buttons">
                         <button class="button cancel-button">Cancel</button>
-                        <button class="button treatment-button">Treatment</button>
+                        <button id="treatmentButton" class="button treatment-button">Treatment</button>
                     </div>
                 </div>
                 <div class="home-right">
                     <img id="petImage" src="http://localhost/petcare/public/storage/uploads/animals/${data.profileImage}" alt="">
                 </div>`;
-            }
 
-        } catch (error) {
-            console.error('Error during updateAppointmentDetailsAndHTML:', error);
-            // Handle the error as needed
+            // Add event listener to the treatment button
+            const treatmentButton = document.getElementById('treatmentButton');
+            if (treatmentButton) {
+                treatmentButton.addEventListener('click', () => {
+                    window.location.href = `http://localhost/petcare/doctor/requestPastMedicalReports/${data.pet_id}/appointment`;
+                });
+            }
         }
+
+    } catch (error) {
+        console.error('Error during updateAppointmentDetailsAndHTML:', error);
+        // Handle the error as needed
     }
+}
 
     // Example: Refresh appointment details every 5 seconds
-    setInterval(updateAppointmentDetailsAndHTML, 5000);
+    setInterval(updateAppointmentDetailsAndHTML, 1000);
 });

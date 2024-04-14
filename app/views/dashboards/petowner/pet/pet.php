@@ -158,6 +158,20 @@
         
     </div>
 
+    <?php
+     
+        if ($_SESSION['notification'] == "error") {
+            
+            toast_notifications("Changes Applied Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+            
+        }else if($_SESSION['notification'] == "ok"){
+
+            toast_notifications("Changes Applied Successfully",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+            
+        }
+
+    ?>
+
    
 
 

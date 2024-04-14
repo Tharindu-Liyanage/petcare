@@ -25,7 +25,7 @@
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
                     <li><a href="<?php echo URLROOT;?>/petowner/medicalReport">Medical Report</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/petowner/viewMedicalReport" class="active">Show Medical Report</a></li>
+                    <li><a href="<?php echo URLROOT;?>/petowner/showMedicalReport/<?php echo $data['treatment_id'];?>" class="active">Show Medical Report</a></li>
                 </ul>
             </div>
         </div>
