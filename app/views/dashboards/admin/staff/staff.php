@@ -102,7 +102,9 @@
                                 <tr>
                                     <td class="id-search"><?php echo $staff->staff_id_generate?></td>
                                     <td class="profile">
-                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $staff->profileImage?>" ><p><?php echo $staff->firstname?> <?php echo $staff->lastname?></p>
+                                        <a href="<?php echo URLROOT;?>/admin/profileStaff/<?php echo $staff->staff_id ; ?> ">
+                                            <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $staff->profileImage?>" ><p><?php echo $staff->firstname?> <?php echo $staff->lastname?></p>
+                                        </a>
                                     </td>
                                     <td class="email-search"><?php echo $staff->email?></td>
                                     <td class="address-search"><?php echo $staff->address?></td>

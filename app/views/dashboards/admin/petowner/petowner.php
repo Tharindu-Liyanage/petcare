@@ -72,7 +72,9 @@
                             <tr>
                                 <td><?php echo $petowner->petowner_id_generate?></td>
                                 <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner->profileImage?>" ><p><?php echo $petowner->first_name?> <?php echo $petowner->last_name?></p>
+                                    <a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $petowner->id; ?>">
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner->profileImage?>" ><p><?php echo $petowner->first_name?> <?php echo $petowner->last_name?></p>
+                                    </a>
                                 </td>
                                 <td><?php echo $petowner->email?></td>
                                 <td><?php echo $petowner->address?></td>

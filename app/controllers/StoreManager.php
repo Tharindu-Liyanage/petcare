@@ -117,20 +117,42 @@
 
                 //init data
 
+
+
+
+                if (isset($_FILES['inventory_img'])) {
+                    $uploadedFileName = $_FILES['inventory_img']['name'];
+                    $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                    // Generate a timestamp for uniqueness
+                    $timestamp = time();
+
+                    // Create a unique ID by concatenating values and adding the file extension
+                    $uniqueImgFileName = $_POST['pname'] . '_' . $timestamp . '.' . $fileExtension;
+
+                }
+                
+                
+                
+
                 $data = [
                     'pname' => trim($_POST['pname']),
                     'brand' => trim($_POST['brand']),
                     'category' => trim($_POST['category']),
                     'stock' => trim($_POST['stock']),
                     'price' => trim($_POST['price']),
+                    'img' => ($_FILES['inventory_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['inventory_img'],
                     'pname_err' => '',
                     'brand_err' => '',
                     'cat_err' => '',
                     'price_err' => '',
-                    'stock_err'  =>''
+                    'stock_err'  =>'',
+                    'img_err' =>'',
+                    'uniqueImgFileName' =>$uniqueImgFileName,
             
                 ];
 
+                // die("done so far");
               
                 
 
@@ -158,13 +180,25 @@
                 if (empty($data['price'])) {
                     $data['price_err'] = 'Please enter a price';
                 }
+
+                $allowedTypes = ['image/jpeg', 'image/png'];
+
+                 if(empty($data['img'])){
+                    $data['img_err'] = 'Please choose a Product Photo';
+                 }elseif(!isset($_FILES['inventory_img']['type']) || ($_FILES['inventory_img']['type'] && !in_array($_FILES['inventory_img']['type'], $allowedTypes))) {
+                    // Invalid file type
+                    $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
+                 }elseif($_FILES['inventory_img
+                 ']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                    $data['img_err'] = 'Image size must be less than 5 MB';
+                }
                 
 
                 
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['brand_err']) && empty($data['stock_err']) && empty($data['cat_err']) && empty($data['price_err'])){
+                if(empty($data['pname_err']) && empty($data['brand_err']) && empty($data['img_err']) && empty($data['stock_err']) && empty($data['cat_err']) && empty($data['price_err'])){
                     //validated
                     
                    
@@ -208,7 +242,8 @@
                     'brand_err' => '',
                     'cat_err' => '',
                     'price_err' => '',
-                    'stock_err'  =>''
+                    'stock_err'  =>'',
+                    'img_err' => ''
             
                 ];
 

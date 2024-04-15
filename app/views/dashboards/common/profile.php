@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/dashboard.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/profile.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>dashboard</title>
 </head>
 <body>
 
-<?php include __DIR__ . '/../common/index_common.php'; ?>
+<?php require_once __DIR__ . '/../common/common_variable/index_common.php'; ?>
 <?php include __DIR__ . '/../common/dashboard-top-side-bar.php'; ?>
 
 
@@ -35,20 +36,20 @@
 
             <div class="box1">
                     <div class="left">
-                        <img src="../img/profile photo.svg" alt="">
+                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $_SESSION['user_profileimage'];?>" >   <!-- image input.....-->
                     </div>
                     <div class="middle">
-                        <img src="../img/Line 27.svg" alt="">
+                        <img src="<?php echo URLROOT; ?>/public/img/dashboard/Line 27.svg" alt="">
                     </div>
                     <div class="right">
                         <div class="name-large">
-                            Ava Smith
+                            <?php echo $data['user']->firstname . '  ' . $data['user']->lastname ; ?> 
                         </div>
                         <div class="type">
-                            Veterinarian
+                            <?php echo $data['user']->role ; ?>
                         </div>
                         <div class="description">
-                            I am a Peradeniya BVSc veterinarian, dedicated to animal well-being, passionate about compassionate care, and committed to enhancing their lives.
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, omnis nihil repudiandae incidunt temporibus doloribus sequi expedita, tempore, sapiente repellat ullam nesciunt corrupti minima. Quo aliquid voluptates qui dolore veritatis.
                         </div>
                         <div class="button-list">
                             <div class="button-container">
@@ -69,7 +70,7 @@
 
                 <div class="box2">
                     <div class="options">
-                        <button class="appointment">Appointment</button>
+                        
                         <button class="Contact me">Contact me</button>
                     </div>
                     <div class="inner-box-1">
@@ -77,10 +78,7 @@
                             <div class="text">
                                 Contact me
                             </div>
-                            <div class="button-container">
-                                <i class='bx bxs-edit' ></i>
-                                <button class="edit">Edit</button>
-                            </div>
+                            
                         </div>
                         <div class="line-2">
                             <div class="email">
@@ -88,7 +86,7 @@
                                     Email
                                 </div>
                                 <div class="email-address inner-text">
-                                    annamarie@petcare.com
+                                    <?php echo $data['user']->email ; ?>
                                 </div>
                             </div>
                             <div class="phone">
@@ -96,7 +94,7 @@
                                     Phone
                                 </div>
                                 <div class="phone-number inner-text">
-                                    (+94) 077-1234567
+                                    <?php echo $data['user']->phone ; ?>
                                 </div>
                             </div>
                             <div class="address">
@@ -104,7 +102,7 @@
                                     Address
                                 </div>
                                 <div class="address-line inner-text">
-                                    290 Chatham Way Reston, Maryland(MD), 20191
+                                    <?php echo $data['user']->address ; ?>
                                 </div>
                             </div>
                         </div>
@@ -116,23 +114,26 @@
                             <div class="text">
                                 Social Links
                             </div>
-                            <div class="button-container">
-                                <i class='bx bxs-edit' ></i>
-                                <button class="edit">Edit</button>
-                            </div>
+                          
                         </div>
                         <div class="social-media">
                             <div class="social-media-container">
                                 <i class='bx bxl-facebook-circle' ></i>
-                                <button class="btn face-book-btn">Facebook</button>
+                                <button class="btn face-book-btn">
+                                    <a href="<?php echo $data['user']->fb_ur ; ?>">Facebook</a>
+                                </button>
                             </div>
                             <div class="social-media-container">
                                 <i class='bx bxl-whatsapp' ></i>
-                                <button class="btn whatsapp-btn">Whatsapp</button>
+                                <button class="btn whatsapp-btn">
+                                    <a href="">Whatsapp</a>
+                                </button>
                             </div>
                             <div class="social-media-container">
                                 <i class='bx bxl-instagram-alt' ></i>
-                                <button class="btn instagram-btn">Instagram</button>
+                                <button class="btn instagram-btn">
+                                    <a href="<?php echo $data['user']->insta_url ; ?>">Instagram</a>
+                                </button>
                             </div>
                         </div>
                     </div>

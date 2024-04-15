@@ -442,7 +442,7 @@
 
         public function addProduct($data){
 
-            $this->db->query('INSERT INTO petcare_inventory (name,brand,category,stock,price) VALUES(:name, :brand, :category, :stock, :price )');
+            $this->db->query('INSERT INTO petcare_inventory (name,brand,category,stock,price,image) VALUES(:name, :brand, :category, :stock, :price, :image )');
 
              //bind values
         $this->db->bind(':name',$data['pname']);
@@ -450,6 +450,57 @@
         $this->db->bind(':category',$data['category']);
         $this->db->bind(':stock',$data['stock']);
         $this->db->bind(':price',$data['price']);
+        $this->db->bind(':image',$data['uniqueImgFileName']);
+
+        $sourceDir = $data['img']['tmp_name'];
+
+        //new path link
+        $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR;
+
+                
+        // Set the path to move the uploaded file to
+        $uploadPath = $destinationDir . $data['uniqueImgFileName'];
+
+        if (move_uploaded_file($sourceDir, $uploadPath)) {
+
+            $imageType = exif_imagetype($uploadPath);
+        // die("success");
+
+            switch ($imageType) {
+                    case IMAGETYPE_JPEG:
+                        
+                        $source = imagecreatefromjpeg($uploadPath);
+
+                        // Save the compressed image to the same file
+                        imagejpeg($source, $uploadPath,30);  //can adjust the compression level (0-100)
+                    
+                        // Free up resources
+                        imagedestroy($source);
+
+                    
+
+                        break;
+
+                    case IMAGETYPE_PNG:
+                    $source = imagecreatefrompng($uploadPath);
+
+                        // Save the compressed image to the same file
+                        imagepng($source, $uploadPath, 5); // You can adjust the compression level (0-9)
+
+                        // Free up resources
+                        imagedestroy($source);
+                        break;
+                
+                    default:
+                        echo "Unsupported image format.";
+                        break;
+                }
+    
+        } else {
+                // Error moving the file
+            // $data['img_err'] = 'Error moving the file.';
+            //  die("Misson failed img not moved");
+        }
         
 
         //execute

@@ -2460,6 +2460,34 @@
             $this->view('dashboards/admin/report/report',$data);
         }
 
+        public function profileStaff($id){
+            
+              
+            $user = $this->dashboardModel->getStaffUserById($id);
+
+            $data = [
+                    'user' =>$user
+            ];
+
+            
+            $this->view('dashboards/common/profile', $data);
+        }
+
+        public function profilePetowner($id){
+            
+              
+            $user = $this->dashboardModel->getPetownerDetailsById($id);
+
+            $data = [
+                    'user' =>$user
+            ];
+
+            
+            $this->view('dashboards/common/profile', $data);
+        }
+       
+
+
        
 
 
