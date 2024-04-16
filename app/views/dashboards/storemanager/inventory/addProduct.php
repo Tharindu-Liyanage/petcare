@@ -47,7 +47,7 @@
                 
 
 
-                <form class="form" method="post" action="<?php echo URLROOT; ?>/storemanager/addProduct">
+                <form class="form" enctype="multipart/form-data" method="post" action="<?php echo URLROOT; ?>/storemanager/addProduct">
 
                   
 

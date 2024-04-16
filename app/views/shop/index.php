@@ -66,13 +66,19 @@ ul.pagination li.active{
 
             <form id="searchForm" action="<?php echo URLROOT;?>/shop/searchpage/" class ="search-box" method="post">
                 <i class="fas fa-search"></i>
-                <input type="search" class="search-input" placeholder="Search your pet item" name="search" required>
+                <input list="productSearch" type="search" class="search-input" placeholder="Search your pet item" name="search" required>
                 <button type="submit" class="search-btn" >Search</button>
             </form>
 
         </div>
         
     </section>
+
+    <datalist id="productSearch">
+        <?php foreach($data['productsName'] as $product) : ?>
+            <option value="<?php echo $product->name; ?>">
+        <?php endforeach; ?>
+    </datalist>
 
 
     <!-- category banner -->
@@ -136,7 +142,7 @@ ul.pagination li.active{
     <?php foreach ($data['products'] as $product) : ?>
 
         <li class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
+            <img src="<?php echo URLROOT?>/public/storage/uploads/products/<?php echo $product->image?>" alt="popular">
             <strong class="name"><?php echo $product->name ; ?></strong>
 
 

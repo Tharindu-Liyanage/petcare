@@ -53,7 +53,7 @@
             <li class="<?php echo ($current_page == 'inventory') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/storemanager/inventory"><i class='bx bx-store-alt'></i> Inventory</a></li>
             <li class="<?php echo ($current_page == 'order') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/storemanager/order"><i class='bx bx-shopping-bag' ></i> Order</a></li>
             <li class="<?php echo ($current_page == 'category') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/storemanager/category"><i class='bx bx-category' ></i> Category</a></li>
-            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/storemanager/settings"><i class='bx bx-cog' ></i> Settings</a></li>
+            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/storemanager/settings/all"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>
 
          <?php elseif($_SESSION['user_role'] == "Pet Owner") : ?>

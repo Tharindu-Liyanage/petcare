@@ -401,7 +401,7 @@ ul.pagination li.active{
     <?php foreach ($data['products'] as $product) : ?>
 
         <li class="product-box">
-            <img src="<?php echo URLROOT?>/public/img/shop/popular.png" alt="popular">
+            <img src="<?php echo URLROOT?>/public/storage/uploads/products/<?php echo $product->image?>" alt="popular">
             <strong class="name"><?php echo $product->name ; ?></strong>
 
 

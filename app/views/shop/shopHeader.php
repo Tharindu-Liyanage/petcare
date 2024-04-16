@@ -15,6 +15,7 @@
         <nav class="navbar" id="nav-menu">
 
         <ul class="flexitem">
+        <!--
             <li class="has-drop-down ">  <a class="one drop-down-button">Products<span class="material-symbols-outlined drop-down-product-icon drop-down-arrow">expand_more</span></a>
 
                 <div class="mega">
@@ -74,9 +75,10 @@
                         </div>
                     </div>
                 </div>  </li>
-
+!-->
               <li>   <a href="<?php echo URLROOT;?>/shop/">Shop</a></li>
               <li>  <a href="<?php echo URLROOT;?>/home">PetCare</a></li>
+              <li>  <a href="<?php echo URLROOT;?>/blog">Blog</a></li>
               <li>   <a href="<?php echo URLROOT;?>/home/#about">About</a></li>
               <li>   <a href="<?php echo URLROOT;?>/home/#contact">Contact</a>  </li>
 
@@ -88,7 +90,7 @@
 
            
                 <div class="icon-large">
-                <i class="ri-search-line"></i>        
+              <!--  <i class="ri-search-line"></i>       -->
                 </div>
               
 

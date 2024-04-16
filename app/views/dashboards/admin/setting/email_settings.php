@@ -64,7 +64,7 @@
                                     >
                                     <li><a href="<?php echo URLROOT?>/storemanager/settings/all" class=""> Settings</a></li>
                                     >
-                                    <li><a href="<?php echo URLROOT?>/storemanger/settings/email" class="active"> Change Email</a></li>
+                                    <li><a href="<?php echo URLROOT?>/storemanager/settings/email" class="active"> Change Email</a></li>
                                 </ul>
 
                                 <?php elseif($_SESSION['user_role'] == "Assistant") :?>

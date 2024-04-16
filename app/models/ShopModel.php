@@ -300,6 +300,13 @@
             return $results;
          }
 
+         public function getProductsName(){
+            $this->db->query('SELECT name FROM petcare_inventory');
+
+            $results = $this->db->resultSet();
+            return $results;
+         }
+
        
 
         
