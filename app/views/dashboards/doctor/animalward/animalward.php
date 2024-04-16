@@ -57,7 +57,7 @@
 
 
                 <!--start od orders-->
-                <div class="users" id="appointment">
+                <div class="users" id="admit">
                     <div class="header">
                     <i class='bx bx-plus-medical' ></i>
                         <h3>Inward Pets (<?php echo count($data['animalward']) ;?>/<?php echo count($data['cageCount']);?>)</h3>
@@ -80,12 +80,12 @@
                         <thead>
                             <tr>
                                 
-                                <th>Patient Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
+                                <th>Pet ID <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
                                 <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
                                 <th>Pet Owner<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
-                                <th>Cage No <i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
-                                <th>Reason <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
-                                <th>Admit Date <i class='bx bxs-sort-alt sort' data-sort="time-search"></th>
+                                <th>Cage No <i class='bx bxs-sort-alt sort' data-sort="cage-no"></th>
+                                <th>Reason <i class='bx bxs-sort-alt sort' data-sort="reason-search"></th>
+                                <th>Admit Date <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -105,7 +105,7 @@
                             foreach($data['animalward'] as $ward) : ?>
 
                             <tr>
-                                <td class="id-search">PID-<?php echo $ward->id?></td>
+                                <td class="id-search">PET-<?php echo $ward->pet_id?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $ward->petpic?>" ><p><?php echo $ward->petname?></p>
                                 </td>
@@ -117,8 +117,8 @@
                                     </div>
                                 </td>
                                 
-                                <td class="time-search"><?php echo $ward->cage_no?></td>
-                                <td class="time-search"><?php echo $ward->reason?></td>
+                                <td class="cage-search"><?php echo $ward->cage_no?></td>
+                                <td class="reason-search"><?php echo $ward->reason?></td>
                                 <td class="date-search"><?php echo $ward->admit_date?></td>
                                 
                                
@@ -161,7 +161,7 @@
 
 
                 <!--start od orders-->
-                <div class="users" id="appointment">
+                <div class="users" id="discharge">
                     <div class="header">
                     <i class='bx bx-plus-medical' ></i>
                         <h3>Dischaged Pets</h3>
@@ -187,9 +187,8 @@
                                 <th>Patient Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
                                 <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
                                 <th>Pet Owner<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
-                                <th>Cage No <i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
-                                <th>Reason <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
-                                <th>Admit Date <i class='bx bxs-sort-alt sort' data-sort="time-search"></th>
+                                <th>Reason <i class='bx bxs-sort-alt sort' data-sort="reason-search"></th>
+                                <th>Dischaged Date <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -199,17 +198,17 @@
 
                             <?php
 
-                            if(count($data['animalward']) == 0){
+                            if(count($data['dischargeDetails']) == 0){
 
                                 echo '<td class="isempty" colspan="8">No data available in table</td>';
 
                             }else
                             
                             
-                            foreach($data['animalward'] as $ward) : ?>
+                            foreach($data['dischargeDetails'] as $ward) : ?>
 
                             <tr>
-                                <td class="id-search">PID-<?php echo $ward->id?></td>
+                                <td class="id-search">PET-<?php echo $ward->pet_id?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $ward->petpic?>" ><p><?php echo $ward->petname?></p>
                                 </td>
@@ -221,9 +220,8 @@
                                     </div>
                                 </td>
                                 
-                                <td class="time-search"><?php echo $ward->cage_no?></td>
-                                <td class="time-search"><?php echo $ward->reason?></td>
-                                <td class="date-search"><?php echo $ward->admit_date?></td>
+                                <td class="reason-search"><?php echo $ward->reason?></td>
+                                <td class="date-search"><?php echo $ward->discharge_date?></td>
                                 
                                
 
@@ -246,7 +244,45 @@
                         </tbody>
                     </table>
 
-                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
+                    <footer> 
+                    <span>Showing <span class="foot-number">
+                    <?php if( count($data['dischargeDetails']) >= 5) {
+
+                    echo ' 
+                    <select class="show-entries-2">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                    </select>
+
+                    </span> of <span class="foot-number">' . count($data['dischargeDetails']) . '</span> entries</span>
+
+                    
+                    <div class="pagination-main">
+                        <ul class="pagination"></ul>
+                    </div>
+                    ';
+
+
+                    }else {
+
+
+                        echo    count($data['dischargeDetails']) . '</span> of <span class="foot-number">' . count($data['dischargeDetails']) . '</span> entries</span>
+                        
+                                <div class="pagination-main">
+                               
+                              
+                                    <ul class="pagination"></ul>
+                      
+
+                                </div>
+                        ';
+
+
+                    } ?>
+
+    
+                </footer>
 
 
                 </div>
@@ -266,29 +302,7 @@
                                 
         </main>
 
-            <!-- warninig model here -->
-
-            <div id="removeModel" class="card-all-background">
-             <div class="card">
-                <div class="err-header">
-
-                        <div class="image">
-                            <span class="material-symbols-outlined">warning</span>                   
-                        </div>
-
-                        <div class="err-content">
-                            <span class="title">Remove Account</span>
-                            <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
-                        </div>
-
-                        <div class="err-actions">
-                            <button id="confirmDelete" class="desactivate" type="button">Remove</button>
-                            <button id="cancelDelete" class="cancel" type="button">Cancel</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+           
 
 
 
@@ -319,10 +333,10 @@
 
     
 
-   
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/animalWardTable.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/doctor/doctoranimalWard.js"></script>
     
 </body>
 </html>

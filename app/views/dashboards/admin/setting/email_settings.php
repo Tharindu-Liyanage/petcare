@@ -70,13 +70,13 @@
                                 <?php elseif($_SESSION['user_role'] == "Assistant") :?>
 
                                     <ul class="breadcrumb">
-                                    <li><a href="<?php echo URLROOT?>/asistant/">
+                                    <li><a href="<?php echo URLROOT?>/assistant/">
                                         Dashboard
                                     </a></li>  
                                     >
-                                    <li><a href="<?php echo URLROOT?>/asistant/settings/all" class=""> Settings</a></li>
+                                    <li><a href="<?php echo URLROOT?>/assistant/settings/all" class=""> Settings</a></li>
                                     >
-                                    <li><a href="<?php echo URLROOT?>/asistant/settings/email" class="active"> Change Email</a></li>
+                                    <li><a href="<?php echo URLROOT?>/assistant/settings/email" class="active"> Change Email</a></li>
                                 </ul>
 
                                 <?php endif; ?>

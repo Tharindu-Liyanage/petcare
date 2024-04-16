@@ -36,10 +36,12 @@
 
             $greetingmsg = $this->getWelcomeGreeting();
             $appointmentDetails = $this->getCurrentAppointment();
+            $todayAppointment = $this->doctorModel->getTodayAppointment();
 
             $data = [
                 'greetingmsg' => $greetingmsg,
                 'appointmentDetails' =>$appointmentDetails,
+                'todayAppointment' => $todayAppointment
             ];
    
             
@@ -652,10 +654,12 @@
             //get animal ward details
            $wardDetails = $this->doctorModel->getAnimalWardDetails();
            $counOfCage = $this->doctorModel->getCageCountAll();
+           $dischargeDetails = $this->doctorModel->getDischargePets();
 
             $data = [
                 'animalward' => $wardDetails,
-                'cageCount' => $counOfCage
+                'cageCount' => $counOfCage,
+                'dischargeDetails' => $dischargeDetails
             ];
 
             $this->view('dashboards/doctor/animalward/animalward',$data);
@@ -1098,7 +1102,7 @@
         
                 //check user intensionally going to wrong url
                 if(!in_array($setting_name, $setting_name_array)){
-                    redirect('admin/notfound');
+                    redirect('doctor/notfound');
                 }
     
     
@@ -1714,6 +1718,85 @@
     
             }
         }
+
+            //send email with otp code
+
+    public function sendOtpCodeEmail($data){
+
+        require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+
+        //data['otp_code] split into 4 variables
+        $otp_code = $data['otp_code'];
+        $first_digit = substr($otp_code, 0, 1);
+        $second_digit = substr($otp_code, 1, 1);
+        $third_digit = substr($otp_code, 2, 1);
+        $fourth_digit = substr($otp_code, 3, 1);
+
+        
+        try {
+            // Create a new PHPMailer instance
+            $mail = new PHPMailer(true);
+    
+            // Set mail configuration (replace with your actual details)
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = $_ENV['MAIL_USERNAME'];
+            $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+    
+            // Set email sender details
+            $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+    
+            // Add recipient address
+            $mail->addAddress($data['new_email'], 'User: ' . $data['new_email']);
+    
+            // Set subject and body
+            $mail->Subject = 'Update Email OTP - PetCare';
+            $mail->isHTML(true);
+
+            $filePath = __DIR__ . '/../views/email/otpCodeForUpdateEmail.php';
+            $emailContent = file_get_contents($filePath);
+
+            $emailContent = str_replace('{pet_owner_fname}', $data['fname'], $emailContent);
+            $emailContent = str_replace('{pet_owner_lname}', $data['lname'], $emailContent);
+            $emailContent = str_replace('{first-digit}',$first_digit, $emailContent);
+            $emailContent = str_replace('{second-digit}',$second_digit, $emailContent);
+            $emailContent = str_replace('{third-digit}',$third_digit, $emailContent);
+            $emailContent = str_replace('{fourth-digit}',$fourth_digit, $emailContent);
+
+
+            $mail->Body = $emailContent;
+
+            // Send the email
+            $mail->send();
+
+            
+           
+            
+
+        } catch (Exception $e) {
+            // Handle exceptions
+            echo 'Error: ' . $mail->ErrorInfo;
+        }
+    
+
+        
+    }
+
+
+    public function sendOtpCodeSMS($data){
+
+        // Send SMS
+        $userID = $_ENV['NOTIFY_USERID'];
+        $apiKey = $_ENV['NOTIFY_APIKEY'];
+
+        $customMessage ="Hello " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . ", This the OTP code for verify mobile number " .$data['otp_code']. " Thank you for choosing PetCare. We're excited to serve you!"; // Replace this with your custom message
+        $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
+        $sendEndpoint = str_replace('[TO]', $data['new_mobile'], $sendEndpoint);
+        //$sendResponse = file_get_contents($sendEndpoint);
+    }
 
        
 

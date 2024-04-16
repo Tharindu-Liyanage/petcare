@@ -40,6 +40,34 @@
        }
 
 
+       public function getTodayAppointment(){
+
+        $this->db->query(
+            'SELECT * 
+            FROM petcare_appointments
+            JOIN petcare_pet pet ON petcare_appointments.pet_id = pet.id
+            JOIN petcare_petowner petowner ON petcare_appointments.petowner_id = petowner.id
+            WHERE appointment_date = CURDATE()
+            AND status = "Confirmed"
+            AND vet_id = :vet_id
+            ORDER BY appointment_date, STR_TO_DATE(appointment_time, "%h:%i %p")'
+        
+        );
+
+        $this->db->bind(':vet_id', $_SESSION['user_id']);
+
+        $row = $this->db->resultSet();
+
+        //check row count
+
+        if($this->db->rowCount() > 0 ){
+            return $row;
+        }else{
+            return null;
+        }
+       }
+
+
          public function getAppointmentByVetID(){
     
           $this->db->query(
@@ -638,6 +666,21 @@
                      JOIN petcare_pet pet ON inward.pet_id = pet.id
                      JOIN petcare_petowner petowner ON inward.owner_id = petowner.id
                      WHERE inward.status = "Admitted"
+                    '
+                );
+
+                $results = $this->db->resultSet();
+
+                return $results;
+            }
+
+            public function getDischargePets(){
+                $this->db->query(
+                    'SELECT inward.*, pet.id as petID, pet.pet as petname, pet.profileImage as petpic, pet.pet_id_generate as petid, petowner.first_name as petownerfname, petowner.last_name as petownerlname, petowner.profileImage as petownerpic
+                     FROM petcare_inward_pet inward
+                     JOIN petcare_pet pet ON inward.pet_id = pet.id
+                     JOIN petcare_petowner petowner ON inward.owner_id = petowner.id
+                     WHERE inward.status = "Discharged"
                     '
                 );
 
