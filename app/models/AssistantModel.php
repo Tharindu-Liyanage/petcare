@@ -8,12 +8,15 @@
             $this->db = new Database;
         }
 
+//---------------------------------------------------------------------------        
+
     public function getPetownerDetails(){
     $this->db->query('SELECT * FROM petcare_petowner WHERE isRemoved = 0');
 
             $results = $this->db->resultSet();
             return $results;
  }
+ //--------------------------------------------------------------------------
 
  public function getPetDetails(){
     $this ->db -> query ('SELECT pet.* , petowner.* , pet.profileImage as petImage , petowner.profileImage as petownerImage
@@ -25,7 +28,7 @@
          $results = $this->db->resultSet();
          return $results;
  }
-
+//-----------------------------------------------------------------------------------
 
  public function getPetownerMobileEmailByID($petownerID){
 
@@ -33,6 +36,22 @@
     $this ->db->query('SELECT * FROM petcare_petowner WHERE id = :petownerID ');
 
     $this->db->bind(':petownerID' , $petownerID);
+
+    $row = $this->db->single();
+
+    return $row;
+
+
+ }
+
+
+ //-------------------------------------------------------------------------------------
+ public function getPetDetailsByID($id){
+
+
+    $this ->db->query('SELECT * FROM petcare_pet WHERE id = :id ');
+
+    $this->db->bind(':petID' , $id);
 
     $row = $this->db->single();
 
@@ -165,48 +184,79 @@ public function findpetownerID($petownerID){
 
         }
 
+//Update Pet----------------------------------------------------------------------------------------------------------------------------------------
+      public function updatePet($data){
+      $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB =:dob , breed= :breed , sex = :sex , species = :species WHERE id = :id');
+      //bind values
+      $this->db->bind(':id' , $data['id']);
+      $this->db->bind(':pname' , $data['pname']);
+      $this->db->bind(':DOB',$data['dob']);
+      $this->db->bind(':breed',$data['breed']);
+      $this->db->bind(':sex',$data['sex']);
+      $this->db->bind(':species',$data['species']);
 
       
-/*
-
-for update pet
-
-
-$this->db->query('UPDATE petcare_pet SET pet = :pname , DOB = :DOB , breed= :breed, sex = :sex , species = :species   WHERE id = :id');
-     
-
-           //bind values
-           $this->db->bind(':id' , $data['id']);
-           $this->db->bind(':pname',$data['pname']);
-           $this->db->bind(':DOB',$data['dob']);
-           $this->db->bind(':breed',$data['breed']);
-           $this->db->bind(':sex',$data['sex']);
-           $this->db->bind(':species',$data['species']);
-
-    
                 //execute
-            if($this->db->execute()){
-                return true;
+                if($this->db->execute()){
+                    return true;
+    
+                }else{
+                    return false;
+                }
+      }
+// ------------------------------------------------
+      public function getAppointmentDetails(){
+      $this->db->query('SELECT 
+      petcare_appointments.*, 
+      petcare_pet.profileImage AS petpic, 
+      petcare_pet.pet AS petname, 
+      petcare_petowner.profileImage AS petownerpic, 
+      petcare_petowner.first_name AS petownerfname, 
+      petcare_petowner.last_name AS petownerlname,
+      petcare_pet.species AS species
+      FROM 
+        petcare_appointments
+      JOIN 
+        petcare_pet ON petcare_appointments.pet_id = petcare_pet.id
+      JOIN 
+        petcare_petowner ON petcare_appointments.petowner_id = petcare_petowner.id
+      WHERE 
+        petcare_appointments.status != "Completed" ORDER BY 
+        CASE WHEN petcare_appointments.status = "Pending" THEN 0 ELSE 1 END , petcare_appointments.appointment_date ASC ,  petcare_appointments.appointment_time ASC ' );
+    
+      $results = $this->db->resultSet();
+      return $results;
+                            
+     }
 
-            }else{
-                return false;
-            }
-
-
-*/
-      
-
-
-
-
- }
-
-
-
+     public function updateAppointmentStatusToConfirm($appoitmentID){
+       $this ->db -> query ('UPDATE petcare_appointments   SET status = "Confirmed"  WHERE id=:appointmentID');
+       $this->db->bind(':appointmentID' ,$appoitmentID );
 
        
-
-     
-      
-
+                //execute
+                if($this->db->execute()){
+                    return true;
     
+                }else{
+                    return false;
+                }
+     }
+
+     public function updateAppointmentStatusToReject($appoitmentID){
+        $this ->db -> query ('UPDATE petcare_appointments   SET status = "Rejected"  WHERE id=:appointmentID');
+        $this->db->bind(':appointmentID' ,$appoitmentID );
+
+         //execute
+         if($this->db->execute()){
+            return true;
+
+        }else{
+            return false;
+        }
+    }
+      
+                
+                
+
+    }
