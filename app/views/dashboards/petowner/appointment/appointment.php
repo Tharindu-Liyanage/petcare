@@ -181,7 +181,7 @@
 
                                         //action restricted for reshedule appoitments
                                         
-                                        if ($appointment->status === "Confirmed") {
+                                        if ($appointment->status === "Confirmed" || $appointment->status === "Rejected") {
                                             echo '<td class="action"> <div class="act-icon"> <a href="' . URLROOT . '/petowner/updateAppointment/' . $appointment->id . '"><i class="bx bx-edit"></i></a> </div> </td>';
                                         } else {
                                             echo '<td class="action"> ---  </td>';

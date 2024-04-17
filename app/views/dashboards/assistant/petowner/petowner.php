@@ -21,11 +21,11 @@
                 <div class="left">
                     <h1>dashboard</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">
+                        <li><a href="<?php echo URLROOT; ?>/assistant">
                             Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT; ?>/assistnat" class="active"> Home</a></li>
+                        <li><a href="<?php echo URLROOT; ?>/assistant/petowner" class="active">Petowner</a></li>
                     </ul>
                 </div>
 

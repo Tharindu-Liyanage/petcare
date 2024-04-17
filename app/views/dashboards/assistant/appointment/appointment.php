@@ -27,11 +27,11 @@
                 <div class="left">
                     <h1>Appointment</h1>
                     <ul class="breadcrumb">
-                        <li><a href="<?php echo URLROOT;?>/doctor">
+                        <li><a href="<?php echo URLROOT;?>/assistant">
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/doctor/appointment" class="active">Appointment</a></li>
+                        <li><a href="<?php echo URLROOT;?>/assistant/appointment" class="active">Appointment</a></li>
                     </ul>
                 </div>
 
