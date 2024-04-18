@@ -71,45 +71,41 @@
                             <tr>
                                 <th>User</th>
                                 <th>Order Date</th>
-                                <th>Status</th>
+                                <th>Total</th>
+                                <th>status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user2.jpeg" ><p>John Doe</p>
-                                </td>
-                                <td> 14-08-2-23</td>
-                                <td><span class="status completed">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user3.jpeg" ><p>John Doe</p>
-                                </td>
-                                <td> 14-08-2-23</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user4.jpeg"><p>John Doe</p>
-                                </td>
-                                <td> 14-08-2-23</td>
-                                <td><span class="status process">Processing</span></td>
-                            </tr>
+                            <?php foreach ($data['order'] as  $order) : ?>
+                                <tr>
+                                    <td>
+                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $order->profileImage ; ?>"><p><?php echo "  " . $order->first_name .' ' . $order->last_name ; ?></p>
+                                    </td>
+                                    <td> <?php echo $order->invoice_date ; ?></td>
+                                    <td><?php echo $order-> price ;?></td>
+                                    
+                                    <td>
+                                        <span <?php 
+                                            if ($order->ship_status == 'Shipped') {
+                                                echo 'class="status shipped"';
+                                            } elseif ($order->ship_status == 'Delivered') {
+                                                echo 'class="status delivered"';
+                                            } elseif ($order->ship_status == 'On process') {
+                                                echo 'class="status on-process"';
+                                            } ?>>
+                                            <?php echo $order->ship_status; ?>
+                                        </span>
+                                    </td>
+                                    
+                                </tr>
+                            <?php endforeach  ; ?>
+                            
                         </tbody>
                     </table>
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <!--reminders-->
-                <div class="reminders">
-                    <div class="header">
-                        <i class='bx bx-bar-chart-square' ></i>
-                        <h3>Sales</h3>
-                        <i class='bx bx-filter' ></i>
-                       <!-- <i class='bx bx-plus' ></i> -->
-                    </div>
-                    <canvas id="salesChart"></canvas>
-                </div>
+                
 
                 <!-- end of reminder -->
             </div>

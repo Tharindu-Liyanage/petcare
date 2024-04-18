@@ -81,7 +81,7 @@
                                 <tr>
                                     <td class="invoice-id"><?php echo 'INV-'.$order->invoice_id  ; ?></td>
                                     <td class="profile"class="profile">
-                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user1.jpg">
+                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $order->profileImage ; ?>">
                                         <p><?php echo $order->first_name ; ?></p>
                                     </td>
                                     <td class="order-date"><?php echo $order->invoice_date ; ?></td>
@@ -107,10 +107,11 @@
 
                         
                         </tbody>
-                        <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
+                        
                     </table>
                     
                 </div>
+                <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
  
             </div> <!-- content over -->
 

@@ -33,7 +33,10 @@
 
         public function index(){
 
-            $data =null;
+            $order = $this->dashboardModel->getOrderDetails();
+            $data =[
+                'order' => $order
+            ];
    
             
             $this->view('dashboards/storemanager/index', $data);

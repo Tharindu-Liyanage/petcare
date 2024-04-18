@@ -37,45 +37,52 @@
 
                 
 
-               
-            </div>
+                <div class="add-button">
+                    <a href="<?php echo URLROOT;?>/storemanager/addCategory" >
+                    <button id="add-form-button">
+                        <i class='bx bx-user-plus' ></i>
+                                Add Category
+                    </button>
+                     </a>
+                </div>
 
-
-            <div class="add-button">
-             <a href="<?php echo URLROOT;?>/storemanager/addCategory" ><button id="add-form-button">
-                <i class='bx bx-user-plus' ></i>
-                        Add Category
-                </button> </a>
             </div>
-           
+            
 
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="category">
                     <div class="header">
                     <i class='bx bx-shopping-bag' ></i>
                         <h3>Categories</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+                       
+                    <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
                     </div>
+
+                    <!-- search container over -->
+                    
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Category</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="category-id"></i></th>
+                                <th>Category<i class='bx bxs-sort-alt sort' data-sort="category-name"></i></th>
                                 <th>Action</th>
                                 
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list" >
 
                            <?php foreach($data['category'] as $category) : ?>
 
                                 <tr>
-                                    <td><?php echo $category->id  ; ?></td>
-                                    <td><?php echo $category->categoryname  ; ?></td>
+                                    <td class="category-id" ><?php echo $category->id  ; ?></td>
+                                    <td class="category-name" ><?php echo $category->categoryname  ; ?></td>
                                     
                                     
                                    
@@ -96,8 +103,10 @@
                         </tbody>
                     </table>
                 </div>
- 
+                <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
+                
             </div> <!-- content over -->
+            
 
              
                                 
@@ -140,9 +149,10 @@
 
     
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/storemanager/manageCategory.js"></script>
     
 </body>
 </html>
