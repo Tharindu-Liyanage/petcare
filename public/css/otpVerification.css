@@ -145,7 +145,7 @@ form{
     height:100%;
    /* align-items: center; if add this one input wont work css*/
     flex-direction: column;
-    padding: 0 90px; /*113px*/
+    padding: 0 63px; /*113px*/
     display:flex;
     justify-content: space-between;
 

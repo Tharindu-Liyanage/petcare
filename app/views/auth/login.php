@@ -156,7 +156,20 @@
    
     <!--this from the helpers -->
 
-    <?php toast_notification("Signup Successful","You can now log in with your credentials.","fa-solid fa-xmark close"); ?>
+   
+    <?php
+     
+     if ($_SESSION['notification'] == "error") {
+         
+         toast_notifications("Account Create Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+         
+     }else if($_SESSION['notification'] == "ok"){
+
+         toast_notifications("You have successfully registered.",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+         
+     }
+
+    ?>
    <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
 
 

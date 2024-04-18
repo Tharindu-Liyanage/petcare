@@ -25,6 +25,13 @@
         
         public function signup(){
 
+             //unothorized access block
+             if(isset($_SESSION['user_signup_details'])){
+
+                unset($_SESSION['user_signup_details']);
+                redirect('users/signup');
+            }
+
             //check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 //process form
@@ -119,17 +126,28 @@
 
                     //Regster User
 
-                    if($this->userModel->register($data)){
+                    $_SESSION['email_otp_code'] = random_int(1000, 9999); //generate otp code
+
+                    //send email
+
+                    $this->sendEmailVerificationOtp($data);
+
+                    //create session before redirect to otpVerification
+                    $_SESSION['user_signup_details'] = $data;
+
+                    redirect('users/emailVerification');
+
+                 /*   if($this->userModel->register($data)){
                        
                         $_SESSION['signup_check'] = true;
       
-                       redirect('users/login');
+                        redirect('users/login');
 
                     }else{
                         die("Something went wrong");
                     }
 
-
+                */
 
                 }else{
                     //load view with errors
@@ -164,129 +182,99 @@
 
         }
 
-        public function vet_signup(){
 
-            //check for POST
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                //process form
-
-                //Sanatze POST data
-                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
-                //init data
-
-                $data = [
-                    'first_name' => trim($_POST['fname']),
-                    'last_name' => trim($_POST['lname']),
-                    'email' => trim($_POST['email']),
-                    'password' => trim($_POST['password']),
-                    're_password' => trim($_POST['re_password']),
-                    'mobile' => trim($_POST['mobile']),
-                    'fname_err' => '',
-                    'lname_err' => '',
-                    'email_err' => '',
-                    'password_err' => '',
-                    'confirm_password_err' => '',
-                    'mobile_err' => ''
-                ];
+        public function emailVerification(){
                 
+                //unothorized access block
+                if(!isset($_SESSION['user_signup_details'])){
+    
+                    redirect('users/signup');
+                }
 
-                //validate Email
-                if(empty($data['email'])){
-                    $data['email_err'] = 'Please enter email';
-                }else{
- 
-                    if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){ //check email in correct formate
+                //check for POST
 
-                        $data['email_err'] = 'Please enter valid email';
- 
-                    }elseif($this->userModel->findUserByEmail($data['email'])){  //check email in the DB
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                    $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                    $data = [
+                        'first_digit' => trim($_POST['first_digit_input']),
+                        'second_digit' => trim($_POST['second_digit_input']),
+                        'third_digit' => trim($_POST['third_digit_input']),
+                        'fourth_digit' => trim($_POST['fourth_digit_input']),
+                        'email' => $_SESSION['user_signup_details']['email'],
+                        'mobile' => $_SESSION['user_signup_details']['mobile'],
+                        'otp_err' => '',
+                    ];
+
+                            if ($data['first_digit'] !== "" && $data['second_digit'] !== "" && $data['third_digit'] !== "" && $data['fourth_digit'] !== "") {
+
+                                $otp = $data['first_digit'].$data['second_digit'].$data['third_digit'].$data['fourth_digit'];
+
+                                if($otp == $_SESSION['email_otp_code']){
+
+                                    //all good , now go to changePassword page
+
+                                    $data = $_SESSION['user_signup_details'];
+
+                                    //unset session variables
+                                    unset($_SESSION['user_signup_details']);
+                                    unset($_SESSION['email_otp_code']);
+
+
+
+                                    //register user
+                                    if($this->userModel->register($data)){
+                                
+                                       //for notification
+                                        $_SESSION['notification'] = "ok";
+                                        $_SESSION['notification_msg'] = "Please login to continue.";
                         
-                        $data['email_err'] = 'Email is already taken';
- 
-                    }
-                }
+                                        redirect('users/login');
+                
+                                    }else{
 
-                //validate fName
-                if(empty($data['first_name'])){
-                    $data['fname_err'] = 'Please enter first name';
-                }
+                                        $_SESSION['notification'] = "error";
+                                        $_SESSION['notification_msg'] = "Something went wrong. Please try again.";
+                                        redirect('users/signup');
+                                    }
 
-                //validate lName
-                if(empty($data['last_name'])){
-                    $data['lname_err'] = 'Please enter last name';
-                }
+                                }else{
 
-                //validate password
-                if(empty($data['password'])){
-                    $data['password_err'] = 'Please enter password';
-                }elseif(strlen($data['password']) < 8){
-                    $data['password_err'] = 'Password must be at least 8 characters';
-                }
+                                    $data['otp_err'] = 'Wrong OTP Code. Please try again.';
+                                    $this->view('auth/emailVerification',$data);
+                                }
 
-                //validate password
-                if(empty($data['re_password'])){
-                    $data['confirm_password_err'] = 'Please confirm password';
+                            }else{
+                                $data['otp_err'] = 'Please enter the OTP code.';
+                                $this->view('auth/emailVerification',$data);
+                            }
+
                 }else{
 
-                    if($data['password'] != $data['re_password'])
-                    $data['confirm_password_err'] = 'Passwords do not match';
+                    //init data
+                    $data = [
+                        'first_digit' => '',
+                        'second_digit' => '',
+                        'third_digit' => '',
+                        'fourth_digit' => '',
+                        'email' => $_SESSION['user_signup_details']['email'],
+                        'mobile' => $_SESSION['user_signup_details']['mobile'],
+                        'otp_err' => '',
+                    ];
+
+                    //load view
+                    $this->view('auth/emailVerification',$data);
                 }
+    
+               
 
-                //validate mobile
-                if(empty($data['mobile'])){
-                    $data['mobile_err'] = 'Please enter mobile number';
-                }else{
-
-                    if(!preg_match("/^(?:\+?94)?(?:7\d{8})$/", $data['mobile'])){ //check mobile in correct formate, SriLanka
-
-                        $data['mobile_err'] = 'Please enter valid mobile number';
- 
-                    }elseif($this->userModel->findUserByMobile($data['mobile'])){  //check mobile in the DB
-                        
-                        $data['mobile_err'] = 'Mobile number is already taken';
- 
-                    }   
-                }
-
-
-                //Make sure errors are empty
-
-                if(empty($data['email_err']) && empty($data['fname_err']) && empty($data['lname_err']) && empty($data['password_err']) && empty($data['confirm_password_err']) && empty($data['mobile_err'])){
-                    //validated
-                    die('Success');
-                }else{
-                    //load view with errors
-                    $this->view('auth/signUp_Vet',$data);
-
-                }
-
-
-
-
-            }else{
-
-                //init data
-                $data = [
-                    'first_name' => '',
-                    'last_name' =>'' ,
-                    'email' => '',
-                    'password' => '',
-                    're_password' => '',
-                    'mobile' => '',
-                    'fname_err' => '',
-                    'lname_err' => '',
-                    'email_err' => '',
-                    'password_err' => '',
-                    'confirm_password_err' => '',
-                    'mobile_err' => ''
-                ];
-
-                //load view
-                $this->view('auth/signUp_Vet',$data);
-            }
 
         }
+
+ 
+
+       
 
         //=========================Login===========================
 
@@ -1246,6 +1234,70 @@
             echo 'Error: ' . $mail->ErrorInfo;
         }
 
+    }
+
+
+    public function sendEmailVerificationOtp($data){
+            
+            require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+
+           
+            //session otp code break into 4 variables
+            $otpString = (string) $_SESSION['email_otp_code'];
+            $first_digit = $otpString[0];
+            $second_digit = $otpString[1];
+            $third_digit = $otpString[2];
+            $fourth_digit = $otpString[3];
+
+           
+
+               
+            try {
+                // Create a new PHPMailer instance
+                $mail = new PHPMailer(true);
+        
+                // Set mail configuration (replace with your actual details)
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = $_ENV['MAIL_USERNAME'];
+                $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+        
+                // Set email sender details
+                $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+        
+                // Add recipient address
+                $mail->addAddress($data['email'], 'User: ' . $data['email']);
+        
+                // Set subject and body
+                $mail->Subject = 'Email Verification OTP - PetCare';
+                $mail->isHTML(true);
+    
+                $filePath = __DIR__ . '/../views/email/otpCodeForVerifyEmail.php';
+                $emailContent = file_get_contents($filePath);
+    
+                $emailContent = str_replace('{pet_owner_fname}', $data['first_name'], $emailContent);
+                $emailContent = str_replace('{pet_owner_lname}', $data['last_name'], $emailContent);;
+                $emailContent = str_replace('{first-digit}',$first_digit, $emailContent);
+                $emailContent = str_replace('{second-digit}',$second_digit, $emailContent);
+                $emailContent = str_replace('{third-digit}',$third_digit, $emailContent);
+                $emailContent = str_replace('{fourth-digit}',$fourth_digit, $emailContent);
+    
+                $mail->Body = $emailContent;
+    
+                // Send the email
+                $mail->send();
+    
+                
+            
+                
+    
+            } catch (Exception $e) {
+                // Handle exceptions
+                echo 'Error: ' . $mail->ErrorInfo;
+            }
     }
 
 

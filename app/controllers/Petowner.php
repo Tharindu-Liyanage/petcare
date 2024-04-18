@@ -620,10 +620,18 @@
                                 
                                 if($this->dashboardModel->updateAppointment($data)){
 
+
+                                    $_SESSION['notification'] = "ok";
+                                    $_SESSION['notification_msg'] = "Appointment Updated Successfully";
+
+
                                     redirect('petowner/appointment');
                                     
                                 }else{
-                                    die("Something went wrong in update Appointment");
+
+                                    $_SESSION['notification'] = "error";
+                                    $_SESSION['notification_msg'] = "Something went wrong. Please try again.";
+                                    redirect('petowner/appointment');
                                 }
                             }
                                 
@@ -721,7 +729,7 @@
                         'quantity' => 1,
                     ]],
                     'success_url' => 'http://localhost/petcare/petowner/appointmentSuccess', // Add a query parameter for success
-                    'cancel_url' => 'http://localhost/petcare/petowner/appointment', // Add a query parameter for cancel
+                    'cancel_url' => 'http://localhost/petcare/petowner/appointmentFailed', // Add a query parameter for cancel
                     "expires_at" => $expiresAt,
                 ]);
         
@@ -734,6 +742,12 @@
                 // Redirect back to the appointment page if not a POST request or payment success
                 redirect('petowner/appointment');
             }
+        }
+
+        public function appointmentFailed(){
+            $_SESSION['notification'] = "error";
+            $_SESSION['notification_msg'] = "Appointment Payment Failed. Please try again.";
+            redirect('petowner/appointment');
         }
 
 
@@ -754,6 +768,9 @@
 
 
             if($addApp){
+
+                $_SESSION['notification'] = "ok";
+                $_SESSION['notification_msg'] = "Appointment Added Successfully";
                 $this->appointmentSuccessMail();
                 
             }else{

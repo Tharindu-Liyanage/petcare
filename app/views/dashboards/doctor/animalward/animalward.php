@@ -36,15 +36,6 @@
                     </ul>
                 </div>
 
-
-                <div class="add-button">
-             <a href="<?php echo URLROOT;?>/doctor/admitPatient" ><button id="add-form-button">
-                <i class='bx bx-user-plus' ></i>
-                        Admit Patient 
-                </button> </a>
-            </div>
-
-
                
             </div>
 

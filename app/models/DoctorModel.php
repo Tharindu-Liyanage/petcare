@@ -71,7 +71,7 @@
          public function getAppointmentByVetID(){
     
           $this->db->query(
-                'SELECT a.*, a.id as appointmentID, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , po.first_name as fname , po.last_name as lname , po.profileImage as vetpic
+                'SELECT a.*, a.id as appointmentID, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , po.first_name as fname , po.last_name as lname , po.profileImage as vetpic , po.id as poid, p.id as petid
                 FROM petcare_appointments a
                 JOIN petcare_pet p ON a.pet_id = p.id
                 JOIN petcare_petowner po ON a.petowner_id = po.id

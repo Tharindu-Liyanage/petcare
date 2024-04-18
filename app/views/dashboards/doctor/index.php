@@ -36,7 +36,9 @@
                         <?php echo $data['greetingmsg']; ?>,  <span><?php echo $_SESSION['user_fname']?></span>
                         </div>
                         <div class="home-text-small">
+                            <?php if($_SESSION['user_role'] == "Doctor") : ?>
                             You have <span> <?php if($data['todayAppointment'] != null) { echo  count($data['todayAppointment']);} else { echo 0;}  ?> </span> upcoming appointments.
+                            <?php endif ?>
                         </div>
                     </div>
                     <div class="home-right">
@@ -48,7 +50,7 @@
 
                 <?php
 
-                    if($data['appointmentDetails'] == null){
+                    if($data['appointmentDetails'] == null ){
 
                         echo '
 

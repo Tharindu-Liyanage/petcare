@@ -130,6 +130,7 @@
                             <h3><?php echo $_SESSION['user_fname']. ' '. $_SESSION['user_lname'];?></h3>
                         </div>
                         <hr>
+                        <?php if($_SESSION['user_role'] == "Pet Owner") : ?>
 
                         <a href="<?php echo URLROOT;?>/petowner/myorders" class="sub-menu-link">
                             <i class="ri-shopping-bag-line icon-submenu"></i>
@@ -142,6 +143,8 @@
                             <p>Settings</p>
                             <span>></span>
                         </a>
+
+                        <?php endif; ?>
 
                         <a href="<?php echo URLROOT;?>/shop/logout" class="sub-menu-link">
                         <i class="ri-logout-box-r-line icon-submenu"></i>

@@ -94,6 +94,10 @@
                     <img class="img" src="../../img/question.svg" alt=""><span><a href="./forgotpwd.html">Forgotten Password?</a></span>
                   </div> -->
 
+                  <div class="Q1 Q2">
+                    <img class="img img2" src="<?php echo URLROOT;?>/public/img/auth/warn.svg" alt=""><span>Are you a Petowner? <a href="<?php echo URLROOT;?>/users/login">Click here.</a></span>
+                  </div>
+
 
                  
 

@@ -212,6 +212,25 @@
                                 
         </main>
 
+
+        <?php
+            
+            if(!isset($_SESSION['notification'])){
+                $_SESSION['notification_title'] = "";
+            }
+
+            if ($_SESSION['notification'] == "error") {
+                
+                toast_notifications("Something Went Wrong!",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+                
+            }else if($_SESSION['notification'] == "ok"){
+
+                toast_notifications("Success!",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+                
+            }
+
+        ?>
+
                       
 
            
@@ -221,13 +240,6 @@
 
     </div>
 
-   
-
-
-  
-
-
-   
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/petowner/appointmentTable.js"></script>

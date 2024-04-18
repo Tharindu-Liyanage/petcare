@@ -7,11 +7,29 @@
         }
 
         public function getPosts(){
-            $this->db->query('SELECT * , category.category_name as categoryname , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
+            $this->db->query('SELECT petcare_blogs.* , category.category_name as categoryname , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
             FROM petcare_blogs
             JOIN petcare_blogs_category category ON petcare_blogs.category = category.id
-            JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id ORDER BY publishdate DESC
+            JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id
+            WHERE petcare_blogs.author = :id
+            ORDER BY publishdate DESC
+            
             ');
+
+            $this->db->bind(':id' , $_SESSION['user_id']);
+
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function getPostsForBlog(){
+            $this->db->query('SELECT petcare_blogs.* , category.category_name as categoryname , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
+            FROM petcare_blogs
+            JOIN petcare_blogs_category category ON petcare_blogs.category = category.id
+            JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id
+            ORDER BY publishdate DESC 
+          ');
+
 
             $results = $this->db->resultSet();
             return $results;

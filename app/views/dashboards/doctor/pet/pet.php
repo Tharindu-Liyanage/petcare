@@ -141,9 +141,11 @@
                                    
                                            
                                   <!--  <a title="Reject" class="rej"><i class="bx bx-block"></i></a> -->
-                                  <a href="<?php echo URLROOT; ?>/doctor/addmitPet/<?php echo $petdetails->petid;?>" class="removeLink rej" title="Admit"><i class='bx bx-plus'></i></a>
+
+                                  
 
                                   <?php if($_SESSION['user_role'] == 'Doctor'): ?>
+                                    <a href="<?php echo URLROOT; ?>/doctor/addmitPet/<?php echo $petdetails->petid;?>" class="removeLink rej" title="Admit"><i class='bx bx-plus'></i></a>
                                     <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/doctor/requestPastMedicalReports/<?php echo $petdetails->petid;?>/emergency"><i class="bx bx-check"></i></a>
                                   <?php elseif($_SESSION['user_role'] == 'Nurse'): ?>
                                     <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/nurse/requestPastMedicalReports/<?php echo $petdetails->petid;?>/emergency"><i class="bx bx-check"></i></a>

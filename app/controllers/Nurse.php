@@ -199,15 +199,17 @@
         public function animalward(){
 
             //get animal ward details
-           $wardDetails = $this->doctorModel->getAnimalWardDetails();
-           $counOfCage = $this->doctorModel->getCageCountAll();
-
-            $data = [
-                'animalward' => $wardDetails,
-                'cageCount' => $counOfCage
-            ];
-
-            $this->view('dashboards/doctor/animalward/animalward',$data);
+            $wardDetails = $this->doctorModel->getAnimalWardDetails();
+            $counOfCage = $this->doctorModel->getCageCountAll();
+            $dischargeDetails = $this->doctorModel->getDischargePets();
+ 
+             $data = [
+                 'animalward' => $wardDetails,
+                 'cageCount' => $counOfCage,
+                 'dischargeDetails' => $dischargeDetails
+             ];
+ 
+             $this->view('dashboards/doctor/animalward/animalward',$data);
         }
 
         
