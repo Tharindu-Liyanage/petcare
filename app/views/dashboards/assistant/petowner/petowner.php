@@ -126,7 +126,21 @@
 </div> <!-- content over -->
 
         </main>
+        <?php
+     //view notifications-------
+        if ($_SESSION['notification'] == "error") {
+            
+            toast_notifications("Appointment Update Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+            
+        }else if($_SESSION['notification'] == "ok"){
+
+            toast_notifications("Appointment Updated!",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+            
+        }
+
+    ?>
     </div>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script> <!-- notification ekk blnn-->
 </body>
 </html>

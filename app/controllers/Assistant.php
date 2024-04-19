@@ -263,6 +263,7 @@
                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
                  $data = [
+                        'id'    => $petownerID,
                         'mobile' => trim($_POST['mobile']),
                         'email' => trim($_POST['email']),
                     
@@ -281,11 +282,6 @@
 
             if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){ //check email in correct formate
 
-                $email=$this->assistantModel->findEmail($data['email']);//check database 
-
-                if($email){
-                    $data['email_err'] = 'email already taken';
-                }
                
             }else{  //check email in the DB
             
@@ -301,41 +297,43 @@
         //validate mobile
         if(empty($data['mobile'])){
 
-             $data['mobile_err'] = 'Please enter mobile';
+                 $data['mobile_err'] = 'Please enter mobile';
                         
-         }else{
+        }else{
  
                if(preg_match("/^94\d{9}$/", $data['mobile'])){ //check email in correct formate
 
-                    $mobile=$this->assistantModel->findMobile($data['mobile']);//check database 
-
-                    if($mobile){
-                            $data['mobile_err'] = 'mobile already taken';
-                    }
                            
-                    }else{  //check email in the DB
+               }else{  //check email in the DB
                         
-                             $data['mobile_err'] = 'mobile is not valid';
+                    $data['mobile_err'] = 'mobile is not valid';
  
-                        }
+               }
 
 
-              }
+         }
 
 
-                
-
-                $data = [
-
-                    'id' => $petownerID,
-                    'email' => $petownerDetails->email,
-                    'mobile' => $petownerDetails->mobile,
-                    
-                    'email_err' => '',
-                    'mobile_err' =>'' ,
-                ];
+              if( empty($data['email_err'])  && empty($data['mobile_err']) )  {
 
 
+                           //Regster User
+
+                           if($this->assistantModel->updatepetowner($data)){
+                            $_SESSION['notification'] = "ok";
+                            $_SESSION['notification_msg'] = "Update Successful.";
+                                   redirect('assistant/petowner');
+
+                           }else{
+                                  die("Something went wrong");
+                           }
+
+
+             }else{
+                $this->view('dashboards/assistant/petowner/updatePetowner',$data);//load with errors  
+             }  
+
+               
 
 
 

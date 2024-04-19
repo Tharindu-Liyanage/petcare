@@ -184,26 +184,24 @@ public function findpetownerID($petownerID){
 
         }
 
-//Update Pet----------------------------------------------------------------------------------------------------------------------------------------
-      public function updatePet($data){
-      $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB =:dob , breed= :breed , sex = :sex , species = :species WHERE id = :id');
-      //bind values
-      $this->db->bind(':id' , $data['id']);
-      $this->db->bind(':pname' , $data['pname']);
-      $this->db->bind(':DOB',$data['dob']);
-      $this->db->bind(':breed',$data['breed']);
-      $this->db->bind(':sex',$data['sex']);
-      $this->db->bind(':species',$data['species']);
 
+        //Update Petowner----------------------------------------------------------------------------------------------------------------------------------------
+      public function updatePetowner($data){
+        $this->db->query('UPDATE petcare_petowner SET mobile = :mobile , email =:email  WHERE id = :id');
+        //bind values
+        $this->db->bind(':id' , $data['id']);
+        $this->db->bind(':mobile',$data['mobile']);
+        $this->db->bind(':email',$data['email']);
+        
+        
+                  //execute
+                  if($this->db->execute()){
+                      return true;
       
-                //execute
-                if($this->db->execute()){
-                    return true;
-    
-                }else{
-                    return false;
-                }
-      }
+                  }else{
+                      return false;
+                  }
+        }
 // ------------------------------------------------
       public function getAppointmentDetails(){
       $this->db->query('SELECT 
