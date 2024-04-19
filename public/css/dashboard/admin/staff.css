@@ -64,6 +64,12 @@
     
 }
 
+.content main .bottom-data .users table td a{
+    color: var(--dark);
+    text-decoration: none;
+  
+}
+
 .content main .bottom-data .users table tr td:nth-child(2){
     display: flex;
     align-items: center;
