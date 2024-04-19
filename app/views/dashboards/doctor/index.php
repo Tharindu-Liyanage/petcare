@@ -30,7 +30,13 @@
                 
             </div>
 
-            <div class="home-box">
+            <div class="home-box" 
+            
+            <?php if($_SESSION['user_role'] == "Nurse") : ?>
+                style="height:200px;"
+            <?php endif ?>
+            
+            >
                     <div class="home-left">
                         <div class="home-text-large">
                         <?php echo $data['greetingmsg']; ?>,  <span><?php echo $_SESSION['user_fname']?></span>
@@ -39,12 +45,25 @@
                             <?php if($_SESSION['user_role'] == "Doctor") : ?>
                             You have <span> <?php if($data['todayAppointment'] != null) { echo  count($data['todayAppointment']);} else { echo 0;}  ?> </span> upcoming appointments.
                             <?php endif ?>
+
+                            <?php if($_SESSION['user_role'] == "Nurse") : ?>
+                              Currently <span><?php if($data['wardDetails'] != null) { echo  count($data['wardDetails']);} else { echo 0;}  ?> </span> animals in the ward.
+                            <?php endif ?>
+
                         </div>
                     </div>
                     <div class="home-right">
-                        <img src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
+                        <img
+                        
+                        <?php if($_SESSION['user_role'] == "Nurse") : ?>
+
+                            Style="width: 140px; height:auto;" 
+                        <?php endif ?>
+                        src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
                     </div>
                 </div>
+
+            <?php if($_SESSION['user_role'] == "Doctor") : ?>
 
                 <div class="home-box2" id="appointmentDetails-container">
 
@@ -96,7 +115,7 @@
 
                 </div>
                 
-
+            <?php endif ?>
                 <!-- latest patient table is here -->
 
                 

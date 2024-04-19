@@ -46,12 +46,15 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="staff">
                     <div class="header">
                     <i class='bx bxs-user-account main' ></i>
                         <h3>Pet Owners</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+
+                        <div class="search-container-table">
+                            <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                            <i class='bx bx-search' ></i>
+                         </div>
                     </div>
                     <table>
                         <thead>
@@ -65,12 +68,12 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
                             <?php foreach($data['petowners'] as $petowner) : ?>
 
                             <tr>
-                                <td><?php echo $petowner->petowner_id_generate?></td>
+                                <td>PO-<?php echo $petowner->petowner_id_generate?></td>
                                 <td class="profile">
                                     <a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $petowner->id; ?>">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner->profileImage?>" ><p><?php echo $petowner->first_name?> <?php echo $petowner->last_name?></p>
@@ -93,6 +96,8 @@
                         <?php endforeach; ?>
                         </tbody>
                     </table>
+
+                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
                 </div>
  
             </div> <!-- content over -->
@@ -156,6 +161,7 @@
         
     
     ?>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>

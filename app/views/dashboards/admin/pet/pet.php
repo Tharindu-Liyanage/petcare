@@ -46,12 +46,16 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="pet">
                     <div class="header">
                     <i class='bx bxs-dog' ></i>
                         <h3>Pets</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+
+                        <div class="search-container-table">
+                            <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                            <i class='bx bx-search' ></i>
+                        </div>
+
                     </div>
                     <table>
                         <thead>
@@ -67,21 +71,21 @@
                          <?php if($_SESSION['user_role'] == 'Admin')   echo  " <th>Action</th> " ;?>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
                            <?php foreach($data['pet'] as $pet) : ?>
 
                                 <tr>
-                                    <td><?php echo $pet->id ; ?></td>
+                                    <td class="id-search">PET-<?php echo $pet->id ; ?></td>
                                     <td class="profile">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet->profileImage ; ?>" ><p><?php echo $pet->pet ; ?></p>
                                     </td>
                                     <td><?php echo $pet->DOB ; ?></td>
-                                    <td><?php echo $pet->breed ; ?></td>
-                                    <td><?php echo $pet->sex ; ?></td>
-                                    <td>2</td>
+                                    <td class="breed-search"><?php echo $pet->breed ; ?></td>
+                                    <td class="sex-search"><?php echo $pet->sex ; ?></td>
+                                    <td>age need to get</td>
                                     <!-- need to change -->
-                                    <td><?php echo $pet->species ; ?></td>
+                                    <td class="species-search"><?php echo $pet->species ; ?></td>
 
                                     <?php if ($_SESSION['user_role'] == 'Admin') { ?>
                                             <td class="action">
@@ -100,6 +104,8 @@
                         
                         </tbody>
                     </table>
+
+                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
                 </div>
  
             </div> <!-- content over -->
@@ -144,10 +150,10 @@
 
 
     
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/admin/petTable.js"></script>
     
 </body>
 </html>

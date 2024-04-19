@@ -378,13 +378,20 @@
                 if (empty($data['species'])) {
                     $data['species_err'] = 'Please enter Species';
                 }
+
+
+                //date validate
+                if($data['dob'] > date('Y-m-d')){
+
+                    $data['dob_err'] = 'DOB cannot be future date';
+                }
                 
 
                 
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['species_err']) && empty($data['img_err']) && empty($data['sex_err'])){
+                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['species_err']) && empty($data['img_err']) && empty($data['sex_err']) && empty($data['dob_err'])){
                     //validated
                     
                    
@@ -500,6 +507,7 @@
             $holidays = $this->dashboardModel->getHolidayDetails();
             $reason = $this->dashboardModel->getAppointmentReasons();
             $treament_data = $this->dashboardModel->getTreatmentDetailsByUserIDOnlyOngoing($_SESSION['user_id']);
+            $price = $this->settingsModel->getPrice();
            
 
         
@@ -509,7 +517,8 @@
                 'vet' => $vets,
                 'holiday' => $holidays,
                 'reason' => $reason,
-                'medicalreport' =>$treament_data
+                'medicalreport' =>$treament_data,
+                'price' => $price
             ];
 
             $this->view('dashboards/petowner/appointment/addAppointment', $data);
@@ -708,6 +717,7 @@
                 $_SESSION['appointment_date'] = trim($_POST['date']);
                 $_SESSION['appointment_time'] = trim($_POST['time']);
                 $_SESSION['appointment_treatment'] = trim($_POST['treatment']);
+                $_SESSION['appointment_price'] = $price->price;
 
                 
         
@@ -753,7 +763,7 @@
 
         public function appointmentSuccess(){
 
-            $addApp = $this->dashboardModel->insertAppointment($_SESSION['appointment_vetID'], $_SESSION['appointment_reason'], $_SESSION['appointment_petID'], $_SESSION['appointment_date'], $_SESSION['appointment_time'], $_SESSION['appointment_treatment']);
+            $addApp = $this->dashboardModel->insertAppointment($_SESSION['appointment_vetID'], $_SESSION['appointment_reason'], $_SESSION['appointment_petID'], $_SESSION['appointment_date'], $_SESSION['appointment_time'], $_SESSION['appointment_treatment'], $_SESSION['appointment_price']);
 
             $vetName = $this->dashboardModel->getVetNameByID($_SESSION['appointment_vetID']);
             $petName = $this->dashboardModel->getPetNameByID($_SESSION['appointment_petID']);
@@ -862,6 +872,7 @@
             unset($_SESSION['appointment_petName']);
             unset($_SESSION['appointment_generatedID']);
             unset($_SESSION['appointment_treatment']);
+            unset($_SESSION['appointment_price']);
         }
 
         

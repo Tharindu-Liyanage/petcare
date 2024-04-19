@@ -1254,12 +1254,12 @@
         }
 
         //26
-        public function insertAppointment($vetID, $reason, $petID, $date, $time,$treatment_id){
+        public function insertAppointment($vetID, $reason, $petID, $date, $time,$treatment_id,$price){
 
             if($treatment_id == "NONE"){
                 $this->db->query(
 
-                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending")');
+                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status,price) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending",:price)');
     
                     $this->db->bind(':vetID',$vetID);
                     $this->db->bind(':reason',$reason);
@@ -1267,6 +1267,7 @@
                     $this->db->bind(':date',$date);
                     $this->db->bind(':time',$time);
                     $this->db->bind(':petowner_id',$_SESSION['user_id']);
+                    $this->db->bind(':price',$price);
                 
         
                 //execute

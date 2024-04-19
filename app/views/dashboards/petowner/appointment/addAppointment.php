@@ -396,7 +396,7 @@
                                 <div class="label">Time: <span id="time-last" class="fw-for-confirm"></span></div>
                                 <div class="label">Date: <span id="date-last" class="fw-for-confirm"></span></div>
                                 <div class="label">Reason: <span id="reason-id" class="fw-for-confirm"></span></div>
-                                <div class="label">Price: <span class="fw-for-confirm">LKR 1500</span></div>
+                                <div class="label">Price: <span class="fw-for-confirm">LKR <?php echo $data['price']->price;?></span></div>
                             </div>
 
 

@@ -34,10 +34,12 @@
         public function index(){
 
             $greetingmsg = $this->getWelcomeGreeting();
+            $wardDetails = $this->doctorModel->getAnimalWardDetails();
             //$appointmentDetails = $this->getCurrentAppointment();
 
             $data = [
                 'greetingmsg' => $greetingmsg,
+                'wardDetails' => $wardDetails,
                 //'appointmentDetails' =>$appointmentDetails,
             ];
    
