@@ -45,13 +45,13 @@
  }
 
 
- //-------------------------------------------------------------------------------------
+ //before update and get details-------------------------------------------------------------------------------------
  public function getPetDetailsByID($id){
 
 
     $this ->db->query('SELECT * FROM petcare_pet WHERE id = :id ');
 
-    $this->db->bind(':petID' , $id);
+    $this->db->bind(':id' , $id);
 
     $row = $this->db->single();
 
@@ -60,9 +60,26 @@
 
  }
 
+ public function updatePetDetails($data){
+    $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB =:dob, species =:species , sex =:sex , breed=:breed  WHERE id = :id');
+    //bind values
+    $this->db->bind(':id' , $data['id']);
+    $this->db->bind(':pname',$data['pname']);
+    $this->db->bind(':dob',$data['dob']);
+    $this->db->bind(':species',$data['species']);
+    $this->db->bind(':sex',$data['sex']);
+    $this->db->bind(':breed',$data['breed']);
+    
+    
+              //execute
+              if($this->db->execute()){
+                  return true;
+  
+              }else{
+                  return false;
+              }
 
-
- 
+ }
 
 
 
@@ -183,6 +200,8 @@ public function findpetownerID($petownerID){
 
 
         }
+
+    
 
 
         //Update Petowner----------------------------------------------------------------------------------------------------------------------------------------

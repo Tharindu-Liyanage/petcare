@@ -47,7 +47,7 @@
                 <ul class="breadcrumb">
                     <li><a href="<?php echo URLROOT;?>/assistant">Dashboard</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/assistant/pet">Petownr</a></li>
+                    <li><a href="<?php echo URLROOT;?>/assistant/pet">Pet</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
                     <li><a href="<?php echo URLROOT;?>/assistant/addPet" class="active">Add pet</a></li>
                 </ul>
@@ -60,8 +60,9 @@
 
 <!-- staff add model here -->
 <div class="add-model">
-<i class='bx bxs-dog' ></i>
+
    <div class="header">
+   <i class='bx bxs-dog' ></i>
         <h3>Add pet</h3>       
     </div>
 
@@ -166,7 +167,7 @@
 
                 <div class="button-form">
                             <button type="reset"  class="button-submit">Reset</button> 
-                            <button type="submit" id="button-submit" class="button-submit">Update</button>
+                            <button type="submit" id="button-submit" class="button-submit">Add</button>
                 </div>
                 
 

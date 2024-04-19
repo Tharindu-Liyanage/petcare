@@ -1,6 +1,10 @@
 <?php
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\SMTP;
+  use PHPMailer\PHPMailer\Exception;
 
     class Assistant extends Controller {
+
 
         public function __construct(){
            
@@ -22,6 +26,7 @@
             $this->settingsModel= $this->model('Settings') ;
             $this->assistantModel = $this->model('AssistantModel');
             $this->dashboardModel = $this->model('Dashboard');
+            $this->userModel = $this->model('User');
 
 
         }
@@ -203,7 +208,8 @@
                                     //Regster User
 
                                     if($this->assistantModel->addpetowner($data)){
-                                    
+                                        $_SESSION['notification'] = "ok";
+                                        $_SESSION['notification_msg'] = "Add petowner Successful.";
                                       
                     
                                     redirect('assistant/petowner');
@@ -469,7 +475,8 @@
                    //Regster User
 
                    if($this->assistantModel->addpet($data)){
-                                    
+                    $_SESSION['notification'] = "ok";
+                    $_SESSION['notification_msg'] = "Pet Added Successful.";             
                                       
                     
                     redirect('assistant/pet');
@@ -532,19 +539,7 @@
 
 
               
-                    // if (isset($_FILES['pet_img'])) {
-                    //     $uploadedFileName = $_FILES['pet_img']['name'];
-                    //     $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
-
-                    //     // Generate a timestamp for uniqueness
-                    //     $timestamp = time();
-
-                    //     // Create a unique ID by concatenating values and adding the file extension
-                    //     $uniqueImgFileName = $id . '_' . $_POST['pname'] . '_' . $_POST['dob'] . '_' . $timestamp . '.' . $fileExtension;
-
-                    // }
-               
-
+                    
                 //init data
 
                 $data = [
@@ -590,21 +585,28 @@
                 if (empty($data['species'])) {
                     $data['species_err'] = 'Please enter Species';
                 }
+
+                  //validate DOB
+                  //date validate
+                if($data['dob'] > date('Y-m-d')){
+
+                    $data['dob_err'] = 'DOB cannot be future date';
+                }
                 
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['breed_err']) && empty($data['species_err']) && empty($data['img_err']) && empty($data['sex_err'])){
+                if(empty($data['pname_err']) && empty($data['breed_err'])&&empty($data['dob_err']) && empty($data['species_err'])  && empty($data['sex_err'])){
                     //validated
                     
                    
                     //add pet
 
-                    if($this->dashboardModel->updatePetDetails($data)){
+                    if($this->assistantModel->updatePetDetails($data)){
+                        $_SESSION['notification'] = "ok";
+                        $_SESSION['notification_msg'] = "Pet Update Successful.";
                        
-                       // $_SESSION['staff_user_added'] = true;
-                     
-                       redirect('petowner/pet');
+                       redirect('assistant/pet');
                        
 
                     }else{
@@ -617,7 +619,7 @@
 
                     
                     //load view with errors
-                    $this->view('dashboards/petowner/pet/updatePet', $data);
+                    $this->view('dashboards/assistant/pet/updatePet', $data);
                     
                     
 
@@ -630,7 +632,8 @@
 
 
                 if($pet == null){   //if no data found : its mean user try to access url with wrong pet id(intentionally)
-                    redirect('petowner/pet');
+
+                    redirect('assistant/pet');
                 }
 
 
@@ -655,7 +658,7 @@
 
                 
                 //load view
-                $this->view('dashboards/petowner/pet/updatePet', $data);
+                $this->view('dashboards/assistant/pet/updatePet', $data);
             }
    
 

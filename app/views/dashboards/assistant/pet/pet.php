@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard- Assistant-pet.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
  
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>dashboard</title>
@@ -122,7 +125,22 @@
 </div> <!-- content over -->
 
         </main>
+
+        <?php
+     //view notifications-------
+        if ($_SESSION['notification'] == "error") {
+            
+            toast_notifications("Changes Applied Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+            
+        }else if($_SESSION['notification'] == "ok"){
+
+            toast_notifications("Changes Applied Succussfull!",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+            
+        }
+
+    ?>
     </div>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script> <!-- notification ekk blnn-->
 </body>
 </html>

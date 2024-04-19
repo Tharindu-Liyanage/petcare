@@ -6,6 +6,7 @@
       <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
       <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/addStaff.css">
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
       <title>Dashboard</title>
    </head>
    <body>
@@ -43,20 +44,20 @@
     
 
 
-    <form class="form" method="post" enctype="multipart/form-data" action="<?php echo URLROOT; ?>/petowner/updatePet/<?php echo $data['id'] ;?>">
+    <form class="form" method="post" enctype="multipart/form-data" action="<?php echo URLROOT; ?>/assistant/updatePet/<?php echo $data['id'] ;?>">
 
       
 
     <div class="column">
 
         <div class="flex-column">
-                            <label>petowner name</label>
+                            <label>Pet Name</label>
                         </div>
-                        <div class="inputForm <?php echo (!empty($data['firstname_err'])) ? 'is-invalid' : '' ; ?>">
+                        <div class="inputForm <?php echo (!empty($data['pname_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-purchase-tag-alt' ></i>
-                            <input type="text" class="input" name="firstname" placeholder="Enter petowner Name" value="<?php echo $data['firstname']?>">
+                            <input type="text" class="input" name="pname" placeholder="Enter pet Name" value="<?php echo $data['pname']?>">
                         </div>
-                        <span class="invalid-feedback"><?php echo $data['firstname_err']; ?></span>
+                        <span class="invalid-feedback"><?php echo $data['pname_err']; ?></span>
 
                         <div class="flex-column">
                             <label>Date Of Birth</label>
@@ -107,21 +108,9 @@
                         <span class="invalid-feedback"><?php echo $data['sex_err']; ?></span>
 
 
-                        <div class="flex-column">
-                            <label>Upload Image</label>
-                        </div>
-                        <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-image-alt'></i>
-                            <input type="file" class="input" name="pet_img" accept="image/*">
-                        </div>
-                        <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
-
-                        
                         
 
-
-            
-
+                    
                 </div> <!-- column close -->
 
                 <div class="button-form">
