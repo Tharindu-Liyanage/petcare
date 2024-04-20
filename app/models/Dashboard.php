@@ -1611,10 +1611,12 @@
 
 
         public function getBillByTreatmentID($id) {
-            $this->db->query('SELECT bill.* , treat.payment_status AS payment_status
+            $this->db->query('SELECT bill.* , treat.payment_status AS payment_status , petowner.first_name AS petownerfname , petowner.last_name AS petownerlname , petowner.address AS petownerAddress
              FROM petcare_ward_medical_bill bill
              JOIN petcare_ward_treatment treat ON bill.ward_treatment_id = treat.ward_treatment_id
-              WHERE bill.ward_treatment_id = :id');
+             JOIN petcare_pet pet ON treat.pet_id = pet.id
+             JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
+             WHERE bill.ward_treatment_id = :id');
             $this->db->bind(':id', $id);
 
             $results = $this->db->resultSet();

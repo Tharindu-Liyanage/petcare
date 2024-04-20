@@ -81,6 +81,9 @@ use PHPMailer\PHPMailer\Exception;
             
         //     $this->view('shop/healthAndWellness', $data);
         // }
+
+
+
         public function category($catId){
 
             
@@ -90,6 +93,13 @@ use PHPMailer\PHPMailer\Exception;
             
             $product = $this->shopModel->getProductInfo($catId);
             $categories = $this->shopModel->getCategoriDetailsByID($catId);
+
+            if($categories == null){
+                $this->notfound();
+                return;
+            }
+
+            
 
             $data =[
                 'title' => $categories->categoryname,
