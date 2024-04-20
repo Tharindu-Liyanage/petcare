@@ -188,7 +188,7 @@ ul.pagination li.active{
         </style>
 
 
-        <title>Search Results</title>
+        <title>PetCare | Search Results</title>
         <?php require_once __DIR__ . '/shopHeader.php'; ?>
 
         <main>

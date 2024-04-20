@@ -22,7 +22,7 @@
    
 
 
-    <title>Shop</title>
+    <title>PetCare | Shop</title>
 </head>
 <body>
 

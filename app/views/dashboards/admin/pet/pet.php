@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <title>PetCare | Pet</title>
 </head>
 <body>
 
@@ -61,13 +61,13 @@
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Pet</th>
-                                <th>DOB</th>
-                                <th>Breed</th>
-                                <th>Sex</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
+                                <th>Pet <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>DOB </th>
+                                <th>Breed <i class='bx bxs-sort-alt sort' data-sort="breed-search"></th>
+                                <th>Sex <i class='bx bxs-sort-alt sort' data-sort="sex-search"></th>
                                 <th>Age</th>
-                                <th>Species</th>
+                                <th>Species <i class='bx bxs-sort-alt sort' data-sort="species-search"></th>
                          <?php if($_SESSION['user_role'] == 'Admin')   echo  " <th>Action</th> " ;?>
                             </tr>
                         </thead>
@@ -83,7 +83,7 @@
                                     <td><?php echo $pet->DOB ; ?></td>
                                     <td class="breed-search"><?php echo $pet->breed ; ?></td>
                                     <td class="sex-search"><?php echo $pet->sex ; ?></td>
-                                    <td>age need to get</td>
+                                    <td><?php echo $pet->age ; ?></td>
                                     <!-- need to change -->
                                     <td class="species-search"><?php echo $pet->species ; ?></td>
 

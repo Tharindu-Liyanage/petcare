@@ -49,7 +49,7 @@ ul.pagination li.active{
     </style>
 
 
-    <title>Shop</title>
+    <title>PetCare | Shop</title>
 </head>
 <body>
 <?php require_once __DIR__ . '/shopHeader.php'; ?>
@@ -91,27 +91,30 @@ ul.pagination li.active{
 
         </div>
 
-    <div class=" category-container">
+        <div class="ag-format-container">
+            <div class="ag-courses_box">
 
-        <?php foreach($data['category'] as $category) : ?>                       
-           <a href="<?php echo URLROOT; ?>/shop/category/<?php echo $category-> categoryname ; ?>/<?php echo $category-> id ; ?>" class = "category-box">
-                <!-- <?php if($category-> categoryname == 'Food'){ ;?>
-                    <div class="drop-icon icon-large"><i class="fa-solid fa-bowl-food"></i></div>
-                <?php } elseif ($category-> categoryname == 'Toys'){ ; ?>
-                    <div class="drop-icon icon-large"><i class="fa-solid fa-bread-slice"></i></div>
-                <?php } elseif ($category-> categoryname == 'Grooming'){ ; ?>
-                    <div class="drop-icon icon-large"><i class="fa-solid fa-paw"></i></div>
-                <?php } elseif ($category-> categoryname == 'Accessories'){ ; ?>
-                    <div class="drop-icon icon-large"><i class="fa-solid fa-table-cells-large"></i></div>
-                <?php } ; ?> -->
-                
-                <span> <?php echo  $category -> categoryname ; ?> </span>
-            </a>  
-        <?php endforeach ; ?>
+            <?php foreach($data['category'] as $category) : ?>
+                    <div class="ag-courses_item">
+                        <a href="<?php echo URLROOT?>/shop/category/<?php echo $category-> id ; ?>" class="ag-courses-item_link">
+                            <div class="ag-courses-item_bg"></div>
 
-        
-        
-        
+                                <div class="ag-courses-item_title">
+                                <?php echo  $category -> categoryname ; ?>
+                                </div>
+
+                          <!--      <div class="ag-courses-item_date-box">
+                                    Start:
+                                    <span class="ag-courses-item_date">
+                                        04.11.2022
+                                    </span>
+                                </div>
+                             -->
+                        </a>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        </div>
 
     </div>
     </section>

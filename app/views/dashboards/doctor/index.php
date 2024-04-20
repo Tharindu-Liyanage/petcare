@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/doctor/dashboard.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css"> <!-- for two pic table -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>dashboard</title>
+    <title>PetCare | Dashboard</title>
 </head>
 <body>
 

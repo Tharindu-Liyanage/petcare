@@ -81,7 +81,7 @@ use PHPMailer\PHPMailer\Exception;
             
         //     $this->view('shop/healthAndWellness', $data);
         // }
-        public function category($category,$catId){
+        public function category($catId){
 
             
            
@@ -89,9 +89,10 @@ use PHPMailer\PHPMailer\Exception;
             
             
             $product = $this->shopModel->getProductInfo($catId);
+            $categories = $this->shopModel->getCategoriDetailsByID($catId);
 
             $data =[
-                'title' => $category,
+                'title' => $categories->categoryname,
                 'product' => $product
             ];
 

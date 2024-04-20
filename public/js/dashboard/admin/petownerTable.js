@@ -11,21 +11,21 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
-      valueNames: ['id-search', 'profile', 'breed-search', 'sex-search', 'species-search'],
+      valueNames: ['id-search', 'profile', 'email-search', 'address-search', 'phone-search'],
       page: 5,
       pagination: true,
   };
 
-  var userList = new List('pet', options);
+  var userList = new List('petowner', options);
   
 
 
    if (showEntriesDropdown) {
      showEntriesDropdown.addEventListener('change', function () {
-         var selectedValue = parseInt(this.value);
-         userList.page = selectedValue;
+        var selectedValue = parseInt(this.value);
+       userList.page = selectedValue;
          userList.update();
-     });
+    });
    }
   
 

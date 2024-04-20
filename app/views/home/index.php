@@ -20,7 +20,7 @@
     <link rel="icon" href="<?php echo URLROOT;?>/public/img/favicons/favicon.ico" type="image/x-icon">
 
 
-    <title> Home</title>
+    <title>PetCare | Home</title>
 </head>
 <body>
     <!-- header start  -->
@@ -433,6 +433,20 @@
   </script>
 
   <script src="<?php echo URLROOT;?>/public/js/home.js"></script>
+
+  <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/66234c2e1ec1082f04e4ef00/1hrsu369j';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 
 
 

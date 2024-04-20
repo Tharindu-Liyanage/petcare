@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <title>PetCare | Petowner</title>
 </head>
 <body>
 
@@ -46,7 +46,7 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users" id="staff">
+                <div class="users" id="petowner">
                     <div class="header">
                     <i class='bx bxs-user-account main' ></i>
                         <h3>Pet Owners</h3>
@@ -60,28 +60,28 @@
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Phone</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
+                                <th>Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>Email <i class='bx bxs-sort-alt sort' data-sort="email-search"></th>
+                                <th>Address <i class='bx bxs-sort-alt sort' data-sort="address-search"></th>
+                                <th>Phone <i class='bx bxs-sort-alt sort' data-sort="phone-search"></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="list">
 
-                            <?php foreach($data['petowners'] as $petowner) : ?>
+                            <?php foreach($data['petowner'] as $petowner) : ?>
 
                             <tr>
-                                <td>PO-<?php echo $petowner->petowner_id_generate?></td>
+                                <td class="id-search"><?php echo $petowner->petowner_id_generate?></td>
                                 <td class="profile">
                                     <a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $petowner->id; ?>">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner->profileImage?>" ><p><?php echo $petowner->first_name?> <?php echo $petowner->last_name?></p>
                                     </a>
                                 </td>
-                                <td><?php echo $petowner->email?></td>
-                                <td><?php echo $petowner->address?></td>
-                                <td><?php echo $petowner->mobile?></td>
+                                <td class="email-search"><?php echo $petowner->email?></td>
+                                <td class="address-search"><?php echo $petowner->address?></td>
+                                <td class="phone-search"><?php echo $petowner->mobile?></td>
                                 <td class="action">
                                     
                                     <div class="act-icon">
@@ -164,7 +164,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/admin/petownerTable.js"></script>
     
 </body>
 </html>

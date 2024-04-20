@@ -442,7 +442,7 @@
             $petowners = $this->dashboardModel-> getPetwonerDetails();
 
             $data = [
-                'petowners' =>$petowners
+                'petowner' =>$petowners
             ];
     
             $this->view('dashboards/admin/petowner/petowner',$data);
@@ -619,10 +619,46 @@
         public function pet(){
             $pet = $this->dashboardModel->getPetDetails();
 
+            //add a new age column and add age
+            foreach ($pet as $p) {
+                $p->age = $this->calculateAge($p->DOB);
+            }
+
+
+
             $data = [
                 'pet' => $pet
             ];
             $this->view('dashboards/admin/pet/pet',$data);
+        }
+
+        public function calculateAge($birthdate) {
+            // Create a DateTime object from the birthdate
+            $birthdate = new DateTime($birthdate);
+            
+            // Get the current date
+            $currentDate = new DateTime();
+            
+            // Calculate the difference in years, months, and days
+            $ageInterval = $currentDate->diff($birthdate);
+        
+            $years = $ageInterval->y;
+            $months = $ageInterval->m;
+            $days = $ageInterval->d;
+        
+            // Build the age string
+            $ageString = '';
+            if ($years > 0) {
+                $ageString .= "$years" . " Years ";
+            }
+            if ($months > 0 ) {
+                $ageString .= "$months" . " Months ";
+            }
+            if ($days > 0 && $months == 0 && $years == 0) {
+                $ageString .= "$days" . " Days";
+            }
+        
+            return $ageString;
         }
     
 

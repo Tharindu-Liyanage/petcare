@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="http://localhost/petcare/public/img/favicons/favicon-16x16.png">
     <link rel="icon" href="http://localhost/petcare/public/img/favicons/favicon.ico" type="image/x-icon">
     
-    <title>Login</title>
+    <title>PetCare | Login</title>
 </head>
 <body>
 

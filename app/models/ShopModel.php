@@ -307,6 +307,17 @@
             return $results;
          }
 
+
+       public function getCategoriDetailsByID($id){
+
+        $this->db->query('SELECT * FROM petcare_product_category WHERE id = :id');
+        $this->db->bind(':id' , $id);
+
+        $result = $this->db->single();
+        return $result;
+
+       }
+
        
 
         
