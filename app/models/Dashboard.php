@@ -1611,11 +1611,9 @@
 
 
         public function getBillByTreatmentID($id) {
-            $this->db->query('SELECT bill.* , treat.payment_status AS payment_status , petowner.first_name AS petownerfname , petowner.last_name AS petownerlname , petowner.address AS petownerAddress
+            $this->db->query('SELECT bill.* , treat.payment_status AS payment_status 
              FROM petcare_ward_medical_bill bill
              JOIN petcare_ward_treatment treat ON bill.ward_treatment_id = treat.ward_treatment_id
-             JOIN petcare_pet pet ON treat.pet_id = pet.id
-             JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
              WHERE bill.ward_treatment_id = :id');
             $this->db->bind(':id', $id);
 
@@ -1626,7 +1624,11 @@
 
 
         public function getWardPaymentStatusByTreatmentID($id){
-            $this->db->query('SELECT * FROM petcare_ward_treatment WHERE ward_treatment_id = :id');
+            $this->db->query('SELECT * , petowner.first_name AS petownerfname , petowner.last_name AS petownerlname , petowner.address AS petownerAddress
+             FROM petcare_ward_treatment treat
+             JOIN petcare_pet pet ON treat.pet_id = pet.id
+             JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
+             WHERE ward_treatment_id = :id');
             $this->db->bind(':id', $id);
             $row = $this->db->single();
             return $row;
