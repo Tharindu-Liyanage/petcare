@@ -2513,13 +2513,15 @@
             
               
             $user = $this->dashboardModel->getPetownerDetailsById($id);
+            $pets = $this->dashboardModel->getPetDetailsByPetownerID($id);
 
             $data = [
-                    'user' =>$user
+                    'user' =>$user,
+                    'pet' => $pets
             ];
 
             
-            $this->view('dashboards/common/profile', $data);
+            $this->view('dashboards/common/petownerProfile', $data);
         }
        
 

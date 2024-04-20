@@ -1084,7 +1084,7 @@
 
             $this->db->query(
 
-                'SELECT pet.*
+                'SELECT pet.* , pet.id as petid
                 FROM petcare_pet pet
                 JOIN petcare_petowner po ON pet.petowner_id = po.id
                 WHERE petowner_id = :id AND pet.isRemoved = 0
