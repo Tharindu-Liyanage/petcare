@@ -212,11 +212,26 @@
 
             if($data['profile_pic_img'] == null){
 
-                $this->db->query('UPDATE petcare_staff SET firstname = :firstname , lastname = :lastname , address = :address WHERE staff_id = :id');
+                if($_SESSION['user_role'] != 'Doctor' ){
+                    $this->db->query('UPDATE petcare_staff SET firstname = :firstname , lastname = :lastname , address = :address, nic =:nic WHERE staff_id = :id');
+                }else{
+                    $this->db->query('UPDATE petcare_staff SET firstname = :firstname , lastname = :lastname , address = :address, nic =:nic , bio=:bio WHERE staff_id = :id');
+                    $this->db->bind(':bio' , $data['bio']);
+                }
 
             }else{
 
-                $this->db->query('UPDATE petcare_staff SET firstname = :firstname , lastname = :lastname , address = :address , profileImage = :filename WHERE staff_id = :id');
+                if($_SESSION['user_role'] != 'Doctor' ){
+                    $this->db->query('UPDATE petcare_staff SET firstname = :firstname , lastname = :lastname , address = :address, nic =:nic , profileImage = :filename WHERE staff_id = :id');
+                    
+                }else{
+                    $this->db->query('UPDATE petcare_staff SET firstname = :firstname , lastname = :lastname , address = :address, nic =:nic , profileImage = :filename , bio = :bio WHERE staff_id = :id');
+                    $this->db->bind(':bio' , $data['bio']);
+                }
+
+               
+
+
                 $this->db->bind(':filename',$data['uniqueImgFileName']);
 
                 //new path link support for windows and linux
@@ -273,6 +288,7 @@
             $this->db->bind(':firstname' , $data['fname']);
             $this->db->bind(':lastname' , $data['lname']);
             $this->db->bind(':address' , $data['address']);
+            $this->db->bind(':nic' , $data['nic']);
             $this->db->bind(':id' , $_SESSION['user_id']);
 
             if($this->db->execute()){

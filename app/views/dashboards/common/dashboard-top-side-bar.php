@@ -33,7 +33,7 @@
             <li class="<?php echo ($current_page == 'animalward') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/nurse/animalward"><i class='bx bx-plus-medical' ></i> Animal Ward</a></li>
             <li class="<?php echo ($current_page == 'pet') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/nurse/pet"><i class='bx bxs-dog' ></i></i> Pet</a></li>
             <li class="<?php echo ($current_page == 'bill') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/nurse/medicalBill"><i class='bx bx-file' ></i> Medical Bill</a></li>
-            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/nurse/settings"><i class='bx bx-cog' ></i> Settings</a></li>
+            <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/nurse/settings/all"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>
 
          <?php elseif($_SESSION['user_role'] == "Doctor") : ?>

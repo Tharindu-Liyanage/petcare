@@ -1062,7 +1062,7 @@
 
             $this->db->query(
 
-                'SELECT a.*, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , staff.firstname as fname , staff.lastname as lname , staff.profileImage as vetpic
+                'SELECT a.*, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , staff.firstname as fname , staff.lastname as lname , staff.profileImage as vetpic ,staff.staff_id as vet_id
                 FROM petcare_appointments a
                 JOIN petcare_pet p ON a.pet_id = p.id
                 JOIN petcare_staff staff ON a.vet_id = staff.staff_id
@@ -1372,7 +1372,7 @@
 
             $this->db->query(
 
-                'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname
+                'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname , staff.staff_id as vet_id
                 FROM petcare_medical_reports report
                 JOIN petcare_pet pet ON report.pet_id = pet.id
                 JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
@@ -1590,7 +1590,8 @@
                        pet.pet AS petname,
                        staff.profileImage AS vetpic,
                        staff.firstname AS vetfname,
-                       staff.lastname AS vetlname
+                       staff.lastname AS vetlname,
+                       staff.staff_id AS vet_id
                 FROM petcare_ward_medical_reports report
                 JOIN petcare_pet pet ON report.pet_id = pet.id
                 JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id

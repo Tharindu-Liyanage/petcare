@@ -115,7 +115,7 @@
                                  <td>
                                     <div class="profile-three">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $medicalreport->vetpic?>" >
-                                    <p><?php echo $medicalreport->vetfname?> <?php echo $medicalreport->vetlname?></p>
+                                    <p><a href="<?php echo URLROOT?>/petowner/viewProfile/<?php echo $medicalreport->vet_id; ?>"><?php echo $medicalreport->vetfname?> <?php echo $medicalreport->vetlname?></a></p>
                                     </div>
                                 </td>
 

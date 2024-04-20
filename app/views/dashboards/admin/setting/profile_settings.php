@@ -8,6 +8,18 @@
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
       <title>PetCare | Settings</title>
    </head>
+
+   <style>
+    textarea{
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        border-radius: 10px;
+        resize: none;
+        background-color: var(--white);
+        border: 1px solid #D3D3D3
+    }
+   </style>
    <body>
 
    <?php require_once __DIR__ . '/../../common/common_variable/setting_common.php'; ?>
@@ -180,6 +192,34 @@
                                             </div>
                                             <div class="border-bottom"></div>
 
+
+
+                                            <div class="input-field">
+                                                <div class="title">
+                                                    NIC
+                                                    <div><span class="invalid-feedback"><?php echo $data['nic_err'];?></span></div>
+                                                </div>
+                                                <div class="input">
+                                                    <input type="text" class="<?php echo (!empty($data['nic_err'])) ? 'is-invalid' : '' ; ?>" name="nic"  placeholder="NIC" value="<?php echo $data['nic'] ?>">
+                                                </div>
+                                            </div>
+                                            <div class="border-bottom"></div>
+
+                                            <?php if($_SESSION['user_role'] == "Doctor") : ?>
+
+                                            <div class="input-field">
+                                                <div class="title">
+                                                    Bio
+                                                    <div><span class="invalid-feedback"><?php echo $data['bio_err'];?></span></div>
+                                                </div>
+                                                <div class="input">
+                                                    <textarea type="text" class="<?php echo (!empty($data['bio_err'])) ? 'is-invalid' : '' ; ?>" name="bio"  placeholder="Enter Bio here"><?php echo $data['bio'];?></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="border-bottom"></div>
+
+                                            <?php endif; ?>
+                                        
                                             <div class="footer">                            <!-- footer -->
                                                 <div class="footer-text1">
                                                     Your Photo

@@ -1124,6 +1124,23 @@
             $this->view('dashboards/petowner/myorder/viewMyOrder', $data);
     }
 
+    public function viewProfile($id){
+            
+              
+        $user = $this->dashboardModel->getStaffUserById($id);
+
+        if($user == null || $user->role != "Doctor"){   //if no data found : its mean user try to access url with wrong user id(intentionally)
+            redirect('petowner/notfound');
+        }
+
+        $data = [
+                'user' =>$user
+        ];
+
+        
+        $this->view('dashboards/common/profile', $data);
+    }
+
     
     public function settings($setting_name){
 

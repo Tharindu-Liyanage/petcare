@@ -51,12 +51,23 @@
                         <div class="name-large">
                             <?php echo $data['user']->firstname . '  ' . $data['user']->lastname ; ?> 
                         </div>
+
+
                         <div class="type">
-                            <?php echo $data['user']->role ; ?>
+                            <?php
+
+                            if($data['user']->role == 'Doctor'){
+                                echo 'Veterinarian';
+                            }else{
+                                echo $data['user']->role ;
+                            }  
+                            ?>
                         </div>
+
+
                         <?php if($data['user']->role == 'Doctor'): ?>
                         <div class="description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, omnis nihil repudiandae incidunt temporibus doloribus sequi expedita, tempore, sapiente repellat ullam nesciunt corrupti minima. Quo aliquid voluptates qui dolore veritatis.
+                            <?php echo $data['user']->bio ; ?>
                         </div>
                         <?php endif; ?>
 
@@ -84,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="box2">
+                <div class="box2" style="margin-bottom: 20px;">
                     <div class="options">
                         
                         <button class="Contact me">Contact me</button>
@@ -102,14 +113,20 @@
                                 </div>
                             </div>
 
+                            
+                            <?php if($data['user']->role == 'Admin'): ?>
+
                             <div class="email">
                                 <div class="email-text">
                                     NIC
                                 </div>
                                 <div class="email-address inner-text">
-                                    get from database
+                                    <?php echo $data['user']->nic ; ?>
                                 </div>
                             </div>
+
+                            <?php endif; ?>
+
 
                             <div class="phone">
                                 <div class="phone-text">
@@ -130,42 +147,18 @@
                         </div>
                     </div>
 
+                </div>
 
-              <!--      <div class="inner-box-2">
-                        <div class="line-1">
-                            <div class="text">
-                                Social Links
-                            </div>
-                          
-                        </div>
-                        <div class="social-media">
-                            <div class="social-media-container">
-                                <i class='bx bxl-facebook-circle' ></i>
-                                <button class="btn face-book-btn">
-                                    <a href="<?php// echo $data['user']->fb_ur ; ?>">Facebook</a>
-                                </button>
-                            </div>
-                            <div class="social-media-container">
-                                <i class='bx bxl-whatsapp' ></i>
-                                <button class="btn whatsapp-btn">
-                                    <a href="">Whatsapp</a>
-                                </button>
-                            </div>
-                            <div class="social-media-container">
-                                <i class='bx bxl-instagram-alt' ></i>
-                                <button class="btn instagram-btn">
-                                    <a href="<?php// echo $data['user']->insta_url ; ?>">Instagram</a>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                            --> 
+    
 
                 </div>
 
+               
+               
         </main>
-    </div>
+
+      
+    
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
 </body>
 </html>

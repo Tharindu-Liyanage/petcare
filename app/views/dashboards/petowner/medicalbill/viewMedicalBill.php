@@ -40,6 +40,13 @@
             font-size: 16px;
         }
 
+        .download-btn .btn{
+            display: flex;
+             width: max-content;
+            gap: 10px;
+            margin: auto;
+        }
+
         
 
 
@@ -60,15 +67,15 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>View My Ward Medical Bills</h1>
+                    <h1>Medical Bill</h1>
                     <ul class="breadcrumb">
                         <li><a href="<?php echo URLROOT;?>/petowner">
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/petowner/medicalbill" >My Orders</a></li>
+                        <li><a href="<?php echo URLROOT;?>/petowner/medicalbill" >Medical Bills</a></li>
                         >
-                        <li><a href="<?php echo URLROOT;?>/petowner/viewMedicalBill/<?php echo $data['id'];?>" class="active">Medical Bills</a></li>
+                        <li><a href="<?php echo URLROOT;?>/petowner/viewMedicalBill/<?php echo $data['id'];?>" class="active"> View Medical Bill</a></li>
                     </ul>
                 </div>
 

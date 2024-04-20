@@ -1114,144 +1114,176 @@
                 $this->view('dashboards/doctor/setting/settings', $data);
     
             //================ profile use to show profile settings =========================//  
-            }elseif($setting_name == "profile"){
-    
-    
-    
-                if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-                        $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-    
-                        if (isset($_FILES['pro_img'])) {
-                            $uploadedFileName = $_FILES['pro_img']['name'];
-                            $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
-    
-                            // Generate a timestamp for uniqueness
-                            $timestamp = time();
-    
-                            // Create a unique ID by concatenating values and adding the file extension
-                            $uniqueImgFileName = $_POST['fname'] . '_' . $_POST['lname'] . '_' . $timestamp . '.' . $fileExtension;
-    
+        }elseif($setting_name == "profile"){
+
+
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                    $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                    if (isset($_FILES['pro_img'])) {
+                        $uploadedFileName = $_FILES['pro_img']['name'];
+                        $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                        // Generate a timestamp for uniqueness
+                        $timestamp = time();
+
+                        // Create a unique ID by concatenating values and adding the file extension
+                        $uniqueImgFileName = $_POST['fname'] . '_' . $_POST['lname'] . '_' . $timestamp . '.' . $fileExtension;
+
+                    }
+
+                    $user = $this->dashboardModel->getStaffUserById($_SESSION['user_id']);
+
+                   
+                         
+
+
+
+                    $data = [
+                        'fname' => trim($_POST['fname']),
+                        'lname' => trim($_POST['lname']),
+                        'address' => trim($_POST['address']),
+                        'profile_pic' => $_SESSION['user_profileimage'],
+                        'profile_pic_img' => ($_FILES['pro_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['pro_img'],
+                        'nic' => trim($_POST['nic']),
+                        'bio' => trim($_POST['bio']),
+                        
+                        'fname_err' => '',
+                        'lname_err' => '',
+                        'name_err'  => '',
+                        'address_err' => '',
+                        'img_err' => '',
+                        'main_err' => '',
+                        'uniqueImgFileName' => $uniqueImgFileName,
+                        'nic_err' => '',
+                        'bio_err' => ''
+
+                    ];
+
+
+                    //validating name
+                    if(empty($data['fname']) && empty($data['lname'])){
+                        $data['name_err'] = '*Please enter First Name and Last Name';
+                        $data['fname_err'] = 'Please enter First Name';
+                        $data['lname_err'] = 'Please enter Last Name';
+
+                    }elseif(empty($data['fname'])){
+                        $data['name_err'] = '*Please enter First Name';
+                        $data['fname_err'] = 'Please enter First Name';
+
+                    }elseif(empty($data['lname'])){
+                        $data['name_err'] = '*Please enter Last Name';
+                        $data['lname_err'] = 'Please enter Last Name';
+                    }
+
+                
+                    //validate address
+                    if(empty($data['address'])){
+                        $data['address_err'] = '*Please enter Address';
+                    }
+
+                    //validate nic
+                    if(empty(trim($_POST['nic']))){
+                        $data['nic_err'] = '*Please enter NIC';
+                    }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) == 10 && (strtoupper($data['nic'][9]) !== 'V' )){
+                        $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
+                    }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) != 10){
+                        $data['nic_err'] = 'New NIC: 12 digits. Old NIC: 9 digits with V.';
+                    }else{
+
+                        if(strlen(trim($_POST['nic'])) == 10){
+                            $data['nic'][9] = strtoupper($data['nic'][9]);
                         }
-    
-                        $user = $this->dashboardModel->getStaffUserById($_SESSION['user_id']);
-    
-                       
-                             
-    
-    
-    
-                        $data = [
-                            'fname' => trim($_POST['fname']),
-                            'lname' => trim($_POST['lname']),
-                            'address' => trim($_POST['address']),
-                            'profile_pic' => $_SESSION['user_profileimage'],
-                            'profile_pic_img' => ($_FILES['pro_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['pro_img'],
-                            
-                            'fname_err' => '',
-                            'lname_err' => '',
-                            'name_err'  => '',
-                            'address_err' => '',
-                            'img_err' => '',
-                            'main_err' => '',
-                            'uniqueImgFileName' => $uniqueImgFileName,
-    
-                        ];
-    
-    
-                        //validating name
-                        if(empty($data['fname']) && empty($data['lname'])){
-                            $data['name_err'] = '*Please enter First Name and Last Name';
-                            $data['fname_err'] = 'Please enter First Name';
-                            $data['lname_err'] = 'Please enter Last Name';
-    
-                        }elseif(empty($data['fname'])){
-                            $data['name_err'] = '*Please enter First Name';
-                            $data['fname_err'] = 'Please enter First Name';
-    
-                        }elseif(empty($data['lname'])){
-                            $data['name_err'] = '*Please enter Last Name';
-                            $data['lname_err'] = 'Please enter Last Name';
+                    }
+
+
+                    //validate Bio
+                    if(empty(trim($_POST['bio']))){
+                        $data['bio_err'] = '*Please enter Bio';
+                    }elseif(strlen(trim($_POST['bio'])) > 500){
+                        $data['bio_err'] = '*Bio must be less than 500 characters';
+                    }
+
+
+
+                    $allowedTypes = ['image/jpeg', 'image/png'];
+
+                    if($data['profile_pic'] != null){
+                        if (!isset($_FILES['pro_img']['type']) || ($_FILES['pro_img']['type'] && !in_array($_FILES['pro_img']['type'], $allowedTypes))) {
+                            // Invalid file type
+                            $data['img_err'] = '*Invalid file type. Please upload an image (JPEG or PNG).';
                         }
-    
-                    
-                        //validate address
-                        if(empty($data['address'])){
-                            $data['address_err'] = '*Please enter Address';
+        
+                        if($_FILES['pro_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                            $data['img_err'] = '*Image size must be less than 5 MB';
                         }
-    
-                        $allowedTypes = ['image/jpeg', 'image/png'];
-    
-                        if($data['profile_pic'] != null){
-                            if (!isset($_FILES['pro_img']['type']) || ($_FILES['pro_img']['type'] && !in_array($_FILES['pro_img']['type'], $allowedTypes))) {
-                                // Invalid file type
-                                $data['img_err'] = '*Invalid file type. Please upload an image (JPEG or PNG).';
-                            }
-            
-                            if($_FILES['pro_img']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
-                                $data['img_err'] = '*Image size must be less than 5 MB';
-                            }
-                        }
-    
-                         //going to check is there to any update or not 
-                         //eg:- user didnt change anything but click update
-                         if($user->firstname == trim($_POST['fname']) && $user->lastname == trim($_POST['lname']) && $user->address == trim($_POST['address']) && $data['profile_pic_img'] == null){
-                            
-                            $data['main_err'] = "*No changes were detected. The data remains as is.";
-                         }
-    
-    
-                        //Make sure errors are empty
-                        if(empty($data['name_err']) && empty($data['address_err']) && empty($data['img_err']) && empty($data['main_err'])){
-                            
-                            //update profile
-                            if($this->settingsModel->updateStaffProfile($data)){
-    
-    
-                                //for notification
-                                $_SESSION['notification'] = "ok";
-                                $_SESSION['notification_msg'] = "Your profile information has been updated.";
-                               redirect('doctor/settings/all');
-            
-                            }else{
-    
-                                //update error : can be database error
-                                $_SESSION['notification'] = "error";
-                                $_SESSION['notification_msg'] = "Please review and try again";
-                                redirect('doctor/settings/all');
-                            }
-    
-    
+                    }
+
+                     //going to check is there to any update or not 
+                     //eg:- user didnt change anything but click update
+                     if($user->firstname == trim($_POST['fname']) && $user->lastname == trim($_POST['lname']) && $user->address == trim($_POST['address']) && $data['profile_pic_img'] == null && $user->nic == trim($_POST['nic']) && $user->bio == trim($_POST['bio'])){
+                        
+                        $data['main_err'] = "*No changes were detected. The data remains as is.";
+                     }
+
+
+                    //Make sure errors are empty
+                    if(empty($data['name_err']) && empty($data['address_err']) && empty($data['img_err']) && empty($data['main_err']) && empty($data['nic_err']) && empty($data['bio_err'])){
+                        
+                        //update profile
+                        if($this->settingsModel->updateStaffProfile($data)){
+
+
+                            //for notification
+                            $_SESSION['notification'] = "ok";
+                            $_SESSION['notification_msg'] = "Your profile information has been updated.";
+                           redirect('doctor/settings/all');
+        
                         }else{
-    
-                            //load view with errors
-                            $this->view('dashboards/admin/setting/profile_settings', $data);
+
+                            //update error : can be database error
+                            $_SESSION['notification'] = "error";
+                            $_SESSION['notification_msg'] = "Please review and try again";
+                            redirect('doctor/settings/all');
                         }
-    
-                }else{
-    
-                    //normal get requset for profile
-    
-                        $user = $this->dashboardModel->getStaffUserById($_SESSION['user_id']);
-    
-                        $data = [
-                            'fname' => $user->firstname,
-                            'lname' => $user->lastname,
-                            'address' => $user->address,
-                            'profile_pic' => $user->profileImage ,
-                            
-                            'fname_err' => '',
-                            'lname_err' => '',
-                            'name_err'  => '',
-                            'address_err' => '',
-                            'img_err' => '',
-                            'main_err' => '',
-                            
-                        ];
-    
+
+
+                    }else{
+
+                        //load view with errors
                         $this->view('dashboards/admin/setting/profile_settings', $data);
-    
-                }
+                    }
+
+            }else{
+
+                //normal get requset for profile
+
+                    $user = $this->dashboardModel->getStaffUserById($_SESSION['user_id']);
+
+                    $data = [
+                        'fname' => $user->firstname,
+                        'lname' => $user->lastname,
+                        'address' => $user->address,
+                        'profile_pic' => $user->profileImage ,
+                        'nic' => $user->nic,
+                        'bio' => $user->bio,
+                        
+                        'fname_err' => '',
+                        'lname_err' => '',
+                        'name_err'  => '',
+                        'address_err' => '',
+                        'img_err' => '',
+                        'main_err' => '',
+                        'nic_err' =>'',
+                        'bio_err' => '',
+                        
+                    ];
+
+                    $this->view('dashboards/admin/setting/profile_settings', $data);
+
+            }
     
                 
     
