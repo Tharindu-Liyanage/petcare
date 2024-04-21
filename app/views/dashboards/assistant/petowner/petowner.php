@@ -56,7 +56,7 @@
             
 
 <!--start od orders-->
-<div class="users" id="pet">
+<div class="users" id="petowner">
     <div class="header">
     <i class='bx bx-user'></i>
         <h3>Petowner</h3>
@@ -78,9 +78,9 @@
                 
                 <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
                 <th>Petowner <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
-                <th>Address <i class='bx bxs-sort-alt sort' data-sort="dob-search"></th>
-                <th>Mobile <i class='bx bxs-sort-alt sort' data-sort="breed-search"></th>
-                <th>Email <i class='bx bxs-sort-alt sort' data-sort="sex-search"></th>
+                <th>Address <i class='bx bxs-sort-alt sort' data-sort="address-search"></th>
+                <th>Mobile <i class='bx bxs-sort-alt sort' data-sort="mobile-search"></th>
+                <th>Email <i class='bx bxs-sort-alt sort' data-sort="email-search"></th>
                 <th>Action </th>
             </tr>
         </thead>
@@ -103,9 +103,9 @@
                 <td class="profile">
                     <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner-> profileImage ?>" ><p><?php echo $petowner-> first_name?> <?php echo $petowner-> last_name?></p>
                 </td class="id-search">
-                <td class="dob-search"><?php echo $petowner->address?></td>
-                <td class="breed-search"><?php echo $petowner->mobile?></td>
-                <td class="sex-search"><?php echo $petowner->email?></td>
+                <td class="address-search"><?php echo $petowner->address?></td>
+                <td class="mobile-search"><?php echo $petowner->mobile?></td>
+                <td class="email-search"><?php echo $petowner->email?></td>
                 
                 <td class="action">
                     
@@ -145,5 +145,6 @@
     </div>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script> <!-- notification ekk blnn-->
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/assistant/petownerTable.js"></script>
 </body>
 </html>

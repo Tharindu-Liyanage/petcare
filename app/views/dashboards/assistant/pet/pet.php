@@ -142,5 +142,6 @@
     </div>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script> <!-- notification ekk blnn-->
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/assistant/petTable.js"></script>
 </body>
 </html>

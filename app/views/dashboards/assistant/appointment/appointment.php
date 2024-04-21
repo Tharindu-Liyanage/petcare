@@ -212,8 +212,7 @@
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/doctor/doctorAppointmentTable.js"></script>
-
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
-    
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/assistant/appointmentTable.js"></script>
 </body>
 </html>
