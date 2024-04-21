@@ -272,6 +272,37 @@ public function findpetownerID($petownerID){
             return false;
         }
     }
+//medical bill-------------------------------------------------------------------------------------------------------------------------
+    public function getDischargeDetails(){
+        //from inward_pet table
+        $this->db->query('SELECT ward.* , pet.pet_id_generate as genPetID, petowner.petowner_id_generate as genPetOwnerID ,  pet.pet as petname, pet.profileImage as petpic, petowner.profileImage as petownerpic, petowner.first_name as petownerfname, petowner.last_name as petownerlname
+                          FROM petcare_ward_treatment ward
+                          JOIN petcare_pet pet ON ward.pet_id = pet.id
+                          JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
+                         -- WHERE ward.payment_status = "Processing"
+                         
+                           
+                       ');
+
+       
+        $results = $this->db->resultSet();
+        return $results;
+        
+    }
+//update payment
+    public function updatePayment($id){
+            $this ->db -> query ('UPDATE petcare_ward_treatment   SET payment_status = "Paid"  WHERE ward_treatment_id =:wardTreatmentID');
+            $this->db->bind(':wardTreatmentID' ,$id );
+     
+            
+                     //execute
+                     if($this->db->execute()){
+                         return true;
+         
+                     }else{
+                         return false;
+                     }
+          }
       
                 
                 

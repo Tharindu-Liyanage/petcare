@@ -664,6 +664,55 @@
 
         }
 
+        // Medical Bill---------------------------------------------------------------------------------
+        public function medicalBill(){
+            $medicalBillDetails = $this->assistantModel->getDischargeDetails();
+
+            $data = [
+                'bill' => $medicalBillDetails
+            ];
+    
+    
+            $this->view('dashboards/assistant/medicalBill/medicalBillTable',$data);
+        }
+
+
+        public function viewMedicalBill($id){
+           
+        $billDetails = $this->dashboardModel->getBillByTreatmentID($id);
+        $payementDetails = $this->dashboardModel->getWardPaymentStatusByTreatmentID($id);
+
+        //die(var_dump($billDetails));
+
+        $totalPrice = 0;
+
+        foreach ($billDetails as $bill) {
+            $totalPrice += $bill->price;
+        }
+
+                $data = [
+                    'id' => $id,
+                    'services' =>$billDetails,
+                    'totalPrice' => $totalPrice,
+                    'paymentDetails' => $payementDetails
+                ];
+
+                $this->view('dashboards/assistant/medicalbill/viewMedicalBill', $data);
+    } 
+    // update payment------------------------------------------------------------------------------------------------
+         public function updatePaymentStatus($id){
+            if($this->assistantModel->updatePayment($id)){
+                $_SESSION['notification'] = "ok";
+                $_SESSION['notification_msg'] = "Payment Status Updated!";
+               
+               redirect('assistant/medicalBill');
+               
+
+            }else{
+                die("Something went wrong");
+            }
+         }
+
 
 
             //settings-----------------------------------------------------------------------------------------------

@@ -1625,7 +1625,7 @@
 
 
         public function getWardPaymentStatusByTreatmentID($id){
-            $this->db->query('SELECT * , petowner.first_name AS petownerfname , petowner.last_name AS petownerlname , petowner.address AS petownerAddress
+            $this->db->query('SELECT * , petowner.first_name AS petownerFname , petowner.last_name AS petownerLname , petowner.address AS petownerAddress , petowner.email AS petownerEmail , petowner.mobile AS petownerMobile
              FROM petcare_ward_treatment treat
              JOIN petcare_pet pet ON treat.pet_id = pet.id
              JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id

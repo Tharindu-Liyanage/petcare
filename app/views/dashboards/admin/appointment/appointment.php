@@ -46,7 +46,7 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users" id="appointment" >
+                <div class="users" id="appointment" > <!--meka new list eke id ekt samana wenna one -->
                     <div class="header">
                     <i class='bx bx-calendar' ></i>
                         <h3>Today Appointment</h3>
@@ -139,7 +139,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/admin/adminManageAppointments.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/assistant/appointmentTable.js"></script>
     
 </body>
 </html>

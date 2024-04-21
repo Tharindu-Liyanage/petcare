@@ -24,6 +24,7 @@
             <li class="<?php echo ($current_page == 'appointment') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/assistant/appointment"><i class='bx bx-calendar' ></i> Appointment</a></li>
             <li class="<?php echo ($current_page == 'petowner') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/assistant/petowner"><i class='bx bx-user'></i> Pet Owner</a></li>
             <li class="<?php echo ($current_page == 'pet') ? 'active' : '' ; ?>" ><a href="<?php echo URLROOT; ?>/assistant/pet"><i class='bx bxs-dog'></i> Pet</a></li>
+            <li class="<?php echo ($current_page == 'bill') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/assistant/medicalBill"><i class='bx bx-wallet' ></i> Medical Bill</a></li>
             <li class="<?php echo ($current_page == 'setting') ? 'active' : '' ; ?>"><a href="<?php echo URLROOT; ?>/assistant/settings/all"><i class='bx bx-cog' ></i> Settings</a></li>
          </ul>
 

@@ -11,7 +11,11 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
+<<<<<<< Updated upstream
       valueNames: ['id-search', 'profile-search', 'date-search', 'time-search', 'species-search', 'treatment-search', 'type-search', 'status-search', 'pet-search', ],
+=======
+      valueNames: ['id-search', 'profile', 'pet-search', 'time-search', 'type-search', 'status-search'],
+>>>>>>> Stashed changes
       page: 5,
       pagination: true,
   };
