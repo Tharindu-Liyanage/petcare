@@ -11,12 +11,12 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
-      valueNames: ['id-search', 'profile', 'dob-search', 'breed-search', 'sex-search' ],
+      valueNames: ['id-search', 'profile-three', 'status', 'profile', ],
       page: 5,
       pagination: true,
   };
 
-  var userList = new List('pet', options);
+  var userList = new List('medicalBill', options);
   
 
 

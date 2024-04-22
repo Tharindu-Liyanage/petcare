@@ -102,7 +102,7 @@
                 <td class="id-search"><?php echo $petowner->petowner_id_generate?></td>
                 <td class="profile">
                     <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner-> profileImage ?>" ><p><?php echo $petowner-> first_name?> <?php echo $petowner-> last_name?></p>
-                </td class="id-search">
+             </td>
                 <td class="address-search"><?php echo $petowner->address?></td>
                 <td class="mobile-search"><?php echo $petowner->mobile?></td>
                 <td class="email-search"><?php echo $petowner->email?></td>
@@ -143,8 +143,10 @@
 
     ?>
     </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script> <!-- notification ekk blnn-->
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/assistant/petownerTable.js"></script>
+    
 </body>
 </html>

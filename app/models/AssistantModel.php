@@ -289,7 +289,7 @@ public function findpetownerID($petownerID){
         return $results;
         
     }
-//update payment
+//update payment-----------------------------------------------------------------------------------------------------------
     public function updatePayment($id){
             $this ->db -> query ('UPDATE petcare_ward_treatment   SET payment_status = "Paid"  WHERE ward_treatment_id =:wardTreatmentID');
             $this->db->bind(':wardTreatmentID' ,$id );
@@ -303,7 +303,31 @@ public function findpetownerID($petownerID){
                          return false;
                      }
           }
-      
+
+// email-----------------------------------------------------------------------------------------------------------------------------
+          public function appointmentStatusMail($data){
+            $this ->db -> query ('SELECT 
+            petcare_appointments.*, 
+            petcare_pet.profileImage AS petpic, 
+            petcare_pet.pet AS petname, 
+            petcare_petowner.profileImage AS petownerpic, 
+            petcare_petowner.first_name AS petownerfname, 
+            petcare_petowner.last_name AS petownerlname,
+            petcare_pet.species AS species
+            FROM 
+              petcare_appointments
+            JOIN 
+              petcare_pet ON petcare_appointments.pet_id = petcare_pet.id
+            JOIN 
+              petcare_petowner ON petcare_appointments.petowner_id = petcare_petowner.id
+            JOIN 
+              petcare_staff ON petcare_appointments.vet_id = petcare_staff.staff_id
+            WHERE 
+            $this->db->bind(':wardTreatmentID' ,$id );
+          
+            $results = $this->db->resultSet();
+            return $results;
+                       
                 
                 
 

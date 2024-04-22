@@ -69,7 +69,7 @@
 
 
                 <!--start od orders-->
-                <div class="users" id="appointment">
+                <div class="users" id="medicalBill">
                     <div class="header">
                         <i class='bx bx-money' ></i>
                         <h3>Payment Processing</h3>
@@ -199,7 +199,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/nurse/medicalBill.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/assistant/medicalBillTable.js"></script>
     
 </body>
 </html>

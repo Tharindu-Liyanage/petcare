@@ -36,23 +36,19 @@
                     <i class='bx bx-calendar-check' ></i>
                     <span class="info">
                         <h3>20</h3>
-                        <p>Appointment</p>
+                        <p>Pending Appointments</p>
                     </span>
                 </li>
                 <li><i class='bx bx-show-alt' ></i>
                     <span class="info">
                         <h3>10</h3>
-                        <p>Ward Patients</p>
+                        <p>Pending Medical Bills</p>
                     </span></li>
-                <li><i class='bx bx-line-chart' ></i>
-                    <span class="info">
-                        <h3>5</h3>
-                        <p>Appointment Cancellations</p>
-                    </span></li>
+                
                 <li><i class='bx bx-dollar-circle' ></i>
                     <span class="info">
-                        <h3>$6,766</h3>
-                        <p>Today Revenue</p>
+                        <h3>10</h3>
+                        <p>Ward Empty Cages </p>
                     </span></li>
             </ul>
             <!--end of insisghts-->

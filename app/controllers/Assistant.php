@@ -61,8 +61,10 @@
 
         public function confirmAppointment($appointmentID){
          if($this -> assistantModel ->updateAppointmentStatusToConfirm($appointmentID)){
+            
             $_SESSION['notification'] = "ok";
             $_SESSION['notification_msg'] = "Appointment confirmation Successful.";
+            $this->appointmentStatusMail($data)
             redirect('assistant/appointment');
          } else{ die("something went wrong");
 
@@ -82,10 +84,66 @@
             }
             
            }
+
+           //email-------------------------------------------------------------------------------------------------
+
+
+
+           public function appointmentStatusMail($data){
+          
+            
+            
+                
+            require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
         
+            try {
+                // Create a new PHPMailer instance
+                $mail = new PHPMailer(true);
+        
+                // Set mail configuration (replace with your actual details)
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = $_ENV['MAIL_USERNAME'];
+                $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+        
+                // Set email sender details
+                $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+        
+                // Add recipient address
+                $mail->addAddress($_SESSION['user_email'], 'Pet Owner: ' . $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']);
+        
+                // Set subject and body
+                $mail->Subject = 'Important Update from Pet Care';
+                $mail->isHTML(true);
+
+               ob_start();  // Start output buffering
+                include(__DIR__ . '/../views/email/appointmentPending.php');
+                $mailBody = ob_get_clean();
+
+                $mail->Body = $mailBody;
 
         
+                // Send the email
+                $mail->send();
 
+                
+                $this->destroyAppointmentSessionVariables();
+                $this->appointmentSuccessSMS();
+                
+
+            } catch (Exception $e) {
+                // Handle exceptions
+                echo 'Error: ' . $mail->ErrorInfo;
+            }
+        
+        
+        
+
+    }
+//petowner---------------------------------------------------------------
         public function petowner(){
 
             $petownerDetails = $this ->assistantModel->getPetownerDetails();
