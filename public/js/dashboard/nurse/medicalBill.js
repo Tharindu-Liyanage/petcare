@@ -3,7 +3,7 @@ var showEntriesDropdown = document.querySelector('.show-entries');
 //search table
 
 var options = {
-    valueNames: ['id-search', 'profile','status'],
+    valueNames: ['id-search', 'profile','status','profile-three'],
     page: 5,
     pagination: true,
 };

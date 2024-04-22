@@ -23,6 +23,7 @@
   
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
     <title>PetCare | Appointment</title>
 </head>
 <body>

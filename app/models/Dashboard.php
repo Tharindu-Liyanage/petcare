@@ -365,7 +365,7 @@
 
              
             $this->db->query('SELECT petcare_appointments.*, petcare_pet.pet , petcare_pet.profileImage as petProfile, petcare_petowner.first_name , petcare_petowner.last_name ,
-                    petcare_petowner.profileImage as petownerProfile
+                    petcare_petowner.profileImage as petownerProfile , petcare_petowner.id as poid
                     FROM petcare_appointments
                     JOIN petcare_petowner ON  petcare_appointments.petowner_id = petcare_petowner.id
                     JOIN petcare_pet ON petcare_appointments.pet_id = petcare_pet.id

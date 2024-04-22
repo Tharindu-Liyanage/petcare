@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+
     <title>PetCare | Appointment</title>
 </head>
 <body>
@@ -66,11 +69,11 @@
                         <thead>
                             <tr>
                                 <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
-                                <th>Pet Owner <i  data-sort="petowner-search"></i></th>
-                                <th>Pet <i  data-sort="pet-search"></i></th>
-                                <th>Time <i  data-sort="time-search"></i></th>
-                                <th>Type <i  data-sort="type-search"></i></th>
-                                <th>Status <i  data-sort="status-search"></i></th>
+                                <th>Pet Owner <i class='bx bxs-sort-alt sort'  data-sort="petowner-search"></i></th>
+                                <th>Pet <i class='bx bxs-sort-alt sort'  data-sort="pet-search"></i></th>
+                                <th>Time <i class='bx bxs-sort-alt sort'  data-sort="time-search"></i></th>
+                                <th>Type <i  class='bx bxs-sort-alt sort' data-sort="type-search"></i></th>
+                                <th>Status <i class='bx bxs-sort-alt sort' data-sort="status-search"></i></th>
                                 
                                
                             </tr>
@@ -84,9 +87,9 @@
 
                                 
                                 
-                                    <td class="profile petowner-search">
+                                    <td class="petowner-search profile">
                                         <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $app->petownerProfile ; ?>">
-                                        <p class="petowner-search" ><?php echo $app->first_name ; ?>  <?php echo $app->last_name ; ?></p>
+                                        <a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $app->poid;?>"><p class="petowner-search" ><?php echo $app->first_name ; ?>  <?php echo $app->last_name ; ?></a></p>
                                     </td>
 
                                     <td class="pet-search" >
@@ -139,7 +142,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/assistant/appointmentTable.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/admin/appointmentTable.js"></script>
     
 </body>
 </html>

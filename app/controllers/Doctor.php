@@ -1916,6 +1916,25 @@ use PHPMailer\PHPMailer\Exception;
         //$sendResponse = file_get_contents($sendEndpoint);
     }
 
+    public function profilePetowner($id){
+        
+          
+        $user = $this->dashboardModel->getPetownerDetailsById($id);
+        $pets = $this->dashboardModel->getPetDetailsByPetownerID($id);
+
+        if($user == null){
+            redirect('doctor/notfound');
+        }
+
+        $data = [
+                'user' =>$user,
+                'pet' => $pets
+        ];
+
+        
+        $this->view('dashboards/common/petownerProfile', $data);
+    }
+
        
 
         

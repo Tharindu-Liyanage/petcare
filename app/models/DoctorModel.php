@@ -676,7 +676,7 @@
 
             public function getDischargePets(){
                 $this->db->query(
-                    'SELECT inward.*, pet.id as petID, pet.pet as petname, pet.profileImage as petpic, pet.pet_id_generate as petid, petowner.first_name as petownerfname, petowner.last_name as petownerlname, petowner.profileImage as petownerpic
+                    'SELECT inward.*, pet.id as petID, pet.pet as petname, pet.profileImage as petpic, pet.pet_id_generate as petid, petowner.first_name as petownerfname, petowner.last_name as petownerlname, petowner.profileImage as petownerpic , petowner.id as poid
                      FROM petcare_inward_pet inward
                      JOIN petcare_pet pet ON inward.pet_id = pet.id
                      JOIN petcare_petowner petowner ON inward.owner_id = petowner.id

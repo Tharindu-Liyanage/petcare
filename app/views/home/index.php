@@ -14,10 +14,7 @@
     <!-- link swiper's css -->
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> <!--splide css-->
 
-    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo URLROOT;?>/public/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo URLROOT;?>/public/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo URLROOT;?>/public/img/favicons/favicon-16x16.png">
-    <link rel="icon" href="<?php echo URLROOT;?>/public/img/favicons/favicon.ico" type="image/x-icon">
+    <?php require_once __DIR__ . '/../dashboards/common/favicon.php'; ?>
 
 
     <title>PetCare | Home</title>

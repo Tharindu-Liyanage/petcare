@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/dashboard.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>dashboard</title>
+
+    <?php require_once __DIR__ . '/../common/favicon.php'; ?>
+
+    <title>PetCare | Dashboard</title>
 </head>
 <body>
 

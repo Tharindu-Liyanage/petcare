@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard-petowner-dash.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> <!--splide css-->
+    <?php require_once __DIR__ . '/../common/favicon.php'; ?>
     <title>PetCare | Dashboard</title>
 </head>
 <body>

@@ -83,6 +83,17 @@
                                     <?php echo $data['user']->email ; ?>
                                 </div>
                             </div>
+
+                            <div class="email">
+                                <div class="email-text">
+                                    Pet Owner ID
+                                </div>
+                                <div class="email-address inner-text">
+                                    <?php echo $data['user']->petowner_id_generate ; ?>
+                                </div>
+                            </div>
+
+
                             <div class="phone">
                                 <div class="phone-text">
                                     Phone

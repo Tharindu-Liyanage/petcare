@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
     <title>PetCare | Medical Bill</title>
 
     <style>
@@ -117,13 +118,13 @@
                             <tr>
                                 <td class="id-search">AID-<?php echo $med->ward_treatment_id?></td>
                                 <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $med->petpic?>" ><p><?php echo $med->genPetID?> | <?php echo $med->petname?></p>
+                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $med->petpic?>" ><p><?php echo $med->petname?></p>
                                 </td>
 
                                  <td>
                                     <div class="profile-three">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $med->petownerpic?>" >
-                                    <p><?php echo $med->petownerfname?> <?php echo $med->petownerlname?></p>
+                                    <p><a href="<?php echo URLROOT;?>/nurse/profilePetowner/<?php echo $med->poid;?>"><?php echo $med->petownerfname?> <?php echo $med->petownerlname?></a></p>
                                     </div>
                                 </td>
 

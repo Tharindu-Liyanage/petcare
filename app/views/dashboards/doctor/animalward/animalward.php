@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
     <title>PetCare | AnimalWard</title>
 </head>
 <body>
@@ -207,7 +208,7 @@
                                  <td>
                                     <div class="profile-three">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $ward->petownerpic?>" >
-                                    <p><?php echo $ward->petownerfname?> <?php echo $ward->petownerlname?></p>
+                                    <p><a href="<?php echo URLROOT;?>/<?php echo $_SESSION['user_role'];?>/profilePetowner/<?php echo $ward->poid;?>"><?php echo $ward->petownerfname?> <?php echo $ward->petownerlname?></a></p>
                                     </div>
                                 </td>
                                 
