@@ -114,5 +114,17 @@
     }
 
 
+    function sessionExpire(){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_email']);
+            unset($_SESSION['user_fname']);
+            unset($_SESSION['user_lname'] );
+            unset($_SESSION['user_mobile']);
+            unset($_SESSION['user_role']);
+            unset( $_SESSION['user_profileimage']);
+            unset($_SESSION['user_address']);
+    }
+
+
 
     

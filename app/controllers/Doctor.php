@@ -1,5 +1,9 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
     class Doctor extends Controller {
 
         public function __construct(){
@@ -583,7 +587,15 @@
                         // Validated
 
                         if($this->doctorModel->addWardTreatment($data)){
-                            // Redirect to login
+
+                            if($data['status'] == "Discharge"){
+                                //send mail to pet owner and sms
+                                $petandPetownerDetails = $this->doctorModel->getPetDetailsByPetID($id);
+                                
+                                $this->sendDischargeMail($petandPetownerDetails);
+                                $this->sendDischargeSMS($petandPetownerDetails);
+                            }
+                            // Redirect to animalward
                             redirect('doctor/animalward');
                         } else {
                             die('Something went wrong');
@@ -632,6 +644,72 @@
 
             
 
+        }
+
+
+        public function sendDischargeMail($data){
+
+            require __DIR__ . '/../libraries/phpmailer/vendor/autoload.php';
+
+            
+            try {
+                // Create a new PHPMailer instance
+                $mail = new PHPMailer(true);
+        
+                // Set mail configuration (replace with your actual details)
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = $_ENV['MAIL_USERNAME'];
+                $mail->Password = $_ENV['MAIL_PASSWORD']; // Replace with your password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+        
+                // Set email sender details
+                $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
+        
+                // Add recipient address
+                $mail->addAddress($data->petowneremail, 'User: ' . $data->petowneremail);
+        
+                // Set subject and body
+                $mail->Subject = 'Pet Discharge Notification';
+                $mail->isHTML(true);
+    
+                $filePath = __DIR__ . '/../views/email/petDischargeEmail.php';
+                $emailContent = file_get_contents($filePath);
+    
+                $emailContent = str_replace('{pet_owner_fname}', $data->petownerfname, $emailContent);
+                $emailContent = str_replace('{pet_owner_lname}', $data->petownerlname, $emailContent);
+                $emailContent = str_replace('{pet}',$data->pet, $emailContent);
+
+
+                $mail->Body = $emailContent;
+    
+                // Send the email
+                $mail->send();
+    
+                
+               
+                
+    
+            } catch (Exception $e) {
+                // Handle exceptions
+                echo 'Error: ' . $mail->ErrorInfo;
+            }
+
+        }
+
+
+        public function sendDischargeSMS($data){
+
+            // Send SMS
+            $userID = $_ENV['NOTIFY_USERID'];
+            $apiKey = $_ENV['NOTIFY_APIKEY'];
+    
+            $customMessage ="Hello " . $data->petownerfname . " " . $data->petownerlname  . "," .$data->pet. " is ready to be discharged from our care at PetCare Vet Clinic. Thank you for choosing PetCare. We're excited to serve you!" ; // Replace this with your custom message
+            $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
+            $sendEndpoint = str_replace('[TO]', $data->petownerphone, $sendEndpoint);
+            //$sendResponse = file_get_contents($sendEndpoint);
         }
 
 
@@ -831,6 +909,9 @@
                  
                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])  &&  empty($data['category_err'])){
                     if($this->postModel->updateBlog($data)){
+
+                    $_SESSION['notification'] = 'ok';
+                    $_SESSION['notification_msg'] = 'Blog Updated Successfully.';
                        
                         redirect('doctor/blog');
                         
@@ -886,7 +967,9 @@
                 // die ("delete");
                 if($this->postModel->deleteBlog($id)){
                     
-                    
+                    $_SESSION['notification'] = 'ok';
+                    $_SESSION['notification_msg'] = 'Blog Deleted Successfully.';
+                    redirect('doctor/blog');
                       
 
                 }else{
@@ -1029,6 +1112,9 @@
                  
                  if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])  &&  empty($data['category_err'])){
                     if($this->postModel->addBlog($data)){
+
+                        $_SESSION['notification'] = 'ok';
+                        $_SESSION['notification_msg'] = 'Blog Added Successfully';
                        
                         redirect('doctor/blog');
                         
@@ -1824,7 +1910,7 @@
         $userID = $_ENV['NOTIFY_USERID'];
         $apiKey = $_ENV['NOTIFY_APIKEY'];
 
-        $customMessage ="Hello " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . ", This the OTP code for verify mobile number " .$data['otp_code']. " Thank you for choosing PetCare. We're excited to serve you!"; // Replace this with your custom message
+        $customMessage ="Hello " . $_SESSION['user_fname'] . " " . $_SESSION['user_lname'] . "" .$data['otp_code']. " Thank you for choosing PetCare. We're excited to serve you!"; // Replace this with your custom message
         $sendEndpoint = "https://app.notify.lk/api/v1/send?user_id={$userID}&api_key={$apiKey}&sender_id=NotifyDEMO&to=[TO]&message=" . urlencode($customMessage);
         $sendEndpoint = str_replace('[TO]', $data['new_mobile'], $sendEndpoint);
         //$sendResponse = file_get_contents($sendEndpoint);

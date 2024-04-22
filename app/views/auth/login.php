@@ -64,6 +64,7 @@
 
                     //unset
                     unset( $_SESSION['error_msg_from_petowner'] );
+
                     session_destroy();
 
                 }

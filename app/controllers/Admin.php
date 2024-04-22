@@ -76,13 +76,15 @@
                     'role' => trim($_POST['role']),
                     'address' => trim($_POST['address']),
                     'mobile' => trim($_POST['mobile']),
+                    'nic'   => trim($_POST['nic']),
                     'fname_err' => '',
                     'lname_err' => '',
                     'email_err' => '',
                     'role_err'  =>'',
                     'address_err'  =>'',
                     'tmp_pwd'  =>'',
-                    'mobile_err' => ''
+                    'mobile_err' => '',
+                    'nic_err' => ''
                 ];
 
               
@@ -147,13 +149,30 @@
                     
                 }
 
+
+                //validate nic
+                if(empty(trim($_POST['nic']))){
+                    $data['nic_err'] = '*Please enter NIC';
+                }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) == 10 && (strtoupper($data['nic'][9]) !== 'V' )){
+                    $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
+                }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) != 10){
+                    $data['nic_err'] = 'New NIC: 12 digits. Old NIC: 9 digits with V.';
+                }else{
+
+                    if(strlen(trim($_POST['nic'])) == 10){
+                        $data['nic'][9] = strtoupper($data['nic'][9]);
+                    }
+                }
+
+
+
                 //Make sure errors are empty
 
-                if(empty($data['email_err']) && empty($data['fname_err']) && empty($data['lname_err']) && empty($data['role_err']) && empty($data['address_err']) && empty($data['mobile_err'])){
+                if(empty($data['email_err']) && empty($data['fname_err']) && empty($data['lname_err']) && empty($data['role_err']) && empty($data['address_err']) && empty($data['mobile_err']) && empty($data['nic_err'])){
                     //validated
                     
-                    //set default password 123456789
-                    $data['tmp_pwd'] = password_hash('123456789',PASSWORD_DEFAULT);
+                    //set default password is nic for staff
+                    $data['tmp_pwd'] = password_hash($data['nic'],PASSWORD_DEFAULT);
                     
 
                     //Regster User
@@ -191,13 +210,15 @@
                     'role' => '',
                     'address' => '',
                     'mobile' => '',
+                    'nic' => '',
                     'fname_err' => '',
                     'lname_err' => '',
                     'email_err' => '',
                     'role_err'  =>'',
                     'address_err'  =>'',
                     'tmp_pwd'  =>'',
-                    'mobile_err' => ''
+                    'mobile_err' => '',
+                    'nic_err' => ''
                 ];
 
                 
@@ -232,12 +253,14 @@
                     'role' => trim($_POST['role']),
                     'address' => trim($_POST['address']),
                     'mobile' => trim($_POST['mobile']),
+                    'nic'   => trim($_POST['nic']),
                     'fname_err' => '',
                     'lname_err' => '',
                     'email_err' => '',
                     'role_err'  =>'',
                     'address_err'  =>'',
-                    'mobile_err' => ''
+                    'mobile_err' => '',
+                    'nic_err' => ''
                 ];
 
               
@@ -293,9 +316,23 @@
                     
                 }
 
+                 //validate nic
+                 if(empty(trim($_POST['nic']))){
+                    $data['nic_err'] = '*Please enter NIC';
+                }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) == 10 && (strtoupper($data['nic'][9]) !== 'V' )){
+                    $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
+                }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) != 10){
+                    $data['nic_err'] = 'New NIC: 12 digits. Old NIC: 9 digits with V.';
+                }else{
+
+                    if(strlen(trim($_POST['nic'])) == 10){
+                        $data['nic'][9] = strtoupper($data['nic'][9]);
+                    }
+                }
+
                 //Make sure errors are empty
 
-                if(empty($data['email_err']) && empty($data['fname_err']) && empty($data['lname_err']) && empty($data['role_err']) && empty($data['address_err']) && empty($data['mobile_err'])){
+                if(empty($data['email_err']) && empty($data['fname_err']) && empty($data['lname_err']) && empty($data['role_err']) && empty($data['address_err']) && empty($data['mobile_err']) && empty($data['nic_err'])){
                     //validated
                     
 
@@ -343,12 +380,14 @@
                     'role' => $staff_user->role,
                     'address' => $staff_user->address,
                     'mobile' => $staff_user->phone,
+                    'nic' => $staff_user->nic,
                     'fname_err' => '',
                     'lname_err' => '',
                     'email_err' => '',
                     'role_err'  =>'',
                     'address_err'  =>'',
-                    'mobile_err' => ''
+                    'mobile_err' => '',
+                    'nic_err' => ''
                 ];
 
                 
@@ -2519,6 +2558,10 @@
               
             $user = $this->dashboardModel->getStaffUserById($id);
 
+            if($user == null){
+                redirect('admin/notfound');
+            }
+
             $data = [
                     'user' =>$user
             ];
@@ -2532,6 +2575,10 @@
               
             $user = $this->dashboardModel->getPetownerDetailsById($id);
             $pets = $this->dashboardModel->getPetDetailsByPetownerID($id);
+
+            if($user == null){
+                redirect('admin/notfound');
+            }
 
             $data = [
                     'user' =>$user,

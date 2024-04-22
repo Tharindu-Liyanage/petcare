@@ -10,16 +10,12 @@
         public function __construct(){
 
             $currentTime = time();
-            $inactiveTime =300; // 5 minutes in seconds
+            $inactiveTime = 30 * 60; // 30 minutes in seconds 
 
-            if (!isset($_SESSION['PO_last_activity'])) {
-                $_SESSION['PO_last_activity'] = $currentTime; // Set initial last activity time
-            } else {
-                // Update last activity time to current time
-                $_SESSION['PO_last_activity'] = $currentTime;
+            if (!isset($_SESSION['last_activity'])) {
+                $_SESSION['last_activity'] = $currentTime; // Set initial last activity time
             }
-           
-           
+
             if(!isset($_SESSION['user_id'])){
                 
                 redirect('users/login');
@@ -29,20 +25,20 @@
                     redirect('users/login');
                      
                 
-            }else if( $currentTime - $_SESSION['PO_last_activity'] > $inactiveTime){
-
-            /*    unset($_SESSION['user_id']);
-                unset($_SESSION['user_email']);
-                unset($_SESSION['user_fname']);
-                unset($_SESSION['user_lname'] );
-                unset($_SESSION['user_mobile']);
-                unset($_SESSION['user_role']);
-                unset( $_SESSION['user_profileimage']);
-                unset($_SESSION['PO_last_activity']);
+            }else if( $currentTime - $_SESSION['last_activity'] > $inactiveTime){
+                sessionExpire();
+                unset($_SESSION['last_activity']);
                 $_SESSION['error_msg_from_petowner'] ="Session Expired. Please login again.";
-                redirect('users/login');*/
+                redirect('users/login');
 
             }
+
+            // Update last activity time to current time
+            $_SESSION['last_activity'] = $currentTime;
+        
+           
+           
+            
 
             $this->dashboardModel = $this->model('Dashboard');
             $this->settingsModel = $this->model('Settings');

@@ -277,7 +277,7 @@
         
       
         
-            <li clas ="splide__slide" >
+            <li class ="splide__slide" >
 
                 <div class="card-team">
                         <div class="card__image">
@@ -285,10 +285,19 @@
                         </div>
 
                         <div class="card__content">
-                        <span class="card__title"><?php echo $staffmember->role ?></span>  
+
+                        <span class="card__title"><?php
+                        
+                        if($staffmember->role == 'Doctor'){
+                            echo 'Veterinarian';
+                        }else{
+                            echo $staffmember->role;
+                        }
+                        ?></span>  
+
+
                         <span class="card__name"><?php echo $staffmember->firstname ?> <?php echo $staffmember->lastname ?>  </span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
+                        <p class="card__text"><?php echo substr($staffmember->bio, 0, 300); ?> ....</p>
                         </div>
                     </div>
 
@@ -318,7 +327,7 @@
     <section id="blog">
         <div class = "blog-heading">
             
-            <h1>MY BLOG</h1>
+            <h1>OUR LATEST BLOG</h1>
         </div>
 
         <!-- blog-container -->
@@ -328,7 +337,7 @@
                 <div class="blog-box">
                     <!-- img -->
                     <div class="blog-img">
-                    <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/blog/<?php echo $posts->thumbnail?>">
                     </div>
 
                     <!--text  -->
@@ -336,7 +345,7 @@
                         <span> <?php echo $posts->publishdate ; ?></span>
                         <div class="blog-title"><?php echo $posts->title; ?></div>
                         <p><?php echo $posts->content; ?></p>
-                        <a href="#">Read More </a>
+                        <a href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">Read More </a>
                     </div>
                 </div>
             <?php endforeach ; ?>
@@ -421,7 +430,7 @@
     var splide = new Splide('.splide', {
         drag: 'free',
         snap: true,
-        perPage: 4,
+        perPage: 3,
     });
 
     splide.mount();

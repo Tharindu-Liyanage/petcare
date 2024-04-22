@@ -35,9 +35,23 @@
                         <div class="home-text-large">
                             <?php echo $data['greetingmsg']; ?> , <span><?php echo $_SESSION['user_fname']?>!</span>
                         </div>
-                        <!--<div class="home-text-small">
-                            You have <span> 2 </span> upcoming appointments.
-                        </div> -->
+
+                        <div class="home-text-small">
+                            <ol>
+                            <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
+                                <li>Please upload a <span>profile picture</span> to make your profile stand out.</li>
+                            <?php endif; ?>
+
+                            <?php if($data['pet'] == null ) :?>
+                               <li> You have not added any pets yet. <span>Add a pet</span> to get started.</li>
+                            <?php endif; ?>
+                            </ol>
+                        </div> 
+
+                       
+                           
+                        
+
                     </div>
                     <div class="home-right">
                         <img src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">

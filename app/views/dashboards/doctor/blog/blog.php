@@ -146,6 +146,20 @@
 
     </div>
 
+    <?php
+     
+     if ($_SESSION['notification'] == "error") {
+           
+        toast_notifications("Modification Alerts!",$_SESSION['notification_msg'],"fas fa-solid fa-xmark check-error"); 
+        
+    }else if($_SESSION['notification'] == "ok"){
+
+        toast_notifications("Modification Alerts!",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+
+    }
+
+    ?>
+
    
 
 

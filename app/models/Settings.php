@@ -117,8 +117,9 @@
                     if($data['profile_pic_img'] != null){
                         $_SESSION['user_profileimage'] = $data['uniqueImgFileName'];
 
-                        //unlink the img
-                        unlink($destinationDir . $previousImage);
+                        if($previousImage != 'petcare-default-picture-user.png'){
+                            unlink($destinationDir . $previousImage);
+                        }
                     }
 
                     return true;
@@ -295,12 +296,16 @@
                     //update session variable
                     $_SESSION['user_fname'] = $data['fname'];
                     $_SESSION['user_lname'] = $data['lname'];
+                    $_SESSION['user_address'] =$data['address'];
 
                     if($data['profile_pic_img'] != null){
                         $_SESSION['user_profileimage'] = $data['uniqueImgFileName'];
 
                         //unlink the img
-                        unlink($destinationDir . $previousImage);
+
+                        if($previousImage != 'petcare-default-picture-user.png'){
+                            unlink($destinationDir . $previousImage);
+                        }
                     }
 
                     return true;
@@ -348,6 +353,10 @@
                 $this->db->bind(':id' , $_SESSION['user_id']);
 
                 if($this->db->execute()){
+
+                    //session
+                    $_SESSION['user_email'] = $email;
+
                     return true;
                 }else{
                     return false;
@@ -362,6 +371,9 @@
                     $this->db->bind(':id' , $_SESSION['user_id']);
     
                     if($this->db->execute()){
+
+                        //session
+                        $_SESSION['user_mobile'] = $phone;
                         return true;
                     }else{
                         return false;

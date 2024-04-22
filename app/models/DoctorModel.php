@@ -271,7 +271,7 @@
                      
                     $this->db->query(
         
-                        'SELECT pet.*, petowner.id as poid ,  petowner.petowner_id_generate as petownerid , petowner.first_name as petownerfname , petowner.last_name as petownerlname
+                        'SELECT pet.*, pet.id as petid, petowner.id as poid ,  petowner.petowner_id_generate as petownerid , petowner.first_name as petownerfname , petowner.last_name as petownerlname, petowner.email as petowneremail, petowner.mobile as petownerphone 
                         FROM petcare_pet pet
                         JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
                         WHERE pet.id = :id

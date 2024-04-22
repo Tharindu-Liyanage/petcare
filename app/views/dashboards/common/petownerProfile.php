@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard-petowner-dash.css">
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> <!--splide css-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>PetCare | Profile</title>
+    <title>PetCare | Pet Owner Profile</title>
 </head>
 <body>
 
@@ -91,6 +91,16 @@
                                     <?php echo $data['user']->mobile ; ?>
                                 </div>
                             </div>
+
+                            <div class="phone">
+                                <div class="phone-text">
+                                    Register Date
+                                </div>
+                                <div class="phone-number inner-text">
+                                    <?php echo $data['user']->register_date ; ?>
+                                </div>
+                            </div>
+
                             <div class="address">
                                 <div class="address-text ">
                                     Address

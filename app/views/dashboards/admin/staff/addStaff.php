@@ -80,6 +80,15 @@
                         </div>
                         <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
 
+                        <div class="flex-column">
+                            <label>NIC </label>
+                        </div>
+                        <div class="inputForm <?php echo (!empty($data['nic_err'])) ? 'is-invalid' : '' ; ?>">
+                            <i class='bx bx-id-card'></i>
+                            <input type="text" class="input " placeholder="Enter NIC" value="<?php echo $data['nic']?>" name="nic">
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['nic_err']; ?></span>
+
 
                 </div> <!-- column tag close -->
 

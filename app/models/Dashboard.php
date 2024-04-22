@@ -57,7 +57,7 @@
         public function addStaff($data){
             
 
-        $this->db->query('INSERT INTO petcare_staff (firstname,lastname,email,phone,role,password,address ,profileImage) VALUES(:first_name, :last_name, :email, :mobile, :role,:tmp_pwd, :address , "nopic.png")');
+        $this->db->query('INSERT INTO petcare_staff (firstname,lastname,email,phone,role,password,address,nic) VALUES(:first_name, :last_name, :email, :mobile, :role,:tmp_pwd, :address,:nic)');
 
         //bind values
         $this->db->bind(':first_name',$data['first_name']);
@@ -67,6 +67,7 @@
         $this->db->bind(':tmp_pwd',$data['tmp_pwd']);
         $this->db->bind(':role',$data['role']);
         $this->db->bind(':address',$data['address']);
+        $this->db->bind(':nic',$data['nic']);
         
 
         //execute
@@ -85,7 +86,7 @@
 
         public function updateStaff($data){
 
-            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile   WHERE staff_id = :id');
+            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile , nic = :nic ,password=:password  WHERE staff_id = :id');
 
         //bind values
         $this->db->bind(':id',$data['id']);
@@ -95,6 +96,8 @@
         $this->db->bind(':email',$data['email']);
         $this->db->bind(':role',$data['role']);
         $this->db->bind(':address',$data['address']);
+        $this->db->bind(':nic',$data['nic']);
+        $this->db->bind(':password',password_hash($data['nic'],PASSWORD_DEFAULT));
         // $this->db->bind(':fb_url',$data['fb_url']);
         // $this->db->bind(':insta_url',$data['insta_url']);
         // $this->db->bind(':twitter_url',$data['twitter_url']);
@@ -318,8 +321,8 @@
         }
 
 
-        public function updatePet($data){
-            $this->db->query('UPDATE petcare_petowner SET pet = :petname , DOB = :dob , species= :species , breed = :breed , sex = :sex   WHERE id = :id');
+        public function updatePet($data){ // for admin
+            $this->db->query('UPDATE petcare_pet SET pet = :petname , DOB = :dob , species= :species , breed = :breed , sex = :sex   WHERE id = :id');
 
             //bind values
             $this->db->bind(':id',$data['id']);
@@ -925,13 +928,9 @@
                 $oldImgFileName = $this->getPetProfileImageByID($data['id']);
 
 
-                // Delete the old image file
+           
 
-                /*
-                $oldImagePath = __DIR__ . '/../../public/storage/uploads/animals/' . $oldImgFileName->profileImage;
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }*/
+                
 
 
                 $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB = :DOB , breed= :breed, sex = :sex , species = :species , profileImage =:filename   WHERE id = :id');
@@ -1004,6 +1003,17 @@
     
                         //execute
                     if($this->db->execute()){
+
+                    //delete the old image
+                    if($data['img'] != NULL){
+
+                        $oldImgPath = $destinationDir . $oldImgFileName;
+                        if($previousImage != 'petcare-default-picture-user.png'){
+                            unlink($oldImgPath);
+                        }
+                    }
+                        
+
                         return true;
 
                     }else{
@@ -1476,7 +1486,7 @@
     
                     $row = $this->db->single();
     
-                    return $row;
+                    return $row->profileImage;
         }
 
         //35

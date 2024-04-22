@@ -42,12 +42,19 @@
                         <?php echo $data['greetingmsg']; ?>,  <span><?php echo $_SESSION['user_fname']?></span>
                         </div>
                         <div class="home-text-small">
+
+                        <ol>
+
+                        <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
+                                <li>Please upload a <span>profile picture</span> to make your profile stand out.</li>
+                        <?php endif; ?>
+                        
                             <?php if($_SESSION['user_role'] == "Doctor") : ?>
-                            You have <span> <?php if($data['todayAppointment'] != null) { echo  count($data['todayAppointment']);} else { echo 0;}  ?> </span> upcoming appointments.
+                           <li>You have <span> <?php if($data['todayAppointment'] != null) { echo  count($data['todayAppointment']);} else { echo 0;}  ?> </span> upcoming appointments.</li> 
                             <?php endif ?>
 
                             <?php if($_SESSION['user_role'] == "Nurse") : ?>
-                              Currently <span><?php if($data['wardDetails'] != null) { echo  count($data['wardDetails']);} else { echo 0;}  ?> </span> animals in the ward.
+                             <li> Currently <span><?php if($data['wardDetails'] != null) { echo  count($data['wardDetails']);} else { echo 0;}  ?> </span> animals in the ward.</li> 
                             <?php endif ?>
 
                         </div>

@@ -853,6 +853,9 @@
             $_SESSION['user_lname'] = $user->lastname;
             $_SESSION['user_role'] = $user->role;
             $_SESSION['user_profileimage'] = $user->profileImage;
+            $_SESSION['user_address'] = $user->address;
+            $_SESSION['user_mobile'] = $user->phone;
+
 
             switch ($_SESSION['user_role']) {
                 case "Admin":
@@ -892,6 +895,8 @@
             unset( $_SESSION['user_profileimage']);
             unset($_SESSION['user_address']);
 
+            unset($_SESSION['last_activity']);
+
             session_destroy();
 
             if(isset($_SESSION['shop_user'])){
@@ -901,6 +906,8 @@
                 redirect('users/login');
             }
         }
+
+        
 
 
 
@@ -1034,7 +1041,7 @@
             //last request was more than 5 minutes ago
             
             //messages for login page
-            $_SESSION['session_err_PO'] = "<i class='bx bx-error'></i> Session expired! Please try again.";  // for login page. for loading without any errors
+            $_SESSION['session_err_PO'] = "<i class='bx bx-error'></i> Session expired! Please try again.";  // THIS use for BOTH staff and PO LOGIN
 
             //unset session variables
             unset($_SESSION['VerifiedUser_PWD_Session_LastActivity']);
@@ -1101,7 +1108,7 @@
                     if($this->userModel->updatePassword($data)){
 
                         //messages for login page
-                        $_SESSION['change_pwd_msg_PO'] = "<i class='bx bx-check-circle' ></i>Password changed successfully!";  // for change password page. for loading without any errors
+                        $_SESSION['change_pwd_msg_PO'] = "<i class='bx bx-check-circle' ></i>Password changed successfully!";  // this use for both staff and PO LOGIN
 
                           //unset session variables
                           unset($_SESSION['VerifiedUser_PWD_Session_LastActivity']);

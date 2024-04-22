@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/profile.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>PetCare | Profile</title>
+    <title>PetCare | Staff Profile</title>
 </head>
 <body>
 
@@ -114,7 +114,7 @@
                             </div>
 
                             
-                            <?php if($data['user']->role == 'Admin'): ?>
+                            <?php if($_SESSION['user_role'] != 'Pet Owner'): ?>
 
                             <div class="email">
                                 <div class="email-text">
@@ -126,6 +126,15 @@
                             </div>
 
                             <?php endif; ?>
+
+                            <div class="phone">
+                                <div class="phone-text">
+                                    Join Date
+                                </div>
+                                <div class="phone-number inner-text">
+                                    <?php echo $data['user']->join_date ; ?>
+                                </div>
+                            </div>
 
 
                             <div class="phone">
