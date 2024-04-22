@@ -82,7 +82,7 @@
 
         <?php
 
-            if(count($data['pet']) == 0){
+            if(count($data['pet']) == 0){ // database eke data naththn 0
 
                 echo '<td class="isempty" colspan="7">No data available in table</td>';
 

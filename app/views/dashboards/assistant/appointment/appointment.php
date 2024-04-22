@@ -73,6 +73,7 @@
                                 <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></i></th>
                                 <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
                                 <th>Pet Owner<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
+                                <th>Veterinarian<i class='bx bxs-sort-alt sort' data-sort="vet-search"></th>
                                 <th>Date <i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
                                 <th>Time <i class='bx bxs-sort-alt sort' data-sort="time-search"></th>
                                 <th>Species <i class='bx bxs-sort-alt sort' data-sort="species-search"></th>
@@ -107,6 +108,13 @@
                                     <div class="profile-three">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $appointment->petownerpic?>" >
                                     <p><?php echo $appointment->petownerfname?> <?php echo $appointment->petownerlname?></p>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="profile-three vet-search">
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $appointment->vetpic?>" >
+                                    <p><?php echo $appointment->vetfname?> <?php echo $appointment->vetlname?></p>
                                     </div>
                                 </td>
 

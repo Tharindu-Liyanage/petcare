@@ -159,7 +159,7 @@
                     <span class="list">Date</span> :{appointment_date}
                   </li>
                   <li class="time">
-                    <span class="list">Time</span> : { appointment_time}
+                    <span class="list">Time</span> : {appointment_time}
                   </li>
                   <li class="tid">
                     <span class="list">Treatment</span> :{treatment}

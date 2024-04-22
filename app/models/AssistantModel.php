@@ -22,7 +22,7 @@
     $this ->db -> query ('SELECT pet.* , petowner.* , pet.profileImage as petImage , petowner.profileImage as petownerImage
                           FROM petcare_pet pet
                           JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
-                          WHERE pet.isRemoved = 0 AND petowner.isRemoved = 0
+                          WHERE pet.isRemoved = 0 AND petowner.isRemoved = 0 --pet ownergei petgei delete nokrpuw--
                           ');
 
          $results = $this->db->resultSet();
@@ -230,13 +230,18 @@ public function findpetownerID($petownerID){
       petcare_petowner.profileImage AS petownerpic, 
       petcare_petowner.first_name AS petownerfname, 
       petcare_petowner.last_name AS petownerlname,
-      petcare_pet.species AS species
+      petcare_pet.species AS species,
+      petcare_staff.firstname AS vetfname,
+      petcare_staff.lastname AS vetlname,
+      petcare_staff.profileImage AS vetpic
       FROM 
         petcare_appointments
       JOIN 
         petcare_pet ON petcare_appointments.pet_id = petcare_pet.id
       JOIN 
         petcare_petowner ON petcare_appointments.petowner_id = petcare_petowner.id
+      JOIN 
+      petcare_staff ON petcare_appointments.vet_id = petcare_staff.staff_id
       WHERE 
         petcare_appointments.status != "Completed" ORDER BY 
         CASE WHEN petcare_appointments.status = "Pending" THEN 0 ELSE 1 END , petcare_appointments.appointment_date ASC ,  petcare_appointments.appointment_time ASC ' );
@@ -305,15 +310,19 @@ public function findpetownerID($petownerID){
           }
 
 // email-----------------------------------------------------------------------------------------------------------------------------
-          public function appointmentStatusMail($data){
+          public function getAppointmentById($appointmentId){
             $this ->db -> query ('SELECT 
-            petcare_appointments.*, 
+             petcare_appointments.*, 
             petcare_pet.profileImage AS petpic, 
             petcare_pet.pet AS petname, 
             petcare_petowner.profileImage AS petownerpic, 
             petcare_petowner.first_name AS petownerfname, 
             petcare_petowner.last_name AS petownerlname,
-            petcare_pet.species AS species
+            petcare_petowner.email AS petowneremail,
+            petcare_petowner.mobile AS petownermobile,
+            petcare_pet.species AS species,
+            petcare_staff.firstname AS vetfname,
+            petcare_staff.lastname AS vetlname
             FROM 
               petcare_appointments
             JOIN 
@@ -323,12 +332,14 @@ public function findpetownerID($petownerID){
             JOIN 
               petcare_staff ON petcare_appointments.vet_id = petcare_staff.staff_id
             WHERE 
-            $this->db->bind(':wardTreatmentID' ,$id );
+            petcare_appointments.id =:appointmentID');
+             $this->db->bind(':appointmentID' ,$appointmentId );
+
           
-            $results = $this->db->resultSet();
+            $results = $this->db->single();
             return $results;
                        
                 
                 
 
-    }
+    }}

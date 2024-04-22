@@ -64,7 +64,14 @@
             
             $_SESSION['notification'] = "ok";
             $_SESSION['notification_msg'] = "Appointment confirmation Successful.";
-            $this->appointmentStatusMail($data)
+            
+            $appointmentDetails=$this->assistantModel->getAppointmentById($appointmentID);
+            $data = [
+                'appointment_Staus'=> $appointmentDetails
+            ];
+            $this->appointmentStatusMail($data);
+    
+
             redirect('assistant/appointment');
          } else{ die("something went wrong");
 
@@ -78,6 +85,11 @@
             if($this -> assistantModel ->updateAppointmentStatusToReject($appointmentID)){
                 $_SESSION['notification'] = "ok";
                         $_SESSION['notification_msg'] = "Appointment Rejection Successful.";
+                        $appointmentDetails=$this->assistantModel->getAppointmentById($appointmentID);
+            $data = [
+                'appointment_Staus'=> $appointmentDetails
+            ];
+                        $this->appointmentStatusMail($data);
                redirect('assistant/appointment');
             } else{ die("something went wrong");
    
@@ -113,25 +125,34 @@
                 $mail->setFrom($_ENV['MAIL_USERNAME'], 'PetCare');
         
                 // Add recipient address
-                $mail->addAddress($_SESSION['user_email'], 'Pet Owner: ' . $_SESSION['user_fname'] . ' ' . $_SESSION['user_lname']);
+                $mail->addAddress($data['appointment_Staus'] -> petowneremail,'Pet Owner: ' . $data['appointment_Staus']-> petownerfname.  $data['appointment_Staus']-> petownerlname );
         
                 // Set subject and body
-                $mail->Subject = 'Important Update from Pet Care';
+                $mail->Subject = 'Important Update from Pet Care Appointment';
                 $mail->isHTML(true);
 
-               ob_start();  // Start output buffering
-                include(__DIR__ . '/../views/email/appointmentPending.php');
-                $mailBody = ob_get_clean();
+                $filePath = __DIR__ . '/../views/email/appointmentstatus.php';
+                $emailContent = file_get_contents($filePath);
+                $emailContent = str_replace('{user_fname}', $data['appointment_Staus']->petownerfname, $emailContent);
+                $emailContent = str_replace('{user_lname}', $data['appointment_Staus']->petownerlname, $emailContent);
+                $emailContent = str_replace('{status}',$data['appointment_Staus']->status, $emailContent);
+                $emailContent = str_replace('{appointment_id}',$data['appointment_Staus']->appointment_id, $emailContent);
+                $emailContent = str_replace('{vet_fname}',$data['appointment_Staus']->vetfname, $emailContent);
+                $emailContent = str_replace('{vet_lname}',$data['appointment_Staus']->vetlname, $emailContent);
+                $emailContent = str_replace('{appointment_date}',$data['appointment_Staus']->appointment_date, $emailContent);
+                $emailContent = str_replace('{appointment_time}',$data['appointment_Staus']->appointment_time, $emailContent);
+                $emailContent = str_replace('{treatment}',$data['appointment_Staus']->treatment_id, $emailContent);
+                $emailContent = str_replace('{appointment_reason}',$data['appointment_Staus']->appointment_type, $emailContent);
+                $emailContent = str_replace('{pet_name}',$data['appointment_Staus']->petname, $emailContent);
+                
+                
+                $mail->Body = $emailContent;
 
-                $mail->Body = $mailBody;
-
+               
         
                 // Send the email
                 $mail->send();
 
-                
-                $this->destroyAppointmentSessionVariables();
-                $this->appointmentSuccessSMS();
                 
 
             } catch (Exception $e) {
@@ -322,7 +343,7 @@
         public function updatePetowner($petownerID){
 
 
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
@@ -337,67 +358,67 @@
                     ];
 
                     
-        //validate Email
-        if(empty($data['email'])){
+                    //validate Email
+                if(empty($data['email'])){
 
-            $data['email_err'] = 'Please enter email';
+                        $data['email_err'] = 'Please enter email';
 
-        }else{
+                    }else{
 
-            if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){ //check email in correct formate
+                        if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){ //check email in correct formate
 
-               
-            }else{  //check email in the DB
+                        
+                        }else{  //check email in the DB
+                        
+                            $data['email_err'] = 'Email is not valid';
+
+                        }
+
+
+                    }
+
+
+                    
+                    //validate mobile
+                    if(empty($data['mobile'])){
+
+                            $data['mobile_err'] = 'Please enter mobile';
+                                    
+                    }else{
             
-                 $data['email_err'] = 'Email is not valid';
+                        if(preg_match("/^94\d{9}$/", $data['mobile'])){ //check email in correct formate
 
-            }
+                                    
+                        }else{  //check email in the DB
+                                    
+                                $data['mobile_err'] = 'mobile is not valid';
+            
+                        }
 
 
-        }
+                    }
 
 
-        
-        //validate mobile
-        if(empty($data['mobile'])){
+                        if( empty($data['email_err'])  && empty($data['mobile_err']) )  {
 
-                 $data['mobile_err'] = 'Please enter mobile';
+
+                                    //Regster User
+
+                                    if($this->assistantModel->updatepetowner($data)){
+                                        $_SESSION['notification'] = "ok";
+                                        $_SESSION['notification_msg'] = "Update Successful.";
+                                            redirect('assistant/petowner');
+
+                                    }else{
+                                            die("Something went wrong");
+                                    }
+
+
+                        }else{
+                            $this->view('dashboards/assistant/petowner/updatePetowner',$data);//load with errors  
+                        }  
+
                         
-        }else{
- 
-               if(preg_match("/^94\d{9}$/", $data['mobile'])){ //check email in correct formate
-
-                           
-               }else{  //check email in the DB
-                        
-                    $data['mobile_err'] = 'mobile is not valid';
- 
-               }
-
-
-         }
-
-
-              if( empty($data['email_err'])  && empty($data['mobile_err']) )  {
-
-
-                           //Regster User
-
-                           if($this->assistantModel->updatepetowner($data)){
-                            $_SESSION['notification'] = "ok";
-                            $_SESSION['notification_msg'] = "Update Successful.";
-                                   redirect('assistant/petowner');
-
-                           }else{
-                                  die("Something went wrong");
-                           }
-
-
-             }else{
-                $this->view('dashboards/assistant/petowner/updatePetowner',$data);//load with errors  
-             }  
-
-               
 
 
 
