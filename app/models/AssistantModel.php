@@ -22,7 +22,7 @@
     $this ->db -> query ('SELECT pet.* , petowner.* , pet.profileImage as petImage , petowner.profileImage as petownerImage
                           FROM petcare_pet pet
                           JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
-                          WHERE pet.isRemoved = 0 AND petowner.isRemoved = 0 --pet ownergei petgei delete nokrpuw--
+                          WHERE pet.isRemoved = 0 AND petowner.isRemoved = 0 
                           ');
 
          $results = $this->db->resultSet();
@@ -280,7 +280,7 @@ public function findpetownerID($petownerID){
 //medical bill-------------------------------------------------------------------------------------------------------------------------
     public function getDischargeDetails(){
         //from inward_pet table
-        $this->db->query('SELECT ward.* , pet.pet_id_generate as genPetID, petowner.petowner_id_generate as genPetOwnerID ,  pet.pet as petname, pet.profileImage as petpic, petowner.profileImage as petownerpic, petowner.first_name as petownerfname, petowner.last_name as petownerlname
+        $this->db->query('SELECT ward.* , pet.pet_id_generate as genPetID, petowner.petowner_id_generate as genPetOwnerID ,  pet.pet as petname, pet.profileImage as petpic, petowner.profileImage as petownerpic, petowner.first_name as petownerfname, petowner.last_name as petownerlname 
                           FROM petcare_ward_treatment ward
                           JOIN petcare_pet pet ON ward.pet_id = pet.id
                           JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
@@ -296,7 +296,9 @@ public function findpetownerID($petownerID){
     }
 //update payment-----------------------------------------------------------------------------------------------------------
     public function updatePayment($id){
-            $this ->db -> query ('UPDATE petcare_ward_treatment   SET payment_status = "Paid"  WHERE ward_treatment_id =:wardTreatmentID');
+            $this ->db -> query ('UPDATE petcare_ward_treatment 
+            SET payment_status = "Paid", payment_date = CURDATE()  
+            WHERE ward_treatment_id =:wardTreatmentID');
             $this->db->bind(':wardTreatmentID' ,$id );
      
             
@@ -342,26 +344,59 @@ public function findpetownerID($petownerID){
                 
     }
     //Count pending appointments-------------------------------------------------------------------------------------------------------------------------------------------------------
-    public function countAppointments(){
-        $this->db->query('SELECT 
-        petcare_appointments.*, 
+   public function countAppointments(){
+        $this->db->query('SELECT *
         
         FROM 
           petcare_appointments
         
-        WHERE 
-          petcare_appointments.status = "Pending"');
+       WHERE 
+          status ="Pending"');
+
+         $results = $this->db->resultSet();
+         return $results;     
+    }
+
+
+    public function countMedicalBills(){
+        $this->db->query('SELECT *
+        
+        FROM 
+          petcare_ward_treatment
+        
+       WHERE 
+          payment_status ="Pending"');
 
          $results = $this->db->resultSet();
          return $results;
+
+        
                     
          
     }
+
+    public function countMedicalBillsIncome(){
+        $this->db->query('SELECT bill.* , treat.payment_status AS payment_status 
+        FROM petcare_ward_medical_bill bill
+        JOIN petcare_ward_treatment treat ON bill.ward_treatment_id = treat.ward_treatment_id
+        WHERE treat.payment_status = "Paid" AND treat.payment_date = CURDATE() '
+        
+        );
+
+         $results = $this->db->resultSet();
+         return $results;
+         
+
+        
+                    
+         
+    }
+
+
 
      
 
 
 
 
-
-}
+    }

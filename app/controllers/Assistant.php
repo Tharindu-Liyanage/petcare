@@ -42,12 +42,87 @@
         public function index(){
 
             $count = $this->assistantModel->countAppointments();
+            $countBill=$this->assistantModel->countMedicalBills();
+            $countIncome=$this->assistantModel->countMedicalBillsIncome();
+            $greetingmsg = $this->getWelcomeGreeting();
+            
+            $totalPrice = 0;
+
+            foreach ($countIncome as $income) {
+                $totalPrice += $income->price;
+            }
             $data=[
-                'pendingAppointments'=> $count
+                'pendingAppointments'=> $count,
+                'pendingMedicalBills'=> $countBill,
+                'todayMedicalBillsIncome'=>$totalPrice,
+                'greetingmsg'=> $greetingmsg
+                
+
             ];
+
+           
             
             $this->view('dashboards/assistant/index',$data);
         }
+
+
+        public function getWelcomeGreeting(){
+            
+              
+
+            $currentTime = date('H:i:s'); // Get the current time in 24-hour format
+
+            if ($currentTime >= '00:00:00' && $currentTime < '12:00:00') {
+                return "Good morning!";
+            } elseif ($currentTime >= '12:00:00' && $currentTime < '17:00:00') {
+                return "Good afternoon!";
+            } elseif ($currentTime >= '17:00:00' && $currentTime < '20:00:00') {
+                return "Good evening!";
+            } else {
+                return "Good night!";
+            }
+        
+
+    }
+
+    public function profilePetowner($id){
+            
+              
+        $user = $this->dashboardModel->getPetownerDetailsById($id);
+        $pets = $this->dashboardModel->getPetDetailsByPetownerID($id);
+
+        if($user == null){
+            redirect('assistant/notfound');
+        }
+
+        $data = [
+                'user' =>$user,
+                'pet' => $pets
+        ];
+
+        
+        $this->view('dashboards/common/petownerProfile', $data);
+    }
+
+
+    public function profileStaff($id){
+            
+              
+        $user = $this->dashboardModel->getStaffUserById($id);
+
+        if($user == null){
+            redirect('admin/notfound');
+        }
+
+        $data = [
+                'user' =>$user
+        ];
+
+        
+        $this->view('dashboards/common/profile', $data);
+    }
+    
+
 
         public function appointment(){
             $appointmentDetails = $this -> assistantModel ->getAppointmentDetails();

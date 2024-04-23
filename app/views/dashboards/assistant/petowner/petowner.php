@@ -101,7 +101,7 @@
             <tr>
                 <td class="id-search"><?php echo $petowner->petowner_id_generate?></td>
                 <td class="profile">
-                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner-> profileImage ?>" ><p><?php echo $petowner-> first_name?> <?php echo $petowner-> last_name?></p>
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner-> profileImage ?>" ><p> <a href="<?php echo URLROOT; ?>/assistant/profilePetowner/<?php echo $petowner->id?>"><?php echo $petowner-> first_name?>  <?php echo $petowner-> last_name?></a></p>
              </td>
                 <td class="address-search"><?php echo $petowner->address?></td>
                 <td class="mobile-search"><?php echo $petowner->mobile?></td>
@@ -150,3 +150,4 @@
     
 </body>
 </html>
+

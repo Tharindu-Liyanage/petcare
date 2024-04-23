@@ -96,6 +96,7 @@
                                 <th>Pet Name <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
                                 <th>Pet Owner <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
                                 <th>Payment Status<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
+                                <th>Payment Date<i class='bx bxs-sort-alt sort' data-sort="date-search"></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -127,6 +128,8 @@
                                     </div>
                                 </td>
 
+                        
+
 
                                 <td class="status">
                                     
@@ -139,6 +142,16 @@
                                     <?php endif; ?>
 
                                 </td>
+
+
+                                <td class="date-search">
+
+                                <?php if($med->payment_date== NULL): ?>
+                                none
+                                   <?php  else : ?>
+                                    <?php echo $med->payment_date?>
+                                    <?php endif; ?>
+                            </td>
                                 
                     
                                 
@@ -149,8 +162,8 @@
                                     <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/assistant/viewMedicalBill/<?php echo $med->ward_treatment_id;?>"><i class='bx bx-chevron-right'></i></i></a>
                                     <?php endif; ?>
                                 </td>
-
-
+                           
+                                
                                 
                             </tr>
 
