@@ -340,6 +340,28 @@ public function findpetownerID($petownerID){
             return $results;
                        
                 
-                
+    }
+    //Count pending appointments-------------------------------------------------------------------------------------------------------------------------------------------------------
+    public function countAppointments(){
+        $this->db->query('SELECT 
+        petcare_appointments.*, 
+        
+        FROM 
+          petcare_appointments
+        
+        WHERE 
+          petcare_appointments.status = "Pending"');
 
-    }}
+         $results = $this->db->resultSet();
+         return $results;
+                    
+         
+    }
+
+     
+
+
+
+
+
+}

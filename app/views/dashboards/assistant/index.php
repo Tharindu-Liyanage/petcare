@@ -35,8 +35,7 @@
                 <li>
                     <i class='bx bx-calendar-check' ></i>
                     <span class="info">
-                        <h3>20</h3>
-                        <p>Pending Appointments</p>
+                        <?php echo count($data['pendingAppointments'])?>
                     </span>
                 </li>
                 <li><i class='bx bx-show-alt' ></i>

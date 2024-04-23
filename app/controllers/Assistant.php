@@ -41,8 +41,10 @@
 
         public function index(){
 
-            $data =null;
-   
+            $count = $this->assistantModel->countAppointments();
+            $data=[
+                'pendingAppointments'=> $count
+            ];
             
             $this->view('dashboards/assistant/index',$data);
         }
