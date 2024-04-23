@@ -83,7 +83,7 @@
                             <?php foreach($data['appointment'] as $app) : ?>
 
                                 <tr>
-                                    <td class="id-search" >APT-<?php echo $app->id ;?></td>
+                                    <td class="id-search" >AID-<?php echo $app->id ;?></td>
 
                                 
                                 

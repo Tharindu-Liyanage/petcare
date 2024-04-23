@@ -265,6 +265,8 @@
                 }else{
                     return null;
                 }
+
+                //null mean 
             }
 
             public function getPetDetailsByPetID($pet_id){
@@ -299,7 +301,7 @@
                 $petDetails=$this->getPetDetailsByPetID($data['pet_id']);
                 $petowner_id = $petDetails->poid;
 
-                if($data['date'] != NULL && $data['trtID'] == "new"){
+                if($data['date'] != NULL && $data['trtID'] == "new"){ //ongoing but new treatment
                     //insert new treatment to with petid to petcare_treatment table and get the treatment id
                     $this->db->query('INSERT INTO petcare_treatment (pet_id) VALUES (:pet_id)');
                     $this->db->bind(':pet_id', $data['pet_id']);
@@ -310,50 +312,35 @@
                     $row = $this->db->single();
                     $data['trtID'] = $row->treatment_id;
 
-                    //appointment table treatment id null update to new treatment id
-                    $this->db->query('UPDATE petcare_appointments SET treatment_id = :treatment_id WHERE pet_id = :pet_id AND treatment_id IS NULL LIMIT 1');
-                    $this->db->bind(':treatment_id', $data['trtID']);
-                    $this->db->bind(':pet_id', $data['pet_id']);
-                    $this->db->execute();
+
+                    //checking if apoointment or emergency
+
+                    if($this->getLatestTreatmentID($data['pet_id']) == NULL){  // this mean no appointment for this pet ,, emergency
+                        
+
+                    }else{
+
+                        //update latest appointment treatment id to new treatment id
+                        $this->db->query('UPDATE petcare_appointments 
+                        SET treatment_id = :treatment_id , status = "Completed"
+                        WHERE pet_id = :pet_id AND status = "Confirmed"
+                        AND appointment_date = (
+                            SELECT MAX(appointment_date) 
+                            FROM petcare_appointments 
+                            WHERE pet_id = :pet_id AND status = "Confirmed"
+                        )');
+                        $this->db->bind(':treatment_id', $data['trtID']);
+                        $this->db->bind(':pet_id', $data['pet_id']);
+                        $this->db->execute();
+
+
+                    }
+        
                     
 
+            
                     //now insert into petcare_medical_reports table
-                    $this->db->query('INSERT INTO petcare_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, visit_date, status, diagnosis, treatment_plan, prescription, physical_examination,followup_date,followup_reason,instruction) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :visit_date, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:followup_date,:followup_reason,:instruction)');
-                    // Bind values
-                    $this->db->bind(':treatment_id', $data['trtID']);
-                    $this->db->bind(':pet_id', $data['pet_id']);
-                    $this->db->bind(':owner_id',$petowner_id);
-                    $this->db->bind(':veterinarian_id', $_SESSION['user_id']);
-                    $this->db->bind(':visit_date', $data['visit_date']);
-                    $this->db->bind(':status', $data['status']);
-                    $this->db->bind(':diagnosis', $data['diagnosis']);
-                    $this->db->bind(':treatment_plan', $data['treatment_plan']);
-                    $this->db->bind(':prescription', $data['prescription']);
-                    $this->db->bind(':physical_examination', $data['examination']);
-                    $this->db->bind(':followup_date', $data['date']);
-                    $this->db->bind(':followup_reason', $data['follow-up-reason']);
-                    $this->db->bind(':instruction', $data['instructions']);
-
-                }else if($data['date'] == NULL && $data['trtID'] == "new"){
-
-                    //insert new treatment to with petid to petcare_treatment table and get the treatment id
-                    $this->db->query('INSERT INTO petcare_treatment (pet_id) VALUES (:pet_id)');
-                    $this->db->bind(':pet_id', $data['pet_id']);
-                    $this->db->execute();
-
-                    $this->db->query('SELECT treatment_id FROM petcare_treatment WHERE pet_id = :pet_id ORDER BY treatment_id DESC LIMIT 1');
-                    $this->db->bind(':pet_id', $data['pet_id']);
-                    $row = $this->db->single();
-                    $data['trtID'] = $row->treatment_id;
-
-                    //appointment table treatment id null update to new treatment id
-                    $this->db->query('UPDATE petcare_appointments SET treatment_id = :treatment_id WHERE pet_id = :pet_id AND treatment_id IS NULL LIMIT 1');
-                    $this->db->bind(':treatment_id', $data['trtID']);
-                    $this->db->bind(':pet_id', $data['pet_id']);
-                    $this->db->execute();
-
-                    //now insert into petcare_medical_reports table
-                    $this->db->query('INSERT INTO petcare_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, status, diagnosis, treatment_plan, prescription, physical_examination,instruction,visit_date) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:instruction,:visit_date)');
+                    $this->db->query('INSERT INTO petcare_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, status, diagnosis, treatment_plan, prescription, physical_examination,followup_date,followup_reason,instruction) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:followup_date,:followup_reason,:instruction)');
                     // Bind values
                     $this->db->bind(':treatment_id', $data['trtID']);
                     $this->db->bind(':pet_id', $data['pet_id']);
@@ -364,20 +351,98 @@
                     $this->db->bind(':treatment_plan', $data['treatment_plan']);
                     $this->db->bind(':prescription', $data['prescription']);
                     $this->db->bind(':physical_examination', $data['examination']);
+                    $this->db->bind(':followup_date', $data['date']);
+                    $this->db->bind(':followup_reason', $data['follow-up-reason']);
                     $this->db->bind(':instruction', $data['instructions']);
-                    $this->db->bind(':visit_date', $data['visit_date']);
+
+                }else if($data['date'] == NULL && $data['trtID'] == "new"){ // new treatment but no followup date (closed)
+
+                    //insert new treatment to with petid to petcare_treatment table and get the treatment id
+                    $this->db->query('INSERT INTO petcare_treatment (pet_id) VALUES (:pet_id)');
+                    $this->db->bind(':pet_id', $data['pet_id']);
+                    $this->db->execute();
+
+                    $this->db->query('SELECT treatment_id FROM petcare_treatment WHERE pet_id = :pet_id ORDER BY treatment_id DESC LIMIT 1');
+                    $this->db->bind(':pet_id', $data['pet_id']);
+                    $row = $this->db->single();
+                    $data['trtID'] = $row->treatment_id;
+
+                    //checking if apoointment or emergency
+
+                    if($this->getLatestTreatmentID($data['pet_id']) == NULL){  // this mean no appointment for this pet ,, emergency
+                        
+
+                    }else{
+
+                        //update latest appointment treatment id to new treatment id
+                        $this->db->query('UPDATE petcare_appointments 
+                        SET treatment_id = :treatment_id , status = "Completed"
+                        WHERE pet_id = :pet_id AND status = "Confirmed"
+                        AND appointment_date = (
+                            SELECT MAX(appointment_date) 
+                            FROM petcare_appointments 
+                            WHERE pet_id = :pet_id AND status = "Confirmed"
+                        )');
+                        $this->db->bind(':treatment_id', $data['trtID']);
+                        $this->db->bind(':pet_id', $data['pet_id']);
+                        $this->db->execute();
 
 
-                }else if($data['date'] != NULL ){
+                    }
+
+
+                    //now insert into petcare_medical_reports table
+                    $this->db->query('INSERT INTO petcare_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, status, diagnosis, treatment_plan, prescription, physical_examination,instruction) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:instruction)');
+                    // Bind values
+                    $this->db->bind(':treatment_id', $data['trtID']);
+                    $this->db->bind(':pet_id', $data['pet_id']);
+                    $this->db->bind(':owner_id',$petowner_id);
+                    $this->db->bind(':veterinarian_id', $_SESSION['user_id']);
+                    $this->db->bind(':status', $data['status']);
+                    $this->db->bind(':diagnosis', $data['diagnosis']);
+                    $this->db->bind(':treatment_plan', $data['treatment_plan']);
+                    $this->db->bind(':prescription', $data['prescription']);
+                    $this->db->bind(':physical_examination', $data['examination']);
+                    $this->db->bind(':instruction', $data['instructions']);
+
+
+            
+                }else if($data['date'] != NULL ){  // ongoing treatment with followup date (normal existing treatment)
+
+
+                    if($this->getLatestTreatmentID($data['pet_id']) == NULL){  // this mean no appointment for this pet ,, emergency
+                        
+
+                    }else{
+
+                        //update latest appointment treatment id to new treatment id
+                        $this->db->query('UPDATE petcare_appointments 
+                        SET treatment_id = :treatment_id , status = "Completed"
+                        WHERE pet_id = :pet_id AND status = "Confirmed"
+                        AND appointment_date = (
+                            SELECT MAX(appointment_date) 
+                            FROM petcare_appointments 
+                            WHERE pet_id = :pet_id AND status = "Confirmed"
+                        )');
+                        $this->db->bind(':treatment_id', $data['trtID']);
+                        $this->db->bind(':pet_id', $data['pet_id']);
+                        $this->db->execute();
+
+
+                    }
+
+                    //if existing treatment id on appointment table update the status to completed 
+                    $this->db->query('UPDATE petcare_appointments SET status = "Completed" WHERE treatment_id = :id AND status = "Confirmed"');
+                    $this->db->bind(':id', $data['trtID']);
+                    $this->db->execute();
                     
-                    $this->db->query('INSERT INTO petcare_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, visit_date, status, diagnosis, treatment_plan, prescription, physical_examination,followup_date,followup_reason,instruction) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :visit_date, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:followup_date,:followup_reason,:instruction)');
+                    $this->db->query('INSERT INTO petcare_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, status, diagnosis, treatment_plan, prescription, physical_examination,followup_date,followup_reason,instruction) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:followup_date,:followup_reason,:instruction)');
 
                     // Bind values
                     $this->db->bind(':treatment_id', $data['trtID']);
                     $this->db->bind(':pet_id', $data['pet_id']);
                     $this->db->bind(':owner_id',$petowner_id);
                     $this->db->bind(':veterinarian_id', $_SESSION['user_id']);
-                    $this->db->bind(':visit_date', $data['visit_date']);
                     $this->db->bind(':status', $data['status']);
                     $this->db->bind(':diagnosis', $data['diagnosis']);
                     $this->db->bind(':treatment_plan', $data['treatment_plan']);
@@ -388,8 +453,34 @@
                     $this->db->bind(':instruction', $data['instructions']);
 
              
+                }else{ //closed treatment (normal existing treatment but no followup date)
+
+
+
+
+                    if($this->getLatestTreatmentID($data['pet_id']) == NULL){  // this mean no appointment for this pet ,, emergency
+                        
+
                     }else{
-                        $this->db->query('INSERT INTO petcare_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, status, diagnosis, treatment_plan, prescription, physical_examination,followup_reason,instruction,visit_date) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:followup_reason,:instruction,:visit_date)');
+
+                        //update latest appointment treatment id to new treatment id
+                        $this->db->query('UPDATE petcare_appointments 
+                        SET treatment_id = :treatment_id , status = "Completed"
+                        WHERE pet_id = :pet_id AND status = "Confirmed"
+                        AND appointment_date = (
+                            SELECT MAX(appointment_date) 
+                            FROM petcare_appointments 
+                            WHERE pet_id = :pet_id AND status = "Confirmed"
+                        )');
+                        $this->db->bind(':treatment_id', $data['trtID']);
+                        $this->db->bind(':pet_id', $data['pet_id']);
+                        $this->db->execute();
+
+
+                    }
+
+                    //now insert into petcare_medical_reports table
+                        $this->db->query('INSERT INTO petcare_medical_reports (treatment_id, pet_id, owner_id, veterinarian_id, status, diagnosis, treatment_plan, prescription, physical_examination,followup_reason,instruction) VALUES (:treatment_id, :pet_id, :owner_id, :veterinarian_id, :status, :diagnosis, :treatment_plan, :prescription, :physical_examination,:followup_reason,:instruction)');
 
                         // Bind values
                         $this->db->bind(':treatment_id', $data['trtID']);
@@ -403,7 +494,6 @@
                         $this->db->bind(':physical_examination', $data['examination']);
                         $this->db->bind(':followup_reason', $data['follow-up-reason']);
                         $this->db->bind(':instruction', $data['instructions']);
-                        $this->db->bind(':visit_date', $data['visit_date']);
 
                     }
 
@@ -506,7 +596,7 @@
                         FROM petcare_medical_reports
                         GROUP BY treatment_id
                     )  AND report.veterinarian_id = :id  -- Added condition for owner_id in the main query
-                    ORDER BY report.visit_date DESC
+                    ORDER BY report.visit_date DESC, report.treatment_id DESC
                     ');
     
                     $this->db->bind(':id' , $_SESSION['user_id']);
@@ -593,11 +683,13 @@
 
                 if($cageDetails == null){
                     $_SESSION['notification'] = 'error';
+                    $_SESSION['notification_msg'] = 'No available cages';
                     redirect('doctor/pet');
 
                 }else if($this->checkAdmitAlready($data['petid'])){
 
                     $_SESSION['notification'] = 'error';
+                    $_SESSION['notification_msg'] = 'Pet already admitted';
                         redirect('doctor/pet');
 
                 }else{
@@ -621,7 +713,7 @@
                     //update cage status to occupied
                     $this->updateCageStatus($cageDetails->id);
 
-                    $_SESSION['notification'] = 'ok';
+                    
 
 
                     return true;

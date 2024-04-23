@@ -351,8 +351,9 @@
                             
                             <?php if($_SESSION['user_role'] === "Doctor"): ?>
                                 <a href="<?php echo URLROOT;?>/doctor/viewWardMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+                                <?php if($wardtreatment->status === "In Progress"): ?>
                                 <a href="<?php echo URLROOT;?>/doctor/addWardTreatment/<?php echo $wardtreatment->pet_id;?>/<?php echo $wardtreatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
-                            
+                                <?php endif; ?>
                             <?php elseif($_SESSION['user_role'] === "Nurse"): ?>
                                 <a href="<?php echo URLROOT;?>/nurse/viewWardMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
                             <?php endif; ?>
