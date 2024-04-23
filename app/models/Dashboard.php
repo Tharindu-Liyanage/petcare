@@ -312,7 +312,7 @@
         //admin petowner start
 
         public function getPetDetails(){
-            $this->db->query('SELECT * FROM petcare_pet WHERE isRemoved = 0');
+            $this->db->query('SELECT pet.* , petowner.id as poid, petowner.first_name as petownerfname, petowner.last_name as petownerlname, petowner.profileImage as poimg FROM petcare_pet pet JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id WHERE pet.isRemoved = 0 AND petowner.isRemoved = 0');
         
 
             $results = $this->db->resultSet(); 
@@ -925,7 +925,7 @@
             }else{
 
                 //get image name from database
-                $oldImgFileName = $this->getPetProfileImageByID($data['id']);
+                $previousImage = $this->getPetProfileImageByID($data['id']);
 
 
            
@@ -1007,8 +1007,8 @@
                     //delete the old image
                     if($data['img'] != NULL){
 
-                        $oldImgPath = $destinationDir . $oldImgFileName;
-                        if($previousImage != 'petcare-default-picture-user.png'){
+                        $oldImgPath = $destinationDir . $previousImage;
+                        if($previousImage != 'petcare-default-picture-pet.png'){
                             unlink($oldImgPath);
                         }
                     }
@@ -1290,7 +1290,7 @@
             }else{
                 $this->db->query(
 
-                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status,treatment_id) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending",:treatment_id)');
+                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status,treatment_id,price) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending",:treatment_id,:price)');
     
                     $this->db->bind(':vetID',$vetID);
                     $this->db->bind(':reason',$reason);
@@ -1299,6 +1299,7 @@
                     $this->db->bind(':time',$time);
                     $this->db->bind(':petowner_id',$_SESSION['user_id']);
                     $this->db->bind(':treatment_id',$treatment_id);
+                    $this->db->bind(':price',$price);
                 
         
                 //execute

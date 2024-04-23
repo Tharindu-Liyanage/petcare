@@ -80,7 +80,15 @@
                         </thead>
                         <tbody class="list">
 
-                            <?php foreach($data['appointment'] as $app) : ?>
+                        <?php
+
+                            if(count($data['appointment']) == 0){
+
+                                echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                            }else
+
+                            foreach($data['appointment'] as $app) : ?>
 
                                 <tr>
                                     <td class="id-search" >AID-<?php echo $app->id ;?></td>

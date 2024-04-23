@@ -86,8 +86,15 @@
                         </thead>
                         <tbody class="list">
 
-                           
-                        <?php foreach($data['treatment'] as $treatment): ?>
+                        <?php
+
+                        if(count($data['treatment']) == 0){
+
+                            echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                        }else
+                        
+                        foreach($data['treatment'] as $treatment): ?>
                             <tr>
                                 <td class="id-search">TRT-<?php echo $treatment-> treatment_id ?></td>
                                 <td class="profile">

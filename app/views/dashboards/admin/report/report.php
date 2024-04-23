@@ -43,7 +43,7 @@
             margin-top: 20px;
         }
 
-        .filter-button1, .filter-button2{
+        .filter-button1, .filter-button2 , .filter-button3{
             background-color: #f0f0f0;
             border: none;
             color: #333;
@@ -53,12 +53,12 @@
             margin: 0 10px;
         }
 
-        .filter-button1.active, .filter-button2.active{
+        .filter-button1.active, .filter-button2.active , .filter-button3.active{
             background-color: var(--primary);
             color: #fff;
         }
 
-        .filter-button1:hover, .filter-button2:hover{
+        .filter-button1:hover, .filter-button2:hover , .filter-button3:hover{
             background-color: #4672F1;
             color: #fff;
         }
@@ -138,6 +138,25 @@
                 </div>
 
 
+                <div class="chart-container">
+
+                    <div class="chart-header">
+                        <h2> <i class='bx bx-plus-medical'></i> Animal Ward Income</h2>
+                    </div>
+
+                    <div class="chart">
+                        <canvas id="animalWardChart"></canvas>
+                    </div>
+
+                    <div class="filter-buttons-container">
+                        <button class="filter-button3" id="filter-button-1" onclick="changeDataSetWard(this)" value="year">Year</button>
+                        <button class="filter-button3 active" id="filter-button-2" onclick="changeDataSetWard(this)" value="month">Month</button>
+                    </div>
+
+        
+                </div>
+
+
             </div>
 
          <script>
@@ -158,6 +177,16 @@
             filterButtons2.forEach(button => {
                 button.addEventListener("click", () => {
                     filterButtons2.forEach(b => b.classList.remove("active"));
+                    button.classList.add("active");
+                });
+            });
+
+            //if button click add class active
+            const filterButtons3 = document.querySelectorAll(".filter-button3");
+
+            filterButtons3.forEach(button => {
+                button.addEventListener("click", () => {
+                    filterButtons3.forEach(b => b.classList.remove("active"));
                     button.classList.add("active");
                 });
             });
@@ -315,6 +344,78 @@ function changeDataSetAppointment(button) {
     // Update the chart
 
     appointmentChart.update();
+
+}
+
+//for animal ward chart
+
+var chartData3 = <?php echo json_encode($data); ?>;
+
+// Get a reference to the canvas element
+
+const ctx3 = document.getElementById("animalWardChart").getContext("2d");
+
+// Create a bar chart using Chart.js
+
+const animalWardChart = new Chart(ctx3, {
+    type: "bar",
+    data: {
+        labels: chartData3.labelsWardMonth,
+        datasets: [{
+            label: "Monthly Animal Ward Revenue",
+            data: chartData3.dataWardMonth,
+            backgroundColor: "rgba(102, 126, 234, 1)", // Bar color
+            borderColor: "rgba(75, 192, 192, 1)", // Border color
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: "Revenue (LKR)"
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: "Year-Month"
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+
+});
+
+function changeDataSetWard(button) {
+    // Get the value of the button
+    const value = button.value;
+
+    // Update the chart data
+    if (value === "year") {
+        animalWardChart.data.labels = chartData3.labelsWardYear;
+        animalWardChart.data.datasets[0].data = chartData3.dataWardYear;
+        animalWardChart.data.datasets[0].label = "Yearly Animal Ward Revenue";
+        //x-axis title
+        animalWardChart.options.scales.x.title.text = "Year";
+    } else {
+        animalWardChart.data.labels = chartData3.labelsWardMonth;
+        animalWardChart.data.datasets[0].data = chartData3.dataWardMonth;
+        animalWardChart.data.datasets[0].label = "Monthly Animal Ward Revenue";
+        //x-axis title
+        animalWardChart.options.scales.x.title.text = "Year-Month";
+    }
+
+    // Update the chart
+
+    animalWardChart.update();
 
 }
 

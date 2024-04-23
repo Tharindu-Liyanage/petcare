@@ -113,6 +113,7 @@
                     //update session variable
                     $_SESSION['user_fname'] = $data['fname'];
                     $_SESSION['user_lname'] = $data['lname'];
+                    $_SESSION['user_address'] =$data['address'];
 
                     if($data['profile_pic_img'] != null){
                         $_SESSION['user_profileimage'] = $data['uniqueImgFileName'];

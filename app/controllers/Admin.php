@@ -2092,18 +2092,30 @@
 
                         $newCageCount = count($cageCount) - $newCageCount;
 
-                       
+                        $count_ok =0;
+                        $count_error = 0;
 
                         for($i = 0; $i < $newCageCount; $i++){
 
                            if( $this->settingsModel->deleteCage()){
-                                $_SESSION['notification'] = "ok";
-                                $_SESSION['notification_msg'] = ($i + 1) . ". cages has been removed successfully.";
+                                $count_ok = $count_ok + 1;
+                        
                            }else{
-                                $_SESSION['notification'] = "error";
-                                $_SESSION['notification_msg'] = "Cage remove failed!";
+                                $count_error = $count_error + 1;
+                             
                            }
                         }
+
+                        if($count_error == 0){
+                            $_SESSION['notification'] = "ok";
+                            $_SESSION['notification_msg'] = "Cage has been removed successfully.";
+                            redirect('admin/settings/all');
+                        }elseif($count_error > 0){
+                            $_SESSION['notification'] = "error";
+                            $_SESSION['notification_msg'] = $count_error . " Cages Cant removed From Ward.";
+                            redirect('admin/settings/all');
+                        }
+
 
                     
                         
@@ -2517,31 +2529,75 @@
             $salesMonth = $this->reportModel->getSalesMonth();
             $salesYear = $this->reportModel->getSalesYear();
 
-            foreach($salesMonth as $sale){
-                $labelsMonth[] = $sale->month_year;
-                $dataMonth[] = $sale->monthly_sales;
+            if($salesMonth == null){
+                $labelsMonth = [];
+                $dataMonth = [];
+            }else{
+                foreach($salesMonth as $sale){
+                    $labelsMonth[] = $sale->month_year;
+                    $dataMonth[] = $sale->monthly_sales;
+                }
             }
 
-            foreach($salesYear as $sale){
-                $labelsYear[] = $sale->year;
-                $dataYear[] = $sale->yearly_sales;
+            if($salesYear == null){
+                $labelsYear = [];
+                $dataYear = [];
+            }else{
+                foreach($salesYear as $sale){
+                    $labelsYear[] = $sale->year;
+                    $dataYear[] = $sale->yearly_sales;
+                }
             }
+/* ====================================================================*/
 
             $appointmentRevenueMonth = $this->reportModel->getAppointmentRevenueMonth();
             $appointmentRevenueYear = $this->reportModel->getAppointmentRevenueYear();
 
-            foreach($appointmentRevenueMonth as $appointment){
-                $labelsAppointmentMonth[] = $appointment->month_year;
-                $dataAppointmentMonth[] = $appointment->monthly_revenue;
+            if($appointmentRevenueMonth == null){
+                $labelsAppointmentMonth = [];
+                $dataAppointmentMonth = [];
+            }else{
+                foreach($appointmentRevenueMonth as $appointment){
+                    $labelsAppointmentMonth[] = $appointment->month_year;
+                    $dataAppointmentMonth[] = $appointment->monthly_revenue;
+                }
             }
 
-            foreach($appointmentRevenueYear as $appointment){
-                $labelsAppointmentYear[] = $appointment->year;
-                $dataAppointmentYear[] = $appointment->yearly_revenue;
+            if($appointmentRevenueYear == null){
+                $labelsAppointmentYear = [];
+                $dataAppointmentYear = [];
+            }else{
+                foreach($appointmentRevenueYear as $appointment){
+                    $labelsAppointmentYear[] = $appointment->year;
+                    $dataAppointmentYear[] = $appointment->yearly_revenue;
+                }
             }
 
+/*===============================================================================*/
+            $wardRevenueMonth = $this->reportModel->getAnimalWardIncomeMonth();
+            $wardRevenueYear  = $this->reportModel->getAnimalWardIncomeYear();
 
-           
+            if($wardRevenueMonth == null){
+                $labelsWardMonth = [];
+                $dataWardMonth = [];
+            }else
+            {
+                foreach($wardRevenueMonth as $price){
+                    $labelsWardMonth[] = $price->month_year;
+                    $dataWardMonth[] = $price->monthly_revenue;
+                }
+            }
+
+            if($wardRevenueYear == null){
+                $labelsWardYear = [];
+                $dataWardYear = [];
+            }else{
+                foreach($wardRevenueYear as $price){
+                    $labelsWardYear[] = $price->year;
+                    $dataWardYear[] = $price->yearly_revenue;
+                }
+            }
+        
 
             $data = [
                 'labelsSalesMonth' => $labelsMonth,
@@ -2554,7 +2610,14 @@
                 'dataAppointmentMonth' => $dataAppointmentMonth,
 
                 'labelsAppointmentYear' => $labelsAppointmentYear,
-                'dataAppointmentYear' => $dataAppointmentYear
+                'dataAppointmentYear' => $dataAppointmentYear,
+
+                'labelsWardYear' => $labelsWardYear,
+                'dataWardYear' => $dataWardYear,
+
+                'labelsWardMonth' => $labelsWardMonth,
+                'dataWardMonth' => $dataWardMonth,
+
             ];
 
 

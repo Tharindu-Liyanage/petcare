@@ -31,6 +31,22 @@
             return $results;
         }
 
+        public function getAnimalWardIncomeYear(){
+
+            $this->db->query('SELECT YEAR(wt.payment_date) AS year, SUM(wm.price) AS yearly_revenue FROM petcare_ward_treatment wt JOIN petcare_ward_medical_bill wm ON wt.ward_treatment_id = wm.ward_treatment_id WHERE wt.payment_status = "Paid" GROUP BY YEAR(wt.payment_date) ORDER BY YEAR(wt.payment_date)');
+            $results = $this->db->resultSet();
+            return $results;
+
+        }
+
+        public function getAnimalWardIncomeMonth(){
+
+            $this->db->query('SELECT DATE_FORMAT(wt.payment_date, \'%Y-%m\') AS month_year, SUM(wm.price) AS monthly_revenue FROM petcare_ward_treatment wt JOIN petcare_ward_medical_bill wm ON wt.ward_treatment_id = wm.ward_treatment_id WHERE wt.payment_status = "Paid" GROUP BY DATE_FORMAT(wt.payment_date, \'%Y-%m\') ORDER BY DATE_FORMAT(wt.payment_date, \'%Y-%m\')');
+            $results = $this->db->resultSet();
+            return $results;
+
+        }
+
         
 
         

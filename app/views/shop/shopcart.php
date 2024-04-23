@@ -134,6 +134,8 @@
             </ul>
         </div>
 
+
+        
         <div class="checkout">
             <button onclick="window.location.href = '<?php echo URLROOT; ?>/shop/payment';" type="button">Check Out</button>
         </div>

@@ -1,7 +1,7 @@
 
       <!--sidebar-->
       <div class="sidebar">
-         <a href="#" class="logo">
+         <a href="<?php echo URLROOT;?>/home" class="logo">
             <img src="<?php echo URLROOT; ?>/public/img/logo/logo-croped.png" class="logo-top">
             <div class="logo-name">PetCare<span>.</span></div>
          </a>
@@ -103,11 +103,11 @@
                </div>
             </form> -->
             <input type="checkbox" id="theme-toggle" hidden>
-            <label for="theme-toggle" class="theme-toggle"></label>
-            <a href="#" class="notif">
+         <!--   <label for="theme-toggle" class="theme-toggle"></label> -->
+     <!--       <a href="#" class="notif">
           <i class='bx bx-bell' ></i>
             <span class="count">1</span>  
-            </a>
+            </a> -->
             <a href="#" class="profile">
 
                <div class="info">

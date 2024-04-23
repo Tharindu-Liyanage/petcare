@@ -387,6 +387,13 @@ use PHPMailer\PHPMailer\Exception;
                 redirect('shop/login');
 
 
+            }elseif($_SESSION['user_role'] != 'Pet Owner'){
+
+
+                $_SESSION['shop_user_shopcart_error'] = 'You are not allowed to access this page.';
+                redirect('shop/shopcart');
+            
+            
             }elseif($total == 0){//if cart total is 0
                
                 $_SESSION['shop_user_shopcart_error'] = "Your cart is empty. Please add products to the cart to continue.";
@@ -415,6 +422,12 @@ use PHPMailer\PHPMailer\Exception;
                 redirect('shop/shopcart');
 
 
+
+            }elseif($_SESSION['user_address'] == null){
+
+                
+                $_SESSION['shop_user_shopcart_error'] = 'Please update your profile address to continue.';
+                redirect('shop/shopcart');
 
             }else{
 

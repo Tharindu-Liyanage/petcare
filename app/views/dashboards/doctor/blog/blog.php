@@ -81,8 +81,16 @@
                             </tr>
                         </thead>
                         <tbody class="list">
+
+                        <?php
+
+                        if(count($data['blog']) == 0){
+
+                            echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                        }else
                             
-                                <?php foreach($data['blog'] as $blog) : ?>
+                                foreach($data['blog'] as $blog) : ?>
                                     <?php  if($_SESSION['user_id'] == $blog->author ) { ; ?>
                                     <tr>
                                         <td class="id-search"><?php echo $blog->blogID ; ?></td>

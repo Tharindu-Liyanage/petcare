@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -71,7 +71,15 @@
                         </thead>
                         <tbody class="list">
 
-                            <?php foreach($data['petowner'] as $petowner) : ?>
+                        <?php
+
+                            if(count($data['petowner']) == 0){
+
+                                echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                            }else
+
+                            foreach($data['petowner'] as $petowner) : ?>
 
                             <tr>
                                 <td class="id-search"><?php echo $petowner->petowner_id_generate?></td>
@@ -87,8 +95,7 @@
                                     
                                     <div class="act-icon">
                                            <a petowner-id="<?php echo $petowner->id?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removePetowner/<?php echo $petowner->id ?>" ><i class='bx bx-trash'></i></a>
-                                           <a href="<?php echo URLROOT;?>/admin/updatePetowner/<?php echo $petowner->id ?>" ><i class='bx bx-edit' ></i></a>     
-                                           <a href="<?php echo URLROOT;?>/admin/viewProfile/<?php echo $petowner->id ?>" ><i class='bx bx-show'></i></a>  
+                                           <a href="<?php echo URLROOT;?>/admin/updatePetowner/<?php echo $petowner->id ?>" ><i class='bx bx-edit' ></i></a>        
                                     </div>
                                     
                                 </td>

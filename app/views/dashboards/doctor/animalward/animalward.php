@@ -105,7 +105,7 @@
                                  <td>
                                     <div class="profile-three">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $ward->petownerpic?>" >
-                                    <p><?php echo $ward->petownerfname?> <?php echo $ward->petownerlname?></p>
+                                    <p><a href="<?php echo URLROOT;?>/<?php echo $_SESSION['user_role'];?>/profilePetowner/<?php echo $ward->poid;?>"><?php echo $ward->petownerfname?> <?php echo $ward->petownerlname?></a></p>
                                     </div>
                                 </td>
                                 

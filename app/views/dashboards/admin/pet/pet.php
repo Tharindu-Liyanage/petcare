@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -64,27 +64,42 @@
                                 
                                 <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
                                 <th>Pet <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>Pet Owner <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
                                 <th>DOB </th>
                                 <th>Breed <i class='bx bxs-sort-alt sort' data-sort="breed-search"></th>
                                 <th>Sex <i class='bx bxs-sort-alt sort' data-sort="sex-search"></th>
-                                <th>Age</th>
+                              
                                 <th>Species <i class='bx bxs-sort-alt sort' data-sort="species-search"></th>
                          <?php if($_SESSION['user_role'] == 'Admin')   echo  " <th>Action</th> " ;?>
                             </tr>
                         </thead>
                         <tbody class="list">
 
-                           <?php foreach($data['pet'] as $pet) : ?>
+                        <?php
+
+                            if(count($data['pet']) == 0){
+
+                                echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                            }else
+
+                            foreach($data['pet'] as $pet) : ?>
 
                                 <tr>
                                     <td class="id-search">PET-<?php echo $pet->id ; ?></td>
                                     <td class="profile">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet->profileImage ; ?>" ><p><?php echo $pet->pet ; ?></p>
                                     </td>
+                                    <td class="po-search">
+                                        <div class="profile-three">
+                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $pet->poimg ; ?>">
+                                        <p><a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $pet->poid;?>"><?php echo $pet->petownerfname ; ?> <?php echo $pet->petownerlname ; ?></a></p>
+                                        </div>
+                                    </td>
                                     <td><?php echo $pet->DOB ; ?></td>
                                     <td class="breed-search"><?php echo $pet->breed ; ?></td>
                                     <td class="sex-search"><?php echo $pet->sex ; ?></td>
-                                    <td><?php echo $pet->age ; ?></td>
+                                   
                                     <!-- need to change -->
                                     <td class="species-search"><?php echo $pet->species ; ?></td>
 
