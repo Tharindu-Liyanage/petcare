@@ -310,11 +310,11 @@
      
      if ($_SESSION['notification'] == "error") {
            
-        toast_notifications("Admit to the ward failed","Cages are full or already admit pet","fas fa-solid fa-xmark check-error"); 
+        toast_notifications('Error!',$_SESSION['notification_msg'],"fas fa-solid fa-xmark check-error"); 
         
     }else if($_SESSION['notification'] == "ok"){
 
-        toast_notifications("Admit to the ward succsessfull","Pet added to the ward.","fas fa-solid fa-check check"); 
+        toast_notifications('Succsess!',$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
 
     }
 

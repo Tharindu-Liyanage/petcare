@@ -2092,13 +2092,21 @@
 
                         $newCageCount = count($cageCount) - $newCageCount;
 
+                       
+
                         for($i = 0; $i < $newCageCount; $i++){
-                            $this->settingsModel->deleteCage();
+
+                           if( $this->settingsModel->deleteCage()){
+                                $_SESSION['notification'] = "ok";
+                                $_SESSION['notification_msg'] = ($i + 1) . ". cages has been removed successfully.";
+                           }else{
+                                $_SESSION['notification'] = "error";
+                                $_SESSION['notification_msg'] = "Cage remove failed!";
+                           }
                         }
 
                     
-                        $_SESSION['notification'] = "ok";
-                        $_SESSION['notification_msg'] = "Cage has been updated successfully.";
+                        
                         redirect('admin/settings/all');
                     }
                 }

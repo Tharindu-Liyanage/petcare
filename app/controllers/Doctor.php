@@ -213,7 +213,7 @@ use PHPMailer\PHPMailer\Exception;
                 $hospitalInfo = $this->dashboardModel->getPetCareDetails();  
                 
                 if($medicalReport == null){   //if no data found : its mean user try to access url with wrong treatment id(intentionally)
-                    redirect('doctor/appointment');
+                    redirect('doctor/notfound');
                 }
     
                 foreach ($medicalReport as $treament) {
@@ -449,6 +449,9 @@ use PHPMailer\PHPMailer\Exception;
                         // Validated
                         // Execute
                         if($this->doctorModel->addTreatment($data)){
+
+                            $_SESSION['notification'] = 'ok';
+                            $_SESSION['notification_msg'] = 'Treatment Added Successfully.';
                             // Redirect to login
                             redirect('doctor/appointment');
                         } else {
@@ -588,12 +591,21 @@ use PHPMailer\PHPMailer\Exception;
 
                         if($this->doctorModel->addWardTreatment($data)){
 
+                            $_SESSION['notification'] = 'ok';
+                            $_SESSION['notification_msg'] = 'Ward Treatment Added Successfully.';
+                            $_SESSION['notification_title'] = 'Success!';
+
                             if($data['status'] == "Discharge"){
                                 //send mail to pet owner and sms
                                 $petandPetownerDetails = $this->doctorModel->getPetDetailsByPetID($id);
                                 
                                 $this->sendDischargeMail($petandPetownerDetails);
                                 $this->sendDischargeSMS($petandPetownerDetails);
+
+                                $_SESSION['notification'] = 'ok';
+                                $_SESSION['notification_msg'] = 'Pet Discharged Successfully.';
+                                $_SESSION['notification_title'] = 'Success!';
+
                             }
                             // Redirect to animalward
                             redirect('doctor/animalward');
@@ -760,7 +772,13 @@ use PHPMailer\PHPMailer\Exception;
             ];
 
            //addmit pet to the ward
-              $this->doctorModel->addmitPetToWard($data);
+
+            if($this->doctorModel->addmitPetToWard($data)){
+                $_SESSION['notification'] = 'ok';
+                $_SESSION['notification_msg'] = 'Pet Admitted to the Ward Successfully.';
+ 
+            }
+            
               
 
             redirect('doctor/animalward');
@@ -910,14 +928,20 @@ use PHPMailer\PHPMailer\Exception;
                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])  &&  empty($data['category_err'])){
                     if($this->postModel->updateBlog($data)){
 
-                    $_SESSION['notification'] = 'ok';
-                    $_SESSION['notification_msg'] = 'Blog Updated Successfully.';
+                        $_SESSION['notification'] = 'ok';
+                        $_SESSION['notification_msg'] = 'Blog Updated Successfully.';
+                        
                        
                         redirect('doctor/blog');
                         
                         
                      }else{
-                         die("Something went wrong");
+
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong. Please try again.';
+                        
+                       
+                        redirect('doctor/blog');
                      }
                  }else{
                     
@@ -969,12 +993,18 @@ use PHPMailer\PHPMailer\Exception;
                     
                     $_SESSION['notification'] = 'ok';
                     $_SESSION['notification_msg'] = 'Blog Deleted Successfully.';
+                   
+
                     redirect('doctor/blog');
                       
 
                 }else{
 
-                    die ('something went wrong');
+                    $_SESSION['notification'] = 'error';
+                    $_SESSION['notification_msg'] = 'Something went wrong. Please try again.';
+                    
+
+                    redirect('doctor/blog');
 
                 }
             // // }else{
@@ -1114,13 +1144,21 @@ use PHPMailer\PHPMailer\Exception;
                     if($this->postModel->addBlog($data)){
 
                         $_SESSION['notification'] = 'ok';
-                        $_SESSION['notification_msg'] = 'Blog Added Successfully';
-                       
+                        $_SESSION['notification_msg'] = 'Blog Added Successfully.';
+                      
+
                         redirect('doctor/blog');
+                       
+                       
                         
                         
                      }else{
-                         die("Something went wrong");
+
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong. Please try again.';
+                        
+    
+                        redirect('doctor/blog');
                      }
                  }else{
                     
