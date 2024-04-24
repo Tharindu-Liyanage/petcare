@@ -112,6 +112,7 @@
 
         </main>
     </div>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/storemanager/dashboardStoreManager.js" ></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
 
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/sales.js"></script>

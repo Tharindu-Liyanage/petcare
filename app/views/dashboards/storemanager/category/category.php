@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/storemanager/category.css">
+    <!-- <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/storemanager/category.css"> -->
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -90,7 +90,7 @@
                                         
                                         <div class="act-icon">
                                             <a href="<?php echo URLROOT;?>/storemanager/updateCategory/<?php echo $category->id  ; ?>" ><i class='bx bx-edit' ></i></a>
-                                            <a href="<?php echo URLROOT;?>/storemanager/removeCategory/<?php echo $category->id  ; ?>" ><i class='bx bx-trash'></i></a></a>     
+                                            <a class="removeLink" href="<?php echo URLROOT;?>/storemanager/removeCategory/<?php echo $category->id  ; ?>" ><i class='bx bx-trash'></i></a></a>     
                                             
                                         </div>
                                         

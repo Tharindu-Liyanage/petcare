@@ -80,7 +80,7 @@
                         </thead>
                         <tbody class="list" >
 
-                        <?php foreach($data['products'] as $product) : ?>
+                        <?php foreach($data['inventory'] as $product) : ?>
 
                             <tr>
                                 <td class="invoice-id" ><?php echo $product->id?></td>
@@ -115,7 +115,7 @@
 
             <!-- warninig model here -->
 
-            <div id="removeModel" class="card-all-background">
+        <div id="removeModel" class="card-all-background">
              <div class="card">
                 <div class="err-header">
 
@@ -145,14 +145,13 @@
    
 
 
-    <!-- staff add model over -->
 
 
     
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageInventory.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/storemanager/manageInventory.js"></script>
     
 </body>
 </html>

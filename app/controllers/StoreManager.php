@@ -683,7 +683,7 @@
             $products = $this->dashboardModel->getInventoryDetails();
 
             $data = [
-                'products' =>$products
+                'inventory' =>$products
             ];
    
             
@@ -693,6 +693,8 @@
         public function order(){
              $orderData = $this->dashboardModel->getOrderDetails();
 
+            //  print($_POST['shipmentStatus']);
+
             
             $data = [
                 'order' => $orderData
@@ -701,6 +703,33 @@
             
             $this->view('dashboards/storemanager/order/order', $data);
         }
+    
+        
+            public function updateStatus($id){
+            // Check if the request method is POST
+                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                    // Check if shipmentStatus is provided in the POST data
+                    if (isset($_POST['shipmentStatus'])) {
+
+                        $shipmentStatus = $_POST['shipmentStatus'];
+    
+                        $response = array("success" => true, "shipmentStatus" => $shipmentStatus);
+                        $this->dashboardModel->updateStatus($id , $response['shipmentStatus']);
+                        echo json_encode($response);
+                        return;
+                    } else {
+                        // If shipmentStatus is not provided in the POST data, return an error response
+                        $response = array("success" => false, "message" => "Shipment status is missing in the request");
+                        echo json_encode($response);
+                        return;
+                    }
+                } else {
+                    // If the request method is not POST, return an error response
+                    $response = array("success" => false, "message" => "Invalid request method");
+                    echo json_encode($response);
+                    return;
+                }
+            }
 
         /*==================================================================
         

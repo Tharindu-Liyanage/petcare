@@ -6,6 +6,8 @@ const confirmDeleteButton = document.getElementById("confirmDelete");
 const cancelDeleteButton = document.getElementById("cancelDelete");
 var showEntriesDropdown = document.querySelector('.show-entries');
 
+const shipmentStatusSelect = document.getElementById("ship-status");
+
 
 //search table
 
@@ -62,3 +64,31 @@ deleteLinks.forEach((deleteLink) => {
 cancelDeleteButton.addEventListener("click", function () {
   notification.style.display = "none";
 });
+
+
+// shipmentStatusSelect.addEventListener("change", function() {
+//   // Get the selected value
+//   const selectedValue = this.value;
+
+//   // Make an AJAX request to update the database
+ 
+//   const data = { orderId: orderId, shipmentStatus: selectedValue };
+
+//   fetch(url, {
+//       method: "POST",
+//       headers: {
+//           "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//   })
+//   .then(response => {
+//       if (response.ok) {
+//           console.log("Shipment status updated successfully");
+//       } else {
+//           console.error("Failed to update shipment status");
+//       }
+//   })
+//   .catch(error => {
+//       console.error("Error:", error);
+//   });
+// });
