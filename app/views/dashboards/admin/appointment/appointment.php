@@ -52,7 +52,7 @@
                 <div class="users" id="appointment" > <!--meka new list eke id ekt samana wenna one -->
                     <div class="header">
                     <i class='bx bx-calendar' ></i>
-                        <h3>Today Appointment</h3>
+                        <h3>Appointments</h3>
                     
                     
                     <!-- Search Container -->
@@ -69,10 +69,11 @@
                         <thead>
                             <tr>
                                 <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
-                                <th>Pet Owner <i class='bx bxs-sort-alt sort'  data-sort="petowner-search"></i></th>
-                                <th>Pet <i class='bx bxs-sort-alt sort'  data-sort="pet-search"></i></th>
+                                <th>Pet Owner <i class='bx bxs-sort-alt sort'  data-sort="petowner-search"></i></th> 
+                                <th>Pet <i class='bx bxs-sort-alt sort'  data-sort="pet-search"></i></th>      
+                                <th>Veterinarian <i class='bx bxs-sort-alt sort'  data-sort="vet-search"></i></th>
                                 <th>Time <i class='bx bxs-sort-alt sort'  data-sort="time-search"></i></th>
-                                <th>Type <i  class='bx bxs-sort-alt sort' data-sort="type-search"></i></th>
+                                <th>Reason <i  class='bx bxs-sort-alt sort' data-sort="type-search"></i></th>
                                 <th>Status <i class='bx bxs-sort-alt sort' data-sort="status-search"></i></th>
                                 
                                
@@ -94,16 +95,25 @@
                                     <td class="id-search" >AID-<?php echo $app->id ;?></td>
 
                                 
-                                
                                     <td class="petowner-search profile">
                                         <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $app->petownerProfile ; ?>">
                                         <a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $app->poid;?>"><p class="petowner-search" ><?php echo $app->first_name ; ?>  <?php echo $app->last_name ; ?></a></p>
                                     </td>
 
+
                                     <td class="pet-search" >
                                         <div class="profile-three">
                                         <img src="<?php echo URLROOT; ?>/public/storage/uploads/animals/<?php echo $app->petProfile ; ?>">
                                         <p><?php echo $app->pet ; ?></p>
+                                        </div>
+                                    </td>
+
+                                   
+
+                                    <td class="vet-search" >
+                                        <div class="profile-three">
+                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $app->vetProfile ; ?>">
+                                        <a href="<?php echo URLROOT;?>/admin/profileStaff/<?php echo $app->vetid?>"><p><?php echo $app->vetfname ; ?> <?php echo $app->vetlname ; ?></a></p>
                                         </div>
                                     </td>
 

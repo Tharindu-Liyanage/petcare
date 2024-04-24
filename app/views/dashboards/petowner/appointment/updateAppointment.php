@@ -180,32 +180,15 @@
                                 <span class="invalid-feedback"></span>
 
 
-                                <div class="flex-column">
-                                    <label>Reason</label>
-                                </div>
-                                <div class="inputForm  <?php echo (!empty($data['reson_err'])) ? 'is-invalid' : '' ; ?>">
-                                <i class='bx bx-question-mark' ></i>
-                                    <select id="reason" name="reason">
-
-                                    
-
-
-                                    <?php foreach($data['reason'] as $reasons) : ?>
-
-                                        <option value="<?php echo $reasons->reason_name?>" <?php if($data['appointment_details']->appointment_type == $reasons->reason_name) echo "selected "; ?> >
-                                          <?php echo $reasons->reason_name?> 
-                                        </option>
-
-
-                                    <?php endforeach; ?>
-                                    <option value="other">Other</option>
-                                   
-                                    </select>
-
-                                   
-
-                                </div>
-                                <span class="invalid-feedback"></span>
+                                
+                     <div class="flex-column">
+                            <label>Reason</label>
+                        </div>
+                        <div class="inputForm <?php echo (!empty($data['reason_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-spreadsheet' ></i>
+                            <input type="text" class="input " placeholder="Enter Breed" value="<?php echo $data['reason_post']?>" name="reason">
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['reason_err']; ?></span>
 
                                 
 

@@ -18,10 +18,16 @@
 
             if(!isset($_SESSION['user_id'])){
                 
+                if(isset($_SESSION['last_activity'])){
+                    unset($_SESSION['last_activity']);
+                }
                 redirect('users/login');
 
             }else if($_SESSION['user_role'] != "Pet Owner"){
                     // Unauthorized access
+                    if(isset($_SESSION['last_activity'])){
+                        unset($_SESSION['last_activity']);
+                    }
                     redirect('users/login');
                      
                 
@@ -551,7 +557,8 @@
                     'reason' => $reason,
                     'medicalreport' =>$treament_data,
                     'appointment_details' => $appointmentDetails,
-                    'main_err' => ''
+                    'main_err' => '',
+                    'reason_err' => '',
                 ];
 
                  //checkavailability
@@ -578,6 +585,11 @@
                         ) {
                             $data['main_err'] = "No changes were detected. The data remains as is.";
                         
+                        }elseif(empty($data['reason_post'])){
+
+                            $data['main_err'] = "Please Enter a reason for the appointment.";
+
+
                         }else if(!$isBooked){
                            
                             $data['main_err'] = "The selected time slot is already booked. Please select another time slot.";
@@ -679,6 +691,7 @@
                     'reason' => $reason,
                     'medicalreport' =>$treament_data,
                     'appointment_details' => $appointmentDetails,
+                    'reason_post' => $appointmentDetails->appointment_type,
                     'vet_err' => '',
                     'reason_err' => '',
                     'pet_err' => '',

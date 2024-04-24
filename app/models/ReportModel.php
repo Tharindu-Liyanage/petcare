@@ -47,6 +47,18 @@
 
         }
 
+        public function getPetownerCountYear(){
+            $this->db->query('SELECT DATE_FORMAT(register_date, \'%Y\') AS year, COUNT(*) AS petowner_count FROM petcare_petowner GROUP BY DATE_FORMAT(register_date, \'%Y\') ORDER BY DATE_FORMAT(register_date, \'%Y\')');
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function getPetownerCountMonth(){
+            $this->db->query('SELECT DATE_FORMAT(register_date, \'%Y-%m\') AS month_year, COUNT(*) AS petowner_count FROM petcare_petowner GROUP BY DATE_FORMAT(register_date, \'%Y-%m\') ORDER BY DATE_FORMAT(register_date, \'%Y-%m\')');
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
         
 
         

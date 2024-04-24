@@ -6,7 +6,7 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
-      valueNames: ['id-search', 'petowner-search', 'time-search', 'type-search', 'status-search', 'pet-search', ],
+      valueNames: ['id-search', 'petowner-search', 'time-search', 'type-search', 'status-search', 'pet-search','vet-search' ],
       page: 5,
       pagination: true,
   };

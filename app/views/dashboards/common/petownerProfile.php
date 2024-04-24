@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> <!--splide css-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>PetCare | Pet Owner Profile</title>
+    <?php require_once __DIR__ . '/../common/favicon.php'; ?>
 </head>
 <body>
 

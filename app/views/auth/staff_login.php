@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <?php require_once __DIR__ . '/../dashboards/common/favicon.php'; ?>
     <title>PetCare | Staff Login</title>
 </head>
 <body>
@@ -48,15 +49,16 @@
                 } 
 
 
-                if(!empty($_SESSION['PO_last_activity'])){
+                if(!empty( $_SESSION['error_msg_from_staff'] )){
 
                     echo "
                     <div class='badges'>
-                            <div class='red'>".$_SESSION['PO_last_activity']."</div>   
+                            <div class='red b'>". $_SESSION['error_msg_from_staff'] ."</div>   
                     </div>";
 
                     //unset
-                    unset($_SESSION['PO_last_activity']);
+                    unset( $_SESSION['error_msg_from_staff'] );
+
                     session_destroy();
 
                 }

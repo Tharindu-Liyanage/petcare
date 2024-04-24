@@ -84,9 +84,11 @@
                             <tr>
                                 <td class="id-search"><?php echo $petowner->petowner_id_generate?></td>
                                 <td class="profile">
+                                   
                                     <a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $petowner->id; ?>">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petowner->profileImage?>" ><p><?php echo $petowner->first_name?> <?php echo $petowner->last_name?></p>
                                     </a>
+                              
                                 </td>
                                 <td class="email-search"><?php echo $petowner->email?></td>
                                 <td class="address-search"><?php echo $petowner->address?></td>
@@ -150,24 +152,18 @@
 
 
     
-
     <?php
-
-        if (($_SESSION['staff_user_added']) === true) {
+     
+     if ($_SESSION['notification'] == "error") {
            
-            toast_notification("Staff Memeber Added","A new member has been added successfully.","fa-solid fa-xmark close"); 
-        }
-
-        else if (($_SESSION['staff_user_updated']) === true ) {
-            toast_notification("Staff Memeber Updated","A member has been updated successfully.","fa-solid fa-xmark close"); 
-            
-        } else if (($_SESSION['staff_user_removed']) === true ) {
-            toast_notification("Staff Memeber Removed","A member has been removed successfully.","fa-solid fa-xmark close"); 
-            
-        }
-    
+        toast_notifications('Error!',$_SESSION['notification_msg'],"fas fa-solid fa-xmark check-error"); 
         
-    
+    }else if($_SESSION['notification'] == "ok"){
+
+        toast_notifications('Succsess!',$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+
+    }
+
     ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>

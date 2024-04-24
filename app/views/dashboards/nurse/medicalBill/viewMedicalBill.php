@@ -74,9 +74,9 @@
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/petowner/medicalbill" >Medical Bills</a></li>
+                        <li><a href="<?php echo URLROOT;?>/nurse/medicalbill" >Medical Bills</a></li>
                         >
-                        <li><a href="<?php echo URLROOT;?>/petowner/viewMedicalBill/<?php echo $data['id'];?>" class="active"> View Medical Bill</a></li>
+                        <li><a href="<?php echo URLROOT;?>/nurse/viewMedicalBill/<?php echo $data['id'];?>" class="active"> View Medical Bill</a></li>
                     </ul>
                 </div>
 
@@ -156,6 +156,7 @@
                         </td>
                     </tr>
                     <tr>
+                        
                     </tr>
                 </tfooter>
             </table>

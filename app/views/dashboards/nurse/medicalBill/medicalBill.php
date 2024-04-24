@@ -116,7 +116,7 @@
                             foreach($data['bill'] as $med) : ?>
 
                             <tr>
-                                <td class="id-search">AID-<?php echo $med->ward_treatment_id?></td>
+                                <td class="id-search">AWT-<?php echo $med->ward_treatment_id?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $med->petpic?>" ><p><?php echo $med->petname?></p>
                                 </td>
@@ -150,6 +150,12 @@
 
                                     <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/nurse/medicalBillCalculate/<?php echo $med->ward_treatment_id;?>"><i class='bx bx-chevron-right'></i></i></a>
                                    
+                                    <?php endif; ?>
+
+                                    <?php if($med->payment_status == "Paid") : ?>
+
+                                    <a title="View" class="accept" href="<?php echo URLROOT; ?>/nurse/viewWardBill/<?php echo $med->ward_treatment_id;?>"><i class='bx bx-show'></i></i></i></a>
+
                                     <?php endif; ?>
                                 
                                 </td>

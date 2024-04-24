@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/forgotPassword.css">
+    <?php require_once __DIR__ . '/../dashboards/common/favicon.php'; ?>
     <title>PetCare | Forgot Password</title>
 </head>
 <body>

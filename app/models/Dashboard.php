@@ -365,10 +365,11 @@
 
              
             $this->db->query('SELECT petcare_appointments.*, petcare_pet.pet , petcare_pet.profileImage as petProfile, petcare_petowner.first_name , petcare_petowner.last_name ,
-                    petcare_petowner.profileImage as petownerProfile , petcare_petowner.id as poid
+                    petcare_petowner.profileImage as petownerProfile , petcare_petowner.id as poid , petcare_staff.firstname as vetfname , petcare_staff.lastname AS vetlname, petcare_staff.profileImage as vetProfile , petcare_staff.staff_id as vetid
                     FROM petcare_appointments
                     JOIN petcare_petowner ON  petcare_appointments.petowner_id = petcare_petowner.id
                     JOIN petcare_pet ON petcare_appointments.pet_id = petcare_pet.id
+                    JOIN petcare_staff ON petcare_staff.staff_id = petcare_appointments.vet_id
                     
     
                 ');

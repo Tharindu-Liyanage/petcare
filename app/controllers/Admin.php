@@ -7,22 +7,45 @@
     class Admin extends Controller {
 
         public function __construct(){
+
+            $this->userModel = $this->model('User');
+
+            $currentTime = time();
+            $inactiveTime = 30*60; // 30 minutes in seconds 
+
+            if (!isset($_SESSION['last_activity'])) {
+                $_SESSION['last_activity'] = $currentTime; // Set initial last activity time
+            }
            
             if(!isset($_SESSION['user_id'])){
+
+                if(isset($_SESSION['last_activity'])){
+                    unset($_SESSION['last_activity']);
+                }
                 
                 redirect('users/staff');
 
-            }else{
+            }elseif($_SESSION['user_role'] != "Admin"){
 
-
-                if($_SESSION['user_role'] != "Admin"){
-
-                    // Unauthorized access
-                    
-                    redirect('users/staff');
-                     
+                if(isset($_SESSION['last_activity'])){
+                    unset($_SESSION['last_activity']);
                 }
+
+                  redirect('users/staff');
+                     
+                
+            }elseif($currentTime - $_SESSION['last_activity'] > $inactiveTime){
+
+                $this->userModel->updateStaffOnlineStatus($_SESSION['user_email'],0);
+                sessionExpire();
+                unset($_SESSION['last_activity']);
+                $_SESSION['error_msg_from_staff'] ="Session Expired. Please login again.";
+                redirect('users/staff');
+
             }
+
+            // Update last activity time to current time
+            $_SESSION['last_activity'] = $currentTime;
 
             $this->dashboardModel = $this->model('Dashboard');
             $this->userModel = $this->model('User');
@@ -44,10 +67,45 @@
 
 
         public function index(){
+
+            $staff_users = $this->dashboardModel->getStaffDetails();
+
+            $petownerMonth = $this->reportModel->getPetownerCountMonth();
+            $petownerYear = $this->reportModel->getPetownerCountYear();
+
+            if($petownerMonth == null){
+                $labelsMonth = [];
+                $dataMonth = [];
+            }else{
+                foreach($petownerMonth as $petowner){
+                    $labelsMonth[] = $petowner->month_year;
+                    $dataMonth[] = $petowner->petowner_count;
+                }
+            }
+
+            if($petownerYear == null){
+                $labelsYear = [];
+                $dataYear = [];
+            }else{
+                foreach($petownerYear as $petowner){
+                    $labelsYear[] = $petowner->year;
+                    $dataYear[] = $petowner->petowner_count;
+                }
+            }
+
+
             
-            
-   
-            $data = null;
+            $data = [
+                'staff' =>$staff_users,
+
+                'labelsMonth' => $labelsMonth,
+                'dataMonth' => $dataMonth,
+
+                'labelsYear' => $labelsYear,
+                'dataYear' => $dataYear
+
+            ];
+
             $this->view('dashboards/admin/index', $data);
         }
 
@@ -179,12 +237,14 @@
 
                     if($this->dashboardModel->addStaff($data)){
                        
-                        $_SESSION['staff_user_added'] = true;
-      
-                       redirect('admin/staff');
+                        $_SESSION['notification'] = 'ok';
+                        $_SESSION['notification_msg'] = 'Staff added successfully';
+                        redirect('admin/staff');
 
                     }else{
-                        die("Something went wrong");
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+                        redirect('admin/staff');
                     }
 
 
@@ -340,12 +400,17 @@
 
                     if($this->dashboardModel->updateStaff($data)){
                        
-                        $_SESSION['staff_user_updated'] = true;
-      
+                        $_SESSION['notification'] = 'ok';
+                        $_SESSION['notification_msg'] = 'Staff updated successfully';
+                
                        redirect('admin/staff');
 
                     }else{
-                        die("Something went wrong");
+                            
+                            $_SESSION['notification'] = 'error';
+                            $_SESSION['notification_msg'] = 'Something went wrong';
+                    
+                            redirect('admin/staff');
                     }
 
 
@@ -408,11 +473,15 @@
             
             if($this->dashboardModel->removeStaffUser($id)){
 
-                $_SESSION['staff_user_removed'] = true;
+                $_SESSION['notification'] = 'ok';
+                $_SESSION['notification_msg'] = 'Staff removed successfully';
                 redirect('admin/staff');
 
             }else{
-                die("error in user delete model");
+                        
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+                        redirect('admin/staff');
             }
 
 
@@ -574,12 +643,17 @@
 
                     if($this->dashboardModel->updatePetowner($data)){
                        
-                        $_SESSION['petowner_updated'] = true;
+                        $_SESSION['notification'] = 'ok';
+                        $_SESSION['notification_msg'] = 'Petowner updated successfully';
       
                        redirect('admin/petowner');
 
                     }else{
-                        die("Something went wrong");
+
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+      
+                       redirect('admin/petowner');
                     }
 
 
@@ -635,12 +709,20 @@
             }
             
             if($this->dashboardModel->removePetowner($id)){
-                // die('success');
-                $_SESSION['petowner_removed'] = true;
+
+
+                $_SESSION['notification'] = 'ok';
+                $_SESSION['notification_msg'] = 'Petowner removed successfully';
+                
                 redirect('admin/petowner');
 
             }else{
-                die("error in user delete model");
+
+                $_SESSION['notification'] = 'error';
+                $_SESSION['notification_msg'] = 'Something went wrong';
+                
+                redirect('admin/petowner');
+                
             }
 
 
@@ -774,12 +856,17 @@
 
                     if($this->dashboardModel->updatePet($data)){
                        
-                        $_SESSION['pet_updated'] = true;
-      
-                       redirect('admin/pet');
+
+                        $_SESSION['notification'] = 'ok';
+                        $_SESSION['notification_msg'] = 'Pet updated successfully';
+                        redirect('admin/pet');
 
                     }else{
-                        die("Something went wrong");
+
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+                        redirect('admin/pet');
+
                     }
 
 
@@ -836,11 +923,15 @@
 
             if($this->dashboardModel->removePetDetails($id)){
                 // die('success');
-                $_SESSION['pet_removed'] = true;
+                $_SESSION['notification'] = 'ok';
+                $_SESSION['notification_msg'] = 'Pet removed successfully';
                 redirect('admin/pet');
 
             }else{
-                die("error in user delete model");
+                    
+                    $_SESSION['notification'] = 'error';
+                    $_SESSION['notification_msg'] = 'Something went wrong';
+                    redirect('admin/pet');
             }
 
         }

@@ -326,6 +326,27 @@ class User{
 
         }
 
+        public function updateStaffOnlineStatus($email,$status){
+                
+            if($status == 0){
+                $this->db->query('UPDATE petcare_staff SET online_status = :status WHERE email = :email');
+            }else{
+                $this->db->query('UPDATE petcare_staff SET online_status = :status, last_login =:dateTime WHERE email = :email');
+                $this->db->bind(':dateTime',date("Y-m-d H:i:s"));
+            }
+                $this->db->bind(':email',$email);
+                $this->db->bind(':status',$status);
+              
+    
+                //execute
+                if($this->db->execute()){
+                    return true;
+        
+                }else{
+                    return false;
+                }
+        }
+
        
 
 }

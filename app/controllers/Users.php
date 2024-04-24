@@ -914,6 +914,8 @@
         //================= staff Logout====================
 
         public function staffLogout(){
+
+            $this->userModel->updateStaffOnlineStatus($_SESSION['user_email'],0);
             unset($_SESSION['user_id']);
             unset($_SESSION['user_email']);
             unset($_SESSION['user_fname']);
@@ -983,7 +985,7 @@
 
                 if($loggedInUser){
                     //create session
-                    
+                    $this->userModel->updateStaffOnlineStatus($data['email'],1);
                     $this->createStaffUserSession($loggedInUser);
 
                 }else{
@@ -1021,8 +1023,6 @@
         }
 
     }
-
-
 
     public function changePassword(){
 
