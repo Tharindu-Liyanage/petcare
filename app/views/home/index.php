@@ -365,9 +365,9 @@
         <img class="logo" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png" alt="logo"><span>PetCare</span>
     </div>
         <h4>Contact</h4>
-        <p><strong>Address:</strong>562 Nalandarama Road , Streat 32, Nugegoda</p>
-        <p><strong>Phone:</strong>+0112 765 456/(+94)077 3678 778</p>
-        <p><strong>Hourse:</strong>10:00-18:00,Mon-Sat</p>
+        <p><strong>Address:</strong> <?php echo $data['hospital_address'];?></p>
+        <p><strong>Phone:</strong> +<?php echo $data['hospital_phone'];?></p>
+        <p><strong>Email:</strong> <?php echo $data['hospital_email'];?></p>
         <div class="follow">
             <h4>Follow us</h4>
             <div class="icon">
@@ -394,10 +394,9 @@
 
     <div class="col">
         <h4>My Account</h4>
-        <a href="#">Sign In</a><br>
-        <a href="#">View Cart</a><br>
-        <a href="#">Track My Order</a><br>
-        <a href="#">Help</a>
+        <a href="<?php echo URLROOT;?>/users/login">Sign In</a><br>
+        <a href="<?php echo URLROOT;?>/shop/shopcart">View Cart</a><br>
+        <a href="<?php echo URLROOT;?>/petowner/myorders">Track My Order</a><br>
         
     </div>
 

@@ -48,10 +48,11 @@
             $_SESSION['last_activity'] = $currentTime;
 
             $this->dashboardModel = $this->model('Dashboard');
-            $this->userModel = $this->model('User');
             $this->settingsModel= $this->model('Settings') ;
             $this->reportModel= $this->model('ReportModel') ;
             $this->doctorModel= $this->model('DoctorModel') ;
+            $this->backupModel = $this->model('BackupModel');
+
 
             
         
@@ -958,12 +959,11 @@
                 'email',
                 'password',
                 'mobile',
-                
                 'appointmentPrice',
                 'time',
-
-                'cage'
-            
+                'cage',
+                'backup',
+                'hospitalInfo'
             ];
     
             //check user intensionally going to wrong url
@@ -2138,7 +2138,7 @@
             }
 
 
-        }elseif($setting_name = "cage"){
+        }elseif($setting_name == "cage"){
 
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -2229,7 +2229,101 @@
 
                 $this->view('dashboards/admin/setting/cage_settings', $data);
             }
+
+        }elseif($setting_name == "backup"){
+
+            $this->backupModel->backupDatabase();
+               
+            redirect('admin/settings/all');
+          
+        }elseif($setting_name == "hospitalInfo"){
+
+
+                if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                    $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+                    $data = [
+
+                        'hospital_name' => trim($_POST['hospital_name']),
+                        'hospital_address' => trim($_POST['hospital_address']),
+                        'hospital_email' => trim($_POST['hospital_email']),
+                        'hospital_phone' => trim($_POST['hospital_phone']),
+                        'hospital_name_err' => '',
+                        'hospital_email_err' => '',
+                        'hospital_phone_err' => '',
+                        'hospital_address_err' => ''
+                    ];
+
+                    if(empty($data['hospital_name'])){
+                        $data['hospital_name_err'] = '*Please enter hospital name';
+                    }
+
+                    if(empty($data['hospital_email'])){
+                        $data['hospital_email_err'] = '*Please enter hospital email';
+                    }else{
+                        if (!filter_var($data['hospital_email'], FILTER_VALIDATE_EMAIL)) {
+                            $data['hospital_email_err'] = '*Please enter valid email';
+                        }
+                    }
+
+                    if(empty($data['hospital_phone'])){
+                        $data['hospital_phone_err'] = '*Please enter hospital phone';
+                    }else{
+                        if (!preg_match("/^94(?:[1-9]\d{1})(?:\d{7})$/", $data['hospital_phone'])) {
+                            $data['hospital_phone_err'] = '*Please enter a valid Sri Lankan landline number starting with 94';
+                        }
+                    }
+
+                    if(empty($data['hospital_address'])){
+                        $data['hostpital_address_err'] = '*Please enter hospital address';
+                    }
+
+
+
+                    if(empty($data['hospital_name_err']) && empty($data['hospital_email_err']) && empty($data['hospital_phone_err']) && empty($data['hostpital_address_err'])){
+
+                        if($this->settingsModel->updateHospitalInfo($data)){
+
+                            $_SESSION['notification'] = "ok";
+                            $_SESSION['notification_msg'] = "Hospital Information has been updated successfully.";
+                            redirect('admin/settings/all');
+                        }else{
+                            $_SESSION['notification'] = "error";
+                            $_SESSION['notification_msg'] = "Hospital Information update failed";
+                            redirect('admin/settings/all');
+                        }
+
+                    }else{
+
+                        $this->view('dashboards/admin/setting/hospital_info', $data);
+                    }
+
+                }else{
+
+                    $hospitalInfo = $this->dashboardModel->getPetCareDetails();
+
+                    $data = [
+                        'hospital_name' => $hospitalInfo[0]->hospital_name,
+                        'hospital_address' => $hospitalInfo[0]->hospital_address,
+                        'hospital_email' => $hospitalInfo[0]->hospital_email,
+                        'hospital_phone' => $hospitalInfo[0]->hospital_contact,
+                        'hospital_name_err' => '',
+                        'hospital_email_err' => '',
+                        'hospital_phone_err' => '',
+                        'hospital_address_err' => ''
+                    ];
+
+                    $this->view('dashboards/admin/setting/hospital_info', $data);
+                }
+
+
+
+
         }
+
+            
+        
 
 
 
@@ -2750,6 +2844,14 @@
             
             $this->view('dashboards/common/petownerProfile', $data);
         }
+
+
+ 
+
+           
+
+         
+        
        
 
 

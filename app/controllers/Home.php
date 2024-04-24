@@ -6,6 +6,7 @@
 
             $this->homeModel = $this->model('HomeModel');  //homeModel is an object of the Home model class(models/Home.php)
             $this->PostModel = $this->model('Post');
+            $this->dashboardModel = $this->model('Dashboard');
 
             //unset  $_SESSION['shop_user']
             if(isset($_SESSION['shop_user'])){
@@ -42,12 +43,16 @@
             */
             $staffData = $this->homeModel->getStaffDetails();
             $postData = $this->PostModel->getPostsToHome();
+            $hospitalInfo = $this->dashboardModel->getPetCareDetails();
 
 
 
             $data = [
                 'staff' => $staffData,
-                'posts' => $postData
+                'posts' => $postData,
+                'hospital_address' => $hospitalInfo[0]->hospital_address,
+                'hospital_email' => $hospitalInfo[0]->hospital_email,
+                'hospital_phone' => $hospitalInfo[0]->hospital_contact,
             ];
             
             $this->view('home/index', $data);

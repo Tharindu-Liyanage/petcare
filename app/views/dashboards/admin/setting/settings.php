@@ -104,6 +104,55 @@
         </form>       <!-- end of form -->
 
 
+                <!-- Animal Hosoital Settings -->
+
+                <form class="container" >     <!--start of form-->
+
+
+
+                    <div class="setting-title">
+                    <i class='bx bx-plus-medical' ></i> Hospital
+                    </div> 
+
+                    <div class="border-bottom-title"></div>    
+
+                    <!-- ancor tag for each account setting -->
+                        <div class="setting-list">
+
+                            <a href="<?php echo URLROOT; ?>/admin/settings/hospitalInfo"> 
+
+                                <div>
+
+                                    <!--  file icon -->
+                                    <i class="fas fa-file"></i>
+                                    <label >Hospital Info</label>
+                                    <!--  icon chevron right-->
+                                    <i class='bx bx-chevron-right' ></i>
+
+                                </div>
+                            </a>
+
+                            <a href="<?php echo URLROOT; ?>/admin/settings/cage"> 
+
+                                <div>
+
+                                    <!-- cage icon -->
+                                    <i class="fas fa-box"></i>
+                                    <label >Animal Ward Cage</label>
+                                    <!--  icon chevron right-->
+                                    <i class='bx bx-chevron-right' ></i>
+
+                                </div>
+                            </a>
+
+                        </div>
+
+                        
+
+
+                    </form>       <!-- end of form -->
+
+
         <!-- Appointment Settings -->
 
         <form class="container" >     <!--start of form-->
@@ -154,37 +203,38 @@
         </form>       <!-- end of form -->
 
 
-        <!-- Animal Ward Settings -->
 
-        <form class="container" >     <!--start of form-->
+         <!-- System Settings -->
+
+         <form class="container" >     <!--start of form-->
 
 
 
-            <div class="setting-title">
-            <i class='bx bx-plus-medical' ></i> Animal Ward
-            </div> 
+        <div class="setting-title">
+        <i class='bx bx-data' ></i> </i> System
+        </div> 
 
-            <div class="border-bottom-title"></div>    
+        <div class="border-bottom-title"></div>    
 
-            <!-- ancor tag for each account setting -->
-                <div class="setting-list">
+        <!-- ancor tag for each account setting -->
+            <div class="setting-list">
 
-                    <a href="<?php echo URLROOT; ?>/admin/settings/cage"> 
+                <a href="<?php echo URLROOT; ?>/admin/settings/backup"> 
 
-                        <div>
+                    <div>
 
-                            <!-- cage icon -->
-                            <i class="fas fa-box"></i>
-                            <label >Cage</label>
-                            <!--  icon chevron right-->
-                            <i class='bx bx-chevron-right' ></i>
+                        <!-- donwload icon -->
+                        <i class="fas fa-download"></i>
+                        <label >Download Backup Now</label>
+                        <!--  icon chevron right-->
+                        <i class='bx bx-chevron-right' ></i>
 
-                        </div>
-                    </a>
+                    </div>
+                </a>
 
-                </div>
+            </div>
 
-      
+
         </form>       <!-- end of form -->
 
 

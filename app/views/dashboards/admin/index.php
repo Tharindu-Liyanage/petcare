@@ -15,12 +15,50 @@
 
     <style>
         .orders table {
-            font-size: 14px !important;
+            font-size: 12px !important;
         }
 
         .orders table a{
             color:var(--black) !important;
         }
+
+    /*make table tbody scrollable with table header*/
+    .orders table tbody {
+        display: block;
+        height: 250px;
+        overflow-y: auto;
+    }
+
+    .orders table thead,
+    .orders table tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .orders table thead {
+        width: calc(100% - 17px); /* Adjust for scrollbar width */
+    }
+
+    .orders table tbody {
+        width: 100%;
+    }
+
+    .orders table td {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .orders table img{
+        width:35px !important;
+        height:35px !important;
+    }
+
+
+
+        
+        
 
         .orders table tr td .status{
             display: flex;
@@ -43,8 +81,18 @@
         }
 
         .content main .bottom-data .orders{
-            flex-basis:50px !important;
-            height: 510px;
+            flex-basis:250px !important;
+           /* height: 510px;*/
+        }
+
+        .content main .bottom-data .orders table tr td.profile-search{
+            font-weight:500;
+            margin-right:5px;
+            text-wrap: pretty;
+        }
+
+        .content main .bottom-data .orders table tr td.time-search{
+           text-align:center;
         }
 
         
@@ -189,7 +237,7 @@
                                     $current_time = time(); // Get current timestamp
                                     $time_diff = $current_time - strtotime($last_login); // Time difference in seconds
                                     if($staff->last_login == null){
-                                        echo 'Never Logged In';
+                                        echo 'Never';
                                     }elseif ($time_diff < 60) {
                                         echo $time_diff . ' seconds ago';
                                     } elseif ($time_diff < 3600) { // Less than 1 hour

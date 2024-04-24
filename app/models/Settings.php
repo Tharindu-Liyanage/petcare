@@ -585,6 +585,24 @@
             return true;
         }
 
+
+        public function updateHospitalInfo($data){
+
+            $this->db->query('UPDATE petcare_details SET hospital_name = :name , hospital_email = :email , hospital_contact = :phone , hospital_address = :address WHERE id = 1');
+
+            $this->db->bind(':name' , $data['hospital_name']);
+            $this->db->bind(':email' , $data['hospital_email']);
+            $this->db->bind(':phone' , $data['hospital_phone']);
+            $this->db->bind(':address' , $data['hospital_address']);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+
         
         
 
