@@ -82,6 +82,11 @@
   object-fit: cover;
 }
  
+.content main .bottom-data .users table tr td a  {
+  color: var(--dark);
+  text-decoration: none;
+  
+}
 
 
 

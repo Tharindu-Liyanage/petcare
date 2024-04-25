@@ -25,7 +25,18 @@ use PHPMailer\PHPMailer\Exception;
 
         public function index(){
 
-            $data =null;
+            $categories = $this->shopModel->getCategories();
+
+            $popularProducts = $this->shopModel->getPopularProducts();
+
+            $productsName = $this->shopModel->getProductsName();
+
+
+            $data =[
+                'category' => $categories,
+                'products' => $popularProducts,
+                'productsName' => $productsName
+            ];
    
             
             $this->view('shop/index', $data);
@@ -70,31 +81,28 @@ use PHPMailer\PHPMailer\Exception;
             
         //     $this->view('shop/healthAndWellness', $data);
         // }
-        public function category($category){
 
-            $catTitle = '';
-            switch($category){
-                case 'foodAndTreats' : $catTitle = 1 ;
-                break;
-                case 'groomingSupplies' : $catTitle = 3 ;
-                break;
-                case 'healthAndWellness' : $catTitle = 4 ;
-                break;
-                case 'toysAndBedding' : $catTitle = 2 ;
-                break;
-                case 'other' : $catTitle = 5 ;
-                break;
-                default  : $catTitle = 0;
 
+
+        public function category($catId){
+
+            
+           
+           
+            
+            
+            $product = $this->shopModel->getProductInfo($catId);
+            $categories = $this->shopModel->getCategoriDetailsByID($catId);
+
+            if($categories == null){
+                $this->notfound();
+                return;
             }
-           
-           
+
             
-            
-            $product = $this->shopModel->getProductInfo($catTitle);
 
             $data =[
-                'title' => $category,
+                'title' => $categories->categoryname,
                 'product' => $product
             ];
 
@@ -379,6 +387,13 @@ use PHPMailer\PHPMailer\Exception;
                 redirect('shop/login');
 
 
+            }elseif($_SESSION['user_role'] != 'Pet Owner'){
+
+
+                $_SESSION['shop_user_shopcart_error'] = 'You are not allowed to access this page.';
+                redirect('shop/shopcart');
+            
+            
             }elseif($total == 0){//if cart total is 0
                
                 $_SESSION['shop_user_shopcart_error'] = "Your cart is empty. Please add products to the cart to continue.";
@@ -407,6 +422,12 @@ use PHPMailer\PHPMailer\Exception;
                 redirect('shop/shopcart');
 
 
+
+            }elseif($_SESSION['user_address'] == null){
+
+                
+                $_SESSION['shop_user_shopcart_error'] = 'Please update your profile address to continue.';
+                redirect('shop/shopcart');
 
             }else{
 

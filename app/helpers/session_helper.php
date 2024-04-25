@@ -18,6 +18,15 @@
         $_SESSION['staff_user_removed'] = false;
     }
 
+    if (!isset($_SESSION['notification'])) {
+        $_SESSION['notification'] = null;
+    }
+
+    
+    if (!isset($_SESSION['notification_msg'])) {
+        $_SESSION['notification_msg'] = null;
+    }
+
     
     
 
@@ -59,5 +68,63 @@
             return false;
         }
     }
+
+    //flash message helper
+    function toast_notifications($title,$msg,$icon){
+
+        if($_SESSION['notification'] === 'ok' ){
+            echo '
+        <div class="toast">
+            <div class="toast-content">
+                <i class="' . $icon . '"></i>
+                <div class="message">
+                    <span class="text text-1">' . $title . '</span>
+                    <span class="text text-2">' . $msg . '</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+            <div class="progress"></div>
+        </div>';
+
+        
+       //set null
+        $_SESSION['notification'] = null;
+        $_SESSION['notification_msg'] = null;
+
+        }else if($_SESSION['notification'] === 'error'){
+            echo '
+            <div class="toast error">
+                <div class="toast-content">
+                    <i class="' . $icon . '"></i>
+                    <div class="message">
+                        <span class="text text-1">' . $title . '</span>
+                        <span class="text text-2">' . $msg . '</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress perror"></div>
+            </div>';
+
+
+            //set null  
+            $_SESSION['notification'] = null;
+            $_SESSION['notification_msg'] = null;
+            
+        }
+    }
+
+
+    function sessionExpire(){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_email']);
+            unset($_SESSION['user_fname']);
+            unset($_SESSION['user_lname'] );
+            unset($_SESSION['user_mobile']);
+            unset($_SESSION['user_role']);
+            unset( $_SESSION['user_profileimage']);
+            unset($_SESSION['user_address']);
+    }
+
+
 
     

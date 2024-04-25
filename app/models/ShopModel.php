@@ -6,6 +6,15 @@
             $this->db = new Database;
         }
 
+
+        public function getCategories(){
+            $this->db->query('SELECT * FROM petcare_product_category');
+
+
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
        public function getProductsByKeyword($keyword){
         $this->db->query('SELECT petcare_inventory.*, 
         category.categoryname AS categoryname,
@@ -33,6 +42,27 @@
         return $results;
 
        }
+
+
+       public function getProductInfo($catId){
+        $this->db->query('SELECT * ,
+                        petcare_product_category.categoryname as namee
+                        FROM  petcare_product_category
+                        INNER JOIN petcare_inventory
+                        ON petcare_inventory.category = petcare_product_category.id
+                        WHERE category = :catId' );
+        $this->db->bind(':catId' , $catId);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+
+    public function getProductById($id){
+        $this->db->query('SELECT * FROM petcare_inventory WHERE id = :id');
+        $this->db->bind(':id' , $id);
+        $row = $this->db->single();
+        return $row;
+    }
+
 
 
 
@@ -248,6 +278,45 @@
                 die('Something went wrong in generating invoice');
             }
          }
+
+
+         public function getPopularProducts(){
+            
+                $this->db->query('  SELECT
+                                        i.*,
+                                        SUM(ci.quantity) AS total_quantity_ordered
+                                    FROM
+                                        petcare_inventory i
+                                    JOIN
+                                        petcare_cart_items ci ON i.id = ci.product_id
+                                    GROUP BY
+                                        i.id
+                                    ORDER BY
+                                        total_quantity_ordered DESC;
+                            
+                                ');
+
+            $results = $this->db->resultSet();
+            return $results;
+         }
+
+         public function getProductsName(){
+            $this->db->query('SELECT name FROM petcare_inventory');
+
+            $results = $this->db->resultSet();
+            return $results;
+         }
+
+
+       public function getCategoriDetailsByID($id){
+
+        $this->db->query('SELECT * FROM petcare_product_category WHERE id = :id');
+        $this->db->bind(':id' , $id);
+
+        $result = $this->db->single();
+        return $result;
+
+       }
 
        
 

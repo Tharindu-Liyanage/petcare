@@ -12,7 +12,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Pet</title>
+
+    <style>
+        .enter-reason{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .enter-reason p{
+            margin-bottom: 5px;
+        }
+
+        .enter-reason input{
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
@@ -106,7 +125,7 @@
                                  <td>
                                     <div class="profile-three">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $petdetails->petownerpic?>" >
-                                    <p><?php echo $petdetails->petownerfname?> <?php echo $petdetails->petownerlname?></p>
+                                    <p><a href="<?php echo URLROOT;?>/<?php echo $_SESSION['user_role'];?>/profilePetowner/<?php echo $petdetails->poid;?>"><?php echo $petdetails->petownerfname?> <?php echo $petdetails->petownerlname?></a></p>
                                     </div>
                                 </td>
 
@@ -123,9 +142,15 @@
                                    
                                            
                                   <!--  <a title="Reject" class="rej"><i class="bx bx-block"></i></a> -->
-                                  <a href="" class="removeLink rej" title="Admit"><i class='bx bx-plus'></i></a>
-                                    <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/doctor/requestPastMedicalReports/<?php echo $petdetails->petid;?>"><i class="bx bx-check"></i></a>
-                                     
+
+                                  
+
+                                  <?php if($_SESSION['user_role'] == 'Doctor'): ?>
+                                    <a href="<?php echo URLROOT; ?>/doctor/addmitPet/<?php echo $petdetails->petid;?>" class="removeLink rej" title="Admit"><i class='bx bx-plus'></i></a>
+                                    <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/doctor/requestPastMedicalReports/<?php echo $petdetails->petid;?>/emergency"><i class="bx bx-check"></i></a>
+                                  <?php elseif($_SESSION['user_role'] == 'Nurse'): ?>
+                                    <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/nurse/requestPastMedicalReports/<?php echo $petdetails->petid;?>/emergency"><i class="bx bx-check"></i></a>
+                                  <?php endif; ?>
                                 
                                 </td>
                                     
@@ -169,9 +194,15 @@
                         <div class="err-content">
                             <span class="title">Admit to the ward</span>
                             <p class="message">Please confirm the admission of your pet to the hospital ward.</p>
+                            
                         </div>
 
                         <div class="err-actions">
+                            <div class="enter-reason">
+                                <p>Enter reason for admission</p>
+                                <input type="text" class="input" placeholder="Enter Reason" id ="reason">
+                            </div>
+                            
                             <button id="confirmDelete" class="desactivate" type="button">Addmit</button>
                             <button id="cancelDelete" class="cancel" type="button">Cancel</button>
                         </div>

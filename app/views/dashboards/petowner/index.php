@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard-petowner-dash.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> <!--splide css-->
-    <title>dashboard</title>
+    <?php require_once __DIR__ . '/../common/favicon.php'; ?>
+    <title>PetCare | Dashboard</title>
 </head>
 <body>
 
@@ -35,9 +36,23 @@
                         <div class="home-text-large">
                             <?php echo $data['greetingmsg']; ?> , <span><?php echo $_SESSION['user_fname']?>!</span>
                         </div>
-                        <!--<div class="home-text-small">
-                            You have <span> 2 </span> upcoming appointments.
-                        </div> -->
+
+                        <div class="home-text-small">
+                            <ol>
+                            <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
+                                <li>Please upload a <span>profile picture</span> to make your profile stand out.</li>
+                            <?php endif; ?>
+
+                            <?php if($data['pet'] == null ) :?>
+                               <li> You have not added any pets yet. <span>Add a pet</span> to get started.</li>
+                            <?php endif; ?>
+                            </ol>
+                        </div> 
+
+                       
+                           
+                        
+
                     </div>
                     <div class="home-right">
                         <img src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">

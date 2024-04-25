@@ -46,118 +46,72 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="orders">
                     <div class="header">
                     <i class='bx bx-shopping-bag' ></i>
                         <h3>Orders</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+
+                    <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
                     </div>
+
+                    <!-- search container over -->
+
+                    
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Customer</th>
-                                <th>Address</th>
-                                <th>Payment</th>
-                                <th>Order Date</th>
-                                <th>Total</th>
-                                <th>Action</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="invoice-id"></i></th>
+                                <th>Customer <i class='bx bxs-sort-alt sort' data-sort="profile"></i></th>
+                                <th>Order Date <i class='bx bxs-sort-alt sort' data-sort="order-date"></i></th>
+                                <th>Totla <i class='bx bxs-sort-alt sort' data-sort="total"></i></th>
+                                <th>Shipment Status <i class='bx bxs-sort-alt sort' data-sort="shipment-status"></i></th>
+                                <th>Action </th>
+
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
-                           
+                           <?php foreach($data['order'] as $order) : ?>
 
-                            <tr>
-                                <td>1</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user1.jpg">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>456 Elm St.</td>
-                                <td>Card</td>
-                                <td>02-10-2023</td>
-                                <td>LKR 1500</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                    <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="invoice-id"><?php echo 'INV-'.$order->invoice_id  ; ?></td>
+                                    <td class="profile"class="profile">
+                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $order->profileImage ; ?>">
+                                        <p><?php echo $order->first_name ; ?></p>
+                                    </td>
+                                    <td class="order-date"><?php echo $order->invoice_date ; ?></td>
+                                    <td class="total"><?php echo 'LKR '. $order->total_amount ; ?></td>
+                                    <td class="shipment-status">
+                                            <select class="shipment-status" id="ship-status" name="shipment-status" onchange="updateTable(<?php echo $order->invoice_id  ; ?>)">
+                                                <option class="on-process-value" value="on-process">On Process</option>
+                                                <option class="shipped-value"  value="shipped">Shipped</option>
+                                                <option class="delivered-value"  value="delivered">Delivered</option>
+                                            </select>
+                                            
+                                    </td>
+                                    <td class="action">
+                                        
+                                        <div class="act-icon">
+                                            <a href="<?php echo URLROOT;?>/storemanager/viewCart/<?php echo $order->invoice_id ;?>" ><i class='bx bx-cart' ></i></a>       
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                            <?php endforeach ; ?>
 
-
-                            <tr>
-                                <td>2</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user2.jpeg">
-                                    <p>Anna Smith</p>
-                                </td>
-                                <td>123 Main St.</td>
-                                <td>Cash</td>
-                                <td>02-10-2023</td>
-                                <td>LKR 1500</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                    <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>    
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>3</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user3.jpeg">
-                                    <p>Will Smith</p>
-                                </td>
-                                <td>123 Main St.</td>
-                                <td>Card</td>
-                                <td>30-10-2023</td>
-                                <td>LKR 9500</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                    <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>4</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user4.jpeg">
-                                    <p>Glenn Maxwell</p>
-                                </td>
-                                <td>756 Main St.</td>
-                                <td>Card</td>
-                                <td>15-10-2023</td>
-                                <td>LKR 350</td>
-                                <td class="action">
-                                    
-                                    <div class="act-icon">
-                                           
-                                           <a href="<?php echo URLROOT;?>/storemanager/viewCart" ><i class='bx bx-cart' ></i></a>     
-                                           
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-
+                            
                         
                         </tbody>
+                        
                     </table>
+                    
                 </div>
+                <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
  
             </div> <!-- content over -->
 
@@ -179,6 +133,7 @@
                             <span class="title">Remove Account</span>
                             <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
                         </div>
+                        
 
                         <div class="err-actions">
                             <button id="confirmDelete" class="desactivate" type="button">Remove</button>
@@ -200,11 +155,51 @@
     <!-- staff add model over -->
 
 
-    
+    <script>
+        const orderId = <?php echo $order->invoice_id; ?>;
+        const url = "<?php echo URLROOT;?>/storemanager/order";
 
+        function updateTable(id) {
+    // Get the selected value from the select element
+    const selectedValue = document.getElementById('ship-status').value;
+    
+    // Call your AJAX function with the selected value
+    $.ajax({
+        method: 'POST',
+        url: 'http://localhost/petcare/storemanager/updateStatus/' + id,
+        data: { shipmentStatus: selectedValue }, // Pass the selected value as data
+        success: function (response) {
+            console.log('response', response);
+            // Redirect();
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+
+        // function updateTable(){
+        //     $.ajax({
+        //         method: 'POST',
+        //         url: 'http://localhost/petcare/storemanager/order',
+        //         success: function (response) {
+        //         console.log('response', response);
+        //         // Redirect();
+        //     },
+        //     error: function (error) {
+        //         console.error('Error:', error);
+        //     }
+        //     });
+        // }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/storemanager/manageOrders.js"></script>
+   
     
 </body>
 </html>

@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Treatment</title>
 </head>
 <body>
 
@@ -85,8 +86,15 @@
                         </thead>
                         <tbody class="list">
 
-                           
-                        <?php foreach($data['treatment'] as $treatment): ?>
+                        <?php
+
+                        if(count($data['treatment']) == 0){
+
+                            echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                        }else
+                        
+                        foreach($data['treatment'] as $treatment): ?>
                             <tr>
                                 <td class="id-search">TRT-<?php echo $treatment-> treatment_id ?></td>
                                 <td class="profile">

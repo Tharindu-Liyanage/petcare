@@ -9,13 +9,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Blog</title>
 
     <style>
         .form{
             display: block !important;
             padding: 30px 200px !important;
         }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+
+
+            }
     </style>
 
  
@@ -128,16 +138,26 @@
                         </div>
                         <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
                         <i class='bx bx-image-alt'></i>
-                            <input type="file" class="input" name="blog_img" accept="image/*">
+                            <input id="finput" type="file" class="input" name="blog_img" accept="image/*" onchange="upload()">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
+
+                        <div class="img-preivew" style="display:none;" id="img-preivew">
+
+                            <div class="flex-column">
+                                <label>Image Preview</label>
+                            </div>
+                            <canvas id="canv1"></canvas>
+
+                        </div>
+
 
                         <div class="flex-column">
                             <label>Content</label>
                         </div>
                         
                         
-                            <textarea class="<?php echo (!empty($data['content_err'])) ? 'is-invalid' : '' ; ?>" name="content" id="content"   placeholder="Type here"><?php echo $data['content']; ?></textarea>
+                        <textarea class="<?php echo (!empty($data['content_err'])) ? 'is-invalid' : '' ; ?>" name="content" id="content"   placeholder="Type here"><?php echo $data['content']; ?></textarea>
                         
                         <span class="invalid-feedback"><?php echo $data['content_err']; ?></span>
                         
@@ -175,8 +195,19 @@
 
 
 
+    <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+    <script>
 
+    function upload(){
+    //img-preivew to display block
+    document.getElementById("img-preivew").style.display = "block";
+    var imgcanvas = document.getElementById("canv1");
+    var fileinput = document.getElementById("finput");
+    var image = new SimpleImage(fileinput);
+    image.drawTo(imgcanvas);
+    }
 
+    </script>
     
 
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>

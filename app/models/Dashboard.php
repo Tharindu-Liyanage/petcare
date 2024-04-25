@@ -57,7 +57,7 @@
         public function addStaff($data){
             
 
-        $this->db->query('INSERT INTO petcare_staff (firstname,lastname,email,phone,role,password,address ,profileImage) VALUES(:first_name, :last_name, :email, :mobile, :role,:tmp_pwd, :address , "nopic.png")');
+        $this->db->query('INSERT INTO petcare_staff (firstname,lastname,email,phone,role,password,address,nic) VALUES(:first_name, :last_name, :email, :mobile, :role,:tmp_pwd, :address,:nic)');
 
         //bind values
         $this->db->bind(':first_name',$data['first_name']);
@@ -67,6 +67,7 @@
         $this->db->bind(':tmp_pwd',$data['tmp_pwd']);
         $this->db->bind(':role',$data['role']);
         $this->db->bind(':address',$data['address']);
+        $this->db->bind(':nic',$data['nic']);
         
 
         //execute
@@ -85,7 +86,7 @@
 
         public function updateStaff($data){
 
-            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile   WHERE staff_id = :id');
+            $this->db->query('UPDATE petcare_staff SET firstname = :first_name , lastname = :last_name , email= :email, role = :role , address = :address , phone = :mobile , nic = :nic ,password=:password  WHERE staff_id = :id');
 
         //bind values
         $this->db->bind(':id',$data['id']);
@@ -95,6 +96,8 @@
         $this->db->bind(':email',$data['email']);
         $this->db->bind(':role',$data['role']);
         $this->db->bind(':address',$data['address']);
+        $this->db->bind(':nic',$data['nic']);
+        $this->db->bind(':password',password_hash($data['nic'],PASSWORD_DEFAULT));
         // $this->db->bind(':fb_url',$data['fb_url']);
         // $this->db->bind(':insta_url',$data['insta_url']);
         // $this->db->bind(':twitter_url',$data['twitter_url']);
@@ -111,7 +114,7 @@
             return false;
         }  
 
-        }
+    }
 
         public function updateSettings1($data){
 
@@ -240,7 +243,7 @@
         //6
 
          public function getPetwonerDetails(){
-            $this->db->query('SELECT * FROM petcare_petowner');
+            $this->db->query('SELECT * FROM petcare_petowner WHERE isRemoved = 0');
         
 
             $results = $this->db->resultSet(); 
@@ -249,6 +252,135 @@
     
 
         }
+
+        public function getPetownerDetailsById($id){
+            $this->db->query('SELECT * FROM petcare_petowner WHERE id = :id');
+            $this->db->bind(':id' , $id);
+        
+
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+    
+        }
+
+        public function updatePetowner($data){
+            $this->db->query('UPDATE petcare_petowner SET first_name = :first_name , last_name = :last_name , email= :email , address = :address , mobile = :mobile   WHERE id = :id');
+
+        //bind values
+        $this->db->bind(':id',$data['id']);
+        $this->db->bind(':first_name',$data['first_name']);
+        $this->db->bind(':last_name',$data['last_name']);
+        $this->db->bind(':mobile',$data['mobile']);
+        $this->db->bind(':email',$data['email']);
+        $this->db->bind(':address',$data['address']);
+        // $this->db->bind(':fb_url',$data['fb_url']);
+        // $this->db->bind(':insta_url',$data['insta_url']);
+        // $this->db->bind(':twitter_url',$data['twitter_url']);
+        // $this->db->bind(':password',$data['password']);
+
+        
+        
+
+        //execute
+        if($this->db->execute()){
+            return true;
+
+        }else{
+            return false;
+        }  
+        }
+
+        public function removePetowner($id){
+            $this->db->query('UPDATE petcare_petowner SET isRemoved = 1 WHERE id = :id');
+
+            $this->db->bind(':id' , $id);
+            
+            $row = $this->db->single();
+
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }  
+        }
+
+
+        //admin petowner start
+
+        public function getPetDetails(){
+            $this->db->query('SELECT pet.* , petowner.id as poid, petowner.first_name as petownerfname, petowner.last_name as petownerlname, petowner.profileImage as poimg FROM petcare_pet pet JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id WHERE pet.isRemoved = 0 AND petowner.isRemoved = 0');
+        
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+        }
+
+
+        public function updatePet($data){ // for admin
+            $this->db->query('UPDATE petcare_pet SET pet = :petname , DOB = :dob , species= :species , breed = :breed , sex = :sex   WHERE id = :id');
+
+            //bind values
+            $this->db->bind(':id',$data['id']);
+            $this->db->bind(':petname',$data['petname']);
+            $this->db->bind(':species',$data['species']);
+            $this->db->bind(':breed',$data['breed']);
+            $this->db->bind(':sex',$data['sex']);
+            $this->db->bind(':dob',$data['DOB']);
+
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }  
+        
+
+        }
+
+
+        public function adminGetPetDetailsByID($id){
+
+            $this->db->query('SELECT * FROM petcare_pet WHERE id = :id ');
+        
+
+            $this->db->bind(':id' , $id);
+            
+    
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+        }
+
+        // appointmnet admin
+
+        public function getAppointments(){
+            
+
+             
+            $this->db->query('SELECT petcare_appointments.*, petcare_pet.pet , petcare_pet.profileImage as petProfile, petcare_petowner.first_name , petcare_petowner.last_name ,
+                    petcare_petowner.profileImage as petownerProfile , petcare_petowner.id as poid , petcare_staff.firstname as vetfname , petcare_staff.lastname AS vetlname, petcare_staff.profileImage as vetProfile , petcare_staff.staff_id as vetid
+                    FROM petcare_appointments
+                    JOIN petcare_petowner ON  petcare_appointments.petowner_id = petcare_petowner.id
+                    JOIN petcare_pet ON petcare_appointments.pet_id = petcare_pet.id
+                    JOIN petcare_staff ON petcare_staff.staff_id = petcare_appointments.vet_id
+                    
+    
+                ');
+    
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+        }
+
+
 
         // ============================  Admin over ===========================================
 
@@ -269,6 +401,7 @@
 
         11. updateProduct ->  id given as parameter to this method and update the product
 
+        12. getOrderDetails()
         ================================================================================
         
         */
@@ -313,7 +446,7 @@
 
         public function addProduct($data){
 
-            $this->db->query('INSERT INTO petcare_inventory (name,brand,category,stock,price) VALUES(:name, :brand, :category, :stock, :price )');
+            $this->db->query('INSERT INTO petcare_inventory (name,brand,category,stock,price,image) VALUES(:name, :brand, :category, :stock, :price, :image )');
 
              //bind values
         $this->db->bind(':name',$data['pname']);
@@ -321,6 +454,57 @@
         $this->db->bind(':category',$data['category']);
         $this->db->bind(':stock',$data['stock']);
         $this->db->bind(':price',$data['price']);
+        $this->db->bind(':image',$data['uniqueImgFileName']);
+
+        $sourceDir = $data['img']['tmp_name'];
+
+        //new path link
+        $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR;
+
+                
+        // Set the path to move the uploaded file to
+        $uploadPath = $destinationDir . $data['uniqueImgFileName'];
+
+        if (move_uploaded_file($sourceDir, $uploadPath)) {
+
+            $imageType = exif_imagetype($uploadPath);
+        // die("success");
+
+            switch ($imageType) {
+                    case IMAGETYPE_JPEG:
+                        
+                        $source = imagecreatefromjpeg($uploadPath);
+
+                        // Save the compressed image to the same file
+                        imagejpeg($source, $uploadPath,30);  //can adjust the compression level (0-100)
+                    
+                        // Free up resources
+                        imagedestroy($source);
+
+                    
+
+                        break;
+
+                    case IMAGETYPE_PNG:
+                    $source = imagecreatefrompng($uploadPath);
+
+                        // Save the compressed image to the same file
+                        imagepng($source, $uploadPath, 5); // You can adjust the compression level (0-9)
+
+                        // Free up resources
+                        imagedestroy($source);
+                        break;
+                
+                    default:
+                        echo "Unsupported image format.";
+                        break;
+                }
+    
+        } else {
+                // Error moving the file
+            // $data['img_err'] = 'Error moving the file.';
+            //  die("Misson failed img not moved");
+        }
         
 
         //execute
@@ -378,8 +562,145 @@
 
         }
 
+        public function getOrderDetails(){
+            $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
+                FROM petcare_shop_invoices
+                JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
+                JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
+                JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                GROUP BY petcare_shop_invoices.invoice_id,petcare_petowner.id
+                ORDER BY petcare_shop_invoices.invoice_date DESC;
 
-          // ============================  Store Manager over ===========================================
+            ');
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+
+        }
+
+        public function getOrderDetailsById($id){
+            $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
+                FROM petcare_shop_invoices
+                JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
+                JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
+                JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                WHERE invoice_id = :invoice_id;
+            ');
+
+            $this->db->bind(':invoice_id' , $id);
+                
+            $results = $this->db->resultSet(); 
+
+            return $results;
+
+        }
+
+        public function getOrderDetailsByIdRow($id){
+            $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
+                FROM petcare_shop_invoices
+                JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
+                JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
+                JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                WHERE invoice_id = :invoice_id;
+            ');
+
+            $this->db->bind(':invoice_id' , $id);
+                
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+
+        }
+
+
+        public function getCategories(){
+            $this->db->query('SELECT * FROM petcare_product_category WHERE isRemoved = 0' );
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
+        }
+
+        public function getCategoriesById($id){
+            $this->db->query('SELECT * FROM petcare_product_category WHERE id = :id' );
+
+            $this->db->bind(':id' , $id);
+
+            $row = $this->db->single();
+    
+            //return row
+    
+            return $row;
+        }
+
+        public function addCategory($data){
+
+            $this->db->query('INSERT INTO petcare_product_category (categoryname) VALUES(:categoryName)');
+
+             //bind values
+            $this->db->bind(':categoryName',$data['categoryName']);
+        
+        
+
+            //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }  
+
+        }
+
+        public function updateCategory($data){
+            
+            $this->db->query('UPDATE petcare_product_category SET categoryname = :categoryname WHERE id = :id' );
+
+            $this->db->bind(':id' , $data['id']);
+            //bind values
+            $this->db->bind(':categoryname',$data['categoryName']);
+        
+
+            //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }  
+
+        }
+
+        public function removeCategory($id){
+            
+            $this->db->query('UPDATE petcare_product_category SET isRemoved = 1 WHERE id = :id');
+
+            $this->db->bind(':id' , $id);
+            
+            $row = $this->db->single();
+
+            if($this->db->execute()){
+                return true;
+    
+            }else{
+                return false;
+            }  
+
+        }
+
+
+        // public function updateShipmentStatus($shipmentId, $newStatus) {
+        //     $this->db->query("UPDATE shipments SET ship_status = :status WHERE invoice_id = :id");
+        //     $this->db->bind(':status', $newStatus);
+        //     $this->db->bind(':invoice_id', $shipmentId);
+    
+        //     return $this->db->execute();
+        // }
+
+        // ============================  Store Manager over ===========================================
 
 
 
@@ -504,7 +825,11 @@
                 $sourceDir = $data['img']['tmp_name'];
 
                 // Specify the destination directory using __DIR__
-                $destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+                //$destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+
+                //new path link support for windows and linux
+                $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'animals' . DIRECTORY_SEPARATOR;
+                
                 // Set the path to move the uploaded file to
                 $uploadPath = $destinationDir . $data['uniqueImgFileName'];
 
@@ -601,16 +926,12 @@
             }else{
 
                 //get image name from database
-                $oldImgFileName = $this->getPetProfileImageByID($data['id']);
+                $previousImage = $this->getPetProfileImageByID($data['id']);
 
 
-                // Delete the old image file
+           
 
-                /*
-                $oldImagePath = __DIR__ . '/../../public/storage/uploads/animals/' . $oldImgFileName->profileImage;
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }*/
+                
 
 
                 $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB = :DOB , breed= :breed, sex = :sex , species = :species , profileImage =:filename   WHERE id = :id');
@@ -630,7 +951,11 @@
                     $sourceDir = $data['img']['tmp_name'];
 
                     // Specify the destination directory using __DIR__
-                    $destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+                    //$destinationDir = __DIR__ . '/../../public/storage/uploads/animals/';
+
+                    //new path link support for windows and linux
+                    $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'animals' . DIRECTORY_SEPARATOR;
+
                     // Set the path to move the uploaded file to
                     $uploadPath = $destinationDir . $data['uniqueImgFileName'];
 
@@ -679,6 +1004,17 @@
     
                         //execute
                     if($this->db->execute()){
+
+                    //delete the old image
+                    if($data['img'] != NULL){
+
+                        $oldImgPath = $destinationDir . $previousImage;
+                        if($previousImage != 'petcare-default-picture-pet.png'){
+                            unlink($oldImgPath);
+                        }
+                    }
+                        
+
                         return true;
 
                     }else{
@@ -737,7 +1073,7 @@
 
             $this->db->query(
 
-                'SELECT a.*, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , staff.firstname as fname , staff.lastname as lname , staff.profileImage as vetpic
+                'SELECT a.*, p.pet as pet_name, p.profileImage as propic , p.species as pet_species , staff.firstname as fname , staff.lastname as lname , staff.profileImage as vetpic ,staff.staff_id as vet_id
                 FROM petcare_appointments a
                 JOIN petcare_pet p ON a.pet_id = p.id
                 JOIN petcare_staff staff ON a.vet_id = staff.staff_id
@@ -759,7 +1095,7 @@
 
             $this->db->query(
 
-                'SELECT pet.*
+                'SELECT pet.* , pet.id as petid
                 FROM petcare_pet pet
                 JOIN petcare_petowner po ON pet.petowner_id = po.id
                 WHERE petowner_id = :id AND pet.isRemoved = 0
@@ -929,12 +1265,12 @@
         }
 
         //26
-        public function insertAppointment($vetID, $reason, $petID, $date, $time,$treatment_id){
+        public function insertAppointment($vetID, $reason, $petID, $date, $time,$treatment_id,$price){
 
             if($treatment_id == "NONE"){
                 $this->db->query(
 
-                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending")');
+                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status,price) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending",:price)');
     
                     $this->db->bind(':vetID',$vetID);
                     $this->db->bind(':reason',$reason);
@@ -942,6 +1278,7 @@
                     $this->db->bind(':date',$date);
                     $this->db->bind(':time',$time);
                     $this->db->bind(':petowner_id',$_SESSION['user_id']);
+                    $this->db->bind(':price',$price);
                 
         
                 //execute
@@ -954,7 +1291,7 @@
             }else{
                 $this->db->query(
 
-                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status,treatment_id) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending",:treatment_id)');
+                    'INSERT INTO petcare_appointments (vet_id, appointment_type, pet_id, appointment_date, appointment_time, petowner_id,status,treatment_id,price) VALUES(:vetID, :reason, :petID, :date, :time, :petowner_id,"Pending",:treatment_id,:price)');
     
                     $this->db->bind(':vetID',$vetID);
                     $this->db->bind(':reason',$reason);
@@ -963,6 +1300,7 @@
                     $this->db->bind(':time',$time);
                     $this->db->bind(':petowner_id',$_SESSION['user_id']);
                     $this->db->bind(':treatment_id',$treatment_id);
+                    $this->db->bind(':price',$price);
                 
         
                 //execute
@@ -1046,7 +1384,7 @@
 
             $this->db->query(
 
-                'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname
+                'SELECT report.* , pet.profileImage as petpic , pet.pet as petname , staff.profileImage as vetpic , staff.firstname as vetfname , staff.lastname as vetlname , staff.staff_id as vet_id
                 FROM petcare_medical_reports report
                 JOIN petcare_pet pet ON report.pet_id = pet.id
                 JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
@@ -1150,7 +1488,7 @@
     
                     $row = $this->db->single();
     
-                    return $row;
+                    return $row->profileImage;
         }
 
         //35
@@ -1250,6 +1588,85 @@
     
                 return $results;
         }
+
+
+        public function animalWardDetails(){
+            $this->db->query('SELECT * FROM petcare_ward');
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function getWardTreatmentDetailsByUserID($id) {
+            $this->db->query('SELECT report.*,
+                       pet.profileImage AS petpic,
+                       pet.pet AS petname,
+                       staff.profileImage AS vetpic,
+                       staff.firstname AS vetfname,
+                       staff.lastname AS vetlname,
+                       staff.staff_id AS vet_id
+                FROM petcare_ward_medical_reports report
+                JOIN petcare_pet pet ON report.pet_id = pet.id
+                JOIN petcare_staff staff ON report.veterinarian_id = staff.staff_id
+                WHERE (report.treatment_id, report.lastupdate) IN (
+                    SELECT treatment_id, MAX(lastupdate) AS max_lastupdate
+                    FROM petcare_ward_medical_reports
+                    GROUP BY treatment_id
+                ) AND report.owner_id = :id
+                ORDER BY report.lastupdate DESC
+            ');
+        
+            $this->db->bind(':id', $id);
+            
+            $results = $this->db->resultSet();
+            
+            return $results;
+        }
+
+
+        public function getBillByTreatmentID($id) {
+            $this->db->query('SELECT bill.* , treat.payment_status AS payment_status 
+             FROM petcare_ward_medical_bill bill
+             JOIN petcare_ward_treatment treat ON bill.ward_treatment_id = treat.ward_treatment_id
+             WHERE bill.ward_treatment_id = :id');
+            $this->db->bind(':id', $id);
+
+            $results = $this->db->resultSet();
+            
+            return $results;
+        }
+
+
+        public function getWardPaymentStatusByTreatmentID($id){
+            $this->db->query('SELECT * , petowner.first_name AS petownerFname , petowner.last_name AS petownerLname , petowner.address AS petownerAddress , petowner.email AS petownerEmail , petowner.mobile AS petownerMobile
+             FROM petcare_ward_treatment treat
+             JOIN petcare_pet pet ON treat.pet_id = pet.id
+             JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
+             WHERE ward_treatment_id = :id');
+            $this->db->bind(':id', $id);
+            $row = $this->db->single();
+            return $row;
+        }
+
+        public function getDischargeDetails(){
+            //from inward_pet table
+            $this->db->query('SELECT ward.* , pet.pet_id_generate as genPetID, petowner.petowner_id_generate as genPetOwnerID ,  pet.pet as petname, pet.profileImage as petpic, petowner.profileImage as petownerpic, petowner.first_name as petownerfname, petowner.last_name as petownerlname
+                              FROM petcare_ward_treatment ward
+                              JOIN petcare_pet pet ON ward.pet_id = pet.id
+                              JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
+                             -- WHERE ward.payment_status = "Processing"
+                             WHERE petowner.id = :id
+                               
+                           ');
+
+            $this->db->bind(':id', $_SESSION['user_id']);
+            $results = $this->db->resultSet();
+            return $results;
+            
+        }
+
+
+        
+        
 
 
 

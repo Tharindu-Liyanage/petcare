@@ -6,7 +6,7 @@
        }
 
        public function index(){
-        $posts = $this->blogModel->getPosts();
+        $posts = $this->blogModel->getPostsForBlog();
     
     
         $data = [
@@ -20,12 +20,23 @@
         $posts = $this->blogModel->getPostById($id);
         $recentPosts = $this->blogModel->getRecentPost();
 
-        $data = [
-            'posts' => $posts,
-            'recentPost' => $recentPosts
-        ];
+        if(!$posts){
+            // Load 404 page    
+            $this->view('error/404');
 
-        $this->view('blog/show', $data);
+        }else{
+
+
+            $data = [
+                'posts' => $posts,
+                'recentPost' => $recentPosts
+            ];
+    
+            $this->view('blog/show', $data);
+        
+        }
+
+        
 
        }
     }

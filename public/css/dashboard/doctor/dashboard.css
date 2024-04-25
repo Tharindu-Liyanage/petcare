@@ -26,10 +26,17 @@ main .home-box .home-left .home-text-large span{
 main .home-box .home-left .home-text-small{
     border-bottom: 1px solid --grey;
     font-weight: 200;
+    margin-left: 20px;
 }
 
 main .home-box .home-left .home-text-small span{
     color: var(--primary);
+}
+main .home-box .home-left .home-text-small ol li{
+
+    font-weight: 500;
+    color: var(--dark);
+    list-style-type: disc;  
 }
 
 main .home-box .home-right img{

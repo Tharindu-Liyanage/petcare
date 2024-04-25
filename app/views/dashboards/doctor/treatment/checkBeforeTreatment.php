@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-      <title>Dashboard</title>
+      <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+      <title>PetCare | Treatment</title>
    </head>
    <body>
 
@@ -47,6 +48,8 @@
 
     <!-- this is treatment info-->
 
+    <?php if($data['wardOrNot'] == "appointment" || $data['wardOrNot'] == "emergency") : ?>
+
             <div class="notifications-container">
         <div class="info-notifi">
             <div class="flex">
@@ -56,10 +59,15 @@
             </svg>
             </div>
             <div class="info-prompt-wrap">
+
+            <?php if($_SESSION['user_role'] === "Doctor"): ?>
                 <p class="">
                 Looking for a new treatment?
                 <a class="info-prompt-link" href="<?php echo URLROOT; ?>/doctor/addTreatment/<?php echo $data['pet_id']; ?>/new">click here to start a new treatment!</a>
+               
                 </p>
+
+            <?php endif; ?>
 
                 <ul class="app-info">
 
@@ -90,6 +98,46 @@
         </div>
         </div>
         </div>
+
+    <?php endif; ?>
+
+
+
+      <?php if($data['wardOrNot'] == "ward") : ?>
+
+            <div class="notifications-container">
+        <div class="info-notifi">
+            <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="info-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+            </svg>
+            </div>
+            <div class="info-prompt-wrap">
+
+            <?php if($_SESSION['user_role'] === "Doctor"): ?>
+                <p class="">
+                Looking for a new treatment?
+                <a class="info-prompt-link" href="<?php echo URLROOT; ?>/doctor/addWardTreatment/<?php echo $data['pet_id']; ?>/new">click here to start a new treatment!</a>
+                </p>
+
+            <?php endif; ?>
+
+                <ul class="app-info">
+
+                    <li>You are continuing the treatment of the pet in the ward.</li>
+                    <li>Pet Name : <span class="trt-id" ><?php echo $data['petDetails']->pet; ?></span></li>
+                    <li>Pet age : <span class="trt-id" ><?php echo $data['petDetails']->DOB; ?></span></li>
+                
+    
+                </ul>
+                
+            </div>
+        </div>
+        </div>
+        </div>
+
+    <?php endif; ?>
 
     <!-- over-->
 
@@ -139,8 +187,20 @@
                         ?>   
 
                         <td class="action-reports">
+
+                            <?php if($_SESSION['user_role'] == 'Doctor'): ?>
+
                             <a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $treatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
                             <a href="<?php echo URLROOT;?>/doctor/addTreatment/<?php echo $treatment->pet_id;?>/<?php echo $treatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+                            
+                            <?php elseif($_SESSION['user_role'] == 'Nurse'): ?>
+
+                            <a href="<?php echo URLROOT;?>/nurse/viewMedicalReport/<?php echo $treatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+
+                            <?php endif; ?>
+
+                            
+                            
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -206,8 +266,17 @@
                         ?>   
 
                         <td class="action-reports">
+
+                            <?php if($_SESSION['user_role'] == 'Doctor'): ?>
+
                             <a href="<?php echo URLROOT;?>/doctor/viewMedicalReport/<?php echo $closedTreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
-                            <a href="#" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+
+                            <?php elseif($_SESSION['user_role'] == 'Nurse'): ?>
+
+                            <a href="<?php echo URLROOT;?>/nurse/viewMedicalReport/<?php echo $closedTreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+
+                            <?php endif; ?>
+                            
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -224,6 +293,13 @@
 
     <!--3 -->
 
+    <!-- for animal ward -->
+
+    
+
+
+    <!-- for animal ward over -->
+
     <div class="content-table">
 
         <div class="title">
@@ -234,51 +310,58 @@
             <table id="myTable3" class="hover">
                 <thead>
                     <tr>
-                        <th>Report ID</th>
-                        <th>Patient ID</th>
-                        <th>Patient Name</th>
-                        <th>Doctor ID</th>
-                        <th>Doctor Name</th>
-                        <th>Report Date</th>
-                        <th>View</th>
+                        <th>Treatment ID</th>
+                        <th>Veterinarian</th>
+                        <th>Last Update</th>
+                        <th>Diagnosis</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <!-- this is 3 rows dummy values-->
+                    
+
+                    <?php
+                    if($data['wardDetails'] != null):
+                    foreach($data['wardDetails'] as $wardtreatment): ?> 
                     <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>Max</td>
-                        <td>1</td>
-                        <td class="profile-three"><img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user3.jpeg"> Dr. ABC</td>
-                        <td>2021-09-20</td>
+                        <td>AWT-<?php echo $wardtreatment->treatment_id;?></td>
+
+                        <td>
+                            <div class="profile-three">
+                                <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $wardtreatment->vetpic?>" >
+                                <p><?php echo $wardtreatment->vetfname?> <?php echo $wardtreatment->vetlname?></p>
+                            </div>
+                        </td>
+
+                        <td><?php echo $wardtreatment->lastupdate?></td>
+                        <td><?php echo $wardtreatment->diagnosis?></td>
+
+
+                        <?php
+                                        if ($wardtreatment->status === "In Progress" ) {
+                                            echo '<td class="status-search status-green">' . $wardtreatment->status . '</td>';
+                                        } else{
+                                            echo '<td class="status-search status-red">' . $wardtreatment->status . '</td>';
+                                        }
+                        ?>   
+
                         <td class="action-reports">
-                            <a href="#" title="Show Medical Report"><i class='bx bx-show' ></i></a>
-                            <a href="#" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+                            
+                            <?php if($_SESSION['user_role'] === "Doctor"): ?>
+                                <a href="<?php echo URLROOT;?>/doctor/viewWardMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+                                <?php if($wardtreatment->status === "In Progress"): ?>
+                                <a href="<?php echo URLROOT;?>/doctor/addWardTreatment/<?php echo $wardtreatment->pet_id;?>/<?php echo $wardtreatment->treatment_id;?>" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
+                                <?php endif; ?>
+                            <?php elseif($_SESSION['user_role'] === "Nurse"): ?>
+                                <a href="<?php echo URLROOT;?>/nurse/viewWardMedicalReport/<?php echo $wardtreatment->treatment_id;?>" title="Show Medical Report"><i class='bx bx-show' ></i></a>
+                            <?php endif; ?>
                         </td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>Max</td>
-                        <td>1</td>
-                        <td>Dr. fef</td>
-                        <td>2021-09-20</td>
-                        <td><a href="<?php echo URLROOT;?>/doctor/viewMedicalReport">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>Max</td>
-                        <td>1</td>
-                        <td>Dr. ssf</td>
-                        <td>2021-09-20</td>
-                        <td class="action-reports">
-                            <a href="#" title="Show Medical Report"><i class='bx bx-show' ></i></a>
-                            <a href="#" title="Continue This Treatment" ><i class='bx bx-chevron-right' ></i></a>
-                        </td>
-                    </tr>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                  
 
                 </tbody>
             </table>

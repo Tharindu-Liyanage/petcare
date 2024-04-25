@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard- Assistant-pet.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
  
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>dashboard</title>
@@ -21,21 +24,24 @@
                 <div class="left">
                     <h1>dashboard</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">
+                        <li><a href="<?php echo URLROOT; ?>/assistant">
                             Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT; ?>/assistnat" class="active"> Home</a></li>
+                        <li><a href="<?php echo URLROOT; ?>/assistant/pet" class="active">Pet</a></li>
                     </ul>
                 </div>
+
+
+     <!-- =================  Button ================ -->           
                 <div class="add-button">
-             <a href="<?php echo URLROOT;?>/assistant/addPet" ><button id="add-form-button">
+             <a href="<?php echo URLROOT;?>/assistant/addPet" ><button id="add-form-button">  <!-- href eka , /assistant/addPets kiyala , addPet remove karapu nisa  -->
                 <i class='bx bxs-dog' ></i>
                         Add PET
                 </button> </a>
             </div>
 
-
+     <!-- =================  Button OVER ================ -->
                 
             </div>
 
@@ -76,7 +82,7 @@
 
         <?php
 
-            if(count($data['pet']) == 0){
+            if(count($data['pet']) == 0){ // database eke data naththn 0
 
                 echo '<td class="isempty" colspan="7">No data available in table</td>';
 
@@ -89,8 +95,9 @@
             <tr>
                 <td class="id-search"><?php echo $pet->pet_id_generate?></td>
                 <td class="profile">
-                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> profileImage ?>" ><p><?php echo $pet-> pet?></p>
-                </td class="id-search">
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> petImage ?>" ><p><?php echo $pet-> pet?></p>
+                </td>
+                
                 <td class="dob-search"><?php echo $pet->DOB?></td>
                 <td class="breed-search"><?php echo $pet->breed?></td>
                 <td class="sex-search"><?php echo $pet->sex?></td>
@@ -98,6 +105,8 @@
                 <td class="action">
                     
                     <div class="act-icon">
+
+                    <a href="<?php echo URLROOT;?>/assistant/updatePet/<?php echo $pet->id?>" ><i class='bx bx-edit' ></i></a>
                           
                            
                     </div>
@@ -116,7 +125,24 @@
 </div> <!-- content over -->
 
         </main>
+
+        <?php
+     //view notifications-------
+        if ($_SESSION['notification'] == "error") {
+            
+            toast_notifications("Changes Applied Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+            
+        }else if($_SESSION['notification'] == "ok"){
+
+            toast_notifications("Changes Applied Succussfull!",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+            
+        }
+
+    ?>
     </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script> <!-- notification ekk blnn-->
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/assistant/petTable.js"></script>
 </body>
 </html>

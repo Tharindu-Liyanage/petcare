@@ -2,7 +2,6 @@
                 
  <footer> 
                     <span>Showing <span class="foot-number">
-
                     <?php if( count($data[$current_page]) >= 5) {
 
                     echo ' 

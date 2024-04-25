@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/signUp.css">
-    
-    <title>SignUp</title>
+    <?php require_once __DIR__ . '/../dashboards/common/favicon.php'; ?>
+    <title>PetCare | SignUp</title>
 </head>
 <body>
 
@@ -69,7 +69,7 @@
 
                 <div class="footer">
                     <p>I agree to abide by PetCare's <a href="#">Terms of Service</a> and its <a href="#" >Privacy Policy</a></p>
-                    <p class="Q1"><img class="svg" src="<?php echo URLROOT;?>/public/img/auth/warn.svg"> Are you a <a href="<?php echo URLROOT;?>/users/vet_signup">Veterinarian</a>?</p>
+                    <p class="Q1"><img class="svg" src="<?php echo URLROOT;?>/public/img/auth/warn.svg"> Already have an account ? <a href="<?php echo URLROOT;?>/users/login"> Log in</a></p>
                 </div>
 
             </form>

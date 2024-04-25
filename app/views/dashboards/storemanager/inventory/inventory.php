@@ -35,11 +35,12 @@
                 </div>
 
                 <div class="add-button">
-             <a href="<?php echo URLROOT;?>/storemanager/addProduct" ><button id="add-form-button">
-             <i class='bx bx-plus' ></i>
-                        Add Product
-                </button> </a>
-            </div>
+                    <a href="<?php echo URLROOT;?>/storemanager/addProduct" >
+                    <button id="add-form-button">
+                        <i class='bx bx-plus' ></i>
+                                Add Product
+                    </button> </a>
+                </div>
 
                
             </div>
@@ -51,39 +52,45 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="inventory">
                     <div class="header">
                     <i class='bx bx-archive' ></i>
                         <h3>Inventory</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+                    <!-- Search Container -->
+
+                    <div class="search-container-table">
+                     <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                     <i class='bx bx-search' ></i>
                     </div>
+
+                    <!-- search container over -->
+                    
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Brand</th>
-                                <th>Category</th>
-                                <th>Stock</th>
-                                <th>Price</th>
+                                <th>Id<i class='bx bxs-sort-alt sort' data-sort="invoice-id"></i></th>
+                                <th>Name<i class='bx bxs-sort-alt sort' data-sort="inventory-name"></i></th>
+                                <th>Brand<i class='bx bxs-sort-alt sort' data-sort="inventory-brand"></i></th>
+                                <th>Category<i class='bx bxs-sort-alt sort' data-sort="category"></i></th><i class='bx bxs-sort-alt sort' data-sort="invoice-id"></i></th>
+                                <th>Stock<i class='bx bxs-sort-alt sort' data-sort="stock"></i></th>
+                                <th>Price<i class='bx bxs-sort-alt sort' data-sort="price"></i></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list" >
 
-                        <?php foreach($data['products'] as $product) : ?>
+                        <?php foreach($data['inventory'] as $product) : ?>
 
                             <tr>
-                                <td><?php echo $product->id?></td>
-                                <td>
+                                <td class="invoice-id" ><?php echo $product->id?></td>
+                                <td class="inventory-name" >
                                 <?php echo $product->name?>
                                 </td>
-                                <td><?php echo $product->brand?></td>
-                                <td><?php echo $product->category?></td>
-                                <td><?php echo $product->stock?></td>
-                                <td>Rs.<?php echo $product->price?></td>
+                                <td class="inventory-brand" ><?php echo $product->brand?></td>
+                                <td class="category" ><?php echo $product->category?></td>
+                                <td class="stock" ><?php echo $product->stock?></td>
+                                <td class="price" >Rs.<?php echo $product->price?></td>
                                 <td class="action">
                                     
                                     <div class="act-icon">
@@ -98,6 +105,7 @@
                         </tbody>
                     </table>
                 </div>
+                <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
  
             </div> <!-- content over -->
 
@@ -107,7 +115,7 @@
 
             <!-- warninig model here -->
 
-            <div id="removeModel" class="card-all-background">
+        <div id="removeModel" class="card-all-background">
              <div class="card">
                 <div class="err-header">
 
@@ -137,14 +145,13 @@
    
 
 
-    <!-- staff add model over -->
 
 
     
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/storemanager/manageInventory.js"></script>
     
 </body>
 </html>

@@ -5,11 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost/petcare/public/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost/petcare/public/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost/petcare/public/img/favicons/favicon-16x16.png">
-    <link rel="icon" href="http://localhost/petcare/public/img/favicons/favicon.ico" type="image/x-icon">
-
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/home.css">
 
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <!--Animate On Scroll Library -->
@@ -18,11 +13,11 @@
 
     <!-- link swiper's css -->
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> <!--splide css-->
-   
-   
+
+    <?php require_once __DIR__ . '/../dashboards/common/favicon.php'; ?>
 
 
-    <title> Home</title>
+    <title>PetCare | Home</title>
 </head>
 <body>
     <!-- header start  -->
@@ -37,11 +32,11 @@
             </div>
 
         <nav class="navbar">
-                <a href="<?php echo URLROOT;?>/">Home</a>
+                <a href="<?php echo URLROOT;?>/home">Home</a>
                 <a href="<?php echo URLROOT;?>/shop/">Shop</a>
                 <a href="<?php echo URLROOT;?>/blog/">Blog</a>
                 <a href="#about">About</a>
-                <a href="#">Contact</a>  
+                <a href="#contact">Contact</a>  
         </nav>
 
         <a href="<?php echo URLROOT;?>/users/login" class="btn login">Login</a>
@@ -279,7 +274,7 @@
         
       
         
-            <li clas ="splide__slide" >
+            <li class ="splide__slide" >
 
                 <div class="card-team">
                         <div class="card__image">
@@ -287,10 +282,19 @@
                         </div>
 
                         <div class="card__content">
-                        <span class="card__title"><?php echo $staffmember->role ?></span>  
+
+                        <span class="card__title"><?php
+                        
+                        if($staffmember->role == 'Doctor'){
+                            echo 'Veterinarian';
+                        }else{
+                            echo $staffmember->role;
+                        }
+                        ?></span>  
+
+
                         <span class="card__name"><?php echo $staffmember->firstname ?> <?php echo $staffmember->lastname ?>  </span>
-                        <p class="card__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit veritatis labore provident non tempora odio est sunt, ipsum</p>
-                        <button class="card__btn">View More</button>
+                        <p class="card__text"><?php echo substr($staffmember->bio, 0, 300); ?> ....</p>
                         </div>
                     </div>
 
@@ -320,7 +324,7 @@
     <section id="blog">
         <div class = "blog-heading">
             
-            <h1>MY BLOG</h1>
+            <h1>OUR LATEST BLOG</h1>
         </div>
 
         <!-- blog-container -->
@@ -330,7 +334,7 @@
                 <div class="blog-box">
                     <!-- img -->
                     <div class="blog-img">
-                    <img src="<?php echo URLROOT;?>/public/img/home/puppy2.svg">
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/blog/<?php echo $posts->thumbnail?>">
                     </div>
 
                     <!--text  -->
@@ -338,7 +342,7 @@
                         <span> <?php echo $posts->publishdate ; ?></span>
                         <div class="blog-title"><?php echo $posts->title; ?></div>
                         <p><?php echo $posts->content; ?></p>
-                        <a href="#">Read More </a>
+                        <a href="<?php echo URLROOT;?>/blog/show/<?php echo $posts->blogID ;?>">Read More </a>
                     </div>
                 </div>
             <?php endforeach ; ?>
@@ -355,15 +359,15 @@
 
      
 <!-- Footer -->
-<footer class="section-p1 ">
+<footer class="section-p1" id="contact">
     <div class="col">
         <div class="logo-flex">
         <img class="logo" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png" alt="logo"><span>PetCare</span>
     </div>
         <h4>Contact</h4>
-        <p><strong>Address:</strong>562 Nalandarama Road , Streat 32, Nugegoda</p>
-        <p><strong>Phone:</strong>+0112 765 456/(+94)077 3678 778</p>
-        <p><strong>Hourse:</strong>10:00-18:00,Mon-Sat</p>
+        <p><strong>Address:</strong> <?php echo $data['hospital_address'];?></p>
+        <p><strong>Phone:</strong> +<?php echo $data['hospital_phone'];?></p>
+        <p><strong>Email:</strong> <?php echo $data['hospital_email'];?></p>
         <div class="follow">
             <h4>Follow us</h4>
             <div class="icon">
@@ -390,10 +394,9 @@
 
     <div class="col">
         <h4>My Account</h4>
-        <a href="#">Sign In</a><br>
-        <a href="#">View Cart</a><br>
-        <a href="#">Track My Order</a><br>
-        <a href="#">Help</a>
+        <a href="<?php echo URLROOT;?>/users/login">Sign In</a><br>
+        <a href="<?php echo URLROOT;?>/shop/shopcart">View Cart</a><br>
+        <a href="<?php echo URLROOT;?>/petowner/myorders">Track My Order</a><br>
         
     </div>
 
@@ -423,7 +426,7 @@
     var splide = new Splide('.splide', {
         drag: 'free',
         snap: true,
-        perPage: 4,
+        perPage: 3,
     });
 
     splide.mount();
@@ -435,6 +438,20 @@
   </script>
 
   <script src="<?php echo URLROOT;?>/public/js/home.js"></script>
+
+  <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/66234c2e1ec1082f04e4ef00/1hrsu369j';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 
 
 

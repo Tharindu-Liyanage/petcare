@@ -8,6 +8,7 @@
       <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/petowner/medicalReport.css">
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+      <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
       <title>Dashboard</title>
    </head>
    <body>
@@ -25,7 +26,7 @@
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
                     <li><a href="<?php echo URLROOT;?>/petowner/medicalReport">Medical Report</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/petowner/viewMedicalReport" class="active">Show Medical Report</a></li>
+                    <li><a href="<?php echo URLROOT;?>/petowner/showMedicalReport/<?php echo $data['treatment_id'];?>" class="active">Show Medical Report</a></li>
                 </ul>
             </div>
         </div>

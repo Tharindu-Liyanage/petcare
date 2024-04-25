@@ -64,6 +64,12 @@
     
 }
 
+.content main .bottom-data .users table td a{
+    color: var(--dark);
+    text-decoration: none;
+  
+}
+
 .content main .bottom-data .users table tr td:nth-child(2){
     display: flex;
     align-items: center;
@@ -632,6 +638,35 @@ table tr td.isempty{
   padding: 10px;
   text-align: center;
 }
+
+
+.shipment-status{
+  border: none;
+  background: none;
+  /* color: inherit; */
+  color: black;
+
+}
+
+.shipment-status option:checked {
+  color: inherit;
+}
+
+.on-process-value {
+  color: yellow;
+
+}
+
+.shipped-value {
+  color: red;
+}
+
+.delivered-value {
+  color: blue;
+}
+
+
+
 
 
 

@@ -404,7 +404,7 @@ function initMultiStepForm() {
 
      //============================= generate time values  ========================================
 
-     async function generateTimeSlotsAndAppend(mstartDateTime, mendDateTime,astartDateTime,aendDateTime, interval) {
+     async function generateTimeSlotsAndAppend(mstartDateTime, mendDateTime,astartDateTime,aendDateTime, Minterval,Ainterval) {
         const MorningstartDate = new Date(`1970-01-01T${mstartDateTime}`);
         const MorningendDate = new Date(`1970-01-01T${mendDateTime}`);
 
@@ -442,7 +442,7 @@ function initMultiStepForm() {
 
             await checkTimeSlotBooking(formattedTime, label);//new
     
-            mcurrentTime.setMinutes(mcurrentTime.getMinutes() + parseInt(interval, 10));
+            mcurrentTime.setMinutes(mcurrentTime.getMinutes() + parseInt(Minterval, 10));
         }
 
         while (afternoonstartDate <= afternoonendDate) {
@@ -466,7 +466,7 @@ function initMultiStepForm() {
 
            await checkTimeSlotBooking(formattedTime, label); //new
     
-            acurrentTime.setMinutes(acurrentTime.getMinutes() + parseInt(interval, 10));
+            acurrentTime.setMinutes(acurrentTime.getMinutes() + parseInt(Ainterval, 10));
         }
     }
 
@@ -657,24 +657,24 @@ function initMultiStepForm() {
      function generateDateHelper(date){
 
         if(getDayName(date) == 'Monday'){
-            generateTimeSlotsAndAppend(mondayMorningStartTime,mondayMorningEndTime,mondayAfternoonStartTime,mondayAfternoonEndTime,mondayTimeInterval);
+            generateTimeSlotsAndAppend(mondayMorningStartTime,mondayMorningEndTime,mondayAfternoonStartTime,mondayAfternoonEndTime,mondayTimeInterval,mondayAfternoonInterval);
         }else if(getDayName(date) == 'Tuesday'){
-            generateTimeSlotsAndAppend(tuesdayMorningStartTime,tuesdayMorningEndTime,tuesdayAfternoonStartTime,tuesdayAfternoonEndTime,tuesdayTimeInterval);
+            generateTimeSlotsAndAppend(tuesdayMorningStartTime,tuesdayMorningEndTime,tuesdayAfternoonStartTime,tuesdayAfternoonEndTime,tuesdayTimeInterval,tuesdayAfternoonInterval);
         
         }else if(getDayName(date) == 'Wednesday'){
-            generateTimeSlotsAndAppend(wednesdayMorningStartTime,wednesdayMorningEndTime,wednesdayAfternoonStartTime,wednesdayAfternoonEndTime,wednesdayTimeInterval);
+            generateTimeSlotsAndAppend(wednesdayMorningStartTime,wednesdayMorningEndTime,wednesdayAfternoonStartTime,wednesdayAfternoonEndTime,wednesdayTimeInterval,wednesdayAfternoonInterval);
         }
         else if(getDayName(date) == 'Thursday'){
-            generateTimeSlotsAndAppend(thursdayMorningStartTime,thursdayMorningEndTime,thursdayAfternoonStartTime,thursdayAfternoonEndTime,thursdayTimeInterval);
+            generateTimeSlotsAndAppend(thursdayMorningStartTime,thursdayMorningEndTime,thursdayAfternoonStartTime,thursdayAfternoonEndTime,thursdayTimeInterval,thursdayAfternoonInterval);
         }
         else if(getDayName(date) == 'Friday'){
-            generateTimeSlotsAndAppend(fridayMorningStartTime,fridayMorningEndTime,fridayAfternoonStartTime,fridayAfternoonEndTime,fridayTimeInterval);
+            generateTimeSlotsAndAppend(fridayMorningStartTime,fridayMorningEndTime,fridayAfternoonStartTime,fridayAfternoonEndTime,fridayTimeInterval,fridayAfternoonInterval);
         }
         else if(getDayName(date) == 'Saturday'){
-            generateTimeSlotsAndAppend(saturdayMorningStartTime,saturdayMorningEndTime,saturdayAfternoonStartTime,saturdayAfternoonEndTime,saturdayTimeInterval);
+            generateTimeSlotsAndAppend(saturdayMorningStartTime,saturdayMorningEndTime,saturdayAfternoonStartTime,saturdayAfternoonEndTime,saturdayTimeInterval,saturdayAfternoonInterval);
         }
         else if(getDayName(date) == 'Sunday'){
-            generateTimeSlotsAndAppend(sundayMorningStartTime,sundayMorningEndTime,sundayAfternoonStartTime,sundayAfternoonEndTime,sundayTimeInterval);
+            generateTimeSlotsAndAppend(sundayMorningStartTime,sundayMorningEndTime,sundayAfternoonStartTime,sundayAfternoonEndTime,sundayTimeInterval,sundayAfternoonInterval);
         }
 
      }
@@ -732,7 +732,7 @@ function initMultiStepForm() {
         var treatmentText = treatment.options[treatment.selectedIndex].text; //treatment name
 
         var reason =document.getElementById('reason'); //reason
-        var reasonText = reason.options[treatment.selectedIndex].text; //reason name
+        var reasonText = reason.value; //reason name
 
 
         //=============== Get the selct element by its id vet and pet over======================= //

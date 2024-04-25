@@ -7,7 +7,10 @@
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-    <title>Login</title>
+
+    <?php require_once __DIR__ . '/../dashboards/common/favicon.php'; ?>
+    
+    <title>PetCare | Login</title>
 </head>
 <body>
 
@@ -58,6 +61,7 @@
 
                     //unset
                     unset( $_SESSION['error_msg_from_petowner'] );
+
                     session_destroy();
 
                 }
@@ -150,7 +154,20 @@
    
     <!--this from the helpers -->
 
-    <?php toast_notification("Signup Successful","You can now log in with your credentials.","fa-solid fa-xmark close"); ?>
+   
+    <?php
+     
+     if ($_SESSION['notification'] == "error") {
+         
+         toast_notifications("Account Create Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+         
+     }else if($_SESSION['notification'] == "ok"){
+
+         toast_notifications("You have successfully registered.",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+         
+     }
+
+    ?>
    <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
 
 

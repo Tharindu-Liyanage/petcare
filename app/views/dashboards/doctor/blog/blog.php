@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Blog</title>
 </head>
 <body>
 
@@ -80,8 +81,16 @@
                             </tr>
                         </thead>
                         <tbody class="list">
+
+                        <?php
+
+                        if(count($data['blog']) == 0){
+
+                            echo '<td class="isempty" colspan="8">No data available in table</td>';
+
+                        }else
                             
-                                <?php foreach($data['blog'] as $blog) : ?>
+                                foreach($data['blog'] as $blog) : ?>
                                     <?php  if($_SESSION['user_id'] == $blog->author ) { ; ?>
                                     <tr>
                                         <td class="id-search"><?php echo $blog->blogID ; ?></td>
@@ -93,7 +102,7 @@
                                         <td class="action">
                                             
                                             <div class="act-icon">
-                                                <a data-blog-id="<?php echo $blog->blogID?>" class="removeLink" href="<?php echo URLROOT;?>/doctor/deleteBlogs/<?php echo $blog->blogID ; ?>" ><i class='bx bx-trash'></i></a>
+                                                <a data-blog-id="<?php echo $blog->blogID?>" class="removeLink" href="<?php echo URLROOT;?>/doctor/deleteBlog/<?php echo $blog->blogID ; ?>" ><i class='bx bx-trash'></i></a>
                                                 <a href="<?php echo URLROOT;?>/doctor/updateBlog/<?php echo $blog->blogID ; ?>" ><i class='bx bx-edit' ></i></a>     
                                                 
                                             </div>
@@ -145,6 +154,20 @@
 
 
     </div>
+
+    <?php
+     
+     if ($_SESSION['notification'] == "error") {
+           
+        toast_notifications("Modification Alerts!",$_SESSION['notification_msg'],"fas fa-solid fa-xmark check-error"); 
+        
+    }else if($_SESSION['notification'] == "ok"){
+
+        toast_notifications("Modification Alerts!",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+
+    }
+
+    ?>
 
    
 

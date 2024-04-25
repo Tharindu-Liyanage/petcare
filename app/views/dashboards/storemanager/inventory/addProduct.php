@@ -47,7 +47,7 @@
                 
 
 
-                <form class="form" method="post" action="<?php echo URLROOT; ?>/storemanager/addProduct">
+                <form class="form" enctype="multipart/form-data" method="post" action="<?php echo URLROOT; ?>/storemanager/addProduct">
 
                   
 
@@ -86,6 +86,8 @@
                             </select>
                         </div>
                         <span class="invalid-feedback"><?php echo $data['cat_err']; ?></span>
+
+                        
                        
 
                 </div> <!-- column tag close -->
@@ -110,6 +112,21 @@
                             <input type="text" class="input" placeholder="Enter price" name="price" value="<?php echo $data['price']?>" >
                         </div>
                         <span class="invalid-feedback"><?php echo $data['price_err']; ?></span>
+
+                        <div class="flex-column">
+                            <label>Image</label>
+                        </div>
+                        <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-image-alt'></i>
+                            <!-- <input id="finput" type="file" class="input" name="inventory_img" accept="image/*" onchange="upload()"> -->
+                            <input type="file" class="input" name="inventory_img" accept="image/*">
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
+
+                       
+
+                        
+                        
 
 
                         

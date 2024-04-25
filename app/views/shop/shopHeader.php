@@ -15,6 +15,7 @@
         <nav class="navbar" id="nav-menu">
 
         <ul class="flexitem">
+        <!--
             <li class="has-drop-down ">  <a class="one drop-down-button">Products<span class="material-symbols-outlined drop-down-product-icon drop-down-arrow">expand_more</span></a>
 
                 <div class="mega">
@@ -74,11 +75,12 @@
                         </div>
                     </div>
                 </div>  </li>
-
+!-->
               <li>   <a href="<?php echo URLROOT;?>/shop/">Shop</a></li>
               <li>  <a href="<?php echo URLROOT;?>/home">PetCare</a></li>
-              <li>   <a href="#about">About</a></li>
-              <li>   <a href="#">Contact</a>  </li>
+              <li>  <a href="<?php echo URLROOT;?>/blog">Blog</a></li>
+              <li>   <a href="<?php echo URLROOT;?>/home/#about">About</a></li>
+              <li>   <a href="<?php echo URLROOT;?>/home/#contact">Contact</a>  </li>
 
                 </ul>
         </nav>
@@ -88,7 +90,7 @@
 
            
                 <div class="icon-large">
-                <i class="ri-search-line"></i>        
+              <!--  <i class="ri-search-line"></i>       -->
                 </div>
               
 
@@ -128,21 +130,24 @@
                             <h3><?php echo $_SESSION['user_fname']. ' '. $_SESSION['user_lname'];?></h3>
                         </div>
                         <hr>
+                        <?php if($_SESSION['user_role'] == "Pet Owner") : ?>
 
-                        <a href="#" class="sub-menu-link">
-                            <i class="ri-shopping-bag-line icon"></i>
+                        <a href="<?php echo URLROOT;?>/petowner/myorders" class="sub-menu-link">
+                            <i class="ri-shopping-bag-line icon-submenu"></i>
                             <p>My Orders</p>
                             <span>></span>
                         </a>
 
-                        <a href="#" class="sub-menu-link">
-                        <i class="ri-settings-2-line icon"></i>
+                        <a href="<?php echo URLROOT;?>/petowner/settings/all" class="sub-menu-link">
+                        <i class="ri-settings-2-line icon-submenu"></i>
                             <p>Settings</p>
                             <span>></span>
                         </a>
 
+                        <?php endif; ?>
+
                         <a href="<?php echo URLROOT;?>/shop/logout" class="sub-menu-link">
-                        <i class="ri-logout-box-r-line icon"></i>
+                        <i class="ri-logout-box-r-line icon-submenu"></i>
                             <p>Logout</p>
                             <span>></span>
                         </a>
@@ -156,13 +161,13 @@
                         <hr>
 
                         <a href="<?php echo URLROOT?>/shop/createAccount" class="sub-menu-link">
-                            <i class="ri-user-add-line"></i>
+                            <i class="ri-user-add-line icon-submenu"></i>
                             <p>Create an Account</p>
                             <span>></span>
                         </a>
 
                         <a href="<?php echo URLROOT?>/shop/login" class="sub-menu-link">
-                            <i class="ri-login-box-line icon"></i>
+                            <i class="ri-login-box-line icon-submenu"></i>
                             <p>Login</p>
                             <span>></span>
                         </a>

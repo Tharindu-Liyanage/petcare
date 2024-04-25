@@ -294,11 +294,17 @@ body {
 
 .thumbnail-image{
     width: 100%;
-    height: 100%;
+    height: 250px;
     object-fit: cover;
     object-position: center;
     border-radius: 15px;
 }
+
+.thumbnail-image:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
 
 .blog-cards{
     display: flex;

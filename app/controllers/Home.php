@@ -6,6 +6,7 @@
 
             $this->homeModel = $this->model('HomeModel');  //homeModel is an object of the Home model class(models/Home.php)
             $this->PostModel = $this->model('Post');
+            $this->dashboardModel = $this->model('Dashboard');
 
             //unset  $_SESSION['shop_user']
             if(isset($_SESSION['shop_user'])){
@@ -41,13 +42,17 @@
                 **type below normal above number 1 and 2 codes and comment or remove the $data = null; and run the project to see the result
             */
             $staffData = $this->homeModel->getStaffDetails();
-            $postData = $this->PostModel->getPosts();
+            $postData = $this->PostModel->getPostsToHome();
+            $hospitalInfo = $this->dashboardModel->getPetCareDetails();
 
 
 
             $data = [
                 'staff' => $staffData,
-                'posts' => $postData
+                'posts' => $postData,
+                'hospital_address' => $hospitalInfo[0]->hospital_address,
+                'hospital_email' => $hospitalInfo[0]->hospital_email,
+                'hospital_phone' => $hospitalInfo[0]->hospital_contact,
             ];
             
             $this->view('home/index', $data);

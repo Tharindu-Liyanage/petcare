@@ -23,7 +23,8 @@
   
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Appointment</title>
 </head>
 <body>
 
@@ -186,31 +187,13 @@
                                 </div>
 
                                 <div class="input-field">
-                                    <div class="label">Select a Reason</div>
+                                    <div class="label">Enter a Reason</div>
                                     <div class="inputForm">
-                                    <i class='bx bx-question-mark' ></i>
-                                    <select id="reason" name="reason">
-
-                                    <option disabled selected value=" ">
-                                    Select a Reason
-                                    </option>
-
-
-                                    <?php foreach($data['reason'] as $reasons) : ?>
-
-                                        <option value="<?php echo $reasons->reason_name?>">
-                                          <?php echo $reasons->reason_name?> 
-                                        </option>
-
-
-                                    <?php endforeach; ?>
-
-
-                                    </select>
+                                    <i class='bx bx-purchase-tag-alt' ></i>
+                                    <input id="reason" name="reason" type="text" placeholder ="Enter a Reason"/>
                                     </div>
                                     <span class="invalid-feedback"></span>
-                                </div>
-
+                            </div>
 
                                 <div class="input-field">
                                     <div class="label">Select a Treatment</div>
@@ -396,7 +379,7 @@
                                 <div class="label">Time: <span id="time-last" class="fw-for-confirm"></span></div>
                                 <div class="label">Date: <span id="date-last" class="fw-for-confirm"></span></div>
                                 <div class="label">Reason: <span id="reason-id" class="fw-for-confirm"></span></div>
-                                <div class="label">Price: <span class="fw-for-confirm">LKR 1500</span></div>
+                                <div class="label">Price: <span class="fw-for-confirm">LKR <?php echo $data['price']->price;?></span></div>
                             </div>
 
 
@@ -457,6 +440,7 @@
             <?php elseif ($time_slot->day == 'monday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const mondayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const mondayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const mondayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
             
             <?php elseif ($time_slot->day == 'tuesday' && $time_slot->part_of_day == 'morning') : ?>
                 const tuesdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -466,6 +450,7 @@
             <?php elseif ($time_slot->day == 'tuesday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const tuesdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const tuesdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const tuesdayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
 
             <?php elseif ($time_slot->day == 'wednesday' && $time_slot->part_of_day == 'morning') : ?>
                 const wednesdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -475,6 +460,7 @@
             <?php elseif ($time_slot->day == 'wednesday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const wednesdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const wednesdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const wednesdayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
 
              <?php elseif ($time_slot->day == 'thursday' && $time_slot->part_of_day == 'morning') : ?>
                 const thursdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -484,6 +470,7 @@
              <?php elseif ($time_slot->day == 'thursday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const thursdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const thursdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const thursdayAfternoonInterval =  '<?php echo $time_slot->intervel; ?>';
             
              <?php elseif ($time_slot->day == 'friday' && $time_slot->part_of_day == 'morning') : ?>
                 const fridayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -493,6 +480,7 @@
             <?php elseif ($time_slot->day == 'friday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const fridayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const fridayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const fridayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
 
             <?php elseif ($time_slot->day == 'saturday' && $time_slot->part_of_day == 'morning') : ?>
                 const saturdayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -503,6 +491,7 @@
             <?php elseif ($time_slot->day == 'saturday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const saturdayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const saturdayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const saturdayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
 
             <?php elseif ($time_slot->day == 'sunday' && $time_slot->part_of_day == 'morning') : ?>
                 const sundayMorningStartTime = '<?php echo $time_slot->start_time; ?>';
@@ -512,6 +501,7 @@
             <?php elseif ($time_slot->day == 'sunday' && $time_slot->part_of_day == 'afternoon') : ?>
                 const sundayAfternoonStartTime = '<?php echo $time_slot->start_time; ?>';
                 const sundayAfternoonEndTime = '<?php echo $time_slot->end_time; ?>';
+                const sundayAfternoonInterval = '<?php echo $time_slot->intervel; ?>';
 
             <?php endif; ?>
 

@@ -47,7 +47,7 @@
                 <ul class="breadcrumb">
                     <li><a href="<?php echo URLROOT;?>/assistant">Dashboard</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/assistant/pet">Petownr</a></li>
+                    <li><a href="<?php echo URLROOT;?>/assistant/pet">Pet</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
                     <li><a href="<?php echo URLROOT;?>/assistant/addPet" class="active">Add pet</a></li>
                 </ul>
@@ -80,9 +80,11 @@
                     <label>Pet Name</label>
                         
                         <div class="inputForm <?php echo (!empty($data['pname_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-purchase-tag-alt' ></i>
-                            <input type="text" class="input" name="pname" placeholder="Enter pet Name" value="">
+                            <i class='bx bxs-dog' ></i>
+                            <input type="text" class="input" name="pname" placeholder="Enter pet Name" value="<?php echo $data['pname']?>">
                         </div>
+
+                        <span class="invalid-feedback"><?php echo $data['pname_err']?></span>
                 </div>               
 
                 <div class="flex-column">
@@ -91,10 +93,10 @@
                             
                         <div class="inputForm <?php echo (!empty($data['dob_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-calendar' ></i>
-                            <input type="date" class="input " placeholder="Select Date" value="" name="dob">
+                            <input type="date" class="input " placeholder="Select Date" value="<?php echo $data['dob']?>" name="dob">
                         </div>
                         
-                        <span class="invalid-feedback">bb</span>
+                        <span class="invalid-feedback"><?php echo $data['dob_err']?></span>
 
                 </div>
 
@@ -105,36 +107,56 @@
                        
                     <div class="inputForm <?php echo (!empty($data['species_err'])) ? 'is-invalid' : '' ; ?>">
                         <i class='bx bx-spreadsheet' ></i>
-                        <input type="text" class="input " placeholder="Select Species" value="" name="species">
+                        <input type="text" class="input " placeholder="Select Species" value="<?php echo $data['species']?>" name="species">
                     </div>
-                    <span class="invalid-feedback"></span>
+                    <span class="invalid-feedback"><?php echo $data['species_err']?></span>
                 </div>
-                        
-                 <div class="flex-column">
-                            
-                    <label>Breed </label>
-                        
-                    <div class="inputForm <?php echo (!empty($data['breed_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-spreadsheet' ></i>
-                        <input type="text" class="input " placeholder="Enter Breed" value="" name="breed">
-                    </div>
-                        
-                    <span class="invalid-feedback"></span>
 
-                </div>
 
 
                 <div class="flex-column">
-                            
-                    <label>Upload Image</label>
-                        
-                    <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-image-alt'></i>
-                        <input type="file" class="input" name="pet_img" accept="image/*">
+                    
+                    <label>breed </label>
+                       
+                    <div class="inputForm <?php echo (!empty($data['breed_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-spreadsheet' ></i>
+                        <input type="text" class="input " placeholder="Select breed" value="<?php echo $data['breed']?>" name="breed">
                     </div>
-                        
-                    <span class="invalid-feedback"></span>
+                    <span class="invalid-feedback"><?php echo $data['breed_err']?></span>
                 </div>
+                        
+                
+            
+
+                <div class="flex-column">
+                            <label>Sex</label>
+                        </div>
+                        <div class="inputForm <?php echo (!empty($data['sex_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-male-sign' ></i>
+                            <select name="sex">
+                                <option value=""  selected>Select Sex</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                               
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['sex_err']; ?></span>
+
+
+
+                 <div class="flex-column">
+                    
+                    <label>petownerID</label>
+                       
+                    <div class="inputForm <?php echo (!empty($data['petownerID_err'])) ? 'is-invalid' : '' ; ?>">
+                    <i class='bx bxs-id-card'></i>
+                        <input type="text" class="input" placeholder="Enter petownerID" value="<?php echo $data['petownerID']?>" name="petownerID">
+                    </div>
+                    <span class="invalid-feedback"><?php echo $data ['petownerID_err']?></span>
+                </div>
+                        
+
+                
                         
                         
 
@@ -145,7 +167,7 @@
 
                 <div class="button-form">
                             <button type="reset"  class="button-submit">Reset</button> 
-                            <button type="submit" id="button-submit" class="button-submit">Update</button>
+                            <button type="submit" id="button-submit" class="button-submit">Add</button>
                 </div>
                 
 

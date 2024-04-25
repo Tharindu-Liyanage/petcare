@@ -10,6 +10,8 @@
         <link rel="icon" type="image/png" sizes="16x16" href="http://localhost/petcare/public/img/favicons/favicon-16x16.png">
         <link rel="icon" href="http://localhost/petcare/public/img/favicons/favicon.ico" type="image/x-icon">
 
+        <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/shop/shop.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/shop/style.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/shop/category.css">
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <!--Animate On Scroll Library -->
 
@@ -19,266 +21,179 @@
     
 
 
-        <title>shop category</title>
+        <title>PetCare | Shop category</title>
+
+        <style>
+        ul.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    list-style:none;
+    margin-top:20px;
+    padding:0px;
+    font-size:13px;
+
+
+}
+
+ul.pagination li{
+    margin:0px 5px;
+    padding:5px 12px;
+    border:1px solid #d3d3d3;
+    border-radius:5px;
+    cursor:pointer;
+    transition:all ease 0.3s;
+}
+
+ul.pagination li.active{
+    background-color:#667EEA;
+    color:#ffffff;
+    border:1px solid #667EEA;
+    transition:all ease 0.3s;
+}
+
+.not-found-img{
+    margin:auto;
+    display:grid;
+    align-items:center;
+    margin-left:370px;
+
+}
+
+.not-found-img img{
+    width: 600px;
+    height: auto;
+}
+
+.not-found-img p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #202020;
+    margin-left:100px;
+    margin-top: 20px;
+}
+
+.showing-results{
+    margin-top: 10px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #202020;
+}
+    </style>
     </head>
-        <body>
+    <body>
 
-        <header class="header">
-
-                    
-                    
-        <div class="logo">
-            <img class="logo-icon" src="<?php echo URLROOT;?>/public/img/logo/logo-croped.png">
-        <span class="logo-txt">Shop<span class="logo-dot">.</span></span> 
-            
-        </div>
-
-        <nav class="navbar" id="nav-menu">
-
-        <ul class="flexitem">
-        <li class="has-drop-down ">  <a class="one drop-down-button">Products<span class="material-symbols-outlined drop-down-product-icon drop-down-arrow">expand_more</span></a>
-
-            <div class="mega">
-                <div class="container">
-                    <div class="wrapper">
-                        <div class="flexcol">
-                            <div class="row ">
-                            <div class="drop-icon icon-large"><i class="fa-solid fa-burger round"></i></div>
-                                <h4>Food and treats</h4>
-                                <ul class="drop-down-group">
-                                    <li><a href="#dry">Dry food</a></li>
-                                    <li><a href="">Wet food</a></li>
-                                    <li><a href="">adawdwad</a></li>
-                                    <li><a href="">adff</a></li>
-                                    <li><a href="">afef</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="flexcol"> 
-                            <div class="row">
-                            <div class="drop-icon icon-large"><i class="fa-solid fa-paw round"></i></div>
-                                <h4>Grooming supplies</h4>
-                                <ul  class="drop-down-group">
-                                    <li><a href="">Brushes</a></li>
-                                    <li><a href="">Combs</a></li>
-                                    <li><a href="">Combs</a></li>
-                                    <li><a href="">Combs</a></li>
-                                    <li><a href="">Combs</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="flexcol">
-                            <div class="row">
-                            <div class="drop-icon icon-large"><i class="fa-regular fa-heart round"></i></div>
-                                <h4>Health and wellness</h4>
-                                <ul class="drop-down-group">
-                                    <li><a href="">Flea and tick medications</a></li>
-                                    <li><a href="">Dewormers</a></li>
-                                    <li><a href="">Dewormers</a></li>
-                                    <li><a href="">Vaccinations</a></li>
-                                    <li><a href="">Medications for specific health conditions</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="flexcol">
-                            <div class="row">
-                            <div class="drop-icon icon-large"><i class="fa-solid fa-basketball round"></i></div>
-                                <h4>Toys and bedding</h4>
-                                <ul class="drop-down-group">
-                                    <li><a href="">Scratching posts</a></li>
-                                    <li><a href="">Catnip toys</a></li>
-                                    <li><a href="">Catnip toys</a></li>
-                                    <li><a href="">Cat beds</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>  </li>
-
-        <li>   <a href="<?php echo URLROOT;?>/shop/">Shop</a></li>
-        <li>  <a href="<?php echo URLROOT;?>/home">PetCare</a></li>
-        <li>   <a href="#about">About</a></li>
-        <li>   <a href="#">Contact</a>  </li>
-
-            </ul>
-        </nav>
-
-        <div class="right flexitem">
+    <?php require_once __DIR__ . '/shopHeader.php'; ?>
 
 
-
-            <div class="icon-large">
-            <i class="ri-search-line"></i>        
-            </div>
         
 
 
-            <a href="#" class="iscart flexitem">
-                <div class="icon-large">
-                    <i class="ri-shopping-cart-line"></i>
-                    <div class="fly-item"><span class="item-number">0</span></div>
-                </div> 
-                
             
-                <div class="icon-text">
-                    <div class="mini-text">Total</div>
-                    <div class="cart-total">$0.00</div>
-                </div> 
+            
+                <div class="category-title"><?php echo strtoupper($data['title']); ?> CATEGORY</div>
 
+
+
+    <section id = "search-product">
+       <div class= "product-heading">
+        <h3><?php echo strtoupper($data['title']); ?></h3>
+        <span>All</span>
+
+       </div> 
+
+    <div id="before-list">
+
+    <?php if($data['product'] == null) : ?>
+        <div class="not-found-img">
+            <img src="<?php echo URLROOT?>/public/img/shop/notfound.png" alt="not-found">
+            <p>Apologies, we couldn't find any results for your search.</p>
+        </div>
+
+    <?php else : ?>
+       
+    
+    <ul class="product-container list">
+
+    
+
+    <?php foreach ($data['product'] as $product) : ?>
+
+        <li class="product-box">
+            <img src="<?php echo URLROOT?>/public/storage/uploads/products/<?php echo $product->image?>" alt="popular">
+            <strong class="name"><?php echo $product->name ; ?></strong>
+
+
+            <?php if($product->stock > 0) : ?>
+            <span class="quantity"> Quntity <?php echo $product->stock ; ?> </span>
+            <?php else : ?>
+            <span class="quantity" style="color:#E5605E">OUT OF STOCK</span>
+            <?php endif; ?>
+
+
+
+            <span class ="price">Rs.<?php echo $product->price; ?></span>
+            <!-- cart btn -->
+
+
+             <?php if($product->stock > 0) : ?>
+
+            <a href="#" class="cart-btn" data-product-id ="<?php echo $product->id ?>"  data-product-price="<?php echo $product->price; ?>">
+                <i class="fas fa-shopping-bag"></i> Add To Cart
             </a>
 
+            <?php else : ?>
+
+            <a href="#" class="cart-btn" style="background-color:#FF7276; color:#ffffff; pointer-events: none;" data-product-id ="<?php echo $product->id ?>"  data-product-price="<?php echo $product->price; ?>">
+                <i class="fas fa-shopping-bag"></i> Out of Stock
+            </a>
+
+            <?php endif; ?>
+
+            <!-- heart-btn -->
+          <!--  <a href="#" class="like-btn"> 
+                <i class="far fa-heart"></i>
+            </a> -->
+
+        </li>
+
+        <?php endforeach; ?>
+        
+       </ul>
+
+       <ul class="pagination"></ul>
+       </div>
+    <?php endif; ?>
+       
+
+  
+
+    </section>
+
+    <!-- popular product end -->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+    <script>
+        // Initialize List.js with pagination
+        var monkeyList = new List('before-list', {
+            valueNames: ['product-box', 'name'],
+            page: 6,
+            pagination: true,
             
-            <div class="icon-large user-profile" >
-            <i class="ri-user-line profile"></i>
-            </div>
+        });
 
-            <div class="nav__toggle mobile-hide" id="nav-toggle">
-                
-                    <i class="ri-menu-2-line nav__toggle-menu icon-large"></i>
-                    <i class="ri-close-line nav__toggle-close icon-large"></i>
-                
-            </div>
-        
-        </div>
-
-            
-    
-        </header>
+        monkeyList.on('updated', function() {
+            attachAddToCartListeners();
+            console.log('Pagination updated');
+        });
 
 
-        <!-- FOODS AND TREATS STARTS HERE -->
+    </script>
 
-
-        <?php if($data['title'] == 'foodAndTreats'){ ?>
-            
-            <div class="category-title">Food And Treats </div>
-
-            <!-- <?php echo $data['product']->categoryName; ?>  -->
-                <div class="category" id="dryfoods">
-                    
-
-                    <div class="item-list">
-                        <?php foreach($data['product'] as $product) : ?>
-                            <div class="item-card">
-                                <div class="item-image">
-                                <a href="<?php echo URLROOT ; ?>/shop/show/<?php echo $product->id ;?>">
-                                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="" >
-                                </a>
-                                </div>
-                                <div class="item-title"><?php echo $product->name ; ?></div>
-                                <div class="item-price"><?php echo $product->price ; ?></div>
-                                <div class="buttons">
-                                    <a href="" class="btn buy-now-buttton">Buy Now</a>
-                                    <a href="" class="btn add-to-cart-buttton">Add To Cart</a>
-                                </div>
-                            </div>
-                        <?php endforeach ; ?>
-
-                        
-
-                        
-
-                        
-                    </div>
-                </div>
-
-
-        <?php }?>
-        
-
-
-        <!-- GROOMING PRODUCTS STARTS HERE -->
-
-
-        <?php if($data['title'] == 'groomingSupplies'){ ?>
-            <div class="category-title">Grooming Supplies</div>
-            <div class="category">
-                
-                
-
-                <div class="item-list">
-                    <?php foreach($data['product'] as $product) : ?>
-                            <div class="item-card">
-                                <div class="item-image">
-                                <a href="<?php echo URLROOT ; ?>/shop/show/<?php echo $product->id ;?>">
-                                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="" >
-                                </a>
-                                </div>
-                                <div class="item-title"><?php echo $product->name ; ?></div>
-                                <div class="item-price"><?php echo $product->price ; ?></div>
-                                <div class="buttons">
-                                    <a href="" class="btn buy-now-buttton">Buy Now</a>
-                                    <a href="" class="btn add-to-cart-buttton">Add To Cart</a>
-                                </div>
-                            </div>
-                    <?php endforeach ; ?>
-                </div>
-            </div>
-        <?php }?>
-
-
-        <!-- HEALTH AND WELLNESS STARTS HERE -->
-
-
-        <?php if($data['title'] == 'healthAndWellness'){ ?>
-            <div class="category-title">Health and wellness</div>
-            <div class="category">
-                
-                
-
-                <div class="item-list">
-                        <?php foreach($data['product'] as $product) : ?>
-                            <div class="item-card">
-                                <div class="item-image">
-                                <a href="<?php echo URLROOT ; ?>/shop/show/<?php echo $product->id ;?>">
-                                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="" >
-                                </a>
-                                </div>
-                                <div class="item-title"><?php echo $product->name ; ?></div>
-                                <div class="item-price"><?php echo $product->price ; ?></div>
-                                <div class="buttons">
-                                    <a href="" class="btn buy-now-buttton">Buy Now</a>
-                                    <a href="" class="btn add-to-cart-buttton">Add To Cart</a>
-                                </div>
-                            </div>
-                        <?php endforeach ; ?>
-                </div>
-            </div>
-        <?php }?>
-
-
-
-        <!-- TOYS AND BEDDING STARTS HERE -->
-
-
-        <?php if($data['title'] == 'toysAndBedding'){ ?>
-            <div class="category-title">Toys and Bedding</div>
-            <div class="category">
-                
-                
-
-                <div class="item-list">
-                        <?php foreach($data['product'] as $product) : ?>
-                            <div class="item-card">
-                                <div class="item-image">
-                                <a href="<?php echo URLROOT ; ?>/shop/show/<?php echo $product->id ;?>">
-                                    <img src="<?php echo URLROOT;?>/public/img/blog/blog-photo-1.jpeg" alt="" >
-                                </a>
-                                </div>
-                                <div class="item-title"><?php echo $product->name ; ?></div>
-                                <div class="item-price"><?php echo $product->price ; ?></div>
-                                <div class="buttons">
-                                    <a href="" class="btn buy-now-buttton">Buy Now</a>
-                                    <a href="" class="btn add-to-cart-buttton">Add To Cart</a>
-                                </div>
-                            </div>
-                        <?php endforeach ; ?>
-                </div>
-            </div> 
-        <?php }?>
-        
 
         
+        
+ 
     </body>
 </html>

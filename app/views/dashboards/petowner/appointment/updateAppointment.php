@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Appointment</title>
 </head>
 <body>
 
@@ -179,32 +180,15 @@
                                 <span class="invalid-feedback"></span>
 
 
-                                <div class="flex-column">
-                                    <label>Reason</label>
-                                </div>
-                                <div class="inputForm  <?php echo (!empty($data['reson_err'])) ? 'is-invalid' : '' ; ?>">
-                                <i class='bx bx-question-mark' ></i>
-                                    <select id="reason" name="reason">
-
-                                    
-
-
-                                    <?php foreach($data['reason'] as $reasons) : ?>
-
-                                        <option value="<?php echo $reasons->reason_name?>" <?php if($data['appointment_details']->appointment_type == $reasons->reason_name) echo "selected "; ?> >
-                                          <?php echo $reasons->reason_name?> 
-                                        </option>
-
-
-                                    <?php endforeach; ?>
-                                    <option value="other">Other</option>
-                                   
-                                    </select>
-
-                                   
-
-                                </div>
-                                <span class="invalid-feedback"></span>
+                                
+                     <div class="flex-column">
+                            <label>Reason</label>
+                        </div>
+                        <div class="inputForm <?php echo (!empty($data['reason_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-spreadsheet' ></i>
+                            <input type="text" class="input " placeholder="Enter Breed" value="<?php echo $data['reason_post']?>" name="reason">
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['reason_err']; ?></span>
 
                                 
 

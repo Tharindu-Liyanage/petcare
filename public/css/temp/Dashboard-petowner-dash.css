@@ -34,6 +34,21 @@ main .home-box .home-left .home-text-large{
     margin-top: -40px;
 }
 
+main .home-box .home-left .home-text-small{
+    margin-left:20px;
+}
+
+main .home-box .home-left .home-text-small span{
+    color: var(--primary);
+}
+
+main .home-box .home-left .home-text-small ol li{
+
+    font-weight: 500;
+    color: var(--dark);
+    list-style-type: disc;  
+}
+
 main .my-pet-box .splide__track .splide__list span.is-pet-empty{
     margin:auto;
     text-align: center;

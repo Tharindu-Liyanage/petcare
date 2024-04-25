@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/doctor/dashboard.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css"> <!-- for two pic table -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>dashboard</title>
+    <?php require_once __DIR__ . '/../common/favicon.php'; ?>
+    <title>PetCare | Dashboard</title>
 </head>
 <body>
 
@@ -30,25 +31,53 @@
                 
             </div>
 
-            <div class="home-box">
+            <div class="home-box" 
+            
+            <?php if($_SESSION['user_role'] == "Nurse") : ?>
+                style="height:200px;"
+            <?php endif ?>
+            
+            >
                     <div class="home-left">
                         <div class="home-text-large">
                         <?php echo $data['greetingmsg']; ?>,  <span><?php echo $_SESSION['user_fname']?></span>
                         </div>
                         <div class="home-text-small">
-                            You have <span> 20 </span> upcoming appointments.
+
+                        <ol>
+
+                        <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
+                                <li>Please upload a <span>profile picture</span> to make your profile stand out.</li>
+                        <?php endif; ?>
+                        
+                            <?php if($_SESSION['user_role'] == "Doctor") : ?>
+                           <li>You have <span> <?php if($data['todayAppointment'] != null) { echo  count($data['todayAppointment']);} else { echo 0;}  ?> </span> upcoming appointments.</li> 
+                            <?php endif ?>
+
+                            <?php if($_SESSION['user_role'] == "Nurse") : ?>
+                             <li> Currently <span><?php if($data['wardDetails'] != null) { echo  count($data['wardDetails']);} else { echo 0;}  ?> </span> animals in the ward.</li> 
+                            <?php endif ?>
+
                         </div>
                     </div>
                     <div class="home-right">
-                        <img src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
+                        <img
+                        
+                        <?php if($_SESSION['user_role'] == "Nurse") : ?>
+
+                            Style="width: 140px; height:auto;" 
+                        <?php endif ?>
+                        src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
                     </div>
                 </div>
+
+            <?php if($_SESSION['user_role'] == "Doctor") : ?>
 
                 <div class="home-box2" id="appointmentDetails-container">
 
                 <?php
 
-                    if($data['appointmentDetails'] == null){
+                    if($data['appointmentDetails'] == null ){
 
                         echo '
 
@@ -94,132 +123,10 @@
 
                 </div>
                 
-
+            <?php endif ?>
                 <!-- latest patient table is here -->
 
-                <div class="bottom-data">
-
-                <!--start od orders-->
-                <div class="users" style="margin-bottom:50px;">
-                    <div class="header">
-                    <i class='bx bx-walk' style="font-size:2.5rem;"></i>
-                        <h3>Latest Patients</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                
-                                <th>Id</th>
-                                <th>Pet Owner</th>
-                                <th>Pet</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                               
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        
-
-                            <tr>
-                                <td>1</td>
-
-                               
-                              
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/user1.jpg">
-                                    <p>John Doe</p>
-                                </td>
-
-                                <td>
-                                    <div class="profile-three">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/animals/pet1.png">
-                                    <p>Rex</p>
-                                    </div>
-                                </td>
-
-
-                           
-                              
-                                <td>3-11-2023</td>
-                                <td>10.00 AM</td>
-                                <td>Dental</td>
-                                <td style="color:#108C81; font-weight:600;">Completed</td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>2</td>
-
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user2.jpeg" ><p>Anna Marie</p>
-                                </td>
-
-                                <td>
-                                    <div class="profile-three">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/animals/pet2.png">
-                                    <p>Kitty</p>
-                                    </div>
-                                </td>
-
-                                <td>3-11-2023</td>
-                                <td>10.30 AM</td>
-                                <td>Dental</td>
-                                <td style="color:#108C81; font-weight:600;">Completed</td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user3.jpeg" ><p>John Doe</p>
-                                </td>
-
-                                <td>
-                                    <div class="profile-three">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/animals/pet3.png">
-                                    <p>Rocky</p>
-                                    </div>
-                                </td>
-
-                                <td>3-11-2023</td>
-                                <td>11.00 AM</td>
-                                <td>Dental</td>
-                                <td style="color:#DE1C53; font-weight:600;">Reshedule</td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/user4.jpeg" ><p>John Doe</p>
-                                </td>
-
-                                <td>
-                                    <div class="profile-three">
-                                    <img src="<?php echo URLROOT; ?>/public/storage/uploads/animals/pet4.png">
-                                    <p>Rex</p>
-                                    </div>
-                                </td>
-
-                                <td>3-11-2023</td>
-                                <td>11.30 AM</td>
-                                <td>Dental</td>
-                                <td style="color:#DE1C53; font-weight:600;">Cenceled</td>
-                               
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
- 
-            </div> <!-- content over -->
+                
 
                 <!-- latest patient is over -->
 

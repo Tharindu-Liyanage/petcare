@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Pet</title>
 </head>
 <body>
 
@@ -46,125 +47,81 @@
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="users">
+                <div class="users" id="pet">
                     <div class="header">
                     <i class='bx bxs-dog' ></i>
                         <h3>Pets</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
+
+                        <div class="search-container-table">
+                            <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                            <i class='bx bx-search' ></i>
+                        </div>
+
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 
-                                <th>Id</th>
-                                <th>Pet</th>
-                                <th>DOB</th>
-                                <th>Breed</th>
-                                <th>Sex</th>
-                                <th>Age</th>
-                                <th>Species</th>
+                                <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
+                                <th>Pet <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>Pet Owner <i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                                <th>DOB </th>
+                                <th>Breed <i class='bx bxs-sort-alt sort' data-sort="breed-search"></th>
+                                <th>Sex <i class='bx bxs-sort-alt sort' data-sort="sex-search"></th>
+                              
+                                <th>Species <i class='bx bxs-sort-alt sort' data-sort="species-search"></th>
                          <?php if($_SESSION['user_role'] == 'Admin')   echo  " <th>Action</th> " ;?>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="list">
 
-                           
+                        <?php
 
-                            <tr>
-                                <td>1</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet1.png" ><p>Rex</p>
-                                </td>
-                                <td>02-03-2023</td>
-                                <td>Labrador Retriever</td>
-                                <td>Male</td>
-                                <td>2</td>
-                                <td>Dog</td>
+                            if(count($data['pet']) == 0){
 
-                                <?php if ($_SESSION['user_role'] == 'Admin') { ?>
-                                        <td class="action">
-                                            <div class="act-icon">
-                                                <a data-staff-id="" class="removeLink" href=""><i class='bx bx-trash'></i></a>
-                                                <a href="<?php echo URLROOT; ?>/admin/updatePet"><i class='bx bx-edit'></i></a>
-                                            </div>
-                                        </td>
-                                <?php } ?>
+                                echo '<td class="isempty" colspan="8">No data available in table</td>';
 
-                                
-                            </tr>
+                            }else
 
+                            foreach($data['pet'] as $pet) : ?>
 
-                            <tr>
-                                <td>2</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet2.png" ><p>Garfield</p>
-                                </td>
-                                <td>02-05-2023</td>
-                                <td>Persian</td>
-                                <td>Male</td>
-                                <td>2</td>
-                                <td>Cat</td>
+                                <tr>
+                                    <td class="id-search">PET-<?php echo $pet->id ; ?></td>
+                                    <td class="profile">
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet->profileImage ; ?>" ><p><?php echo $pet->pet ; ?></p>
+                                    </td>
+                                    <td class="po-search">
+                                        <div class="profile-three">
+                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $pet->poimg ; ?>">
+                                        <p><a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $pet->poid;?>"><?php echo $pet->petownerfname ; ?> <?php echo $pet->petownerlname ; ?></a></p>
+                                        </div>
+                                    </td>
+                                    <td><?php echo $pet->DOB ; ?></td>
+                                    <td class="breed-search"><?php echo $pet->breed ; ?></td>
+                                    <td class="sex-search"><?php echo $pet->sex ; ?></td>
+                                   
+                                    <!-- need to change -->
+                                    <td class="species-search"><?php echo $pet->species ; ?></td>
 
-                                <?php if ($_SESSION['user_role'] == 'Admin') { ?>
-                                        <td class="action">
-                                            <div class="act-icon">
-                                                <a data-staff-id="" class="removeLink" href=""><i class='bx bx-trash'></i></a>
-                                                <a href="<?php echo URLROOT; ?>/admin/updatePet"><i class='bx bx-edit'></i></a>
-                                            </div>
-                                        </td>
-                                <?php } ?>
+                                    <?php if ($_SESSION['user_role'] == 'Admin') { ?>
+                                            <td class="action">
+                                                <div class="act-icon">
+                                                    <a petowner-id="<?php echo $pet->id ; ?>" class="removeLink" href="<?php echo URLROOT;?>/admin/removePet/<?php echo $pet->id ?>"><i class='bx bx-trash'></i></a>
+                                                    <a href="<?php echo URLROOT; ?>/admin/updatePet/<?php echo $pet->id ; ?>"><i class='bx bx-edit'></i></a>
+                                                </div>
+                                            </td>
+                                    <?php } ?>
+
                                     
-                                
-                            </tr>
+                                </tr>
+                            <?php endforeach ; ?>
 
-
-                            <tr>
-                                <td>3</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet3.png" ><p>Rex</p>
-                                </td>
-                                <td>02-03-2023</td>
-                                <td>Labrador Retriever</td>
-                                <td>Male</td>
-                                <td>2</td>
-                                <td>Dog</td>
-
-                                <?php if ($_SESSION['user_role'] == 'Admin') { ?>
-                                        <td class="action">
-                                            <div class="act-icon">
-                                                <a data-staff-id="" class="removeLink" href=""><i class='bx bx-trash'></i></a>
-                                                <a href="<?php echo URLROOT; ?>/admin/updatePet"><i class='bx bx-edit'></i></a>
-                                            </div>
-                                        </td>
-                                <?php } ?>
-                            </tr>
-
-
-                            <tr>
-                                <td>4</td>
-                                <td class="profile">
-                                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/pet4.png" ><p>Oreo</p>
-                                </td>
-                                <td>02-03-2023</td>
-                                <td>Percian</td>
-                                <td>Female</td>
-                                <td>1</td>
-                                <td>Cat</td>
-                                
-                                <?php if ($_SESSION['user_role'] == 'Admin') { ?>
-                                        <td class="action">
-                                            <div class="act-icon">
-                                                <a data-staff-id="" class="removeLink" href=""><i class='bx bx-trash'></i></a>
-                                                <a href="<?php echo URLROOT; ?>/admin/updatePet"><i class='bx bx-edit'></i></a>
-                                            </div>
-                                        </td>
-                                <?php } ?>
-                            </tr>
 
                         
                         </tbody>
                     </table>
+
+                    <?php include __DIR__ . '/../../common/pagination_footer.php'; ?>
                 </div>
  
             </div> <!-- content over -->
@@ -209,10 +166,10 @@
 
 
     
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/manageStaff.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/admin/petTable.js"></script>
     
 </body>
 </html>

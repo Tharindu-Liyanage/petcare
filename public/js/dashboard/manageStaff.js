@@ -20,13 +20,13 @@ var showEntriesDropdown = document.querySelector('.show-entries');
   
 
 
-  if (showEntriesDropdown) {
-    showEntriesDropdown.addEventListener('change', function () {
-        var selectedValue = parseInt(this.value);
-        userList.page = selectedValue;
-        userList.update();
-    });
-  }
+  // if (showEntriesDropdown) {
+  //   showEntriesDropdown.addEventListener('change', function () {
+  //       var selectedValue = parseInt(this.value);
+  //       userList.page = selectedValue;
+  //       userList.update();
+  //   });
+  // }
   
 
 

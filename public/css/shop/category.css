@@ -506,11 +506,12 @@ body {
     .item-list{
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         grid-gap: 20px;
         border-bottom: 2px solid darkgrey;
         padding-bottom: 50px;
+        padding-left: 20px;
         
     }
 

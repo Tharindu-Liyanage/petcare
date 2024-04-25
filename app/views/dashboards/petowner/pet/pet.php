@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Pet</title>
 </head>
 <body>
 
@@ -157,6 +158,20 @@
 
         
     </div>
+
+    <?php
+     
+        if ($_SESSION['notification'] == "error") {
+            
+            toast_notifications("Changes Applied Failed",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+            
+        }else if($_SESSION['notification'] == "ok"){
+
+            toast_notifications("Changes Applied Successfully",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+            
+        }
+
+    ?>
 
    
 

@@ -244,8 +244,9 @@ body {
 
 .left-part .thumnail-image img{
     width: 900px;
-    height: auto;
+    height: 500px;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .left-part .blog-content{

@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Dashboard</title>
+    <?php require_once __DIR__ . '/../../common/favicon.php'; ?>
+    <title>PetCare | Appointment</title>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
@@ -146,7 +147,7 @@
                                  <td>
                                     <div class="profile-three">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $appointment->vetpic?>" >
-                                    <p><?php echo $appointment->fname?> <?php echo $appointment->lname?></p>
+                                    <p><a href="<?php echo URLROOT?>/petowner/viewProfile/<?php echo $appointment->vet_id; ?>"><?php echo $appointment->fname?> <?php echo $appointment->lname?></a></p>
                                     </div>
                                 </td>
 
@@ -181,7 +182,7 @@
 
                                         //action restricted for reshedule appoitments
                                         
-                                        if ($appointment->status === "Confirmed") {
+                                        if ($appointment->status === "Confirmed" || $appointment->status === "Rejected") {
                                             echo '<td class="action"> <div class="act-icon"> <a href="' . URLROOT . '/petowner/updateAppointment/' . $appointment->id . '"><i class="bx bx-edit"></i></a> </div> </td>';
                                         } else {
                                             echo '<td class="action"> ---  </td>';
@@ -212,6 +213,25 @@
                                 
         </main>
 
+
+        <?php
+            
+            if(!isset($_SESSION['notification'])){
+                $_SESSION['notification_title'] = "";
+            }
+
+            if ($_SESSION['notification'] == "error") {
+                
+                toast_notifications("Something Went Wrong!",$_SESSION['notification_msg'],"bx bx-x check-error"); 
+                
+            }else if($_SESSION['notification'] == "ok"){
+
+                toast_notifications("Success!",$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+                
+            }
+
+        ?>
+
                       
 
            
@@ -221,13 +241,6 @@
 
     </div>
 
-   
-
-
-  
-
-
-   
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/petowner/appointmentTable.js"></script>
