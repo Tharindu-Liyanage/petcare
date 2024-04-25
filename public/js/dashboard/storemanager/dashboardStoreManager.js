@@ -13,12 +13,12 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
-      valueNames: ['invoice-id', 'inventory-name', 'inventory-brand', 'category', 'stock' , 'price'],
-      page: 5,
+      valueNames: ['user', 'order-date', 'total', 'status'],
+      page: 3,
       pagination: true,
   };
 
-  var userList = new List('inventory', options);
+  var userList = new List('orders', options);
   
 
 
@@ -40,26 +40,26 @@ var showEntriesDropdown = document.querySelector('.show-entries');
 
 
 
-// Add click event listener to each delete link
-deleteLinks.forEach((deleteLink) => {
-  deleteLink.addEventListener("click", function (e) {
-    // Block the default link behavior
-    e.preventDefault();
+// // Add click event listener to each delete link
+// deleteLinks.forEach((deleteLink) => {
+//   deleteLink.addEventListener("click", function (e) {
+//     // Block the default link behavior
+//     e.preventDefault();
 
-    // Open the confirmation modal
-    notification.style.display = "block";
-    // Set the confirmation button's href to the delete URL
-    confirmDeleteButton.setAttribute("href", this.getAttribute("href"));
-    confirmDeleteButton.addEventListener("click", function () {
-        window.location.href = this.getAttribute("href");
+//     // Open the confirmation modal
+//     notification.style.display = "block";
+//     // Set the confirmation button's href to the delete URL
+//     confirmDeleteButton.setAttribute("href", this.getAttribute("href"));
+//     confirmDeleteButton.addEventListener("click", function () {
+//         window.location.href = this.getAttribute("href");
         
-    });
+//     });
     
     
-  });
-});
+//   });
+// });
 
-// Add click event listener to the "No" button to hide the notification
-cancelDeleteButton.addEventListener("click", function () {
-  notification.style.display = "none";
-});
+// // Add click event listener to the "No" button to hide the notification
+// cancelDeleteButton.addEventListener("click", function () {
+//   notification.style.display = "none";
+// });

@@ -616,6 +616,25 @@
         }
 
 
+        public function updateShipmentStatus($data) {
+            $this->db->query('UPDATE petcare_shop_invoices SET ship_status = :ship_status WHERE invoice_id = :id');
+             //bind values
+            $this->db->bind(':ship_status',$data['shipmentStatus']);
+            $this->db->bind(':id',$data['invoiceId']);
+
+        
+            
+
+            //execute
+            if($this->db->execute()){
+                return true;
+
+            }else{
+                return false;
+            }  
+        }
+
+
         public function getCategories(){
             $this->db->query('SELECT * FROM petcare_product_category WHERE isRemoved = 0' );
 

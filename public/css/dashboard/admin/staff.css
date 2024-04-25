@@ -134,26 +134,6 @@
     background: var(--grey);
 }
 
-.content main .bottom-data .users table tr td .status{
-    font-size: 10px;
-    padding: 6px 16px;
-    color: var(--light);
-    border-radius: 20px;
-    font-weight: 700;
-}
-
-.content main .bottom-data .users table tr td .status.completed{
-    background: var(--success);
-
-}
-.content main .bottom-data .users table tr td .status.process{
-    background: var(--primary);
-}
-
-.content main .bottom-data .users table tr td .status.pending{
-    background: var(--warning);
-}
-
 
 /*add button*/
 
@@ -664,6 +644,34 @@ table tr td.isempty{
 .delivered-value {
   color: blue;
 }
+
+
+
+
+.round-button{
+  position: absolute;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #4CAF50; 
+  color: white; 
+  text-align: center;
+  margin-left: 5px;
+  border: none; 
+  cursor: pointer;
+
+  
+}
+
+.round-button i{
+  position: absolute;
+  bottom: 0;
+  top: -5px;
+  margin-left: -13px;
+  margin-top: 5px;
+}
+
 
 
 

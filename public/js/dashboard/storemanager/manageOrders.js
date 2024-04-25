@@ -92,3 +92,59 @@ cancelDeleteButton.addEventListener("click", function () {
 //       console.error("Error:", error);
 //   });
 // });
+
+
+// function updateTable(invoiceId) {
+  
+//   // const selectedValue = document.getElementsByClassName('shipment-status')[Number(2)*Number(invoiceId)].value;
+//   // console.log("invoiceId:"+ invoiceId, " shipmentStatus:"+ selectedValue);
+
+//   const selectedValue = document.getElementById('ship-status').value;
+//   console.log("invoiceId:" + invoiceId, " shipmentStatus:" + selectedValue);
+
+//   $.ajax({
+//       method: 'POST',
+//       url: 'http://localhost/petcare/StoreManager/updateShipmentStatus',
+//       data: { invoiceId: invoiceId, shipmentStatus: selectedValue },
+//       success: function (response) {
+//           console.log('Response:', response);
+//           // Handle success response, if needed
+//       },
+//       error: function (error) {
+//           console.error('Error:', error);
+//           // Handle error response, if needed
+//           console.log(data);
+//       }
+//   });
+// }
+
+
+  // Attach event listener to a common parent element
+  document.addEventListener('change', function(event) {
+      // Check if the change event occurred on a dropdown with class 'shipment-status'
+      if (event.target.classList.contains('shipment-status')) {
+          const selectedValue = event.target.value; // Get the selected value
+          const invoiceId = event.target.dataset.invoiceId; // Get the invoice ID from data attribute
+          console.log("invoiceId:" + invoiceId, " shipmentStatus:" + selectedValue);
+          
+          // Make an AJAX request to update the shipment status
+          $.ajax({
+              method: 'POST',
+              url: 'http://localhost/petcare/StoreManager/updateShipmentStatus',
+              data: { invoiceId: invoiceId, shipmentStatus: selectedValue },
+              success: function (response) {
+                  console.log('Response:', response);
+                  // Handle success response, if needed
+              },
+              error: function (error) {
+                  console.error('Error:', error);
+                  // Handle error response, if needed
+              }
+          });
+      }
+  });
+
+
+
+
+

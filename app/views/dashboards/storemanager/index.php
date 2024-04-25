@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/dashboard.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>dashboard</title>
 </head>
@@ -30,91 +31,100 @@
             </div>
 
             <!--insights-->
-            <ul class="insights">
-                <li>
-                    <i class='bx bx-calendar-check' ></i>
-                    <span class="info">
-                        <h3>1,074</h3>
-                        <p>Paid Order</p>
-                    </span>
-                </li>
-                <li><i class='bx bx-show-alt' ></i>
-                    <span class="info">
-                        <h3>3,944</h3>
-                        <p>Site Visit</p>
-                    </span></li>
-                <li><i class='bx bx-line-chart' ></i>
-                    <span class="info">
-                        <h3>14,743</h3>
-                        <p>Searchers</p>
-                    </span></li>
-                <li><i class='bx bx-dollar-circle' ></i>
-                    <span class="info">
-                        <h3>$6,766</h3>
-                        <p>Total Sales</p>
-                    </span></li>
-            </ul>
+            <div class="top">
+                <div class="left">
+                    <div class="greetings"> Hello, <span><?php echo $_SESSION['user_fname'] ."  " . $_SESSION['user_lname'];   ?></span></div>
+                    <p>You Have <span>
+                                                        <?php
+                                    $count = 0;
+                                    foreach ($data['index'] as $order) {
+                                        if ($order->ship_status == 'on-process') {
+                                            $count++;
+                                        }
+                                    }
+                                    echo $count;
+                                    ?>
+                                </span> Orders To Be Shipped. </p>
+                                
+                </div>
+                <div class="right">
+                    <img src="<?php echo URLROOT;?>/public/img/dashbooardStoreManager/dashboardStoreManager.svg" alt="">
+                </div>
+            </div>
             <!--end of insisghts-->
 
             <div class="bottom-data">
 
                 <!--start od orders-->
-                <div class="orders">
+                <div class="orders" id="orders" >
                     <div class="header">
                         <i class='bx bx-receipt' ></i>
                         <h3>Recent Orders</h3>
-                        <i class='bx bx-filter' ></i>
-                        <i class='bx bx-search' ></i>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Order Date</th>
-                                <th>Total</th>
-                                <th>status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($data['order'] as  $order) : ?>
+                        <!-- Search Container -->
+
+                        <div class="search-container-table">
+                            <input type="text"  id="userSearch" name="text" class="search" placeholder="Search here..">
+                            <i class='bx bx-search' ></i>
+                        </div>
+
+                    <!-- search container over -->
+                    
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $order->profileImage ; ?>"><p><?php echo "  " . $order->first_name .' ' . $order->last_name ; ?></p>
-                                    </td>
-                                    <td> <?php echo $order->invoice_date ; ?></td>
-                                    <td><?php echo $order-> price ;?></td>
-                                    
-                                    <td>
-                                        <span <?php 
-                                            if ($order->ship_status == 'Shipped') {
-                                                echo 'class="status shipped"';
-                                            } elseif ($order->ship_status == 'Delivered') {
-                                                echo 'class="status delivered"';
-                                            } elseif ($order->ship_status == 'On process') {
-                                                echo 'class="status on-process"';
-                                            } ?>>
-                                            <?php echo $order->ship_status; ?>
-                                        </span>
-                                    </td>
-                                    
+                                    <th>User<i class='bx bxs-sort-alt sort' data-sort="user"></i></th>
+                                    <th>Order Date<i class='bx bxs-sort-alt sort' data-sort="order-date"></i></th>
+                                    <th>Total<i class='bx bxs-sort-alt sort' data-sort="total"></i></th>
+                                    <th>status<i class='bx bxs-sort-alt sort' data-sort="status"></i></th>
                                 </tr>
-                            <?php endforeach  ; ?>
-                            
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="list" >
+
+                                <?php foreach ($data['index'] as  $order) : ?>
+                                    <tr>
+                                        <td class="user" >
+                                            <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $order->profileImage ; ?>"><p><?php echo "  " . $order->first_name .' ' . $order->last_name ; ?></p>
+                                        </td>
+                                        <td class="order-date" > <?php echo $order->invoice_date ; ?></td>
+                                        <td class="total" ><?php echo $order-> price ;?></td>
+                                        
+                                        <td >
+                                            <span <?php 
+                                                if ($order->ship_status == 'shipped') {
+                                                    echo 'class="status shipped"';
+                                                } elseif ($order->ship_status == 'delivered') {
+                                                    echo 'class="status delivered"';
+                                                } elseif ($order->ship_status == 'on-process') {
+                                                    echo 'class="status on-process"';
+                                                } ?>>
+                                                <?php echo $order->ship_status; ?>
+                                            </span>
+                                        </td>
+                                        
+                                    </tr>
+                                <?php endforeach  ; ?>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php include __DIR__ . '/../common/pagination_footer.php'; ?>
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
+                <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
                 <!--reminders-->
                 
-
-                <!-- end of reminder -->
+                
+                
             </div>
+            
 
         </main>
     </div>
-    <script src="<?php echo URLROOT; ?>/public/js/dashboard/storemanager/dashboardStoreManager.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
-
     <script src="<?php echo URLROOT; ?>/public/js/dashboard/sales.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/dashboard/storemanager/dashboardStoreManager.js" ></script>
 </body>
 </html>

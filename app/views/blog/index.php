@@ -67,11 +67,11 @@
             </div>
         </div>
     </div>
+    
         <div class="middle-part"  id ="blogs">
-
-        <div class="main-title">
-            Our Recent Blogs
-        </div>
+            <div class="main-title">
+                Our Recent Blogs
+            </div>
 
 
             <ul class="blog-cards list">

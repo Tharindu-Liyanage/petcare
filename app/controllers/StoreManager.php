@@ -35,7 +35,7 @@
 
             $order = $this->dashboardModel->getOrderDetails();
             $data =[
-                'order' => $order
+                'index' => $order
             ];
    
             
@@ -694,7 +694,7 @@
              $orderData = $this->dashboardModel->getOrderDetails();
 
             //  print($_POST['shipmentStatus']);
-
+            // $shipmentStatus = $this->
             
             $data = [
                 'order' => $orderData
@@ -730,6 +730,41 @@
                     return;
                 }
             }
+
+
+            // Inside the controller function handling the AJAX request
+            public function updateShipmentStatus() {
+                
+                
+                // Check if the request is POST and if required parameters are set
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['invoiceId']) && isset($_POST['shipmentStatus'])) {
+
+                    // die("success");
+                    // echo $_POST['invoiceId'];
+                    // echo $_POST['shipmentStatus'];
+                    // Get the invoice ID and shipment status from the POST data
+                    // $shipmentStatus = $this->dashboardModel->
+                    $data = [
+                        'invoiceId' => $_POST['invoiceId'],
+                        'shipmentStatus' => $_POST['shipmentStatus']
+
+                    ];
+                    
+
+                    
+                    if($this->dashboardModel->updateShipmentStatus($data)){
+                        redirect('storemanager/order');
+                    }else{
+                        die("Something went wrong");
+                    }
+
+                    
+                    
+                } else {
+                    // $this->view('dashboards/storemanager/inventory/', $data);
+                }
+            }
+
 
         /*==================================================================
         

@@ -86,14 +86,35 @@
                                     </td>
                                     <td class="order-date"><?php echo $order->invoice_date ; ?></td>
                                     <td class="total"><?php echo 'LKR '. $order->total_amount ; ?></td>
-                                    <td class="shipment-status">
+                                    <!-- <td class="shipment-status">
                                             <select class="shipment-status" id="ship-status" name="shipment-status" onchange="updateTable(<?php echo $order->invoice_id  ; ?>)">
                                                 <option class="on-process-value" value="on-process">On Process</option>
                                                 <option class="shipped-value"  value="shipped">Shipped</option>
                                                 <option class="delivered-value"  value="delivered">Delivered</option>
                                             </select>
                                             
+                                    </td> -->
+
+                                    <!-- <td class="shipment-status">
+                                    <select class="shipment-status" data-invoice-id="<?php echo $order->invoice_id; ?>">
+                                        <option class="on-process-value" value="on-process">On Process</option>
+                                        <option class="shipped-value"  value="shipped">Shipped</option>
+                                        <option class="delivered-value"  value="delivered">Delivered</option>
+                                    </select>
+                                    </td> -->
+
+                                    <td class="shipment-status">
+                                        <form action="<?php echo URLROOT; ?>/StoreManager/updateShipmentStatus" method="post">
+                                            <input type="hidden" name="invoiceId" value="<?php echo $order->invoice_id; ?>">
+                                            <select class="shipment-status" name="shipmentStatus">
+                                                <option class="on-process-value" <?php echo ($order->ship_status == 'on-process') ? 'selected' : '' ; ?> value="on-process">On Process</option>
+                                                <option class="shipped-value" <?php echo ($order->ship_status == 'shipped') ? 'selected' : '' ; ?> value="shipped"  >Shipped</option>
+                                                <option class="delivered-value" <?php echo ($order->ship_status == 'delivered') ? 'selected' : '' ; ?>   value="delivered">Delivered</option>
+                                            </select>
+                                            <button type="submit" class="round-button"><i class='bx bx-check'></i></button>
+                                        </form>
                                     </td>
+
                                     <td class="action">
                                         
                                         <div class="act-icon">
@@ -151,11 +172,10 @@
 
    
 
+<!-- over -->
 
-    <!-- staff add model over -->
 
-
-    <script>
+    <!-- <script>
         const orderId = <?php echo $order->invoice_id; ?>;
         const url = "<?php echo URLROOT;?>/storemanager/order";
 
@@ -178,6 +198,8 @@
     });
 }
 
+// coment before
+
 
         // function updateTable(){
         //     $.ajax({
@@ -193,7 +215,7 @@
         //     });
         // }
 
-    </script>
+    </script> -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
