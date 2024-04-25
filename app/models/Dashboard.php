@@ -1565,7 +1565,7 @@
         public function getMyOrdersByPetownerID($id){
             //get user orders from petcare_carts and total amount from petcare_shop_invoices
 
-            $this->db->query('SELECT cart.*, invoice.total_amount as total_price, invoice.invoice_id as invoice_id, invoice.invoice_date as order_date
+            $this->db->query('SELECT cart.*, invoice.total_amount as total_price, invoice.invoice_id as invoice_id, invoice.invoice_date as order_date , invoice.ship_status as ship_status
             FROM petcare_carts cart
             JOIN petcare_shop_invoices invoice ON cart.cart_id = invoice.cart_id
             WHERE cart.user_id = :id

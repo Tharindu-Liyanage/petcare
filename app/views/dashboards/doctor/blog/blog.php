@@ -75,7 +75,6 @@
                                 
                                 <th>Id</th>
                                 <th>Title</th>
-                                <th>Category</th>
                                 <th>Publish Date</th>
                                 <th>Action</th>
                             </tr>
@@ -93,11 +92,10 @@
                                 foreach($data['blog'] as $blog) : ?>
                                     <?php  if($_SESSION['user_id'] == $blog->author ) { ; ?>
                                     <tr>
-                                        <td class="id-search"><?php echo $blog->blogID ; ?></td>
+                                        <td class="id-search">BLOG-<?php echo $blog->blogID ; ?></td>
                                         <td class="title-search">
                                         <?php echo $blog->title ; ?>
                                         </td>
-                                        <td class="category-search"><?php echo $blog->categoryname ; ?></td>
                                         <td class="publish-search"><?php echo $blog->publishdate ; ?></td>
                                         <td class="action">
                                             

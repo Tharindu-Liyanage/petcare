@@ -18,13 +18,13 @@
 
          <div class="header">
             <div class="left">
-                <h1>Pet Owner</h1>
+                <h1>Pet</h1>
                 <ul class="breadcrumb">
                     <li><a href="<?php echo URLROOT;?>/admin">Dashboard</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/admin/petowner">Pet</a></li>
+                    <li><a href="<?php echo URLROOT;?>/admin/pet">Pet</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/admin/updatePetowner" class="active">Update Pet</a></li>
+                    <li><a href="<?php echo URLROOT;?>/admin/updatePet" class="active">Update Pet</a></li>
                 </ul>
             </div>
         </div>
@@ -59,7 +59,7 @@
                         </div>
                     
                         <div class="inputForm <?php echo (!empty($data['petname_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-buildings' ></i>
+                            <i class='bx bx-purchase-tag-alt'></i>
                             <input type="text" class="input" placeholder="Enter Pet Name" name="petname" value="<?php echo $data['petname']?>">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['petname_err']; ?></span>
@@ -68,47 +68,41 @@
                             <label>Date OF Birth</label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['DOB_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-buildings' ></i>
-                            <input type="text" class="input" placeholder="Enter Date Of Birth" name="DOB" value="<?php echo $data['DOB']?>">
+                            <i class='bx bx-calendar' ></i>
+                            <input type="Date" class="input" placeholder="" name="DOB" value="<?php echo $data['DOB']?>">
                         </div>
                         <span class="invalid-feedback"><?php echo $data['DOB_err']; ?></span>
 
+                    
                         <div class="flex-column">
                             <label>Species</label>
                         </div>
-                        <div class="inputForm ">
-                            <i class='bx bx-category-alt' ></i>
-                            <select name="species">
-                                <option value="cat" <?php echo (($data['species']) == 'cat') ? 'selected' : '' ; ?> >Cat</option>
-                                <option value="dog" <?php echo (($data['species']) == 'dog') ? 'selected' : '' ; ?>>Dog</option>
-                                <option value="other" <?php echo (($data['species']) == 'other') ? 'selected' : '' ; ?>>Other</option>
-                                
-                            </select>
-
+                    
+                        <div class="inputForm <?php echo (!empty($data['species_err'])) ? 'is-invalid' : '' ; ?>">
+                            <i class='bx bx-spreadsheet' ></i>
+                            <input type="text" class="input" placeholder="Enter Pet Species" name="species" value="<?php echo $data['species']?>">
                         </div>
-                        <span class="invalid-feedback"></span>
+                        <span class="invalid-feedback"><?php echo $data['species_err']; ?></span>
 
 
                 </div> <!-- column tag close -->
 
                 <div class="column">
 
-                        <div class="flex-column">
-                                    <label>Breed</label>
+                        
+
+                                <div class="flex-column">
+                                 <label>Breed</label>
                                 </div>
-                                <div class="inputForm ">
-                                    <i class='bx bx-category-alt' ></i>
-                                    <select name="breed">
-                                        <option value="germanshepherd" <?php echo (($data['breed']) == 'germanshepherd') ? 'selected' : '' ; ?> >German Shepherd</option>
-                                        <option value="bulldog" <?php echo (($data['breed']) == 'bulldog') ? 'selected' : '' ; ?>>Bulldog</option>
-                                        <option value="boxer" <?php echo (($data['breed']) == 'boxer') ? 'selected' : '' ; ?>>Boxer</option>
-                                        <option value="persian" <?php echo (($data['breed']) == 'persian') ? 'selected' : '' ; ?>>Persian</option>
-                                        <option value="bengal <?php echo (($data['breed']) == 'bengal') ? 'selected' : '' ; ?>">Bengal</option>
-                                        <option value="sphynx" <?php echo (($data['breed']) == 'sphynx') ? 'selected' : '' ; ?>>Sphynx</option>
-                                        
-                                    </select>
+                            
+                                <div class="inputForm <?php echo (!empty($data['breed_err'])) ? 'is-invalid' : '' ; ?>">
+                                <i class='bx bx-detail' ></i>
+                                    <input type="text" class="input" placeholder="Enter Pet Name" name="breed" value="<?php echo $data['breed']?>">
                                 </div>
-                                <span class="invalid-feedback"></span>
+                                <span class="invalid-feedback"><?php echo $data['breed_err']; ?></span>
+
+
+                                
 
 
                                 <div class="flex-column">
@@ -117,8 +111,8 @@
                                 <div class="inputForm ">
                                     <i class='bx bx-male-sign' ></i>
                                     <select name="sex">
-                                        <option value="male" <?php echo (($data['sex']) == 'male') ? 'selected' : '' ; ?> >Male</option>
-                                        <option value="female" <?php echo (($data['sex']) == 'female') ? 'selected' : '' ; ?> >Female</option>
+                                        <option value="Male" <?php echo (($data['sex']) == 'male') ? 'selected' : '' ; ?> >Male</option>
+                                        <option value="Female" <?php echo (($data['sex']) == 'female') ? 'selected' : '' ; ?> >Female</option>
                                         
                                         
                                     </select>

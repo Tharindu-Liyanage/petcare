@@ -100,20 +100,7 @@
                         </div>
                         <span class="invalid-feedback"><?php echo $data['title_err']; ?></span>
 
-                        <div class="flex-column">
-                            <label>Category</label>
-                        </div>
-                        <div class="inputForm <?php echo (!empty($data['category_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bxs-dashboard' ></i>
-                        <select name="category" id="my-selection" class="selection-dropdown">
-                                        <option value="Select Category" >Select Category</option>
-                                        <?php foreach($data['categories'] as $category) : ?>
-                                        <option <?php if($data['category'] == $category->id) echo 'selected' ; ?> value="<?php echo $category->id; ?>"><?php echo $category->category_name; ?></option>
-                                        <?php endforeach; ?>
-                                        
-                                    </select>
-                        </div>
-                        <span class="invalid-feedback"><?php echo $data['category_err']; ?></span>
+                       
 
                        
 

@@ -72,6 +72,7 @@
                                 <th>Pet Owner <i class='bx bxs-sort-alt sort'  data-sort="petowner-search"></i></th> 
                                 <th>Pet <i class='bx bxs-sort-alt sort'  data-sort="pet-search"></i></th>      
                                 <th>Veterinarian <i class='bx bxs-sort-alt sort'  data-sort="vet-search"></i></th>
+                                <th>Date <i class='bx bxs-sort-alt sort'  data-sort="date-search"></i></th>
                                 <th>Time <i class='bx bxs-sort-alt sort'  data-sort="time-search"></i></th>
                                 <th>Reason <i  class='bx bxs-sort-alt sort' data-sort="type-search"></i></th>
                                 <th>Status <i class='bx bxs-sort-alt sort' data-sort="status-search"></i></th>
@@ -120,10 +121,23 @@
 
                             
                                 
-
+                                    <td class="date-search" ><?php echo $app->appointment_date ; ?></td>
                                     <td class="time-search" ><?php echo $app->appointment_time ; ?></td>
                                     <td class="type-search" ><?php echo $app->appointment_type ; ?></td>
-                                    <td class="status-search"  style="color:#108C81; font-weight:600;"><?php echo $app->status ; ?></td>
+                                    <td class="status-search"
+                                    
+                                    <?php if($app->status == 'Pending') : ?>
+                                        style="color:#FFC107; font-weight:600;"
+                                    <?php elseif($app->status == 'Confirmed') : ?>
+                                        style="color:#28A745; font-weight:600;"
+                                    <?php elseif($app->status == 'Rejected') : ?>
+                                        style="color:#DC3545; font-weight:600;"
+                                    <?php elseif($app->status == 'Completed') : ?>
+                                        style="color:#198754; font-weight:600;"
+
+                                    <?php endif ; ?>
+                                        
+                                        ><?php echo $app->status ; ?></td>
                                 
                                 </tr>
                             <?php endforeach ; ?>

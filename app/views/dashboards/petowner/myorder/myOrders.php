@@ -23,9 +23,9 @@
         td.shop-status div{
             
             border-radius:10px;
-            width: 100px;
-            padding: 5px 10px;
-            padding-right:0px;
+            width: max-content;
+            padding: 6px 10px;
+            
             background:#E6EFFF !important;
             color:#222;
             font-weight: 500;
@@ -35,6 +35,7 @@
             background: #DCF7E4;
             border-radius: 10px;
             padding: 5px;
+            
 
         }
 
@@ -133,7 +134,7 @@
                                 LKR <?php echo $myorder->total_price?>
                                 </td>
 
-                                <td class="shop-status"> <div >Pending</div></td>
+                                <td class="shop-status"> <div ><?php echo $myorder->ship_status?></div></td>
 
                                 
                                 <td class="action">

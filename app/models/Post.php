@@ -7,9 +7,8 @@
         }
 
         public function getPosts(){
-            $this->db->query('SELECT petcare_blogs.* , category.category_name as categoryname , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
+            $this->db->query('SELECT petcare_blogs.* , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
             FROM petcare_blogs
-            JOIN petcare_blogs_category category ON petcare_blogs.category = category.id
             JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id
             WHERE petcare_blogs.author = :id AND petcare_blogs.isRemoved = "0"
             ORDER BY publishdate DESC
@@ -23,9 +22,8 @@
         }
 
         public function getPostsForBlog(){
-            $this->db->query('SELECT petcare_blogs.* , category.category_name as categoryname , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
+            $this->db->query('SELECT petcare_blogs.*  , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
             FROM petcare_blogs
-            JOIN petcare_blogs_category category ON petcare_blogs.category = category.id
             JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id
             WHERE petcare_blogs.isRemoved = "0"
             ORDER BY publishdate DESC 
@@ -49,9 +47,8 @@
         }
 
         public function getPostsToHome(){
-            $this->db->query('SELECT petcare_blogs.* , category.category_name as categoryname , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
+            $this->db->query('SELECT petcare_blogs.*  , staff.firstname as authorfname , staff.lastname as authorlname , staff.profileImage as authorImage
             FROM petcare_blogs
-            JOIN petcare_blogs_category category ON petcare_blogs.category = category.id
             JOIN petcare_staff staff ON petcare_blogs.author = staff.staff_id
             WHERE petcare_blogs.isRemoved = "0"
             ORDER BY publishdate DESC LIMIT 3
@@ -70,13 +67,12 @@
         public function addBlog($data){
 
                 //insert data with image
-                $this->db->query('INSERT INTO petcare_blogs (title,category,content,thumbnail ,author) 
-                                VALUES (:title  , :category , :content , :filename , :author )');
+                $this->db->query('INSERT INTO petcare_blogs (title,content,thumbnail ,author) 
+                                VALUES (:title , :content , :filename , :author )');
 
                 //bind valuess
                 $this->db->bind(':title' , $data['title']);
                 $this->db->bind(':content' , $data['content']);
-                $this->db->bind(':category' , $data['category']);
                 $this->db->bind(':author' , $_SESSION['user_id']);  /* important update this to $_session['user_id']*/ 
                 // $this->db->bind(':user_id' , $_SESSION['user_id']);  //remove this  
                 $this->db->bind(':filename',$data['uniqueImgFileName']);
@@ -163,13 +159,11 @@
 // ned to chang
  
 
-            $this->db->query('UPDATE petcare_blogs  SET title = :title , thumbnail = :filename , content = :content ,
-            category = :category , author = :author   WHERE blogID = :id');
+            $this->db->query('UPDATE petcare_blogs  SET title = :title , thumbnail = :filename , content = :content  , author = :author   WHERE blogID = :id');
             $this->db->bind(':id' , $data['id']);
             $this->db->bind(':title' , $data['title']);
             $this->db->bind(':filename',$data['uniqueImgFileName']);
             $this->db->bind(':content' , $data['content']);
-            $this->db->bind(':category' , $data['category']);
             $this->db->bind(':author' , $_SESSION['user_id']);
             // $this->db->bind(':user_id' , $data['user_id']);
 

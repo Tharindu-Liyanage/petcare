@@ -874,7 +874,7 @@ use PHPMailer\PHPMailer\Exception;
 
         public function updateBlog($id){
 
-            $categories = $this->doctorModel->getBlogCategoryDetails();
+
             
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                  $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
@@ -893,15 +893,12 @@ use PHPMailer\PHPMailer\Exception;
 
                 $data = [
                     'title' => trim($_POST['title']),
-                    'category' => trim($_POST['category']),
                     'user_id' => $_SESSION['user_id'],
-                    'category_err' => '',
                     'content' => trim($_POST['content']),
                     'title_err' => '',
                     'content_err' => '',
                     'img' => ($_FILES['blog_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['blog_img'],
                     'img_err' => '',
-                    'categories' => $categories,
                     'uniqueImgFileName' =>$uniqueImgFileName,
                     'id' => $id
                  ];
@@ -921,9 +918,7 @@ use PHPMailer\PHPMailer\Exception;
 
                 
 
-                 if($data['category'] == "Select Category"){
-                    $data['category_err'] = 'Please select a category';
-                 }
+                
 
                 $allowedTypes = ['image/jpeg', 'image/png'];
 
@@ -953,7 +948,7 @@ use PHPMailer\PHPMailer\Exception;
                
                  
                  
-                if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])  &&  empty($data['category_err'])){
+                if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])){
                     if($this->postModel->updateBlog($data)){
 
                         $_SESSION['notification'] = 'ok';
@@ -987,15 +982,12 @@ use PHPMailer\PHPMailer\Exception;
                 $data = [
                     'id' => $id,
                     'title' => $post->title,
-                    'category' => $post->category,
                     // 'tags' => $post->tags,
                     'img' => $post->thumbnail,
                     'content' => $post->content,
                     'title_err' => '',
                     'content_err' => '',
                     'img_err' => '',
-                    'category_err' => '',
-                    'categories' => $categories,
                     
                  ];
 
@@ -1042,8 +1034,7 @@ use PHPMailer\PHPMailer\Exception;
 
         public function addBlog(){
 
-            //get categories
-            $categories = $this->doctorModel->getBlogCategoryDetails();
+         
 
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -1066,15 +1057,12 @@ use PHPMailer\PHPMailer\Exception;
 
                  $data = [
                     'title' => trim($_POST['title']),
-                    'category' => trim($_POST['category']),
                     'user_id' => $_SESSION['user_id'],
-                    'category_err' => '',
                     'content' => trim($_POST['content']),
                     'title_err' => '',
                     'content_err' => '',
                     'img' => ($_FILES['blog_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['blog_img'],
                     'img_err' => '',
-                    'categories' => $categories,
                     'uniqueImgFileName' =>$uniqueImgFileName
                  ];
 
@@ -1122,9 +1110,7 @@ use PHPMailer\PHPMailer\Exception;
                 
 
 
-                 if($data['category'] == "Select Category"){
-                    $data['category_err'] = 'Please select a category';
-                 }
+
 
                 $allowedTypes = ['image/jpeg', 'image/png'];
 
@@ -1168,7 +1154,7 @@ use PHPMailer\PHPMailer\Exception;
                  */
 
                  
-                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])  &&  empty($data['category_err'])){
+                 if(empty($data['title_err']) && empty($data['content_err']) && empty($data['img_err'])){
                     if($this->postModel->addBlog($data)){
 
                         $_SESSION['notification'] = 'ok';
@@ -1200,13 +1186,10 @@ use PHPMailer\PHPMailer\Exception;
             }else{
                 $data = [
                     'title' => '',
-                    'category' => '',
                     'content' => '',
                     'title_err' => '',
                     'content_err' => '',
-                    'category_err' => '',
                     'img_err' => '',
-                    'categories' => $categories,
                  ];
 
 

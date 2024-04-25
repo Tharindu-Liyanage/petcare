@@ -164,6 +164,20 @@
 
     <!-- staff add model over -->
 
+    <?php
+     
+     if ($_SESSION['notification'] == "error") {
+           
+        toast_notifications('Error!',$_SESSION['notification_msg'],"fas fa-solid fa-xmark check-error"); 
+        
+    }else if($_SESSION['notification'] == "ok"){
+
+        toast_notifications('Succsess!',$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
+
+    }
+
+    ?>
+
 
     
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
