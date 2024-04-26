@@ -39,6 +39,17 @@
 
         }
 
+         table tr td .shipped{
+            background: green;
+            padding: 8px 30px;
+
+        }
+
+        table tr td .on-process{
+            background: orange;
+            padding: 8px 20px;
+        }
+
 
   </style>
 
@@ -134,7 +145,16 @@
                                 LKR <?php echo $myorder->total_price?>
                                 </td>
 
-                                <td class="shop-status"> <div ><?php echo $myorder->ship_status?></div></td>
+                                <td class="shop-status">  <span <?php 
+                                                if ($myorder->ship_status == 'shipped') {
+                                                    echo 'class="status shipped"';
+                                                } elseif ($myorder->ship_status == 'delivered') {
+                                                    echo 'class="status delivered"';
+                                                } elseif ($myorder->ship_status == 'on-process') {
+                                                    echo 'class="status on-process"';
+                                                } ?>>
+                                                <?php echo $myorder->ship_status; ?>
+                                            </span></td>
 
                                 
                                 <td class="action">

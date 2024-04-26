@@ -63,6 +63,40 @@
             color: #fff;
         }
 
+        /* make beautiful download butotn*/
+
+        .download-button{
+            
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-right: 20px;
+        }
+
+        .download-link{
+            background-color: var(--primary);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius:20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .download-link i{
+            margin-right: 10px;
+        }
+
+        .download-link:hover{
+            background-color: #4672F1;
+        }
+
+
+
+        
+
+
+
 
 
 
@@ -96,9 +130,15 @@
                 
             </div>
 
-    
+            <div class="download-button">
+                <a href="<?php echo URLROOT; ?>/admin/downloadReport" class="download-link">
+                    <i class="bx bx-download"></i> Download Reports
+                </a>
+            </div>
 
             <div class="bottom-data">
+
+            
 
 
                 <div class="chart-container">

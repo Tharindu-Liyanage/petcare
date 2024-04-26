@@ -189,7 +189,7 @@
                                 <div class="input-field">
                                     <div class="label">Enter a Reason</div>
                                     <div class="inputForm">
-                                    <i class='bx bx-purchase-tag-alt' ></i>
+                                    <i class='bx bx-spreadsheet' ></i>
                                     <input id="reason" name="reason" type="text" placeholder ="Enter a Reason"/>
                                     </div>
                                     <span class="invalid-feedback"></span>

@@ -2846,6 +2846,10 @@
         }
 
 
+        public function downloadReport(){
+            $this->reportModel->downloadFullReport();
+        }
+
  
 
            
