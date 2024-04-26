@@ -82,7 +82,7 @@
                                     <td class="invoice-id"><?php echo 'INV-'.$order->invoice_id  ; ?></td>
                                     <td class="profile"class="profile">
                                         <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $order->profileImage ; ?>">
-                                        <p><?php echo $order->first_name ; ?></p>
+                                        <p><?php echo $order->first_name. " " . $order->last_name ; ?></p>
                                     </td>
                                     <td class="order-date"><?php echo $order->invoice_date ; ?></td>
                                     <td class="total"><?php echo 'LKR '. $order->total_amount ; ?></td>
@@ -109,7 +109,6 @@
                                             <select class="shipment-status" name="shipmentStatus">
                                                 <option class="on-process-value" <?php echo ($order->ship_status == 'on-process') ? 'selected' : '' ; ?> value="on-process">On Process</option>
                                                 <option class="shipped-value" <?php echo ($order->ship_status == 'shipped') ? 'selected' : '' ; ?> value="shipped"  >Shipped</option>
-                                                <option class="delivered-value" <?php echo ($order->ship_status == 'delivered') ? 'selected' : '' ; ?>   value="delivered">Delivered</option>
                                             </select>
                                             <button type="submit" class="round-button"><i class='bx bx-check'></i></button>
                                         </form>

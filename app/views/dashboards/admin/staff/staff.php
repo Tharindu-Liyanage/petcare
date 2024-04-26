@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -174,17 +174,22 @@
     
 
     <?php
-     
-     if ($_SESSION['notification'] == "error") {
+
+        if (($_SESSION['staff_user_added']) === true) {
            
-        toast_notifications('Error!',$_SESSION['notification_msg'],"fas fa-solid fa-xmark check-error"); 
+            toast_notification("Staff Memeber Added","A new member has been added successfully.","fa-solid fa-xmark close"); 
+        }
+
+        else if (($_SESSION['staff_user_updated']) === true ) {
+            toast_notification("Staff Memeber Updated","A member has been updated successfully.","fa-solid fa-xmark close"); 
+            
+        } else if (($_SESSION['staff_user_removed']) === true ) {
+            toast_notification("Staff Memeber Removed","A member has been removed successfully.","fa-solid fa-xmark close"); 
+            
+        }
+    
         
-    }else if($_SESSION['notification'] == "ok"){
-
-        toast_notifications('Succsess!',$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
-
-    }
-
+    
     ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>

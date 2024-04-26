@@ -108,7 +108,7 @@
                             <label>Price</label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['price_err'])) ? 'is-invalid' : '' ; ?>">
-                            <i class='bx bx-dollar' ></i>
+                            LKR
                             <input type="text" class="input" placeholder="Enter price" name="price" value="<?php echo $data['price']?>" >
                         </div>
                         <span class="invalid-feedback"><?php echo $data['price_err']; ?></span>
