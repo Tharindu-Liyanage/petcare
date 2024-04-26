@@ -9,6 +9,8 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard-petowner-dash.css">
     <title>dashboard</title>
+
+   
 </head>
 <body>
 
@@ -32,33 +34,25 @@
             </div>
 
             
-            <!--end of insisghts-->
-              
-            <div class="home-box">
-                    <div class="home-left">
-                        <div class="home-text-large">
-                            <?php echo $data['greetingmsg']; ?> , <span><?php echo $_SESSION['user_fname']?>!</span>
-                        </div>
+        <!--Greeting-->
+        <div class="top">
+                <div class="left">
+                    <div class="greetings"><?php echo $data['greetingmsg']; ?>,<span> <?php echo $_SESSION['user_fname'] ."  " . $_SESSION['user_lname'];   ?></span></div>
 
-                        <div class="home-text-small">
-                            <ol>
-                            <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
-                                <li>Please upload a <span>profile picture</span> to make your profile stand out.</li>
-                            <?php endif; ?>
+                    <ol>
+                    <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
+                    <li>Please upload a <span>profile picture</span> to make your profile stand out. </li>
+                    <?php endif; ?>
+                    
 
-                           
-                            </ol>
-                        </div> 
-
-                       
-                           
-                        
-
-                    </div>
-                    <div class="home-right">
-                        <img src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
-                    </div>
+                    </ol>
+                                
+                </div>
+                <div class="right">
+                    <img src="<?php echo URLROOT;?>/public/img/dashboard/assistant.svg" alt="">
+                </div>
             </div>
+            <!--Greeting over -->
 
             <ul class="insights">
                 <li>

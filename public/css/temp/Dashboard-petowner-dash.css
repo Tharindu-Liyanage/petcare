@@ -265,6 +265,66 @@ tr .pet-profile{
     font-weight: 500;
 }
 
+.top{
+    display: flex;
+    justify-content: space-between;
+
+    /*new*/
+    background: #fff;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+.top .left{
+    padding-left: 20px;
+}
+
+.top .left .greetings{
+    margin-top: 50px;
+    font-size: 50px;
+    
+}
+
+.top .left .greetings span{
+    font-size: 30px ;
+    color: var(--primary);
+}
+.top .left p{
+    margin-top: 15px;
+    font-size: 18px ;
+}
+
+.top .left p span {
+    color: var(--primary);
+}
+
+
+
+
+.top .right img{
+    height: 250px;
+    margin-top: -35px;
+    
+    
+}
+
+.top .left  ol li{
+
+    font-weight: 500;
+    color: var(--dark);
+    list-style-type: disc;  
+    margin:15px;
+}
+
+.top .left li{
+    font-size: 15px ;
+}
+
+.top .left li span{
+    color: var(--primary);
+}
+
 
 
 

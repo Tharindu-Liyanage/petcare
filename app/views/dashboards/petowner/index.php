@@ -31,7 +31,7 @@
                 
             </div>
 
-            <div class="home-box">
+ <!--           <div class="home-box">
                     <div class="home-left">
                         <div class="home-text-large">
                             <?php echo $data['greetingmsg']; ?> , <span><?php echo $_SESSION['user_fname']?>!</span>
@@ -49,15 +49,43 @@
                             </ol>
                         </div> 
 
-                       
-                           
-                        
-
+                                
                     </div>
+        
                     <div class="home-right">
                         <img src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
                     </div>
             </div>
+
+        -->  
+
+        <!--insights-->
+        <div class="top">
+                <div class="left">
+                    <div class="greetings"><?php echo $data['greetingmsg']; ?>,<span> <?php echo $_SESSION['user_fname'] ."  " . $_SESSION['user_lname'];   ?></span></div>
+
+                    <ol>
+                    <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
+                    <li>Please upload a <span>profile picture</span> to make your profile stand out. </li>
+                    <?php endif; ?>
+
+                    <?php if($data['pet'] == null ) :?>
+                    <li>You have not added any pets yet. <span>Add a pet</span> to get started.</li>
+                    <?php else : ?>
+                        <p>You have <span>0</span> Confirmed Appointments.</p>
+                    <?php endif; ?>
+                <!--  <li>Please upload a <span>profile picture</span> to make your profile stand out. </li> -->
+                 <!--   <li>You have not added any pets yet. <span>Add a pet</span> to get started.</li> -->
+                 
+
+                    </ol>
+                                
+                </div>
+                <div class="right">
+                    <img src="<?php echo URLROOT;?>/public/img/dashboard/petowner.svg" alt="">
+                </div>
+            </div>
+            <!--end of insisghts-->
 
             <div class="my-pet-text">
                     My Pets  
