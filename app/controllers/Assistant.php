@@ -111,7 +111,7 @@
         $user = $this->dashboardModel->getStaffUserById($id);
 
         if($user == null){
-            redirect('admin/notfound');
+            redirect('assistant/notfound');
         }
 
         $data = [
@@ -123,7 +123,7 @@
     }
     
 
-
+    
         public function appointment(){
             $appointmentDetails = $this -> assistantModel ->getAppointmentDetails();
 

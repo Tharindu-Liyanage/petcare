@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/dashboard-nav-css.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/staff.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/dashboard/admin/appointment.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/temp/Dashboard- Assistant-pet.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/toast-notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
@@ -72,6 +72,7 @@
                 
                 <th>Id <i class='bx bxs-sort-alt sort' data-sort="id-search"></th>
                 <th>Pet<i class='bx bxs-sort-alt sort' data-sort="profile"></th>
+                <th>Petowner<i class='bx bxs-sort-alt sort' data-sort="profile-three"></th>
                 <th>DOB <i class='bx bxs-sort-alt sort' data-sort="dob-search"></th>
                 <th>breed <i class='bx bxs-sort-alt sort' data-sort="breed-search"></th>
                 <th>sex<i class='bx bxs-sort-alt sort' data-sort="sex-search"></th>
@@ -95,9 +96,15 @@
             <tr>
                 <td class="id-search"><?php echo $pet->pet_id_generate?></td>
                 <td class="profile">
-                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> petImage ?>" ><p><?php echo $pet-> pet?></p>
+                    <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet-> petImage ?>" ><p> <?php echo $pet-> pet?>  
                 </td>
-                
+
+                <td>
+                  <div class="profile-three">
+                     <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $pet->petownerImage?>" >
+                     <a href="<?php echo URLROOT; ?>/assistant/profilePetowner/<?php echo $pet->petownerid?>"><?php echo $pet-> petownerfname?>  <?php echo $pet-> petownerlname?></a></p>
+                  </div>
+                </td>
                 <td class="dob-search"><?php echo $pet->DOB?></td>
                 <td class="breed-search"><?php echo $pet->breed?></td>
                 <td class="sex-search"><?php echo $pet->sex?></td>

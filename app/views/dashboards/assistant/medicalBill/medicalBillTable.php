@@ -116,14 +116,14 @@
                             foreach($data['bill'] as $med) : ?>
 
                             <tr>
-                                <td class="id-search">AID-<?php echo $med->ward_treatment_id?></td>
+                                <td class="id-search">AWT-<?php echo $med->ward_treatment_id?></td>
                                 <td class="profile">
                                     <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $med->petpic?>" ><p><?php echo $med->genPetID?> | <?php echo $med->petname?></p>
                                 </td>
 
                                 <td>
                                     <div class="profile-three">
-                                        <img src="<?php echo URLROOT ;?>/public/storage/uploads/userprofiles/<?php echo $med->petownerpic?>" ><p><?php echo $med->genPetOwnerID?> | <?php echo $med-> petownerfname?> <?php echo $med->petownerlname?></p>
+                                        <img src="<?php echo URLROOT ;?>/public/storage/uploads/userprofiles/<?php echo $med->petownerpic?>" ><p><?php echo $med->genPetOwnerID?> |  <a href="<?php echo URLROOT; ?>/assistant/profilePetowner/<?php echo $med->petownerid?>"><?php echo $med-> petownerfname?>  <?php echo $med-> petownerlname?></a></p>
                                    
                                     </div>
                                 </td>

@@ -125,7 +125,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 0 60px;">
           <tr>
             <td>
-              <h2 align="center"> Your Appointment Status Confirmed.</h2>
+              <h2 align="center"> Your Appointment {status} .</h2>
               <p align="left"> Hi, <b>{user_fname} {user_lname}  </b> 
               </p>
               <p align="left"> "Your appointment has been  <b>{status}</b>. We look forward to seeing you!"</p>

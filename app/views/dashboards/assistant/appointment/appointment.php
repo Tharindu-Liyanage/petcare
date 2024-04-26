@@ -107,14 +107,15 @@
                                  <td>
                                     <div class="profile-three">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $appointment->petownerpic?>" >
-                                    <p><?php echo $appointment->petownerfname?> <?php echo $appointment->petownerlname?></p>
+                                    <a href="<?php echo URLROOT; ?>/assistant/profilePetowner/<?php echo $appointment->petownerid?>"><?php echo $appointment-> petownerfname?>  <?php echo $appointment-> petownerlname?></a></p>
                                     </div>
                                 </td>
 
                                 <td>
                                     <div class="profile-three vet-search">
                                         <img src="<?php echo URLROOT;?>/public/storage/uploads/userprofiles/<?php echo $appointment->vetpic?>" >
-                                    <p><?php echo $appointment->vetfname?> <?php echo $appointment->vetlname?></p>
+                                        <a href="<?php echo URLROOT; ?>/assistant/profileStaff/<?php echo $appointment->staffid?>"><?php echo $appointment-> vetfname?>  <?php echo $appointment-> vetlname?></a></p>
+                                   
                                     </div>
                                 </td>
 

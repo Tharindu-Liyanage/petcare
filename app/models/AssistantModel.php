@@ -19,7 +19,7 @@
  //--------------------------------------------------------------------------
 
  public function getPetDetails(){
-    $this ->db -> query ('SELECT pet.* , petowner.* , pet.profileImage as petImage , petowner.profileImage as petownerImage
+    $this ->db -> query ('SELECT pet.* , petowner.* , pet.profileImage as petImage , petowner.profileImage as petownerImage ,petowner.first_name as petownerfname , petowner.last_name as petownerlname , petowner.id as petownerid
                           FROM petcare_pet pet
                           JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
                           WHERE pet.isRemoved = 0 AND petowner.isRemoved = 0 
@@ -221,10 +221,33 @@ public function findpetownerID($petownerID){
                       return false;
                   }
         }
+
+        //Update Pet----------------------------------------------------------------------------------------------------------------------------------------
+      public function updatePet($data){
+        $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB =:dob, species=:species , sex=:sex , breed=:breed, petowner_id=petownerid  WHERE id = :id');
+        //bind values
+        $this->db->bind(':pname' , $data['pname']);
+        $this->db->bind(':dob', $data['dob']);
+        $this->db->bind(':species', $data['species']);
+        $this->db->bind(':breed', $data['breed']);
+        $this->db->bind(':sex', $data['sex']);
+        $this->db->bind(':petownerid', $data['petownerid']);
+        
+        
+                  //execute
+                  if($this->db->execute()){
+                      return true;
+      
+                  }else{
+                      return false;
+                  }
+        }
 // ------------------------------------------------
       public function getAppointmentDetails(){
       $this->db->query('SELECT 
       petcare_appointments.*, 
+      petcare_petowner.id AS petownerid,
+      petcare_staff.staff_id AS staffid,
       petcare_pet.profileImage AS petpic, 
       petcare_pet.pet AS petname, 
       petcare_petowner.profileImage AS petownerpic, 
@@ -280,7 +303,7 @@ public function findpetownerID($petownerID){
 //medical bill-------------------------------------------------------------------------------------------------------------------------
     public function getDischargeDetails(){
         //from inward_pet table
-        $this->db->query('SELECT ward.* , pet.pet_id_generate as genPetID, petowner.petowner_id_generate as genPetOwnerID ,  pet.pet as petname, pet.profileImage as petpic, petowner.profileImage as petownerpic, petowner.first_name as petownerfname, petowner.last_name as petownerlname 
+        $this->db->query('SELECT ward.* , pet.pet_id_generate as genPetID, petowner.petowner_id_generate as genPetOwnerID ,  pet.pet as petname, pet.profileImage as petpic, petowner.profileImage as petownerpic, petowner.first_name as petownerfname, petowner.last_name as petownerlname , petowner.id as petownerid
                           FROM petcare_ward_treatment ward
                           JOIN petcare_pet pet ON ward.pet_id = pet.id
                           JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
