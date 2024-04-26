@@ -19,7 +19,7 @@
  //--------------------------------------------------------------------------
 
  public function getPetDetails(){
-    $this ->db -> query ('SELECT pet.* , petowner.* , pet.profileImage as petImage , petowner.profileImage as petownerImage ,petowner.first_name as petownerfname , petowner.last_name as petownerlname , petowner.id as petownerid
+    $this ->db -> query ('SELECT pet.* , petowner.* , pet.profileImage as petImage , petowner.profileImage as petownerImage ,petowner.first_name as petownerfname , petowner.last_name as petownerlname , petowner.id as petownerid , pet.id as petid
                           FROM petcare_pet pet
                           JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
                           WHERE pet.isRemoved = 0 AND petowner.isRemoved = 0 
@@ -61,7 +61,7 @@
  }
 
  public function updatePetDetails($data){
-    $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB =:dob, species =:species , sex =:sex , breed=:breed  WHERE id = :id');
+    $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB =:dob, species =:species , sex =:sex , breed=:breed WHERE id = :id');
     //bind values
     $this->db->bind(':id' , $data['id']);
     $this->db->bind(':pname',$data['pname']);
@@ -222,26 +222,6 @@ public function findpetownerID($petownerID){
                   }
         }
 
-        //Update Pet----------------------------------------------------------------------------------------------------------------------------------------
-      public function updatePet($data){
-        $this->db->query('UPDATE petcare_pet SET pet = :pname , DOB =:dob, species=:species , sex=:sex , breed=:breed, petowner_id=petownerid  WHERE id = :id');
-        //bind values
-        $this->db->bind(':pname' , $data['pname']);
-        $this->db->bind(':dob', $data['dob']);
-        $this->db->bind(':species', $data['species']);
-        $this->db->bind(':breed', $data['breed']);
-        $this->db->bind(':sex', $data['sex']);
-        $this->db->bind(':petownerid', $data['petownerid']);
-        
-        
-                  //execute
-                  if($this->db->execute()){
-                      return true;
-      
-                  }else{
-                      return false;
-                  }
-        }
 // ------------------------------------------------
       public function getAppointmentDetails(){
       $this->db->query('SELECT 

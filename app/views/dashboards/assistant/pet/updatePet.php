@@ -20,11 +20,11 @@
             <div class="left">
                 <h1>Pet</h1>
                 <ul class="breadcrumb">
-                    <li><a href="<?php echo URLROOT;?>/petowner">Dashboard</a></li>
+                    <li><a href="<?php echo URLROOT;?>/assistant">Dashboard</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/petowner/pet">Pet</a></li>
+                    <li><a href="<?php echo URLROOT;?>/assistant/pet">Pet</a></li>
                     <li> > </li> <!-- Include the ">" character within an <li> element -->
-                    <li><a href="<?php echo URLROOT;?>/petowner/updatepet/<?php echo $data['id'];?>" class="active">Update Pet</a></li>
+                    <li><a href="<?php echo URLROOT;?>/assistant/updatepet/<?php echo $data['id'];?>" class="active">Update Pet</a></li>
                 </ul>
             </div>
         </div>

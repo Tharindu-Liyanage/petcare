@@ -113,7 +113,7 @@
                     
                     <div class="act-icon">
 
-                    <a href="<?php echo URLROOT;?>/assistant/updatePet/<?php echo $pet->id?>" ><i class='bx bx-edit' ></i></a>
+                    <a href="<?php echo URLROOT;?>/assistant/updatePet/<?php echo $pet->petid?>" ><i class='bx bx-edit' ></i></a>
                           
                            
                     </div>
