@@ -802,12 +802,15 @@
             
             
             if($this->dashboardModel->removeProduct($id)){
-
+                $_SESSION['notification'] = 'ok';
+                $_SESSION['notification_msg'] = 'Product removed successfully';
                 //$_SESSION['staff_user_removed'] = true;
                 redirect('storemanager/inventory');
 
             }else{
-                die("error in user delete model");
+                $_SESSION['notification'] = 'error';
+                $_SESSION['notification_msg'] = 'Something went wrong';
+                redirect('storemanager/inventory');
             }
 
 
@@ -1315,12 +1318,15 @@
             
             
             if($this->dashboardModel->removeCategory($id)){
-
+                $_SESSION['notification'] = 'ok';
+                $_SESSION['notification_msg'] = 'Category removed successfully';
                 //$_SESSION['staff_user_removed'] = true;
                 redirect('storemanager/category');
 
             }else{
-                die("error in user delete model");
+                $_SESSION['notification'] = 'error';
+                $_SESSION['notification_msg'] = 'Something went wrong';
+                redirect('storemanager/category');
             }
 
 

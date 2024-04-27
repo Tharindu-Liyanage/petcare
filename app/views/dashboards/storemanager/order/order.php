@@ -172,49 +172,23 @@
    
 
 <!-- over -->
+<?php
+     
+     if ($_SESSION['notification'] == "error") {
+           
+        toast_notifications('Error!',$_SESSION['notification_msg'],"fas fa-solid fa-xmark check-error"); 
+        
+    }else if($_SESSION['notification'] == "ok"){
 
+        toast_notifications('Succsess!',$_SESSION['notification_msg'],"fas fa-solid fa-check check"); 
 
-    <!-- <script>
-        const orderId = <?php echo $order->invoice_id; ?>;
-        const url = "<?php echo URLROOT;?>/storemanager/order";
+    }
 
-        function updateTable(id) {
-    // Get the selected value from the select element
-    const selectedValue = document.getElementById('ship-status').value;
+    ?>                  
+
     
-    // Call your AJAX function with the selected value
-    $.ajax({
-        method: 'POST',
-        url: 'http://localhost/petcare/storemanager/updateStatus/' + id,
-        data: { shipmentStatus: selectedValue }, // Pass the selected value as data
-        success: function (response) {
-            console.log('response', response);
-            // Redirect();
-        },
-        error: function (error) {
-            console.error('Error:', error);
-        }
-    });
-}
 
-// coment before
-
-
-        // function updateTable(){
-        //     $.ajax({
-        //         method: 'POST',
-        //         url: 'http://localhost/petcare/storemanager/order',
-        //         success: function (response) {
-        //         console.log('response', response);
-        //         // Redirect();
-        //     },
-        //     error: function (error) {
-        //         console.error('Error:', error);
-        //     }
-        //     });
-        // }
-
-    </script> -->
+    
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/toast-notification.js"></script>
