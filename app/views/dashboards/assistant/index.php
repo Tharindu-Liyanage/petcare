@@ -43,6 +43,7 @@
                     <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
                     <li>Please upload a <span>profile picture</span> to make your profile stand out. </li>
                     <?php endif; ?>
+                    <p>Hello there! Stay informed with the <span>latest insights</span> on your dashboard.</p>
                     
 
                     </ol>

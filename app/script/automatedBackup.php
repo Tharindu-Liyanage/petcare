@@ -11,6 +11,6 @@ require_once __DIR__ . '/../models/BackupModel.php';
 
 
 
-$cronjob = new BackupModel();
+$backup = new BackupModel();
 
-$cronjob ->autoBackupDatabase();
+$backup ->autoBackupDatabase();

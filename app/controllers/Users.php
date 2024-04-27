@@ -922,6 +922,7 @@
             unset($_SESSION['user_lname'] );
             unset($_SESSION['user_role']);
             unset( $_SESSION['user_profileimage']);
+            unset($_SESSION['last_activity']);
 
             session_destroy();
             redirect('users/staff');

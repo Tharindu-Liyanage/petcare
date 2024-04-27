@@ -824,7 +824,11 @@
                 //validate dob
                 if(empty($data['DOB'])){
                     $data['DOB_err'] = 'Please enter date of birth';
+                }elseif($data['DOB'] > date('Y-m-d')){
+                    $data['DOB_err'] = 'Date of birth cannot be in the future';
                 }
+
+                
 
                 //validate species
                 if(empty($data['species'])){

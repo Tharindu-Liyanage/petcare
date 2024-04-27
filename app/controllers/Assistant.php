@@ -8,25 +8,50 @@
 
         public function __construct(){
            
+            $this->userModel = $this->model('User');
+
+            $currentTime = time();
+            $inactiveTime = 30*60; // 30 minutes in seconds 
+
+            if (!isset($_SESSION['last_activity'])) {
+                $_SESSION['last_activity'] = $currentTime; // Set initial last activity time
+            }
+           
             if(!isset($_SESSION['user_id'])){
+
+                if(isset($_SESSION['last_activity'])){
+                    unset($_SESSION['last_activity']);
+                }
                 
                 redirect('users/staff');
 
-            }else{
+            }elseif($_SESSION['user_role'] != "Assistant"){
 
-
-                if($_SESSION['user_role'] != "Assistant"){
-
-                    // Unauthorized access
-                    redirect('users/staff');
-                     
+                if(isset($_SESSION['last_activity'])){
+                    unset($_SESSION['last_activity']);
                 }
+
+                  redirect('users/staff');
+                     
+                
+            }elseif($currentTime - $_SESSION['last_activity'] > $inactiveTime){
+
+                $this->userModel->updateStaffOnlineStatus($_SESSION['user_email'],0);
+                sessionExpire();
+                unset($_SESSION['last_activity']);
+                $_SESSION['error_msg_from_staff'] ="Session Expired. Please login again.";
+                redirect('users/staff');
+
             }
+
+            // Update last activity time to current time
+            $_SESSION['last_activity'] = $currentTime;
+
 
             $this->settingsModel= $this->model('Settings') ;
             $this->assistantModel = $this->model('AssistantModel');
             $this->dashboardModel = $this->model('Dashboard');
-            $this->userModel = $this->model('User');
+           
 
 
         }
@@ -936,6 +961,7 @@
                             'address' => trim($_POST['address']),
                             'profile_pic' => $_SESSION['user_profileimage'],
                             'profile_pic_img' => ($_FILES['pro_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['pro_img'],
+                            'nic' => trim($_POST['nic']),
                             
                             'fname_err' => '',
                             'lname_err' => '',
@@ -944,6 +970,7 @@
                             'img_err' => '',
                             'main_err' => '',
                             'uniqueImgFileName' => $uniqueImgFileName,
+                            'nic_err' => ''
 
                         ];
 
@@ -969,6 +996,20 @@
                             $data['address_err'] = '*Please enter Address';
                         }
 
+                     //validate nic
+                    if(empty(trim($_POST['nic']))){
+                        $data['nic_err'] = '*Please enter NIC';
+                    }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) == 10 && (strtoupper($data['nic'][9]) !== 'V' )){
+                        $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
+                    }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) != 10){
+                        $data['nic_err'] = 'New NIC: 12 digits. Old NIC: 9 digits with V.';
+                    }else{
+
+                        if(strlen(trim($_POST['nic'])) == 10){
+                            $data['nic'][9] = strtoupper($data['nic'][9]);
+                        }
+                    }
+
                         $allowedTypes = ['image/jpeg', 'image/png'];
 
                         if($data['profile_pic'] != null){
@@ -984,14 +1025,14 @@
 
                         //going to check is there to any update or not 
                         //eg:- user didnt change anything but click update
-                        if($user->firstname == trim($_POST['fname']) && $user->lastname == trim($_POST['lname']) && $user->address == trim($_POST['address']) && $data['profile_pic_img'] == null){
+                        if($user->firstname == trim($_POST['fname']) && $user->lastname == trim($_POST['lname']) && $user->address == trim($_POST['address']) && $data['profile_pic_img'] == null && $user->nic == trim($_POST['nic'])){
                             
                             $data['main_err'] = "*No changes were detected. The data remains as is.";
                         }
 
 
                         //Make sure errors are empty
-                        if(empty($data['name_err']) && empty($data['address_err']) && empty($data['img_err']) && empty($data['main_err'])){
+                        if(empty($data['name_err']) && empty($data['address_err']) && empty($data['img_err']) && empty($data['main_err']) && empty($data['nic_err'])){
                             
                             //update profile
                             if($this->settingsModel->updateStaffProfile($data)){
@@ -1028,6 +1069,7 @@
                             'lname' => $user->lastname,
                             'address' => $user->address,
                             'profile_pic' => $user->profileImage ,
+                            'nic' => $user->nic,
                             
                             'fname_err' => '',
                             'lname_err' => '',
@@ -1035,6 +1077,7 @@
                             'address_err' => '',
                             'img_err' => '',
                             'main_err' => '',
+                            'nic_err' => ''
                             
                         ];
 

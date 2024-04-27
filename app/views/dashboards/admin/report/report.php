@@ -132,7 +132,7 @@
 
             <div class="download-button">
                 <a href="<?php echo URLROOT; ?>/admin/downloadReport" class="download-link">
-                    <i class="bx bx-download"></i> Download Reports
+                    <i class="bx bx-download"></i> Download Reports Data
                 </a>
             </div>
 

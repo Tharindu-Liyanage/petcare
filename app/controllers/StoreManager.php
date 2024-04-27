@@ -5,20 +5,45 @@
         public function __construct(){
            
 
+            $this->userModel = $this->model('User');
+
+            $currentTime = time();
+            $inactiveTime = 30*60; // 30 minutes in seconds 
+
+            if (!isset($_SESSION['last_activity'])) {
+                $_SESSION['last_activity'] = $currentTime; // Set initial last activity time
+            }
+           
             if(!isset($_SESSION['user_id'])){
+
+                if(isset($_SESSION['last_activity'])){
+                    unset($_SESSION['last_activity']);
+                }
                 
                 redirect('users/staff');
 
-            }else{
+            }elseif($_SESSION['user_role'] != "Store Manager"){
 
-
-                if($_SESSION['user_role'] != "Store Manager"){
-
-                    // Unauthorized access
-                    redirect('users/staff');
-                     
+                if(isset($_SESSION['last_activity'])){
+                    unset($_SESSION['last_activity']);
                 }
+
+                  redirect('users/staff');
+                     
+                
+            }elseif($currentTime - $_SESSION['last_activity'] > $inactiveTime){
+
+                $this->userModel->updateStaffOnlineStatus($_SESSION['user_email'],0);
+                sessionExpire();
+                unset($_SESSION['last_activity']);
+                $_SESSION['error_msg_from_staff'] ="Session Expired. Please login again.";
+                redirect('users/staff');
+
             }
+
+            // Update last activity time to current time
+            $_SESSION['last_activity'] = $currentTime;
+
 
             $this->dashboardModel = $this->model('Dashboard');
             $this->settingsModel= $this->model('Settings') ;
