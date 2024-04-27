@@ -747,32 +747,7 @@
         }
     
         
-            public function updateStatus($id){
-            // Check if the request method is POST
-                if ($_SERVER["REQUEST_METHOD"] === "POST") {
-                    // Check if shipmentStatus is provided in the POST data
-                    if (isset($_POST['shipmentStatus'])) {
-
-                        $shipmentStatus = $_POST['shipmentStatus'];
-    
-                        $response = array("success" => true, "shipmentStatus" => $shipmentStatus);
-                        $this->dashboardModel->updateStatus($id , $response['shipmentStatus']);
-                        echo json_encode($response);
-                        return;
-                    } else {
-                        // If shipmentStatus is not provided in the POST data, return an error response
-                        $response = array("success" => false, "message" => "Shipment status is missing in the request");
-                        echo json_encode($response);
-                        return;
-                    }
-                } else {
-                    // If the request method is not POST, return an error response
-                    $response = array("success" => false, "message" => "Invalid request method");
-                    echo json_encode($response);
-                    return;
-                }
-            }
-
+            
 
             // Inside the controller function handling the AJAX request
             public function updateShipmentStatus() {
@@ -795,9 +770,14 @@
 
                     
                     if($this->dashboardModel->updateShipmentStatus($data)){
+                        $_SESSION['notification'] = 'ok';
+                        $_SESSION['notification_msg'] = 'Shipment status updated successfully';
                         redirect('storemanager/order');
                     }else{
-                        die("Something went wrong");
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+                        // die("Something went wrong");
+                        redirect('storemanager/order');
                     }
 
                     
@@ -941,11 +921,16 @@
                     if($this->dashboardModel->addProduct($data)){
                        
                        // $_SESSION['staff_user_added'] = true;
-      
+                       $_SESSION['notification'] = 'ok';
+                       $_SESSION['notification_msg'] = 'Product added successfully';
+     
                        redirect('storemanager/inventory');
 
                     }else{
-                        die("Something went wrong");
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+                        redirect('storemanager/inventory');
+                        // die("Something went wrong");
                     }
 
 
@@ -1062,12 +1047,16 @@
                     if($this->dashboardModel->updateProduct($data)){
                        
                        // $_SESSION['staff_user_added'] = true;
-                     
+                       $_SESSION['notification'] = 'ok';
+                       $_SESSION['notification_msg'] = 'Product updated successfully';
                        redirect('storemanager/inventory');
                       
 
                     }else{
-                        die("Something went wrong");
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+                        // die("Something went wrong");
+                        redirect('storemanager/inventory');
                     }
 
 
@@ -1185,11 +1174,16 @@
                     if($this->dashboardModel->addCategory($data)){
                        
                        // $_SESSION['staff_user_added'] = true;
-      
+                       $_SESSION['notification'] = 'ok';
+                       $_SESSION['notification_msg'] = 'Category added successfully';
+     
                        redirect('storemanager/category');
 
                     }else{
-                        die("Something went wrong");
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+                        redirect('storemanager/category');
+                        // die("Something went wrong");
                     }
 
 
@@ -1268,11 +1262,14 @@
                     if($this->dashboardModel->updateCategory($data)){
                        
                        // $_SESSION['staff_user_added'] = true;
-      
+                       $_SESSION['notification'] = 'ok';
+                       $_SESSION['notification_msg'] = 'Category updated successfully';
                        redirect('storemanager/category');
 
                     }else{
-                        die("Something went wrong");
+                        $_SESSION['notification'] = 'error';
+                        $_SESSION['notification_msg'] = 'Something went wrong';
+                        redirect('storemanager/category');
                     }
 
 

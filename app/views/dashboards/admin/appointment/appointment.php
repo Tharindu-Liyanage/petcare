@@ -97,8 +97,11 @@
 
                                 
                                     <td class="petowner-search profile">
-                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $app->petownerProfile ; ?>">
-                                        <a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $app->poid;?>"><p class="petowner-search" ><?php echo $app->first_name ; ?>  <?php echo $app->last_name ; ?></a></p>
+                                        <a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $app->poid;?>">
+                                            <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $app->petownerProfile ; ?>">
+                                            <p class="petowner-search" ><?php echo $app->first_name ; ?>  <?php echo $app->last_name ; ?></p>
+                                        </a>
+                                        
                                     </td>
 
 

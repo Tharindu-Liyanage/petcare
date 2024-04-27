@@ -145,30 +145,16 @@
             </div>
 
             <!--insights-->
-            <ul class="insights">
-                <li>
-                    <i class='bx bx-calendar-check' ></i>
-                    <span class="info">
-                        <h3>1,074</h3>
-                        <p>Paid Order</p>
-                    </span>
-                </li>
-                <li><i class='bx bx-show-alt' ></i>
-                    <span class="info">
-                        <h3>3,944</h3>
-                        <p>Site Visit</p>
-                    </span></li>
-                <li><i class='bx bx-line-chart' ></i>
-                    <span class="info">
-                        <h3>14,743</h3>
-                        <p>Searchers</p>
-                    </span></li>
-                <li><i class='bx bx-dollar-circle' ></i>
-                    <span class="info">
-                        <h3>$6,766</h3>
-                        <p>Total Sales</p>
-                    </span></li>
-            </ul>
+            <div class="top">
+                <div class="left">
+                    <div class="greetings"> Hello, <span><?php echo $_SESSION['user_fname'] ."  " . $_SESSION['user_lname'];   ?></span></div>
+                    
+                                
+                </div>
+                <div class="right">
+                    <img class="dAdmin" src="<?php echo URLROOT;?>/public/img/dashboardAdmin/dashboardAdmin.svg" alt="">
+                </div>
+            </div>
             <!--end of insisghts-->
 
             <div class="bottom-data">

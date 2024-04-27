@@ -90,12 +90,22 @@
 
 
 
-.content main .bottom-data .users table tr td:nth-child(2)  {
+.content main .bottom-data .users table tr td:nth-child(2) a  {
   display: flex;
   align-items: center;
   grid-gap: 12px;
   padding-left: 6px;
   
+}
+
+
+
+
+.content main .bottom-data .users table td.profile{
+  display: flex;
+  align-items: center;
+  grid-gap: 12px;
+  padding-left: 6px;
 }
 
 

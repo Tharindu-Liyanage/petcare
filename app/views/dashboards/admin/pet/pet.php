@@ -88,12 +88,13 @@
                                 <tr>
                                     <td class="id-search">PET-<?php echo $pet->id ; ?></td>
                                     <td class="profile">
-                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet->profileImage ; ?>" ><p><?php echo $pet->pet ; ?></p>
+                                        <img src="<?php echo URLROOT;?>/public/storage/uploads/animals/<?php echo $pet->profileImage ; ?>" >
+                                        <p><?php echo $pet->pet ; ?></p>
                                     </td>
                                     <td class="po-search">
                                         <div class="profile-three">
-                                        <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $pet->poimg ; ?>">
-                                        <p><a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $pet->poid;?>"><?php echo $pet->petownerfname ; ?> <?php echo $pet->petownerlname ; ?></a></p>
+                                            <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $pet->poimg ; ?>">
+                                            <p><a href="<?php echo URLROOT;?>/admin/profilePetowner/<?php echo $pet->poid;?>"><?php echo $pet->petownerfname ; ?> <?php echo $pet->petownerlname ; ?></a></p>
                                         </div>
                                     </td>
                                     <td><?php echo $pet->DOB ; ?></td>
