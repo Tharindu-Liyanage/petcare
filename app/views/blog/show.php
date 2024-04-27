@@ -65,9 +65,9 @@
                 <div class="thumnail-image">
                     <img src="<?php echo URLROOT;?>/public/storage/uploads/blog/<?php echo $data['posts']->thumbnail?>" alt="">
                 </div>
-                <div class="blog-content">
-                    <?php echo $data['posts']->content; ?>
-                </div>
+              <!--  <div class="blog-content">
+                    <?php// echo $data['posts']->content; ?>
+                </div> -->
             </div>
 
             <div class="right-part">
@@ -81,14 +81,15 @@
                         </ul>
                     <?php endforeach; ?>
                 </div>
-            </div>
-               
-                
-
-                
-
-                
+            </div>     
         </div>
+
+        <div class="blog-content">
+                    <?php echo $data['posts']->content; ?>
+        </div>
+
+
+        
 
     
         <!-- start of footer -->

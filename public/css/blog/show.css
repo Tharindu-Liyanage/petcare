@@ -84,7 +84,7 @@ body {
     /* this marging says up and bottom margins are 0 but right and left margins are auto. */
     margin : 0 auto; 
     background-color: var(--first-color-lighten);
-    padding-top: 200px;
+    padding-top:100px;
     
 }
 
@@ -201,9 +201,13 @@ body {
 
 
 .middle-part{
+    position: relative;
     display: flex;
-    margin: 40px;
+    margin: 40px 40px 0;
     justify-content: space-between;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 30px 30px 0;
     
 }
 
@@ -244,22 +248,34 @@ body {
 
 .left-part .thumnail-image img{
     width: 900px;
-    height: 500px;
+    height: 420px;
     border-radius: 10px;
     object-fit: cover;
 }
 
 .left-part .blog-content{
-    font-size: 1.5rem;
-    margin-top: 100px;
+    width: 100%;
+    font-size: 1.7rem;
+    margin-top: 60px;
+    text-transform: none;
+    font-weight: 500;
+}
 
-    text-transform:none;
+.blog-content{
+    font-size: 1.9rem;
+    text-transform: none;
+    font-weight: 500;
+    background:#fff;
+    padding: 45px;
+    margin: 0 40px 40px;
+    border-radius: 0 0 20px 20px;
+
 }
 
 .right-part{
     align-self:normal;
     margin: 25px;
-    margin-left: 70px;
+    margin-left: 180px;
     margin-top: 50px;
     
 }
@@ -277,6 +293,12 @@ body {
 .post-title li{
     font-size: 2rem;
     padding: 10px;
+}
+
+.post-title li a{
+    text-decoration: none;
+    font-weight: 500;
+    color: #1F2E88;
 }
 
 

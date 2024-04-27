@@ -533,6 +533,13 @@ a{
     transform: scale(1.05);
 }
 
+section .blog-heading{
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin: 20px 0px;
+    text-align: center;
+}
+
 .blog-cards{
     display: flex;
     flex-wrap: wrap;
