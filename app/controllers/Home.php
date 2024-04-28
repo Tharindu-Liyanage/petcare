@@ -43,16 +43,16 @@
             */
             $staffData = $this->homeModel->getStaffDetails();
             $postData = $this->PostModel->getPostsToHome();
-            $hospitalInfo = $this->dashboardModel->getPetCareDetails();
+            $hospitalInfo = $this->dashboardModel->getPetCareDetailsToHome();
 
 
 
             $data = [
                 'staff' => $staffData,
                 'posts' => $postData,
-                'hospital_address' => $hospitalInfo[0]->hospital_address,
-                'hospital_email' => $hospitalInfo[0]->hospital_email,
-                'hospital_phone' => $hospitalInfo[0]->hospital_contact,
+                'hospital_address' => $hospitalInfo->hospital_address,
+                'hospital_email' => $hospitalInfo->hospital_email,
+                'hospital_phone' => $hospitalInfo->hospital_contact,
             ];
             
             $this->view('home/index', $data);

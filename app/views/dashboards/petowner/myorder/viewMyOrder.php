@@ -145,12 +145,12 @@
                         <td colspan="2" align="center" style="padding: 30px 30px;">
                             <h2>Thank You for Choosing PetCare &hearts;</h2>
                             <p> We appreciate your decision to trust PetCare for your pets well-being. Our commitment is to provide exceptional care and service. </p>
-                            <a href="http://localhost/petcare/home">Visit Our Site</a>
+                            
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center" style="padding: 30px 30px;">
-                            <p style="color:#99ACC2"> &copy; 2023-present PetCare. All rights reserved. </p>
+                           
                             <!--  <a class="subtle-link" href="#"> Unsubscribe </a>      -->
                         </td>
                     </tr>

@@ -147,7 +147,7 @@
 
                                 <td class="action"> 
                                     <?php 
-                                        if ($appointment->status != "Pending" AND $appointment->status != "Completed" ) : ?>
+                                        if ($appointment->status != "Pending" AND $appointment->status != "Completed" AND $appointment->status != "Rejected" ) : ?>
                                         
                                             <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/doctor/requestPastMedicalReports/<?php echo $appointment->pet_id;?>/appointment"><i class="bx bx-check"></i></a>
                                         <?php endif; ?>

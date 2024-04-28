@@ -128,11 +128,11 @@
               <h2 align="center"> Your Appointment {status} .</h2>
               <p align="left"> Hi, <b>{user_fname} {user_lname}  </b> 
               </p>
-              <p align="left"> "Your appointment has been  <b>{status}</b>. We look forward to seeing you!"</p>
+              <p align="left"> Your appointment status has been updated to <b>{status}</b>. {reason} We look forward to seeing you!</p>
 
 
 
-
+                            
 
 
               <p align="left"> Best regards, <br> PetCare Team </p>

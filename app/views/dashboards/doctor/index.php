@@ -31,45 +31,40 @@
                 
             </div>
 
-            <div class="home-box" 
-            
-            <?php if($_SESSION['user_role'] == "Nurse") : ?>
-                style="height:200px;"
-            <?php endif ?>
-            
-            >
-                    <div class="home-left">
-                        <div class="home-text-large">
-                        <?php echo $data['greetingmsg']; ?>,  <span><?php echo $_SESSION['user_fname']?></span>
-                        </div>
-                        <div class="home-text-small">
+                <!--insights-->
+        <div class="top">
+                <div class="left">
+                    <div class="greetings"><?php echo $data['greetingmsg']; ?>,<span> <?php echo $_SESSION['user_fname'] ."  " . $_SESSION['user_lname'];   ?></span></div>
 
-                        <ol>
+                    <ol>
+                    <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
+                    <li>Please upload a <span>profile picture</span> to make your profile stand out. </li>
+                    <?php endif; ?>
 
-                        <?php if($_SESSION['user_profileimage'] == 'petcare-default-picture-user.png' ) :?>
-                                <li>Please upload a <span>profile picture</span> to make your profile stand out.</li>
-                        <?php endif; ?>
-                        
-                            <?php if($_SESSION['user_role'] == "Doctor") : ?>
+                    <?php if($_SESSION['user_role'] == "Doctor") : ?>
                            <li>You have <span> <?php if($data['todayAppointment'] != null) { echo  count($data['todayAppointment']);} else { echo 0;}  ?> </span> upcoming appointments.</li> 
-                            <?php endif ?>
+                    <?php endif ?>
 
-                            <?php if($_SESSION['user_role'] == "Nurse") : ?>
+                    <?php if($_SESSION['user_role'] == "Nurse") : ?>
                              <li> Currently <span><?php if($data['wardDetails'] != null) { echo  count($data['wardDetails']);} else { echo 0;}  ?> </span> animals in the ward.</li> 
-                            <?php endif ?>
-
-                        </div>
-                    </div>
-                    <div class="home-right">
-                        <img
-                        
-                        <?php if($_SESSION['user_role'] == "Nurse") : ?>
-
-                            Style="width: 140px; height:auto;" 
-                        <?php endif ?>
-                        src="<?php echo URLROOT;?>/public/img/dashboard/girlWithHeart.svg" alt="">
-                    </div>
+                    <?php endif ?>
+                <!--  <li>Please upload a <span>profile picture</span> to make your profile stand out. </li> -->
+                 <!--   <li>You have not added any pets yet. <span>Add a pet</span> to get started.</li> -->
+                    </ol>
+                                
                 </div>
+                <div class="right">
+                    <?php if($_SESSION['user_role'] == "Doctor") : ?>
+                    <img src="<?php echo URLROOT;?>/public/img/dashboard/doctor.svg" alt="">
+                    <?php endif ?>
+
+                    <?php if($_SESSION['user_role'] == "Nurse") : ?>
+                    <img src="<?php echo URLROOT;?>/public/img/dashboard/nurse.svg" alt="">
+                    <?php endif ?>
+                </div>
+            </div>
+            <!--end of insisghts-->
+
 
             <?php if($_SESSION['user_role'] == "Doctor") : ?>
 

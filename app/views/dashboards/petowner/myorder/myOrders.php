@@ -141,7 +141,7 @@
                                 <td class="profile">
                                  <?php echo $myorder->order_date?>
                                 </td>
-                                <td class="profile">
+                                <td class="">
                                 LKR <?php echo $myorder->total_price?>
                                 </td>
 

@@ -169,7 +169,7 @@
             
             $appointmentDetails=$this->assistantModel->getAppointmentById($appointmentID);
             $data = [
-                'appointment_Staus'=> $appointmentDetails
+                'appointment_Staus'=> $appointmentDetails,
             ];
             $this->appointmentStatusMail($data);
     
@@ -183,13 +183,18 @@
 
 
         
-        public function rejectedAppointment($appointmentID){
+        public function rejectedAppointment($appointmentID,$reason){
+
+            $reason_text = str_replace('-', ' ', $reason);
+
+
             if($this -> assistantModel ->updateAppointmentStatusToReject($appointmentID)){
                 $_SESSION['notification'] = "ok";
                         $_SESSION['notification_msg'] = "Appointment Rejection Successful.";
                         $appointmentDetails=$this->assistantModel->getAppointmentById($appointmentID);
             $data = [
-                'appointment_Staus'=> $appointmentDetails
+                'appointment_Staus'=> $appointmentDetails,
+                'reason' => $reason_text
             ];
                         $this->appointmentStatusMail($data);
                redirect('assistant/appointment');
@@ -246,6 +251,13 @@
                 $emailContent = str_replace('{treatment}',$data['appointment_Staus']->treatment_id, $emailContent);
                 $emailContent = str_replace('{appointment_reason}',$data['appointment_Staus']->appointment_type, $emailContent);
                 $emailContent = str_replace('{pet_name}',$data['appointment_Staus']->petname, $emailContent);
+
+                if($data['appointment_Staus']->status == 'Confirmed'){
+                    $emailContent = str_replace('{reason}', '', $emailContent);
+                }else{
+                    $emailContent = str_replace('{reason}', 'The reason for the reject is <b>'.$data['reason'].'</b>.', $emailContent);
+                }
+                
                 
                 
                 $mail->Body = $emailContent;

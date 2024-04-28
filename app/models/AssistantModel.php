@@ -225,7 +225,7 @@ public function findpetownerID($petownerID){
 // ------------------------------------------------
       public function getAppointmentDetails(){
       $this->db->query('SELECT 
-      petcare_appointments.*, 
+      petcare_appointments.*,
       petcare_petowner.id AS petownerid,
       petcare_staff.staff_id AS staffid,
       petcare_pet.profileImage AS petpic, 

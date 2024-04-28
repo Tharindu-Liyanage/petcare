@@ -11,6 +11,23 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Dashboard</title>
+    <style>
+        .enter-reason{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .enter-reason p{
+            margin-bottom: 5px;
+        }
+
+        .enter-reason input{
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
@@ -158,11 +175,11 @@
 
                                         <?php if($appointment->status === "Confirmed" ) : ?>
                                         
-                                                    <a title="Rejected" class="rej" href="<?php echo URLROOT; ?>/assistant/rejectedAppointment/<?php echo $appointment -> id;?>"><i class="bx bx-block"></i></a> 
+                                                    <a title="Rejected" class="rejectLink rej" href="<?php echo URLROOT; ?>/assistant/rejectedAppointment/<?php echo $appointment -> id;?>"><i class="bx bx-block"></i></a> 
 
                                         <?php elseif($appointment->status === "Pending") : ?>
                                 
-                                                    <a title="Rejected" class="rej"href="<?php echo URLROOT; ?>/assistant/rejectedAppointment/<?php echo $appointment -> id;?>"><i class="bx bx-block"></i></a>
+                                                    <a title="Rejected" class="rejectLink rej"href="<?php echo URLROOT; ?>/assistant/rejectedAppointment/<?php echo $appointment -> id;?>"><i class="bx bx-block"></i></a>
                                                     <a title="confirmed" class="accept" href="<?php echo URLROOT; ?>/assistant/confirmAppointment/<?php echo $appointment->id;?>"><i class="bx bx-check"></i></a>
                                                     
                                          <?php elseif($appointment->status === "Rejected") : ?>
@@ -190,6 +207,36 @@
              
                                 
         </main>
+
+         <!-- warninig model here -->
+
+         <div id="removeModel" class="card-all-background">
+             <div class="card">
+                <div class="err-header">
+
+                        <div class="image">
+                            <span class="material-symbols-outlined">warning</span>                   
+                        </div>
+
+                        <div class="err-content">
+                            <span class="title">Reject Appointment</span>
+                            <p class="message">Please enter a reason to reject the appointment.</p>
+                            
+                        </div>
+
+                        <div class="err-actions">
+                            <div class="enter-reason">
+                                <p>Enter reason for reject</p>
+                                <input type="text" class="input" placeholder="Enter Reason" id ="reason">
+                            </div>
+                            
+                            <button id="confirmDelete" class="desactivate" type="button">Reject</button>
+                            <button id="cancelDelete" class="cancel" type="button">Cancel</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
         <?php
      

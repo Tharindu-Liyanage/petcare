@@ -1466,6 +1466,16 @@
                 return $results;
         }
 
+        public function getPetCareDetailsToHome(){
+            $this->db->query(
+    
+                'SELECT *
+                FROM petcare_details');
+
+            $results = $this->db->single();
+            return $results;
+        }
+
         //33
 
         public function getTreatmentDetailsByUserIDOnlyOngoing($id){
