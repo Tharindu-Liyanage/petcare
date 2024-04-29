@@ -411,7 +411,12 @@
          //7
 
          public function getInventoryDetails(){
-            $this->db->query('SELECT * FROM petcare_inventory WHERE isRemoved = 0');
+            $this->db->query('SELECT petcare_inventory.*, petcare_product_category.categoryname 
+                            FROM petcare_inventory 
+                            JOIN petcare_product_category 
+                            ON petcare_inventory.category = petcare_product_category.id 
+                            WHERE petcare_inventory.id = :id AND petcare_inventory.isRemoved = 0 ;'
+                        );
         
 
             $results = $this->db->resultSet(); 
