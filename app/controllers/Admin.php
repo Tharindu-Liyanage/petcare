@@ -202,21 +202,26 @@
                     
                 }
 
+
                 
                 //validate nic
                 if(empty(trim($_POST['nic']))){
                     $data['nic_err'] = '*Please enter NIC';
                 } elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) != 10){
                     $data['nic_err'] = 'New NIC: 12 digits. Old NIC: 9 digits with V.';
-                } elseif(strlen(trim($_POST['nic'])) == 10 && ((!ctype_digit(substr($_POST['nic'], 0, 9)) && strtoupper($_POST['nic'][9]) != 'V'))) {
+                } elseif(strlen(trim($_POST['nic'])) == 10 && (!ctype_digit(substr($_POST['nic'], 0, 9)) || strtoupper($_POST['nic'][9]) !== 'V')) {
                     $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
                 } elseif (strlen($_POST['nic']) == 12 && !ctype_digit($_POST['nic'])) {
                     $data['nic_err'] = '*Please enter a valid NIC. New NIC should contain only digits.';
                 } else {
-                    if(strlen(trim($_POST['nic'])) == 10){
+                    if(strlen(trim($_POST['nic'])) == 10 && !ctype_digit(substr($_POST['nic'], 0, 9))) {
+                        $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
+                    } elseif(strlen(trim($_POST['nic'])) == 10){
                         $_POST['nic'][9] = strtoupper($_POST['nic'][9]);
                     }
                 }
+                
+                
                 
                 
 
@@ -371,21 +376,21 @@
                     
                 }
 
-                 //validate nic
-                 if(empty(trim($_POST['nic']))){
+                 
+                //validate nic
+                if(empty(trim($_POST['nic']))){
                     $data['nic_err'] = '*Please enter NIC';
-                }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) == 10 && (strtoupper($data['nic'][9]) !== 'V' )){
-                    $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
-                }elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) != 10){
+                } elseif(strlen(trim($_POST['nic'])) != 12 && strlen(trim($_POST['nic'])) != 10){
                     $data['nic_err'] = 'New NIC: 12 digits. Old NIC: 9 digits with V.';
-                }elseif (strlen($_POST['nic']) == 10 && preg_match('/[^V]/', $_POST['nic'])) {
-                    $data['nic_err'] = '*Please enter a valid NIC. Old NIC must be 9 digits With V.';
-                }elseif (strlen($_POST['nic']) == 12 && preg_match('/[^0-9]/', $_POST['nic'])) {
+                } elseif(strlen(trim($_POST['nic'])) == 10 && (!ctype_digit(substr($_POST['nic'], 0, 9)) || strtoupper($_POST['nic'][9]) !== 'V')) {
+                    $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
+                } elseif (strlen($_POST['nic']) == 12 && !ctype_digit($_POST['nic'])) {
                     $data['nic_err'] = '*Please enter a valid NIC. New NIC should contain only digits.';
-                }else{
-
-                    if(strlen(trim($_POST['nic'])) == 10){
-                        $data['nic'][9] = strtoupper($data['nic'][9]);
+                } else {
+                    if(strlen(trim($_POST['nic'])) == 10 && !ctype_digit(substr($_POST['nic'], 0, 9))) {
+                        $data['nic_err'] = '*Please Enter Valid NIC. Old NIC must be 9 digits With V.';
+                    } elseif(strlen(trim($_POST['nic'])) == 10){
+                        $_POST['nic'][9] = strtoupper($_POST['nic'][9]);
                     }
                 }
 

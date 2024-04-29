@@ -83,7 +83,7 @@
                                 <option value="2" <?php echo (($data['category']) == '2') ? 'selected' : '' ; ?> >Toys</option>
                                 <option value="3" <?php echo (($data['category']) == '3') ? 'selected' : '' ; ?> >Accessories</option>
                                 <option value="4" <?php echo (($data['category']) == '4') ? 'selected' : '' ; ?> >Treats</option>
-                                <!-- <option value="Other" <?php echo (($data['category']) == 'Others') ? 'selected' : '' ; ?> >Other</option> -->
+                                <option value="5" <?php echo (($data['category']) == '5') ? 'selected' : '' ; ?> >Medicines</option>
                                 
                             </select>
                         </div>
@@ -119,20 +119,13 @@
                             <label>Image</label>
                         </div>
                         <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
-                        <i class='bx bx-image-alt'></i>
+                            <i class='bx bx-image-alt'></i>
                             <input id="finput" type="file" class="input" name="inventory_img" accept="image/*" onchange="upload()">
                             <!-- <input type="file" class="input" name="inventory_img" accept="image/*"> -->
                         </div>
                         <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
 
-                        <div class="img-preivew" style="display:none;" id="img-preivew">
-
-                            <div class="flex-column">
-                                <label>Image Preview</label>
-                            </div>
-                            <canvas id="canv1"></canvas>
-
-                        </div>
+                        
 
                        
 

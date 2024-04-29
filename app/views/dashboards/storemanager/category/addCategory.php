@@ -57,7 +57,7 @@
                         <div class="flex-column">
                             <label>Category Name</label>
                         </div>
-                        <div class="inputForm <?php echo (!empty($data['category_err'])) ? 'is-invalid' : '' ; ?>">
+                        <div class="inputForm <?php echo (!empty($data['categoryName_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-purchase-tag' ></i>
                             <input type="text" class="input" name="category_name" placeholder="Enter category Name" value="<?php echo $data['categoryName']?>">
                         </div>
