@@ -16,6 +16,7 @@
             if (!isset($_SESSION['last_activity'])) {
                 $_SESSION['last_activity'] = $currentTime; // Set initial last activity time
             }
+            
            
             if(!isset($_SESSION['user_id'])){
 
