@@ -13,6 +13,7 @@
                               JOIN petcare_pet pet ON ward.pet_id = pet.id
                               JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
                              -- WHERE ward.payment_status = "Processing"
+                              WHERE ward.payment_status is not null
                                
                            ');
             $results = $this->db->resultSet();

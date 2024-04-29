@@ -584,7 +584,7 @@
                     //$destinationDir = __DIR__ . '/../../public/storage/uploads/blog/';
 
                     //new path link support for windows and linux
-                    $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'blog' . DIRECTORY_SEPARATOR;
+                    $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR;
                    
                     // Set the path to move the uploaded file to
                     $uploadPath = $destinationDir . $data['uniqueImgFileName'];
@@ -1782,7 +1782,7 @@
             $this->db->query('SELECT bill.* , treat.payment_status AS payment_status 
              FROM petcare_ward_medical_bill bill
              JOIN petcare_ward_treatment treat ON bill.ward_treatment_id = treat.ward_treatment_id
-             WHERE bill.ward_treatment_id = :id');
+             WHERE bill.ward_treatment_id = :id ');
             $this->db->bind(':id', $id);
 
             $results = $this->db->resultSet();
@@ -1809,7 +1809,8 @@
                               JOIN petcare_pet pet ON ward.pet_id = pet.id
                               JOIN petcare_petowner petowner ON pet.petowner_id = petowner.id
                              -- WHERE ward.payment_status = "Processing"
-                             WHERE petowner.id = :id
+                            
+                             WHERE petowner.id = :id AND ward.payment_status is not null
                                
                            ');
 
