@@ -13,7 +13,7 @@ const reasonInput = document.getElementById("reason");
  
 
   var options = {
-      valueNames: ['id-search', 'profile-search', 'date-search', 'time-search', 'species-search', 'treatment-search', 'type-search', 'status-search', 'profile', 'profile-three','profile-three vet-search' ],
+      valueNames: ['id-search', 'profile-search',  'treatment-search',   'profile', 'profile-three','profile-three vet-search' ],
       page: 5,
       pagination: true,
   };

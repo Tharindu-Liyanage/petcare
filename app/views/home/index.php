@@ -107,11 +107,10 @@
         <div class="column">
             <div class="card">
                 <div class="icon-wrapper">
-                    <i class="fas fa-hammer"></i>
+                <i class='bx bx-store-alt'></i>
                 </div>
                 <h3>Pet Store</h3>
-                <p>Shop with us for a range of 
-                    pet food, vitamins, grooming products and pet accessories</p>
+                <p>"Everything your pet desires in one place: toys, treats, and essentials for a tail-wagging good time."</p>
             </div>
         </div>
 
@@ -119,11 +118,11 @@
         <div class="column">
             <div class="card">
                 <div class="icon-wrapper">
-                    <i class="fas fa-hammer"></i>
+                <i class='bx bxs-dog'></i>
                 </div>
                 <h3>Animal Ward</h3>
-                <p>Shop with us for a range of 
-                    pet food, vitamins, grooming products and pet accessories</p>
+                <p>"Welcome to our animal ward, where compassionate care meets comfort.
+                     Our dedicated team ensures your furry companions receive top-notch medical attention in a nurturing environment."</p>
             </div>
         </div>
 
@@ -131,11 +130,11 @@
         <div class="column">
             <div class="card">
                 <div class="icon-wrapper">
-                    <i class="fas fa-hammer"></i>
+                <i class='bx bx-bed'></i>
                 </div>
                 <h3>Surgery</h3>
-                <p>Shop with us for a range of 
-                    pet food, vitamins, grooming products and pet accessories</p>
+                <p>"Our pet clinic surgery system delivers precise procedures and tender care,
+                     ensuring your beloved companions receive the best treatment possible for a healthy recovery."</p>
             </div>
         </div>
 
@@ -144,11 +143,17 @@
         <div class="column">
             <div class="card">
                 <div class="icon-wrapper">
-                    <i class="fas fa-hammer"></i>
+                <i class='bx bx-injection' ></i>
                 </div>
                 <h3>OPD</h3>
-                <p>Shop with us for a range of 
-                    pet food, vitamins, grooming products and pet accessories</p>
+                <p>"Our pet clinic's OPD system offers swift consultations and tailored care, 
+                    prioritizing your pet's well-being with efficiency and compassion."
+
+
+
+
+
+</p>
             </div>
         </div>
 
@@ -157,11 +162,17 @@
         <div class="column">
             <div class="card">
                 <div class="icon-wrapper">
-                    <i class="fas fa-hammer"></i>
+                <i class='bx bx-test-tube' ></i>
                 </div>
                 <h3>Testing</h3>
-                <p>Shop with us for a range of 
-                    pet food, vitamins, grooming products and pet accessories</p>
+                <p>"Our pet clinic's testing system provides accurate diagnostics and swift results, 
+                    ensuring your pet's health is in good hands every step of the way."
+
+
+
+
+
+</p>
             </div>
         </div>
 
@@ -170,11 +181,11 @@
         <div class="column">
             <div class="card">
                 <div class="icon-wrapper">
-                    <i class="fas fa-hammer"></i>
+                <i class='bx bx-cut' ></i>
                 </div>
                 <h3>Grooming</h3>
-                <p>Shop with us for a range of 
-                    pet food, vitamins, grooming products and pet accessories</p>
+                <p>"Our pet clinic's grooming system pampers your furry friends with expert care,
+                     leaving them looking and feeling their best after every session."</p>
             </div>
         </div>
 

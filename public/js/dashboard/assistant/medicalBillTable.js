@@ -11,7 +11,7 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
-      valueNames: ['id-search', 'profile-three', 'status', 'profile', 'date-search' ],
+      valueNames: ['id-search', 'profile-three',  'profile', ],
       page: 5,
       pagination: true,
   };

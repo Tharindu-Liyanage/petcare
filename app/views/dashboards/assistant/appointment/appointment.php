@@ -67,7 +67,7 @@
                 <div class="users" id="appointment">
                     <div class="header">
                     <i class='bx bx-calendar'></i>
-                        <h3>My Appointments</h3>
+                        <h3> Appointments</h3>
 
                     <!-- Search Container -->
 

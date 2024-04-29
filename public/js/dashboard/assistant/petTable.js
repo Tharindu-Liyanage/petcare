@@ -11,7 +11,7 @@ var showEntriesDropdown = document.querySelector('.show-entries');
  
 
   var options = {
-      valueNames: ['id-search', 'profile', 'dob-search', 'breed-search', 'sex-search' ],
+      valueNames: ['id-search', 'profile',   ],
       page: 5,
       pagination: true,
   };
@@ -55,3 +55,4 @@ deleteLinks.forEach((deleteLink) => {
 cancelDeleteButton.addEventListener("click", function () {
   notification.style.display = "none";
 });
+  
