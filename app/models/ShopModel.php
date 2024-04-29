@@ -31,7 +31,7 @@
             WHERE petcare_inventory.name LIKE :keyword
             GROUP BY category.id
         ) AS min_max_prices ON category.id = min_max_prices.category_id
-        WHERE petcare_inventory.name LIKE :keyword;
+        WHERE petcare_inventory.name LIKE :keyword AND petcare_inventory.isRemoved = 0;
         ;
         ;
         ');
@@ -50,7 +50,7 @@
                         FROM  petcare_product_category
                         INNER JOIN petcare_inventory
                         ON petcare_inventory.category = petcare_product_category.id
-                        WHERE category = :catId' );
+                        WHERE category = :catId AND petcare_inventory.isRemoved = 0');
         $this->db->bind(':catId' , $catId);
         $result = $this->db->resultSet();
         return $result;
@@ -93,7 +93,7 @@
             category.categoryname AS categoryname
             FROM petcare_inventory
             JOIN petcare_product_category category ON petcare_inventory.category = category.id
-            WHERE petcare_inventory.name LIKE :keyword';
+            WHERE petcare_inventory.name LIKE :keyword AND petcare_inventory.isRemoved = 0';
 
         
     
@@ -289,8 +289,11 @@
                                         petcare_inventory i
                                     JOIN
                                         petcare_cart_items ci ON i.id = ci.product_id
+                                        WHERE
+                                        i.isRemoved = 0
                                     GROUP BY
                                         i.id
+                                   
                                     ORDER BY
                                         total_quantity_ordered DESC;
                             
