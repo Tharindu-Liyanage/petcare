@@ -8,6 +8,18 @@
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       <title>Dashboard</title>
+      <style>
+        
+
+        canvas {
+            width: 20%;
+            height: 20%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+
+
+            }
+    </style>
    </head>
    <body>
 

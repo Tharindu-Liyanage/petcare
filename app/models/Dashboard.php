@@ -415,8 +415,9 @@
                             FROM petcare_inventory 
                             JOIN petcare_product_category 
                             ON petcare_inventory.category = petcare_product_category.id 
-                            WHERE petcare_inventory.id = :id AND petcare_inventory.isRemoved = 0 ;'
+                            WHERE   petcare_inventory.isRemoved = 0 ;'
                         );
+            
         
 
             $results = $this->db->resultSet(); 

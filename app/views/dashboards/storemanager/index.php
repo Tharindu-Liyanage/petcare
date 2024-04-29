@@ -86,7 +86,7 @@
                                             <img src="<?php echo URLROOT; ?>/public/storage/uploads/userprofiles/<?php echo $order->profileImage ; ?>"><p><?php echo "  " . $order->first_name .' ' . $order->last_name ; ?></p>
                                         </td>
                                         <td class="order-date" > <?php echo $order->invoice_date ; ?></td>
-                                        <td class="total" ><?php echo $order-> price ;?></td>
+                                        <td class="total" ><?php echo $order-> total_amount ;?></td>
                                         
                                         <td >
                                             <span <?php 

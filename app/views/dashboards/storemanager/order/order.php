@@ -68,7 +68,7 @@
                                 <th>Id <i class='bx bxs-sort-alt sort' data-sort="invoice-id"></i></th>
                                 <th>Customer <i class='bx bxs-sort-alt sort' data-sort="profile"></i></th>
                                 <th>Order Date <i class='bx bxs-sort-alt sort' data-sort="order-date"></i></th>
-                                <th>Totla <i class='bx bxs-sort-alt sort' data-sort="total"></i></th>
+                                <th>Total <i class='bx bxs-sort-alt sort' data-sort="total"></i></th>
                                 <th>Shipment Status <i class='bx bxs-sort-alt sort' data-sort="shipment-status-search"></i></th>
                                 <th>Action </th>
 
