@@ -66,15 +66,15 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>View My Ward Medical Bills</h1>
+                    <h1> Ward Medical Bills</h1>
                     <ul class="breadcrumb">
                         <li><a href="<?php echo URLROOT;?>/assistant">
                            Dashboard
                         </a></li>  
                         >
-                        <li><a href="<?php echo URLROOT;?>/assistant/medicalbill" >My Orders</a></li>
+                        <li><a href="<?php echo URLROOT;?>/assistant/medicalbill" >Medical Bill</a></li>
                         >
-                        <li><a href="<?php echo URLROOT;?>/assistant/viewMedicalBill/<?php echo $data['id'];?>" class="active">Medical Bills</a></li>
+                        <li><a href="<?php echo URLROOT;?>/assistant/viewMedicalBill/<?php echo $data['id'];?>" class="active">View Medical Bills</a></li>
                     </ul>
                 </div>
 
