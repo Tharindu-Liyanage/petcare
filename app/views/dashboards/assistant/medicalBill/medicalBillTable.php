@@ -158,7 +158,7 @@
                                
 
                                 <td class="action"> 
-                                <?php if($med->payment_status == "Pending"   ) : ?>
+                                <?php if($med->payment_status == "Pending" || $med->payment_status == "Paid"   ) : ?>
                                     <a title="Treatment" class="accept" href="<?php echo URLROOT; ?>/assistant/viewMedicalBill/<?php echo $med->ward_treatment_id;?>"><i class='bx bx-chevron-right'></i></i></a>
                                     <?php endif; ?>
                                 </td>

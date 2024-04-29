@@ -163,14 +163,19 @@
                     </tr>
                 </tfooter>
             </table>
-
-                <!-- donwload button here-->
-                <div  class="download-btn">
-                    <a class="btn" href="<?php echo URLROOT; ?>/assistant/updatePaymentStatus/<?php echo $data['paymentDetails'] -> ward_treatment_id ?>">
+                    
+           
+            <?php if($data['paymentDetails']->payment_status == "Pending") : ?>
+                <div class="download-btn">
+                <a class="btn" href="<?php echo URLROOT; ?>/assistant/updatePaymentStatus/<?php echo $data['paymentDetails'] -> ward_treatment_id ?>">
                   <i class='bx bx-check-circle'></i>
                     Payment Recieved</a>
                 </div>
+            <?php endif; ?>
             </div>
+
+
+            
 
 
                     <!-- new code over -->
