@@ -411,7 +411,7 @@
          //7
 
          public function getInventoryDetails(){
-            $this->db->query('SELECT * FROM petcare_inventory');
+            $this->db->query('SELECT * FROM petcare_inventory WHERE isRemoved = 0');
         
 
             $results = $this->db->resultSet(); 
@@ -426,10 +426,11 @@
 
          public function removeProduct($id){
 
-            $this->db->query('DELETE  FROM petcare_inventory WHERE id = :id');
+            $this->db->query('UPDATE petcare_inventory SET isRemoved = 1      WHERE id = :id');
+        
             $this->db->bind(':id' , $id);
             
-            $row = $this->db->single();
+            
 
             if($this->db->execute()){
                 return true;
@@ -539,8 +540,9 @@
          // 11
 
          public function updateProduct($data){
+            if($data['img'] === NULL) {
 
-            $this->db->query('UPDATE petcare_inventory SET name = :pname , brand = :brand , category= :category, stock = :stock , price = :price   WHERE id = :id');
+            $this->db->query('UPDATE petcare_inventory SET name = :pname , brand = :brand , category= :category, stock = :stock , price = :price    WHERE id = :id');
         
 
             $this->db->bind(':id' , $data['id']);
@@ -550,8 +552,7 @@
             $this->db->bind(':stock',$data['stock']);
             $this->db->bind(':price',$data['price']);
 
-    
-                //execute
+             //execute
             if($this->db->execute()){
                 return true;
 
@@ -559,8 +560,115 @@
                 return false;
             }
 
+            }else{
+
+                //get image name from database
+            $previousImage = $this->getProductImageById($data['id']);
+
+            $this->db->query('UPDATE petcare_inventory SET name = :pname , brand = :brand , category= :category, stock = :stock , price = :price , image = :filename   WHERE id = :id');
+        
+
+            $this->db->bind(':id' , $data['id']);
+            $this->db->bind(':pname',$data['pname']);
+            $this->db->bind(':brand',$data['brand']);
+            $this->db->bind(':category',$data['category']);
+            $this->db->bind(':stock',$data['stock']);
+            $this->db->bind(':price',$data['price']);
+            $this->db->bind(':filename',$data['uniqueImgFileName']);
+
+            
+                    $sourceDir = $data['img']['tmp_name'];
+
+                    // Specify the destination directory using __DIR__
+
+                    //$destinationDir = __DIR__ . '/../../public/storage/uploads/blog/';
+
+                    //new path link support for windows and linux
+                    $destinationDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'blog' . DIRECTORY_SEPARATOR;
+                   
+                    // Set the path to move the uploaded file to
+                    $uploadPath = $destinationDir . $data['uniqueImgFileName'];
+
+
+                    if (move_uploaded_file($sourceDir, $uploadPath)) {
+
+                        $imageType = exif_imagetype($uploadPath);
+                       // die("success");
+
+                       switch ($imageType) {
+                        case IMAGETYPE_JPEG:
+                            
+                            $source = imagecreatefromjpeg($uploadPath);
+
+                            // Save the compressed image to the same file
+                            imagejpeg($source, $uploadPath,30);  //can adjust the compression level (0-100)
+                        
+                            // Free up resources
+                            imagedestroy($source);
+
+                           
+
+                            break;
+
+                        case IMAGETYPE_PNG:
+                           $source = imagecreatefrompng($uploadPath);
+
+                            // Save the compressed image to the same file
+                            imagepng($source, $uploadPath, 5); // You can adjust the compression level (0-9)
+
+                            // Free up resources
+                            imagedestroy($source);
+                            break;
+                       
+                        default:
+                            echo "Unsupported image format.";
+                            break;
+                        }
+
+                    } else {
+                        // Error moving the file
+                    // $data['img_err'] = 'Error moving the file.';
+                    // die("Misson failed");
+                    }
+
+
+                //execute
+            if($this->db->execute()){
+
+                //delete the old image
+                if($data['img'] != NULL){
+
+                    $oldImgPath = $destinationDir . $previousImage;
+                    if($previousImage != 'petcare-default-picture-pet.png'){
+                        unlink($oldImgPath);
+                    }
+                }
+
+                return true;
+
+            }else{
+                return false;
+            }
+            }
 
         }
+
+        public function getProductImageById($id){
+                
+            $this->db->query(
+
+                'SELECT image
+                FROM petcare_inventory
+                WHERE id = :id');
+
+                $this->db->bind(':id' , $id);
+                        
+
+                $row = $this->db->single();
+
+                return $row->img;
+    }
+
 
         public function getOrderDetails(){
             $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
@@ -613,6 +721,24 @@
     
             return $row;
 
+        }
+
+        public function getOrderDetailsOnProcess(){
+            $this->db->query('SELECT petcare_shop_invoices.*, petcare_inventory.*, petcare_petowner.*, petcare_cart_items.*
+                FROM petcare_shop_invoices
+                JOIN petcare_petowner ON  petcare_shop_invoices.user_id = petcare_petowner.id
+                JOIN petcare_cart_items ON petcare_shop_invoices.cart_id = petcare_cart_items.cart_id
+                JOIN petcare_inventory ON petcare_cart_items.product_id = petcare_inventory.id
+                WHERE petcare_shop_invoices.ship_status = "on-process"
+                GROUP BY petcare_shop_invoices.invoice_id,petcare_petowner.id
+                ORDER BY petcare_shop_invoices.invoice_date DESC
+                
+
+            ');
+
+            $results = $this->db->resultSet(); 
+
+            return $results;
         }
 
 

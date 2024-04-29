@@ -14,7 +14,7 @@ var showEntriesDropdown = document.querySelector('.show-entries');
 
   var options = {
       valueNames: ['user', 'order-date', 'total', 'status'],
-      page: 3,
+      page: 5,
       pagination: true,
   };
 

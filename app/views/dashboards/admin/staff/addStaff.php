@@ -121,12 +121,12 @@
                         <div class="inputForm <?php echo (!empty($data['role_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-briefcase-alt' ></i>
                             <select name="role">
-                                <option value=""  selected>Select Role</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Assistant">Assistant</option>
-                                <option value="Doctor">Doctor</option>
-                                <option value="Nurse">Nurse</option>
-                                <option value="Store Manager">Store Manager</option>
+                                <option>Select Role</option>
+                                <option value="Admin" <?php echo (($data['role']) == 'Admin') ? 'selected' : '' ; ?> >Admin</option>
+                                <option value="Assistant" <?php echo (($data['role']) == 'Assistant') ? 'selected' : '' ; ?>>Assistant</option>
+                                <option value="Doctor" <?php echo (($data['role']) == 'Doctor') ? 'selected' : '' ; ?>>Doctor</option>
+                                <option value="Nurse" <?php echo (($data['role']) == 'Nurse') ? 'selected' : '' ; ?>>Nurse</option>
+                                <option value="Store Manager" <?php echo (($data['role']) == 'Store Manager') ? 'selected' : '' ; ?>>Store Manager</option>
                             </select>
                         </div>
                         <span class="invalid-feedback"><?php echo $data['role_err']; ?></span>

@@ -34,7 +34,7 @@
             <div class="top">
                 <div class="left">
                     <div class="greetings"> Hello, <span><?php echo $_SESSION['user_fname'] ."  " . $_SESSION['user_lname'];   ?></span></div>
-                    <p>You Have <span>
+                    <p>You Have <span><a href="<?php echo URLROOT; ?>/storemanager/onProcessOrder">
                                                         <?php
                                     $count = 0;
                                     foreach ($data['index'] as $order) {
@@ -43,7 +43,7 @@
                                         }
                                     }
                                     echo $count;
-                                    ?>
+                                    ?></a>
                                 </span> Orders To Be Shipped. </p>
                                 
                 </div>
@@ -115,7 +115,7 @@
                 
                 
                 
-            </div>
+            </div>        
             
 
         </main>

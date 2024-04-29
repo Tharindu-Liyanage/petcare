@@ -69,7 +69,7 @@
                                 <th>Customer <i class='bx bxs-sort-alt sort' data-sort="profile"></i></th>
                                 <th>Order Date <i class='bx bxs-sort-alt sort' data-sort="order-date"></i></th>
                                 <th>Totla <i class='bx bxs-sort-alt sort' data-sort="total"></i></th>
-                                <th>Shipment Status <i class='bx bxs-sort-alt sort' data-sort="shipment-status"></i></th>
+                                <th>Shipment Status <i class='bx bxs-sort-alt sort' data-sort="shipment-status-search"></i></th>
                                 <th>Action </th>
 
                             </tr>
@@ -103,11 +103,11 @@
                                     </select>
                                     </td> -->
 
-                                    <td class="shipment-status">
+                                    <td class="shipment-status-search">
                                         <form action="<?php echo URLROOT; ?>/StoreManager/updateShipmentStatus" method="post">
                                             <input type="hidden" name="invoiceId" value="<?php echo $order->invoice_id; ?>">
                                             <select class="shipment-status" name="shipmentStatus">
-                                                <option class="on-process-value" <?php echo ($order->ship_status == 'on-process') ? 'selected' : '' ; ?> value="on-process">On Process</option>
+                                                <option class="on-process-value " <?php echo ($order->ship_status == 'on-process') ? 'selected' : '' ; ?> value="on-process">On Process</option>
                                                 <option class="shipped-value" <?php echo ($order->ship_status == 'shipped') ? 'selected' : '' ; ?> value="shipped"  >Shipped</option>
                                             </select>
                                             <button type="submit" class="round-button"><i class='bx bx-check'></i></button>

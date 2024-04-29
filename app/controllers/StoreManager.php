@@ -745,6 +745,21 @@
             
             $this->view('dashboards/storemanager/order/order', $data);
         }
+        
+
+        public function onProcessOrder(){
+            $orderData = $this->dashboardModel->getOrderDetailsOnProcess        ();
+
+           //  print($_POST['shipmentStatus']);
+           // $shipmentStatus = $this->
+           
+           $data = [
+               'order' => $orderData
+           ];
+  
+           
+           $this->view('dashboards/storemanager/order/order', $data);
+       }
     
         
             
@@ -845,6 +860,7 @@
                     // Create a unique ID by concatenating values and adding the file extension
                     $uniqueImgFileName = $_POST['pname'] . '_' . $timestamp . '.' . $fileExtension;
 
+                    
                 }
                 
                 
@@ -885,15 +901,21 @@
                 //validate address
                 if(empty($data['stock'])){
                     $data['stock_err'] = 'Please enter amount stock';
+                }elseif (!ctype_digit($data['stock'])) {
+                    $data['stock_err'] = 'Please enter a valid integer for the stock amount.';
                 }
+                
 
+                
 
-                if (empty($data['category'])) {
+                if ((empty($data['category'])) ||  $data['category'] == 'Select a category') {
                     $data['cat_err'] = 'Please select a category';
                 }
 
                 if (empty($data['price'])) {
                     $data['price_err'] = 'Please enter a price';
+                }elseif (!is_numeric($data['price'])) {
+                    $data['price_err'] = 'Please enter a valid numeric value for the Price.';
                 }
 
                 $allowedTypes = ['image/jpeg', 'image/png'];
@@ -903,11 +925,26 @@
                  }elseif(!isset($_FILES['inventory_img']['type']) || ($_FILES['inventory_img']['type'] && !in_array($_FILES['inventory_img']['type'], $allowedTypes))) {
                     // Invalid file type
                     $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
-                 }elseif($_FILES['inventory_img
-                 ']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
-                    $data['img_err'] = 'Image size must be less than 5 MB';
+                 }elseif(isset($_FILES['inventory_img'])){
+                   
+                    $dimensions = getimagesize($_FILES['inventory_img']['tmp_name']);
+                    $width = $dimensions[0];
+                    $height = $dimensions[1];
+                    
+                    // Check if the image is portrait-oriented (height > width)
+                    if($height > $width){
+                        
+
+                        $data['img_err'] = 'Sorry, only landscape-oriented images are allowed.';
+
+                    } 
+                }elseif($_FILES['inventory_img
+                ']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                   $data['img_err'] = 'Image size must be less than 5 MB';
                 }
-                
+                 
+                 
+                 
 
                 
 
@@ -942,6 +979,7 @@
 
                     
                     //load view with errors
+                    // die($data['category']);
                     $this->view('dashboards/storemanager/inventory/addProduct', $data);
                     
                     
@@ -981,15 +1019,31 @@
 
 
          public function updateProduct($id){
+            
 
             //check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
                 //process form
 
-                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                // $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
                 //init data
+
+                if (isset($_FILES['inventory_img'])) {
+
+                    
+                    $uploadedFileName = $_FILES['inventory_img']['name'];
+                    $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);  // Extract the file extension
+
+                    // Generate a timestamp for uniqueness
+                    $timestamp = time();
+
+                    // Create a unique ID by concatenating values and adding the file extension
+                    $uniqueImgFileName = $_POST['pname'] . '_' . $timestamp . '.' . $fileExtension;
+
+                }
+                
 
                 $data = [
                     'id' => $id,
@@ -998,11 +1052,14 @@
                     'category' => trim($_POST['category']),
                     'stock' => trim($_POST['stock']),
                     'price' => trim($_POST['price']),
+                    'img' => ($_FILES['inventory_img']['error'] === UPLOAD_ERR_NO_FILE) ? null : $_FILES['inventory_img'],
                     'pname_err' => '',
                     'brand_err' => '',
                     'cat_err' => '',
                     'price_err' => '',
-                    'stock_err'  =>''
+                    'stock_err'  =>'',
+                    'img_err' =>'',
+                    'uniqueImgFileName' =>$uniqueImgFileName,
             
                 ];
 
@@ -1020,18 +1077,37 @@
                     $data['brand_err'] = 'Please enter brand name';
                 }
 
-                //validate address
+                //validate stock, category and price
                 if(empty($data['stock'])){
                     $data['stock_err'] = 'Please enter amount stock';
+                }elseif (!ctype_digit($data['stock'])) {
+                    $data['stock_err'] = 'Please enter a valid integer for the stock amount.';
                 }
+                
 
+                
 
-                if (empty($data['category'])) {
+                if ((empty($data['category'])) ||  $data['category'] == 'Select a category') {
                     $data['cat_err'] = 'Please select a category';
                 }
 
                 if (empty($data['price'])) {
                     $data['price_err'] = 'Please enter a price';
+                }elseif (!is_numeric($data['price'])) {
+                    $data['price_err'] = 'Please enter a valid numeric value for the Price.';
+                }
+
+                 //image
+                $allowedTypes = ['image/jpeg', 'image/png'];
+
+                 if(empty($data['img'])){
+                    $data['img_err'] = 'Please choose a Product Photo';
+                 }elseif(!isset($_FILES['inventory_img']['type']) || ($_FILES['inventory_img']['type'] && !in_array($_FILES['inventory_img']['type'], $allowedTypes))) {
+                    // Invalid file type
+                    $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
+                 }elseif($_FILES['inventory_img
+                ']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
+                   $data['img_err'] = 'Image size must be less than 5 MB';
                 }
                 
 
@@ -1039,7 +1115,7 @@
 
                 //Make sure errors are empty
 
-                if(empty($data['pname_err']) && empty($data['brand_err']) && empty($data['stock_err']) && empty($data['cat_err']) && empty($data['price_err'])){
+                if(empty($data['pname_err']) && empty($data['brand_err']) && empty($data['stock_err']) && empty($data['cat_err']) && empty($data['price_err']) && empty($data['img_err'])){
                     //validated
                     
                    
@@ -1093,7 +1169,8 @@
                     'brand_err' => '',
                     'cat_err' => '',
                     'price_err' => '',
-                    'stock_err'  =>''
+                    'stock_err'  =>'',
+                    'img_err' => ''
             
                 ];
 

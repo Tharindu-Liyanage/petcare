@@ -48,7 +48,7 @@
                 
 
 
-                <form class="form" method="post" action="<?php echo URLROOT; ?>/storemanager/updateProduct/<?php echo $data['id']; ?>">
+                <form class="form" method="post" enctype="multipart/form-data" action="<?php echo URLROOT; ?>/storemanager/updateProduct/<?php echo $data['id']; ?>">
 
                   
 
@@ -78,12 +78,13 @@
                         <div class="inputForm <?php echo (!empty($data['cat_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-category' ></i>
                             <select name="category">
-                    
-                                <option value="Food" <?php echo (($data['category']) == 'Food') ? 'selected' : '' ; ?>  >Food</option>
-                                <option value="Toys" <?php echo (($data['category']) == 'Toys') ? 'selected' : '' ; ?> >Toys</option>
-                                <option value="Accessories" <?php echo (($data['category']) == 'Accessories') ? 'selected' : '' ; ?> >Accessories</option>
-                                <option value="Treats" <?php echo (($data['category']) == 'Treats') ? 'selected' : '' ; ?> >Treats</option>
-                                <option value="Other" <?php echo (($data['category']) == 'Others') ? 'selected' : '' ; ?> >Other</option>
+                                <option>Select a category</option>
+                                <option value="1" <?php echo (($data['category']) == '1') ? 'selected' : '' ; ?>  >Food</option>
+                                <option value="2" <?php echo (($data['category']) == '2') ? 'selected' : '' ; ?> >Toys</option>
+                                <option value="3" <?php echo (($data['category']) == '3') ? 'selected' : '' ; ?> >Accessories</option>
+                                <option value="4" <?php echo (($data['category']) == '4') ? 'selected' : '' ; ?> >Treats</option>
+                                <!-- <option value="Other" <?php echo (($data['category']) == 'Others') ? 'selected' : '' ; ?> >Other</option> -->
+                                
                             </select>
                         </div>
                         <span class="invalid-feedback"><?php echo $data['cat_err']; ?></span>
@@ -112,6 +113,24 @@
                         </div>
                         <span class="invalid-feedback"><?php echo $data['price_err']; ?></span>
 
+                        <div class="flex-column">
+                            <label>Image</label>
+                        </div>
+                        <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
+                        <i class='bx bx-image-alt'></i>
+                            <input id="finput" type="file" class="input" name="inventory_img" accept="image/*" onchange="upload()">
+                            <!-- <input type="file" class="input" name="inventory_img" accept="image/*"> -->
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
+
+                        <div class="img-preivew" style="display:none;" id="img-preivew">
+
+                            <div class="flex-column">
+                                <label>Image Preview</label>
+                            </div>
+                            <canvas id="canv1"></canvas>
+
+                        </div>
 
                         
 
@@ -129,6 +148,18 @@
            
          </main>
       </div>
+
+      <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+      <script>
+        function upload(){
+        //img-preivew to display block
+        document.getElementById("img-preivew").style.display = "block";
+        var imgcanvas = document.getElementById("canv1");
+        var fileinput = document.getElementById("finput");
+        var image = new SimpleImage(fileinput);
+        image.drawTo(imgcanvas);
+        }
+      </script>
       
       <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
    </body>

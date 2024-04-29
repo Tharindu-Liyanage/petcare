@@ -65,8 +65,8 @@ Dashboard- Store Manger-Orders
                 </tr>
                 <tr bgcolor="#F5F8FA">
                     <td style="width:50%;padding:20px;vertical-align:top">
-                    <p style="margin:0 0 10px 0;padding:0;font-size:14px;"><span style="display:block;font-weight:bold;font-size:13px">Name</span> <?php echo $_SESSION['user_fname'] .' '. $_SESSION['user_lname'] ?></p>
-                    <p style="margin:0 0 10px 0;padding:0;font-size:14px;"><span style="display:block;font-weight:bold;font-size:13px;">Email</span><?php echo $_SESSION['user_email'] ?></p>
+                    <p style="margin:0 0 10px 0;padding:0;font-size:14px;"><span style="display:block;font-weight:bold;font-size:13px">Name</span> <?php echo $data['cartDataRow']->first_name .' '. $data['cartDataRow']->last_name ?></p>
+                    <p style="margin:0 0 10px 0;padding:0;font-size:14px;"><span style="display:block;font-weight:bold;font-size:13px;">Email</span><?php echo $data['cartDataRow']->email ?></p>
 
                     </td>
                     <td style="width:50%;padding:20px;vertical-align:top">

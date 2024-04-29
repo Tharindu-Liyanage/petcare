@@ -14,7 +14,7 @@ const shipmentStatusSelect = document.getElementById("ship-status");
  
 
   var options = {
-      valueNames: ['invoice-id', 'profile', 'order-date', 'total', 'shipment-status'],
+      valueNames: ['invoice-id', 'profile', 'order-date', 'total', 'shipment-status-search'],
       page: 5,
       pagination: true,
   };

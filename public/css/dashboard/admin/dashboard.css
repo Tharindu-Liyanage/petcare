@@ -242,7 +242,7 @@
     font-size: 18px ;
 }
 
-.top .left p span{
+.top .left p span a{
     color: var(--primary);
 }
 

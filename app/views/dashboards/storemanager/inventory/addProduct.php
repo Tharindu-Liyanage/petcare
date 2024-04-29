@@ -78,12 +78,13 @@
                         <div class="inputForm <?php echo (!empty($data['cat_err'])) ? 'is-invalid' : '' ; ?>">
                             <i class='bx bx-category' ></i>
                             <select name="category">
-                                <option value=""  selected>Select Category</option>
-                                <option value="1">Food</option>
-                                <option value="2">Toys</option>
-                                <option value="3">grooming</option>
-                                <option value="4">Accessories</option>
-                                <option value="Other">Other</option>
+                                <option>Select a category</option>
+                                <option value="1" <?php echo (($data['category']) == '1') ? 'selected' : '' ; ?>  >Food</option>
+                                <option value="2" <?php echo (($data['category']) == '2') ? 'selected' : '' ; ?> >Toys</option>
+                                <option value="3" <?php echo (($data['category']) == '3') ? 'selected' : '' ; ?> >Accessories</option>
+                                <option value="4" <?php echo (($data['category']) == '4') ? 'selected' : '' ; ?> >Treats</option>
+                                <!-- <option value="Other" <?php echo (($data['category']) == 'Others') ? 'selected' : '' ; ?> >Other</option> -->
+                                
                             </select>
                         </div>
                         <span class="invalid-feedback"><?php echo $data['cat_err']; ?></span>
@@ -119,10 +120,19 @@
                         </div>
                         <div class="inputForm <?php echo (!empty($data['img_err'])) ? 'is-invalid' : '' ; ?>">
                         <i class='bx bx-image-alt'></i>
-                            <!-- <input id="finput" type="file" class="input" name="inventory_img" accept="image/*" onchange="upload()"> -->
-                            <input type="file" class="input" name="inventory_img" accept="image/*">
+                            <input id="finput" type="file" class="input" name="inventory_img" accept="image/*" onchange="upload()">
+                            <!-- <input type="file" class="input" name="inventory_img" accept="image/*"> -->
                         </div>
                         <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
+
+                        <div class="img-preivew" style="display:none;" id="img-preivew">
+
+                            <div class="flex-column">
+                                <label>Image Preview</label>
+                            </div>
+                            <canvas id="canv1"></canvas>
+
+                        </div>
 
                        
 
@@ -146,7 +156,21 @@
            
          </main>
       </div>
-      
+
+
+      <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+      <script>
+        function upload(){
+        //img-preivew to display block
+        document.getElementById("img-preivew").style.display = "block";
+        var imgcanvas = document.getElementById("canv1");
+        var fileinput = document.getElementById("finput");
+        var image = new SimpleImage(fileinput);
+        image.drawTo(imgcanvas);
+        }
+      </script>
+
+    </script>
       <script src="<?php echo URLROOT; ?>/public/js/dashboard/main.js"></script>
    </body>
 </html>
