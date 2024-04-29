@@ -109,15 +109,15 @@ Dashboard- Store Manger-Orders
                 </tfooter>
             </table>
 
-                <!-- donwload button here-->
+                <!-- donwload button here
                 <div id="downloadPdf" class="download-btn">
                     <a class="btn" > <i class='bx bx-download' ></i> Download Invoice</a>
-                </div>
+                </div> -->
             </div>
 
             
 
-            <div class="bottom-part">
+            
 
 
              

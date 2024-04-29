@@ -125,7 +125,14 @@
                         </div>
                         <span class="invalid-feedback"><?php echo $data['img_err']; ?></span>
 
-                        
+                        <div class="img-preivew" style="display:none;" id="img-preivew">
+
+                            <div class="flex-column">
+                                <label>Image Preview</label>
+                            </div>
+                            <canvas id="canv1"></canvas>
+
+                        </div>
 
                        
 

@@ -83,7 +83,7 @@
                                 <option value="2" <?php echo (($data['category']) == '2') ? 'selected' : '' ; ?> >Toys</option>
                                 <option value="3" <?php echo (($data['category']) == '3') ? 'selected' : '' ; ?> >Accessories</option>
                                 <option value="4" <?php echo (($data['category']) == '4') ? 'selected' : '' ; ?> >Treats</option>
-                                <!-- <option value="Other" <?php echo (($data['category']) == 'Others') ? 'selected' : '' ; ?> >Other</option> -->
+                                <option value="5" <?php echo (($data['category']) == '5') ? 'selected' : '' ; ?> >Medicines</option>
                                 
                             </select>
                         </div>

@@ -80,6 +80,7 @@
                         </thead>
                         <tbody class="list" >
 
+                        
                         <?php foreach($data['inventory'] as $product) : ?>
 
                             <tr>
@@ -88,7 +89,7 @@
                                 <?php echo $product->name?>
                                 </td>
                                 <td class="inventory-brand" ><?php echo $product->brand?></td>
-                                <td class="category" ><?php echo $product->category?></td>
+                                <td class="category" ><?php echo $product->categoryname?></td>
                                 <td class="stock" ><?php echo $product->stock?></td>
                                 <td class="price" >Rs.<?php echo $product->price?></td>
                                 <td class="action">

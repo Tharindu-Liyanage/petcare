@@ -1105,7 +1105,20 @@
                  }elseif(!isset($_FILES['inventory_img']['type']) || ($_FILES['inventory_img']['type'] && !in_array($_FILES['inventory_img']['type'], $allowedTypes))) {
                     // Invalid file type
                     $data['img_err'] = 'Invalid file type. Please upload an image (JPEG or PNG).';
-                 }elseif($_FILES['inventory_img
+                 }elseif(isset($_FILES['inventory_img'])){
+                   
+                    $dimensions = getimagesize($_FILES['inventory_img']['tmp_name']);
+                    $width = $dimensions[0];
+                    $height = $dimensions[1];
+                    
+                    // Check if the image is portrait-oriented (height > width)
+                    if($height > $width){
+                        
+
+                        $data['img_err'] = 'Sorry, only landscape-oriented images are allowed.';
+
+                    } 
+                }elseif($_FILES['inventory_img
                 ']['size'] > 5 * 1024 * 1024 ){ // 5MB in bytes
                    $data['img_err'] = 'Image size must be less than 5 MB';
                 }
