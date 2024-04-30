@@ -150,7 +150,7 @@
                                                     echo 'class="status shipped"';
                                                 } elseif ($myorder->ship_status == 'delivered') {
                                                     echo 'class="status delivered"';
-                                                } elseif ($myorder->ship_status == 'On-Process') {
+                                                } elseif ($myorder->ship_status == 'on-process') {
                                                     echo 'class="status on-process"';
                                                 } ?>>
                                                 <?php echo $myorder->ship_status; ?>
