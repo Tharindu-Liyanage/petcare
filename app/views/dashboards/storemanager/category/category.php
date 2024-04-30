@@ -123,7 +123,7 @@
                         </div>
 
                         <div class="err-content">
-                            <span class="title">Remove Account</span>
+                            <span class="title">Remove Category</span>
                             <p class="message">Are you sure you want to remove this account? All of account data will be permanently removed. This action cannot be undone.</p>
                         </div>
 

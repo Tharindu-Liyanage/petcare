@@ -342,6 +342,14 @@
 
         }
 
+        // public function getMobileById($id){
+        //     $this->db->query('SELECT phone FROM petcare_staff WhERE staff_id = :id');
+
+        //     $this->db->bind(':id', $id);
+
+
+        // }
+
 
         public function adminGetPetDetailsByID($id){
 

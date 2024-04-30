@@ -125,7 +125,7 @@
                         </div>
 
                         <div class="err-content">
-                            <span class="title">Remove Account</span>
+                            <span class="title">Remove product</span>
                             <p class="message">Are you sure you want to remove this product? All of the product data will be permanently removed. This action cannot be undone.</p>
                         </div>
 

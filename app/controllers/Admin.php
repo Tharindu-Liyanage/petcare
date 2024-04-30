@@ -194,6 +194,10 @@
                 //validate mobile
                 if(empty($data['mobile'])){
                     $data['mobile_err'] = 'Please enter mobile number';
+                }elseif($this->userModel->findStaffByMobile($data['mobile'])){  //check email in the DB
+                        
+                    $data['mobile_err'] = 'Phone number is already taken';
+
                 }else{
 
                     if (!preg_match("/^94\d{9}$/", $data['mobile'])) {
@@ -364,6 +368,8 @@
                 
 
                 
+                // $mobile = $this->dashboardModel->getMobileById($id); 
+
 
                 //validate mobile
                 if(empty($data['mobile'])){
