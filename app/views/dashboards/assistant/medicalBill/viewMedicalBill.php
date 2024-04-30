@@ -83,7 +83,7 @@
                
             </div>
 
-            <!-- Medical report here -->
+            <!-- Medical report here -->  
 
            
 
